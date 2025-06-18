@@ -1,0 +1,98 @@
+<aside
+  class="w-72 h-screen bg-gradient-to-br from-gray-800 to-gray-900 text-white p-6 fixed left-0 top-0 shadow-lg"
+>
+  <!-- Título superior -->
+  <div class="mb-6">
+    <h1 class="text-1xl font-bold tracking-wide">Panel de Administración</h1>
+    <hr class="mt-4 border-white/20" />
+  </div>
+
+  <!-- Navegación -->
+  <nav class="flex flex-col gap-3">
+    <a
+      routerLink="/projects"
+      routerLinkActive="bg-[#4B0082] text-white fill-white"
+      class="flex items-center gap-3 p-3 rounded-md hover:bg-white/10 transition-colors bg-[#4B0082] text-white fill-white"
+    >
+      <!-- Ícono de carpeta blanco -->
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+      >
+        <path d="M3 7h4l2 2h11v10H3V7z" />
+      </svg>
+      <span class="text-lg">Proyectos</span>
+    </a>
+
+    <a
+      routerLink="/users"
+      routerLinkActive="bg-[#4B0082]/20 text-[#4B0082]"
+      class="flex items-center gap-3 p-3 rounded-md hover:bg-white/10 transition-colors"
+    >
+      <!-- Ícono de usuario -->
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M5.121 17.804A9 9 0 0112 15a9 9 0 016.879 2.804M15 10a3 3 0 11-6 0 3 3 0 016 0z"
+        />
+      </svg>
+      <span class="text-lg">Usuarios</span>
+    </a>
+
+    <a
+      routerLink="/news"
+      routerLinkActive="bg-[#4B0082]/20 text-[#4B0082]"
+      class="flex items-center gap-3 p-3 rounded-md hover:bg-white/10 transition-colors"
+    >
+      <!-- Ícono de noticias -->
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M19 21H5a2 2 0 01-2-2V7a2 2 0 012-2h5l2 2h7a2 2 0 012 2v10a2 2 0 01-2 2z"
+        />
+      </svg>
+      <span class="text-lg">Noticias</span>
+    </a>
+
+    <a
+      routerLink="/requests"
+      routerLinkActive="bg-[#4B0082]/20 text-[#4B0082]"
+      class="flex items-center gap-3 p-3 rounded-md hover:bg-white/10 transition-colors"
+    >
+      <!-- Ícono de solicitud -->
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M12 11c0 1.104-.896 2-2 2H6v5h12v-5h-4c-1.104 0-2-.896-2-2V5h-2v6z"
+        />
+      </svg>
+      <span class="text-lg">Solicitudes</span>
+    </a>
+  </nav>
+</aside>

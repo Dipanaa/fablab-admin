@@ -1,0 +1,25 @@
+<div class="flex flex-col sm:flex-row mt-5">
+  <!-- Filtro  -->
+  <!-- <filter-component class="hidden lg:flex" /> -->
+
+  <div class="gap-2"></div>
+
+  <div class="flex flex-col items-end gap-4">
+    <!-- Order by  -->
+
+    <!-- <order-by /> -->
+
+    <!-- Cards  -->
+    <section
+      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 sm:gap-5 md:gap-6 lg:gap-6 xl:gap-8 max-w-[1600px] mx-auto"
+    >
+      <app-card
+        *ngFor="let proyecto of proyecto"
+        [title]="proyecto.title"
+        [description]="proyecto.description"
+        [imgUrl]="proyecto.imgUrl"
+        [routerLink]="[proyecto.projectId]"
+      ></app-card>
+    </section>
+  </div>
+</div>

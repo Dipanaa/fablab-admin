@@ -1,0 +1,60 @@
+<div class="flex h-screen">
+  <!-- Sidebar -->
+  <aside
+    class="w-64 bg-gradient-to-b from-slate-900 to-slate-800 text-white flex flex-col"
+    #sideMenu
+  >
+    <div class="p-5 text-lg font-bold">Panel de Administración</div>
+    <button class="btn" (click)="hideContent()">hide menu</button>
+    <nav class="flex-1 space-y-2 px-4 gap-5">
+      <a
+        routerLink="/proyectos"
+        routerLinkActive="bg-purple-900"
+        class="flex items-center gap-2 px-3 py-2 rounded hover:bg-slate-700"
+      >
+        📁 Proyectos
+      </a>
+      <a
+        routerLink="/usuarios"
+        routerLinkActive="bg-purple-900"
+        class="flex items-center gap-2 px-3 py-2 rounded hover:bg-slate-700"
+      >
+        👤 Usuarios
+      </a>
+      <a
+        routerLink="/noticias"
+        routerLinkActive="bg-purple-900"
+        class="flex items-center gap-2 px-3 py-2 rounded hover:bg-slate-700"
+      >
+        🗂 Noticias
+      </a>
+      <a
+        routerLink="/solicitudes"
+        routerLinkActive="bg-purple-900"
+        class="flex items-center gap-2 px-3 py-2 rounded hover:bg-slate-700"
+      >
+        📥 Solicitudes
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Contenido principal -->
+  <main class="fle bg-gray-900 text-white overflow-y-auto w-full">
+    <!-- Header -->
+    <header
+      class="flex justify-between items-center px-6 py-4 border-b border-white/10 bg-gray-800"
+    >
+      <h1 class="text-lg font-semibold">Proyectos</h1>
+      <button class="text-sm text-gray-300 hover:text-white">Sign In</button>
+    </header>
+
+    <!-- Aquí van los componentes -->
+    <section class="p-6 w-full">
+      <all-users />
+      <router-outlet></router-outlet>
+    </section>
+  </main>
+</div>
+
+<!-- <all-projects /> -->
+<!-- <all-users /> -->

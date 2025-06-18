@@ -1,0 +1,140 @@
+[
+  {
+    "projectId": 1,
+    "participantes": [
+      {
+        "nombre": "Ana",
+        "carrera": "Ingeniería Electrónica",
+        "rut": "12.345.678-9",
+        "foto": "https://randomuser.me/api/portraits/women/1.jpg"
+      },
+      {
+        "nombre": "Luis",
+        "carrera": "Diseño Industrial",
+        "rut": "98.765.432-1",
+        "foto": "https://randomuser.me/api/portraits/men/1.jpg"
+      },
+      {
+        "nombre": "Ana",
+        "carrera": "Ingeniería Electrónica",
+        "rut": "12.345.678-9",
+        "foto": "https://randomuser.me/api/portraits/women/1.jpg"
+      },
+      {
+        "nombre": "Luis",
+        "carrera": "Diseño Industrial",
+        "rut": "98.765.432-1",
+        "foto": "https://randomuser.me/api/portraits/men/1.jpg"
+      }
+    ],
+    "title": "Impresora 3D",
+    "description": "Desarrollo de una impresora 3D personalizada para prototipos rápidos.",
+    "date": "2024-05-01",
+    "imgUrl": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "projectId": 2,
+    "participantes": [
+      {
+        "nombre": "Carlos",
+        "carrera": "Ingeniería Mecatrónica",
+        "rut": "11.223.344-5",
+        "foto": "https://randomuser.me/api/portraits/men/2.jpg"
+      },
+      {
+        "nombre": "Marta",
+        "carrera": "Ingeniería Informática",
+        "rut": "22.334.455-6",
+        "foto": "https://randomuser.me/api/portraits/women/2.jpg"
+      }
+    ],
+    "title": "Brazo Robótico",
+    "description": "Construcción de un brazo robótico controlado por Arduino.",
+    "date": "2024-05-10",
+    "imgUrl": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "projectId": 3,
+    "participantes": [
+      {
+        "nombre": "Sofía",
+        "carrera": "Arquitectura",
+        "rut": "33.445.566-7",
+        "foto": "https://randomuser.me/api/portraits/women/3.jpg"
+      },
+      {
+        "nombre": "Melanie",
+        "carrera": "Diseño Gráfico",
+        "rut": "44.556.677-8",
+        "foto": "https://randomuser.me/api/portraits/women/4.jpg"
+      }
+    ],
+    "title": "Corte Láser",
+    "description": "Diseño y fabricación de piezas mediante corte láser.",
+    "date": "2024-05-15",
+    "imgUrl": "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "projectId": 4,
+    "participantes": [
+      {
+        "nombre": "Pedro",
+        "carrera": "Ingeniería Eléctrica",
+        "rut": "55.667.788-9",
+        "foto": "https://randomuser.me/api/portraits/men/3.jpg"
+      },
+      {
+        "nombre": "Lucía",
+        "carrera": "Ingeniería Civil",
+        "rut": "66.778.899-0",
+        "foto": "https://randomuser.me/api/portraits/women/5.jpg"
+      }
+    ],
+    "title": "Domótica",
+    "description": "Automatización de una maqueta de casa con sensores y actuadores.",
+    "date": "2024-05-20",
+    "imgUrl": "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "projectId": 5,
+    "participantes": [
+      {
+        "nombre": "Elena",
+        "carrera": "Ingeniería en Telecomunicaciones",
+        "rut": "77.889.900-1",
+        "foto": "https://randomuser.me/api/portraits/women/6.jpg"
+      },
+      {
+        "nombre": "Diego",
+        "carrera": "Ingeniería en Computación",
+        "rut": "88.990.011-2",
+        "foto": "https://randomuser.me/api/portraits/men/4.jpg"
+      }
+    ],
+    "title": "Dron FPV",
+    "description": "Montaje y configuración de un dron con cámara FPV.",
+    "date": "2024-05-25",
+    "imgUrl": "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "projectId": 6,
+    "participantes": [
+      {
+        "nombre": "Marcos",
+        "carrera": "Ingeniería Ambiental",
+        "rut": "99.001.122-3",
+        "foto": "https://randomuser.me/api/portraits/men/5.jpg"
+      },
+      {
+        "nombre": "Paula",
+        "carrera": "Ingeniería en Sistemas",
+        "rut": "00.112.233-4",
+        "foto": "https://randomuser.me/api/portraits/women/7.jpg"
+      }
+    ],
+    "title": "Estación Meteorológica",
+    "description": "Creación de una estación meteorológica con recolección de datos en tiempo real.",
+    "date": "2024-06-01",
+    "imgUrl": "https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&w=400&q=80"
+  }
+]

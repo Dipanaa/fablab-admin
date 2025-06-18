@@ -1,0 +1,68 @@
+<section class="pl-[15%] pr-[15%]">
+  <!-- Card proyecto  -->
+  <div class="flex flex-col pt-5 lg:flex-row gap-x-10">
+    <!-- Imagen del proyecto-->
+    <figure>
+      <img
+        [src]="proyectoEncontrado?.imgUrl"
+        alt="Imagen del proyecto"
+        class="rounded-lg mb-4"
+      />
+    </figure>
+    <!-- Descripcion del proyecto  -->
+    <div>
+      <h1 class="text-3xl font-bold mb-4">{{ proyectoEncontrado?.title }}</h1>
+
+      <p class="text-gray-700 mb-4">
+        {{ proyectoEncontrado?.description }}
+      </p>
+
+      <ul class="text-gray-600 mb-6 space-y-1">
+        <li><strong>Fecha:</strong> {{ proyectoEncontrado?.date }}</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Divider -->
+  <div class="text-2xl divider divider-start pt-5 pb-5">Participantes:</div>
+
+  <!-- Lista de participantes -->
+  <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <!-- Estructura de la card  -->
+    <li
+      *ngFor="let participante of proyectoEncontrado?.participantes"
+      class="flex md:flex-row card card-side bg-base-100 shadow-sm mt-5"
+    >
+      <!-- Imagen participante  -->
+      <figure>
+        <img
+          [src]="participante.foto"
+          alt="Foto de {{ participante.nombre }}"
+        />
+      </figure>
+      <!-- Informacion del participante -->
+      <div class="flex flex-col p-[5%] gap-[3px]">
+        <p><strong>Nombre: </strong>{{ participante.nombre }}</p>
+        <p><strong>Carrera: </strong>{{ participante.carrera }}</p>
+        <p class="text-nowrap"><strong>RUT: </strong>{{ participante.rut }}</p>
+      </div>
+    </li>
+  </ul>
+
+  <!-- Boton de volver  -->
+  <div class="flex justify-end p-5">
+    <button
+      class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+      [routerLink]="['./proyectos']"
+    >
+      Volver
+    </button>
+  </div>
+</section>
+
+<!-- To do: -->
+<!-- 1- Futuramente tendra que tener mas de una imagen y posiblemente  -->
+<!-- 2- Una seccion para los archivos, que sea opcional, dependera si tenemos o no archivos en ese proyecto -->
+<!-- 3- Dividir esto en 3 componentes, uno del proyecto, otro del divider, otro de los integrantes -->
+<!-- 4- Hacer un servicio para tener la logica y usarla donde necesite -->
+<!-- 5- en el service agregarle para conectar con la db -->
