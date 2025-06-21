@@ -1,14 +1,20 @@
 <aside
-  class="w-64 min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 text-white flex flex-col shadow-xl"
+  class="w-64 min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 text-white flex flex-col shadow-xl transform duration-300"
   #sideMenu
 >
-  <!-- Encabezado -->
-  <div class="p-6 text-xl font-bold border-b border-slate-700">
-    Panel de Administración
-  </div>
 
-  <!-- Navegación -->
-  <nav class="flex-1 p-4 space-y-2">
+<img src="../../../assets/icons/menuIcon.png" class="w-[35px] h-[35px] mt-6 ml-5 cursor-pointer hover:rounded hover:bg-indigo-600" alt="" (click)="hideContent()" />
+
+
+<!-- Navegación -->
+<nav class="flex-1 p-4 space-y-2 transition-all duration-300" #navItems>
+    <!-- Encabezado -->
+    <div class="p-2 text-xl font-bold w-64">
+      Panel Administrativo
+    </div>
+
+    <hr
+  class="h-px border-t-0 bg-transparent bg-gradient-to-r from-transparent via-white to-transparent opacity-25 dark:via-neutral-400" />
     <!-- Inicio -->
     <a
       routerLink="inicio"

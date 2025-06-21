@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   Renderer2,
+  signal,
   ViewChild,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
@@ -15,18 +16,25 @@ import { RouterLink } from '@angular/router';
 })
 export class SidebarComponent {
   @ViewChild('sideMenu') sideMenu!: ElementRef;
+  @ViewChild('navItems') navItems!: ElementRef;
+
+  //Activaacion de Menu
+  menuActivate = signal<boolean>(true);
 
   constructor(private render: Renderer2) {}
 
-  ngAfterViewInit(): void {
-    console.log(this.sideMenu);
-  }
 
-  hideContent() {
-    this.render.setStyle(
-      this.sideMenu.nativeElement,
-      'transform',
-      'translateX(-100%)'
-    );
+  hideContent():void {
+    if(this.menuActivate()){
+      this.menuActivate.set(false);
+      this.render.addClass(this.sideMenu.nativeElement,"w-[100px]");
+      this.render.addClass(this.navItems.nativeElement,"translate-x-[-250%]");
+      return;
+    }
+
+    this.menuActivate.set(true);
+    this.render.removeClass(this.sideMenu.nativeElement,"w-[100px]");
+    this.render.removeClass(this.navItems.nativeElement,"translate-x-[-250%]");
+    console.log(this.navItems.nativeElement);
   }
 }

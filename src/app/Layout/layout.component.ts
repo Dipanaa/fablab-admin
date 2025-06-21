@@ -15,8 +15,5 @@ import { RouterOutlet } from '@angular/router';
   imports: [RouterOutlet, SidebarComponent, HeaderComponent],
   templateUrl: './layout.component.html',
 })
-export class LayoutComponent implements AfterViewInit {
-  ngAfterViewInit(): void {
-    throw new Error('Method not implemented.');
-  }
+export class LayoutComponent{
 }
