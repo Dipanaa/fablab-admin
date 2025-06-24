@@ -1,12 +1,10 @@
+<header-main (toggleMenu)="menuControllerIntermediary.set($event)"/>
 <div class="flex h-screen">
-  <sidebar />
-
   <!-- Contenido principal -->
-  <main class="fle bg-gray-900 text-white overflow-y-auto w-full">
-    <header-main />
-
+  <main class="flex bg-gray-900 text-white w-full">
+    <sidebar [menuActivate]="menuControllerIntermediary()"/>
     <!-- Aquí van los componentes -->
-    <section class="p-5 w-full">
+    <section class="p-5 w-full overflow-y-auto">
       <router-outlet></router-outlet>
     </section>
   </main>
