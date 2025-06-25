@@ -1,15 +1,16 @@
 export interface ProjectsInterface {
   projectId: number;
-  participantes: Participantes[];
   title: string;
   description: string;
   date: string;
   imgUrl: string;
+  categoria: string;
+  cartera_proyecto: CarteraProyecto;
 }
 
-interface Participantes {
+export interface CarteraProyecto {
+  id: number;
   nombre: string;
-  carrera: string;
-  rut: string;
-  foto: string;
+  descripcion: string;
+  cantidad_integrantes: number;
 }

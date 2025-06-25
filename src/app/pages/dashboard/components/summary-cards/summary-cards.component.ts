@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 import dblocalusuarios from '../../../../data/dblocalusuarios.json';
 import dblocalproyectos from '../../../../data/dblocalproyectos.json';
-import { UsersInterface } from '../../../../interfaces/users';
-import { ProjectsInterface } from '../../../../interfaces/projects.interface';
+import { UsersInterface } from '../../../../interfaces/users.interface';
 import { RouterLink } from '@angular/router';
+import { ProjectsInterface } from '../../../../interfaces/projects.interface';
 
 @Component({
   selector: 'summary-cards',
