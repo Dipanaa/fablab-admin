@@ -16,7 +16,6 @@
       <app-card
         *ngFor="let proyecto of proyecto"
         [title]="proyecto.title"
-        [description]="proyecto.description"
         [imgUrl]="proyecto.imgUrl"
         [routerLink]="[proyecto.projectId]"
       ></app-card>

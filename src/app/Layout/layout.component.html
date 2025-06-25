@@ -1,8 +1,8 @@
-<header-main (toggleMenu)="menuControllerIntermediary.set($event)"/>
+<header-main (toggleMenu)="menuControllerIntermediary.set($event)" />
 <div class="flex h-screen">
   <!-- Contenido principal -->
   <main class="flex bg-gray-900 text-white w-full">
-    <sidebar [menuActivate]="menuControllerIntermediary()"/>
+    <sidebar [menuActivate]="menuControllerIntermediary()" />
     <!-- Aquí van los componentes -->
     <section class="p-5 w-full overflow-y-auto">
       <router-outlet></router-outlet>

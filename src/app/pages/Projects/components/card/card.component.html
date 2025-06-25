@@ -1,5 +1,5 @@
 <div
-  class="card bg-base-100 shadow-xl flex flex-col w-full h-[22rem] sm:h-[22rem] md:h-[24rem] lg:h-[22rem] xl:h-[24rem] max-w-full transition-transform duration-300 hover:scale-105 cursor-pointer"
+  class="card bg-white text-gray-900 shadow-xl flex flex-col w-full h-[22rem] sm:h-[22rem] md:h-[24rem] lg:h-[22rem] xl:h-[24rem] max-w-full transition-transform duration-300 hover:scale-105 cursor-pointer dark:bg-base-100 dark:text-white"
 >
   <!-- Imagen -->
   <figure class="w-full h-[55%] overflow-hidden">
@@ -17,8 +17,16 @@
     >
       {{ title() }}
     </h2>
+
     <p class="text-sm sm:text-base md:text-base lg:text-base xl:text-lg">
-      {{ description() }}
+      Estado del proyecto: En desarrollo
     </p>
+    <p class="text-sm sm:text-base md:text-base lg:text-base xl:text-lg">
+      Participantes:
+    </p>
+    <ul>
+      <li>Participante 1</li>
+      <li>Participante 2</li>
+    </ul>
   </div>
 </div>
