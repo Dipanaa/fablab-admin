@@ -6,7 +6,7 @@ import { UsersInterface } from '../../interfaces/users';
 @Component({
   selector: 'users',
   imports: [NgFor],
-  templateUrl: './Users.component.html',
+  templateUrl: './users.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UsersComponent {
