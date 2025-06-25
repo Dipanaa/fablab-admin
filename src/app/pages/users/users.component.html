@@ -142,12 +142,14 @@
           {{ usuario.carrera }}
         </td>
         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-          {{ usuario.cargo }}
+          {{ usuario.rol }}
         </td>
         <td class="px-6 py-4 min-w-[200px] text-sm text-gray-500 align-top">
           <div class="max-h-24 overflow-y-auto">
             <ol class="list-decimal list-inside">
-              <li *ngFor="let proyecto of usuario.proyectos">{{ proyecto }}</li>
+              <li *ngFor="let proyecto of usuario.proyectos_asignados">
+                {{ proyecto }}
+              </li>
             </ol>
           </div>
         </td>
