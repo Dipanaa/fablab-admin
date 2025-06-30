@@ -7,12 +7,12 @@ import {
   signal,
 } from '@angular/core';
 import { routes } from '../../app.routes';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterLink } from '@angular/router';
 import { map, Subscription, finalize, filter } from 'rxjs';
 
 @Component({
   selector: 'header-main',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './header.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

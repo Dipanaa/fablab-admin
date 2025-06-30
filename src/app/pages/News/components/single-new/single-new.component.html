@@ -1,19 +1,34 @@
-
-<div class="absolute right-0 bottom-0 mr-5 mb-5 flex gap-3">
-  <button class="btn btn-info">Editar noticia</button>
-  <button class="btn btn-error">Eliminar noticia</button>
+<div class="absolute bottom-0 right-0 mr-5 flex gap-3">
+  <button class="btn btn-info" (click)="formMode()">Editar noticia</button>
+  <button class="btn btn-error" (click)="deleteNewByRoute()">Eliminar noticia</button>
 </div>
-<div class="text-black bg-white p-5 w-full">
-  <p>{{singleNewsData()?.fechapublicacion}}</p>
-  <h1 class="font-bold text-4xl text-justify mx-auto">{{singleNewsData()?.titulo}}</h1>
-  <div class="mt-5 flex">
 
-    <div class="p-5 bg-amber-200 w-fit rounded-4xl">img</div>
-    <div class="my-auto ml-5">
-      <p>Autor: {{singleNewsData()?.autor}}</p>
-      <p class="font-bold">Miembro de laboratorio FabLab</p>
+@if(editMode()) {
+  <updatenew [idUpdate]="id()"></updatenew>
+}@else {
+  <div class="text-black bg-white p-5 w-full">
+    <p class="mb-2">{{singleNewsData()?.epigrafe}}</p>
+    <p>{{singleNewsData()?.fechapublicacion}}</p>
+    <h1 class="font-bold text-4xl text-justify mx-auto">{{singleNewsData()?.titulo}}</h1>
+    <div class="mt-5 flex">
+
+      <div class="p-5 bg-amber-200 w-fit rounded-4xl">img</div>
+      <div class="my-auto ml-5">
+        <p>Autor: {{singleNewsData()?.autor}}</p>
+        <p class="font-bold">Miembro de laboratorio FabLab</p>
+      </div>
+
     </div>
-
+    <p class="mt-5">{{singleNewsData()?.contenido}}</p>
   </div>
-  <p class="mt-5">{{singleNewsData()?.contenido}}</p>
+}
+
+<!-- Success post -->
+<div class="h-screen absolute top-0 w-full justify-center items-center z-10 bg-gray-400/50 hidden" #successPost>
+  <success-component [urlName]="'/noticias'" [tipoDePeticion]="'Eliminados'"></success-component>
 </div>
+
+
+
+
+

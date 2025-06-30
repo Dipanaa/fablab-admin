@@ -1,0 +1,73 @@
+<form autocomplete="off" class="bg-white mt-5" [formGroup]="UpdateNewForm" (ngSubmit)="submitUpdateContent()">
+  <label
+      for="epigrafe"
+      class="block text-base font-medium text-black p-2">
+      Epigrafe
+  </label>
+  <textarea
+    type="text"
+    id="epigrafe"
+    name="name"
+    rows="1"
+    placeholder="Titulo de la noticia"
+    class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-black text-md font-bold outline-none focus:border-[#6A64F1] focus:shadow-md resize-none "
+    formControlName="epigrafe"
+    value="{{dataFormUpdate()?.epigrafe}}"
+  ></textarea>
+  <label
+      for="title"
+      class="block text-base font-medium text-black p-2">
+      Título de la noticia
+  </label>
+  <textarea
+    type="text"
+    name="name"
+    id="title"
+    rows="2"
+    class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-black text-4xl font-bold outline-none focus:border-[#6A64F1] focus:shadow-md resize-none "
+    formControlName="titulo"
+    value="{{dataFormUpdate()?.titulo}}"
+  ></textarea>
+  <label
+      for="autor"
+      class="block text-base font-medium text-black p-2">
+      Autor de la noticia
+  </label>
+  <textarea
+    type="text"
+    name="name"
+    id="autor"
+    rows="1"
+    placeholder="Autor de la noticia"
+    class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-black text-xl font-bold outline-none focus:border-[#6A64F1] focus:shadow-md resize-none "
+    formControlName="autor"
+    value="{{dataFormUpdate()?.autor}}"
+  ></textarea>
+  <label
+      for="content"
+      class="block text-base font-medium text-black p-2">
+      Contenido de la noticia
+  </label>
+  <textarea
+    type="text"
+    name="name"
+    id="content"
+    rows="10"
+    placeholder="Descripcion de la noticia"
+    class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-black text-md outline-none focus:border-[#6A64F1] focus:shadow-md resize-none "
+    formControlName="contenido"
+    value="{{dataFormUpdate()?.contenido}}"
+  ></textarea>
+  <div class="p-2">
+    <button class="btn btn-accent p-4">Actualizar contenido</button>
+  </div>
+</form>
+
+<!-- Success post -->
+<div class="h-screen absolute top-0 w-full justify-center items-center z-10 bg-gray-400/50 hidden" #successPost>
+  <success-component [urlName]="'/noticias'" [tipoDePeticion]="'Actualizados'"></success-component>
+</div>
+
+
+
+

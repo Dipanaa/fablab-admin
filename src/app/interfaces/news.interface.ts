@@ -1,11 +1,10 @@
 export interface News {
-
   id: number,
   titulo: string,
   epigrafe: string,
   autor:string,
-  fechapublicacion: Date,
+  fechapublicacion?: Date,
   contenido: string,
-  imageurlprincipal: string,
-  imageurlautor: string
+  imageurlprincipal?: string,
+  imageurlautor?: string
 }

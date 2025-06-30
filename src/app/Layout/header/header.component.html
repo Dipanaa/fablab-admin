@@ -27,20 +27,22 @@
       </svg>
       <span class="text-gray-400">Panel</span>
       @for(route of rutaActual(); track $index; let i = $index){
-      <svg
-        class="w-4 h-4 text-gray-500"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        viewBox="0 0 24 24"
-      >
-        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-      </svg>
-      @if(i == rutaActual().length-1){
-      <span class="text-indigo-400 capitalize">{{ route }}</span>
-      }@else {
-      <span class="text-gray-500 capitalize">{{ route }}</span>
-      } }
+        <svg
+          class="w-4 h-4 text-gray-500"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+        @if(i == rutaActual().length-1){
+          <span class="text-indigo-400 capitalize cursor-pointer" >{{route}}</span>
+        }@else {
+          <span class="text-gray-500 capitalize cursor-pointer" routerLink="{{route}}">{{route}}</span>
+        }
+
+      }
     </div>
   </div>
 

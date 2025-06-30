@@ -1,35 +1,44 @@
-<button class="btn text-2xl absolute right-0 bottom-0 mr-5 mb-5">+</button>
-<h1 class="text-3xl font-bold mb-5">Administración de noticias</h1>
-<div
-  class="container mx-auto flex flex-col gap-2 sm:flex-row sm:flex-wrap h-screen"
->
-  @for (new of newsService.newsResponse(); track $index) {
-  <div class="w-full sm:w-[360px]">
-    <div class="rounded-lg overflow-hidden h-[600px]">
-      <div class="relative overflow-hidden pb-60">
-        <img
-          class="absolute h-full w-full object-cover object-center"
-          src="https://collect.criggzdesign.com/wp-content/uploads/2020/07/5c77d8a62417e4405611bb42_3k-color-1-scaled.jpg"
-          alt=""
-        />
-      </div>
-      <div class="relative bg-white text-black">
-        <div class="py-10 px-8">
-          <h3 class="text-2xl font-bold">{{ new.titulo }}</h3>
-          <div class="text-gray-600 text-sm font-medium flex mb-4 mt-2">
-            <p>{{ new.fechapublicacion }}</p>
+
+
+<button class="btn text-2xl absolute right-0 bottom-0 mr-5 mb-5 cursor-pointer" routerLink="creationnew">+</button>
+<h1 class="text-2xl font-bold mb-5">Administración de noticias</h1>
+
+@if(newsService.newsLoading()){
+  <h1 class="text-2xl">Cargando contenido...</h1>
+}
+
+@if (newsService.errorHandler()) {
+  <error-component></error-component>
+}
+
+@if(newsService.newsResponse().length){
+  <div class="container mx-auto flex flex-col gap-2 sm:flex-row sm:flex-wrap h-screen">
+    @for (new of newsService.newsResponse(); track $index) {
+    <div class="w-full sm:w-[360px]">
+        <div class="rounded-lg overflow-hidden h-[600px]">
+          <div class="relative overflow-hidden pb-60">
+            <img
+              class="absolute h-full w-full object-cover object-center"
+              src="https://collect.criggzdesign.com/wp-content/uploads/2020/07/5c77d8a62417e4405611bb42_3k-color-1-scaled.jpg"
+              alt=""
+            />
           </div>
-          <p class="leading-7 overflow-ellipsis overflow-y-hidden h-[80px]">
-            {{ new.contenido }}
-          </p>
-          <div class="mt-10 flex justify-end items-center">
-            <button class="btn" [routerLink]="`administrationnew/${new.id}`">
-              Administrar
-            </button>
+          <div class="relative bg-white text-black">
+            <div class="py-10 px-8">
+              <h3 class="text-2xl font-bold">{{new.titulo}}</h3>
+              <div class="text-gray-600 text-sm font-medium flex mb-4 mt-2">
+                <p>{{new.fechapublicacion}}</p>
+              </div>
+              <p class="leading-7 overflow-ellipsis overflow-y-hidden h-[80px]">
+                  {{new.contenido}}
+              </p>
+              <div class="mt-10 flex justify-end items-center">
+                <button class="btn" [routerLink]="`administrationnew/${new.id}`">Administrar</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    }
   </div>
-  }
-</div>
+}
