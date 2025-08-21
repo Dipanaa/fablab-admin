@@ -1,7 +1,7 @@
 <section
   class="p-6 max-w-3xl mx-auto bg-white dark:bg-slate-900 rounded-xl shadow-md"
 >
-  <h2 class="text-3xl font-bold text-slate-800 dark:text-white mb-6">
+  <h2 class="text-3xl font-bold text-slate-800 mb-6">
     Actualizar Proyecto:
     <span class="text-indigo-600">{{
       proyectoEncontrado?.title || "Cargando..."
@@ -12,7 +12,7 @@
     <!-- Título de la actualización -->
     <div class="mb-4">
       <label
-        class="block mb-1 text-sm font-medium text-gray-700 dark:text-white"
+        class="block mb-1 text-sm font-medium text-gray-700"
         >Título</label
       >
       <input
@@ -20,14 +20,14 @@
         name="titulo"
         required
         placeholder="Ej. Se ensambló la estructura base"
-        class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-indigo-600 dark:bg-slate-800 dark:text-white"
+        class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-indigo-600 dark:bg-slate-800 text-black"
       />
     </div>
 
     <!-- Descripción -->
     <div class="mb-4">
       <label
-        class="block mb-1 text-sm font-medium text-gray-700 dark:text-white"
+        class="block mb-1 text-sm font-medium text-gray-700"
         >Descripción</label
       >
       <textarea
@@ -35,14 +35,14 @@
         rows="4"
         required
         placeholder="Describe el avance o modificación realizada..."
-        class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-indigo-600 dark:bg-slate-800 dark:text-white"
+        class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-indigo-600 dark:bg-slate-800 text-black"
       ></textarea>
     </div>
 
     <!-- Imagen opcional -->
     <div class="mb-4">
       <label
-        class="block mb-1 text-sm font-medium text-gray-700 dark:text-white"
+        class="block mb-1 text-sm font-medium text-gray-700"
         >Imagen (opcional)</label
       >
       <input
@@ -57,7 +57,7 @@
     <div class="flex justify-end">
       <button
         type="submit"
-        class="bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700 transition"
+        class="bg-indigo-600 px-6 py-2 rounded-md hover:bg-indigo-700 transition"
       >
         Guardar actualización
       </button>

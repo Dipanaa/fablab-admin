@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import dblocalproyectos from '../../../../data/dblocalproyectos.json';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { CardComponent } from '../../components/card/card.component';
 import { ProjectsInterface } from '../../../../interfaces/projects.interface';
+import { ProjectsService } from '../../../../services/projects.service';
 @Component({
   selector: 'all-projects',
   standalone: true,
@@ -11,8 +12,21 @@ import { ProjectsInterface } from '../../../../interfaces/projects.interface';
   templateUrl: './all-projects.component.html',
 })
 export class AllProjectsComponent {
+
+  //Inyeccion de servicios
+  projectsService = inject(ProjectsService);
+
+  constructor(){
+    this.projectsService.obtenerProyectos();
+    console.log(this.projectsService.projectsData());
+  }
+
+
   proyecto: ProjectsInterface[] = dblocalproyectos;
   ngOnInit() {
     window.scrollTo({ top: 0, behavior: 'auto' });
   }
+
+
+
 }

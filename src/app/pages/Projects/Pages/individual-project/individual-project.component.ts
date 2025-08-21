@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import dblocalproyectos from '../../../../data/dblocalproyectos.json';
 import { CommonModule } from '@angular/common';
 import { ProjectsInterface } from '../../../../interfaces/projects.interface';
+import { ProjectsService } from '../../../../services/projects.service';
 
 @Component({
   selector: 'individual-project',
@@ -11,8 +12,10 @@ import { ProjectsInterface } from '../../../../interfaces/projects.interface';
   standalone: true,
 })
 export class IndividualProjectComponent implements OnInit {
-  proyecto: ProjectsInterface[] = dblocalproyectos;
+  //Inyectar servicios
+  projectsService = inject(ProjectsService);
 
+  proyecto: ProjectsInterface[] = dblocalproyectos;
   proyectoEncontrado?: ProjectsInterface;
 
   ngOnInit() {
@@ -25,7 +28,7 @@ export class IndividualProjectComponent implements OnInit {
   constructor(private route: ActivatedRoute) {}
 
   searchById(id: number): void {
-    const objectFind = this.proyecto.find(
+    const objectFind = this.projectsService.projectsData().find(
       (proyecto) => proyecto.projectId === id
     );
     this.proyectoEncontrado = objectFind;

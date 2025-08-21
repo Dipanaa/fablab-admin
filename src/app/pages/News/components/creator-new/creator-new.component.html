@@ -1,3 +1,8 @@
+<!-- TODO: Hacer componente cargando contenido -->
+
+@if(newsService.newsLoading()){
+  <h1 class="text-2xl">Cargando contenido...</h1>
+}
 
 <h1 class="text-2xl font-bold">Ingresar Noticia</h1>
 <!-- component -->
@@ -18,7 +23,14 @@
           placeholder="Titulo de la noticia"
           class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
           formControlName="titulo"
+
         />
+        @if(NewsFormsValidations.ValidateErrors("titulo", CreationNewForm)){
+          <span class="text-red-500">
+            {{NewsFormsValidations.ValidateErrors("titulo", CreationNewForm)}}
+          </span>
+
+        }
       </div>
       <div class="mb-5">
         <label
@@ -35,6 +47,12 @@
           class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
           formControlName="epigrafe"
         />
+        @if(NewsFormsValidations.ValidateErrors("epigrafe", CreationNewForm)){
+          <span class="text-red-500">
+            {{NewsFormsValidations.ValidateErrors("epigrafe", CreationNewForm)}}
+          </span>
+
+        }
       </div>
       <div class="mb-5">
         <label
@@ -52,6 +70,12 @@
           formControlName="autor"
 
         />
+        @if(NewsFormsValidations.ValidateErrors("autor", CreationNewForm)){
+          <span class="text-red-500">
+            {{NewsFormsValidations.ValidateErrors("autor", CreationNewForm)}}
+          </span>
+
+        }
       </div>
       <div class="mb-5">
         <label
@@ -71,7 +95,7 @@
       </div>
       <div>
         <button
-          class="hover:shadow-form rounded-md bg-[#6A64F1] py-3 px-8 text-base font-semibold text-white outline-none"
+          class="hover:bg-[#6A64F1]/70 rounded-md bg-[#6A64F1] py-3 px-8 text-base font-semibold text-white outline-none cursor-pointer"
         >
           Submit
         </button>

@@ -1,37 +1,47 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { NgModel } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, ElementRef, inject, Renderer2, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, NgModel, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ProjectsService } from '../../../../services/projects.service';
+import { SuccessComponent } from '../../../../shared/success-component/success-component.component';
 
 @Component({
   selector: 'new-project',
-  imports: [],
+  imports: [ReactiveFormsModule,SuccessComponent],
   templateUrl: './new-project.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NewProjectComponent {
-  enviarSolicitud(event: Event) {
-    event.preventDefault(); // Evita el recargo de la página
 
-    const form = event.target as HTMLFormElement;
-    const data = new FormData(form);
+  //Inyeccion de servicios
+  proyectsService = inject(ProjectsService);
+  formbuilder = inject(FormBuilder);
+  renderer2 = inject(Renderer2);
 
-    const proyecto = {
-      titulo: data.get('titulo'),
-      descripcion: data.get('descripcion'),
-      categoria: data.get('categoria'),
-      individual: data.get('individual') === 'true',
-      integrantesNecesarios: Number(data.get('integrantesNecesarios')),
-      referencia: data.get('referencia'),
-      fechaInicio: data.get('fechaInicio'),
-    };
+  //Tomamos referencias
+  @ViewChild("successPost") successPost!: ElementRef;
 
-    // Guardar en localStorage
-    const solicitudes = JSON.parse(
-      localStorage.getItem('solicitudesProyectos') || '[]'
-    );
-    solicitudes.push(proyecto);
-    localStorage.setItem('solicitudesProyectos', JSON.stringify(solicitudes));
+  newProjectForm: FormGroup = this.formbuilder.group({
+    titulo: ["",[Validators.required]],
+    descripcionproyecto: [""],
+    categoria: [""],
+    areaaplicacion: [""],
+    fechainicio: [""]
+  })
 
-    alert('Solicitud enviada correctamente');
-    form.reset();
+
+  submitNewProject(){
+    //TODO: Arreglar interfaz e ingresar id de usuario en interfaz
+    const newProject: any = this.newProjectForm.value;
+
+    //ARREGLAR PORQUE ESTA HARDCODEADO
+    newProject.usuarioid = 2;
+
+    console.log(newProject);
+
+    this.renderer2.removeClass(this.successPost.nativeElement,"hidden");
+    this.renderer2.addClass(this.successPost.nativeElement,"flex");
+    this.proyectsService.agregarProyecto(newProject);
+
+
   }
+
 }

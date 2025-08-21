@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import dblocalusuarios from '../../data/dblocalusuarios.json';
 import { UsersInterface } from '../../interfaces/users.interface';
@@ -10,7 +10,11 @@ import { UsersService } from '../../services/users.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UsersComponent {
-  constructor(private usersService: UsersService) {
+
+
+  usersService = inject(UsersService);
+
+  constructor() {
     // Llamada de prueba al iniciar
     this.usersService.obtenerUsuarios();
   }
@@ -28,7 +32,8 @@ export class UsersComponent {
   // Paginacion
   // ---------------------------
 
-  listaUsuarios: UsersInterface[] = dblocalusuarios;
+  //Esto esta hardcodeado!!!!!!!!!!!!!!!!!!!
+  listaUsuarios: any[] = dblocalusuarios;
   currentPage: number = 1;
   itemsPerPage: number = 6;
   get totalPages(): number {

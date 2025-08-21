@@ -36,6 +36,7 @@ export class NewsService {
     .subscribe({
       next: (resp) => {
         this.newsResponse.set(resp);
+        console.log(resp);
         this.errorHandler.set(undefined);
       },
       error: (error) => {
@@ -48,7 +49,17 @@ export class NewsService {
 
   postNew(news: News):void{
 
-    this.httpclient.post("http://localhost:5263/api/noticias",news).subscribe({
+    if(this.newsLoading()){
+      return;
+    }
+    this.newsLoading.set(true);
+
+    this.httpclient.post("http://localhost:5263/api/noticias",news).pipe(
+      finalize(()=> {
+        this.newsLoading.set(false);
+      })
+    )
+      .subscribe({
       next: () => {
         console.log("Los datos fueron insertados con exito");
       },

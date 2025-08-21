@@ -21,7 +21,7 @@
         </tr>
       </thead>
       <tbody class="bg-white divide-y divide-gray-200">
-        <tr *ngFor="let proyecto of proyectosPaginados">
+        <tr *ngFor="let proyecto of projectsService.projectsData()">
           <!-- Proyecto (imagen + título + categoría) -->
           <td class="px-6 py-4 whitespace-nowrap">
             <div class="flex items-center">
@@ -58,13 +58,7 @@
           <td class="px-6 py-4 align-top">
             <div class="max-h-[4rem] overflow-y-auto">
               <ol class="list-decimal list-inside text-sm text-gray-600">
-                <li
-                  *ngFor="
-                    let integrante of proyecto.cartera_proyecto.integrantes
-                  "
-                >
-                  {{ integrante }}
-                </li>
+
               </ol>
             </div>
           </td>

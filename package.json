@@ -21,6 +21,7 @@
     "@fullcalendar/core": "^6.1.17",
     "@fullcalendar/daygrid": "^6.1.17",
     "@tailwindcss/postcss": "^4.1.10",
+    "animate.css": "^4.1.1",
     "chart.js": "^4.5.0",
     "countup.js": "^2.9.0",
     "particles.js": "^2.0.0",

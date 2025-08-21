@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { News } from '../../../../interfaces/news.interface';
 import { NewsService } from '../../../../services/news.service';
 import { SuccessComponent } from "../../../../shared/success-component/success-component.component";
+import { NewsFormsValidations } from '../../../../utils/FormsValidations/newsValidations';
 
 @Component({
   selector: 'app-creator-new',
@@ -10,18 +11,21 @@ import { SuccessComponent } from "../../../../shared/success-component/success-c
   templateUrl: './creator-new.component.html',
 })
 export class CreatorNewComponent {
-  //Se inyectan servicios
+  //Se inyectan servicios e instancian campos
   newsService = inject(NewsService);
   formbuilder = inject(FormBuilder);
   renderer2 = inject(Renderer2);
+  NewsFormsValidations = NewsFormsValidations;
+
+
 
   //Tomamos referencias
   @ViewChild("successPost") successPost!: ElementRef;
 
   //Campos de los forms
   CreationNewForm: FormGroup = this.formbuilder.group({
-    titulo: ["",[Validators.required]],
-    epigrafe: ["",[Validators.required]],
+    titulo: ["",[Validators.required,Validators.minLength(10),Validators.maxLength(50)]],
+    epigrafe: ["",[Validators.required,Validators.minLength(10),Validators.maxLength(80)]],
     autor: ["",[Validators.required]],
     fechapublicacion:[new Date],
     contenido: ["",[Validators.required]],
@@ -29,9 +33,14 @@ export class CreatorNewComponent {
     imgurlautor: [""]
   });
 
-
   submitPostContent(){
-    console.log(this.CreationNewForm.value);
+    if(this.CreationNewForm.invalid){
+      this.CreationNewForm.markAllAsTouched();
+      return;
+    }
+
+    //TODO: Recibir output de confirmacion
+
     const newPost: News = this.CreationNewForm.value;
     this.renderer2.removeClass(this.successPost.nativeElement,"hidden");
     this.renderer2.addClass(this.successPost.nativeElement,"flex");

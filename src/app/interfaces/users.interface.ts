@@ -1,3 +1,5 @@
+import { ProjectsInterface } from "./projects.interface";
+
 export interface UsersInterface {
   id_usuario: number;
   nombre: string;
@@ -5,5 +7,5 @@ export interface UsersInterface {
   carrera: string;
   email: string;
   rol: string;
-  proyectos_asignados: string[];
+  proyectos_asignados?: ProjectsInterface[];
 }

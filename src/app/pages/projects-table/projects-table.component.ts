@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { NgFor } from '@angular/common';
 import dbProyectos from '../../data/dblocalproyectos.json';
 import { ProjectsInterface } from '../../interfaces/projects.interface';
@@ -12,7 +12,13 @@ import { ProjectsService } from '../../../app/services/projects.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProjectsTableComponent {
-  constructor(private projectsService: ProjectsService) {
+
+  //Inyeccion de servicios
+  projectsService = inject(ProjectsService);
+
+
+
+  constructor() {
     // Llamada de prueba al iniciar
     this.projectsService.obtenerProyectos();
   }

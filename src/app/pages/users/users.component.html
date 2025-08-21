@@ -119,7 +119,7 @@
         </tr>
       </thead>
       <tbody class="bg-white divide-y divide-gray-200">
-        <tr *ngFor="let usuario of usuariosPaginados">
+        <tr *ngFor="let usuario of usersService.usuariosData()">
           <td class="px-4 py-4 whitespace-nowrap">
             <div class="flex items-center">
               <div class="flex-shrink-0 h-10 w-10">
@@ -153,9 +153,13 @@
           >
             <div class="max-h-10 overflow-y-auto">
               <ol class="list-decimal list-inside">
-                <li *ngFor="let proyecto of usuario.proyectos_asignados">
-                  {{ proyecto }}
-                </li>
+                @for (usuarios of usersService.usuariosData(); track $index) {
+                  @for (project of usuarios.proyectos_asignados; track $index) {
+                    <li>
+                      {{project.title}}
+                    </li>
+                  }
+                }
               </ol>
             </div>
           </td>

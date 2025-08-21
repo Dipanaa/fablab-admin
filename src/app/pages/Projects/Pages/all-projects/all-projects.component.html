@@ -26,9 +26,9 @@
 <div class="overflow-x-auto pb-4">
   <div class="flex gap-4 px-1 min-w-max">
     <app-card
-      *ngFor="let proyecto of proyecto | slice : 0 : 2"
+      *ngFor="let proyecto of projectsService.projectsData()"
       [title]="proyecto.title"
-      [imgUrl]="proyecto.imgUrl"
+      [imgUrl]="proyecto.imgUrl??''"
       [routerLink]="[proyecto.projectId]"
     ></app-card>
   </div>
@@ -44,7 +44,7 @@
     <app-card
       *ngFor="let proyecto of proyecto | slice : 0 : 5"
       [title]="proyecto.title"
-      [imgUrl]="proyecto.imgUrl"
+      [imgUrl]="proyecto.imgUrl??''"
       [routerLink]="[proyecto.projectId]"
     ></app-card>
   </div>
