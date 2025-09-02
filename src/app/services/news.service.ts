@@ -20,6 +20,9 @@ export class NewsService {
 
   constructor() {
     this.getNews();
+    console.log("se obtienen noticias");
+    console.log(this.newsResponse());
+    console.log(this.newsLoading(),"<-----")
   }
 
   getNews(): void{

@@ -1,25 +1,33 @@
-<div class="flex justify-end w-full gap-3 mb-5 ">
-  <button class="btn btn-info" (click)="formMode()">Editar noticia</button>
-  <button class="btn btn-error" (click)="deleteNewByRoute()">Eliminar noticia</button>
+<div class="w-full flex justify-between flex-wrap">
+  <div>
+    <h1 class="text-3xl font-bold">Previsualización de noticia</h1>
+  </div>
+  <div class="flex justify-end gap-3 mb-5 ">
+    <button class="btn btn-info" (click)="formMode()">Editar noticia</button>
+    <button class="btn btn-error" (click)="deleteNewByRoute()">Eliminar noticia</button>
+  </div>
+
 </div>
 
 @if(editMode()) {
   <updatenew [idUpdate]="id()"></updatenew>
 }@else {
-  <div class="text-black bg-white p-5 w-full">
-    <p class="mb-2">{{singleNewsData()?.epigrafe}}</p>
-    <p>{{singleNewsData()?.fechapublicacion}}</p>
-    <h1 class="font-bold text-4xl text-justify mx-auto">{{singleNewsData()?.titulo}}</h1>
-    <div class="mt-5 flex">
+  <div class="w-full bg-white">
+    <div class="text-black bg-white p-5 w-[75%] mx-auto">
+      <p class="mb-2">{{singleNewsData()?.epigrafe}}</p>
+      <p>{{singleNewsData()?.fechaPublicacion}}</p>
+      <h1 class="font-bold text-4xl text-justify mx-auto">{{singleNewsData()?.titulo}}</h1>
+      <div class="mt-5 flex">
 
-      <div class="p-5 bg-amber-200 w-fit rounded-4xl">img</div>
-      <div class="my-auto ml-5">
-        <p>Autor: {{singleNewsData()?.autor}}</p>
-        <p class="font-bold">Miembro de laboratorio FabLab</p>
+        <div class="p-5 bg-amber-200 w-fit rounded-4xl">img</div>
+        <div class="my-auto ml-5">
+          <p>Autor: {{singleNewsData()?.autor}}</p>
+          <p class="font-bold">Miembro de laboratorio FabLab</p>
+        </div>
+
       </div>
-
+      <p class="mt-5">{{singleNewsData()?.contenido}}</p>
     </div>
-    <p class="mt-5">{{singleNewsData()?.contenido}}</p>
   </div>
 }
 

@@ -49,6 +49,7 @@ export class UpdatenewComponent implements OnInit{
     if(this.dataFormUpdate()){
       this.UpdateNewForm.patchValue(this.dataFormUpdate()!);
     }
+    console.log(this.dataFormUpdate(),"---- update");
 
   }
 

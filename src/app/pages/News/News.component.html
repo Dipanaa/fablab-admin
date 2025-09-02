@@ -8,22 +8,22 @@
   <h1 class="text-2xl">Cargando contenido...</h1>
 }
 
-<div class="absolute flex right-0 top-0 mr-5 mt-5 px-4 py-2 gap-2">
-  <!--TODO: Agregar svgs-->
-  <button class="bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl  px-4 py-2 cursor-pointer" routerLink="noticias">Recargar Noticias</button>
-  <button class="bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl  px-4 py-2 cursor-pointer" routerLink="creationnew">+ Agregar Noticia</button>
+<div class="flex justify-between flex-wrap md:flex-nowrap w-full gap-2">
+  <div>
+    <h1 class="text-3xl font-bold">Administración de noticias</h1>
+  </div>
 
-</div>
-
-
-<div class="mb-5">
-  <h1 class="text-3xl font-bold">Administración de noticias</h1>
+  <div class="flex right-0 top-0 gap-2">
+    <!--TODO: Agregar svgs-->
+    <button class="bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl  px-4 py-2 cursor-pointer" routerLink="noticias">Recargar Noticias</button>
+    <button class="bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl  px-4 py-2 cursor-pointer" routerLink="creationnew">+ Agregar Noticia</button>
+  </div>
 </div>
 
 
 
 @if(newsService.newsResponse().length){
-  <div class="container mx-auto flex flex-col gap-2 sm:flex-row sm:flex-wrap h-screen">
+  <div class="container flex flex-col gap-2 sm:flex-row sm:flex-wrap h-screen mt-5">
     @for (new of newsService.newsResponse(); track $index; let idx = $index) {
     <div class="w-full sm:w-[360px]">
         <div class="rounded-lg overflow-hidden h-[600px] animate__animated animate__fadeInLeft">

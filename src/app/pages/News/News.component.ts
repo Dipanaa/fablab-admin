@@ -29,8 +29,6 @@ export class NewsComponent {
     this.newsService.getNews();
   }
 
-  //TODO: Hacer metodo para obtener fecha
-
   //Obtener Estado de la noticia
   getState(estado: string){
 

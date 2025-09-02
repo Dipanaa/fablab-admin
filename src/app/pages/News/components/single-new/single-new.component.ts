@@ -30,12 +30,17 @@ export class SingleNewComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    //TODO: Selecccionar bug de carga
     const idRoute:number = parseInt(this.route.snapshot.paramMap.get("id")!);
     this.id.set(idRoute);
 
     this.singleNewsData.set(
       this.NewsService.newsResponse()
       .find((obj)=> obj.id === idRoute))
+
+    console.log(this.NewsService.newsResponse(), "------");
+    console.log(this.singleNewsData());
+
   }
 
   deleteNewByRoute(){
