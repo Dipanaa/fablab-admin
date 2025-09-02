@@ -1,61 +1,105 @@
-<section class="flex flex-col">
-  <h3>//////////////////////////////////</h3>
-  <h3>borrar despues texto de prueba</h3>
-  <h3>//////////////////////////////////</h3>
+<div class="p-6">
+  <h2 class="text-2xl font-bold mb-4 text-gray-200">Solicitudes</h2>
 
-  <h1 class="text-3xl font-bold text-slate-800 dark:text-white mb-6">
-    Solicitudes de proyectos
-  </h1>
+  <table class="w-full border-collapse border border-gray-300 text-sm">
+    <thead class="bg-gray-600">
+      <tr>
+        <th class="border border-gray-700 px-4 py-2">ID</th>
+        <th class="border border-gray-700 px-4 py-2">RUT</th>
+        <th class="border border-gray-700 px-4 py-2">Nombre</th>
+        <th class="border border-gray-700 px-4 py-2">Email</th>
+        <th class="border border-gray-700 px-4 py-2">Tipo</th>
+        <th class="border border-gray-700 px-4 py-2">Fecha</th>
+        <th class="border border-gray-700 px-4 py-2">Estado</th>
+        <th class="border border-gray-700 px-4 py-2">Detalle</th>
+        <th class="border border-gray-700 px-4 py-2">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let solicitud of solicitudes" class="hover:bg-gray-500">
+        <td class="border border-gray-700 px-4 py-2">{{ solicitud.id }}</td>
+        <td class="border border-gray-700 px-4 py-2">{{ solicitud.rut }}</td>
+        <td class="border border-gray-700 px-4 py-2">{{ solicitud.nombre }}</td>
+        <td class="border border-gray-700 px-4 py-2">{{ solicitud.email }}</td>
+        <td class="border border-gray-700 px-4 py-2">{{ solicitud.tipo }}</td>
+        <td class="border border-gray-700 px-4 py-2">{{ solicitud.fecha | date:'dd/MM/yyyy' }}</td>
+        <td class="border border-gray-700 px-4 py-2">
+          <span 
+            [ngClass]="{
+              'text-yellow-600 font-medium': solicitud.estado === 'Pendiente',
+              'text-green-600 font-semibold': solicitud.estado === 'Aceptada',
+              'text-red-600 font-bold': solicitud.estado === 'Rechazada'
+            }">
+            {{ solicitud.estado }}
+          </span>
+        </td>
+        <td class="border border-gray-600 px-4 py-2 space-x-2">
+          <button
+            (click)="aceptarSolicitud(solicitud.id)"
+            class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
+          >
+            Leer solicitud
+          </button>
+        </td>
+        <!-- Botones  -->
+        <td class="border border-gray-600 px-4 py-2 space-x-2">
+          <button
+            (click)="aceptarSolicitud(solicitud.id)"
+            class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700"
+          >
+            Aceptar
+          </button>
+          <button
+            (click)="rechazarSolicitud(solicitud.id)"
+            class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
+          >
+            Rechazar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
-  <ol class="relative border-s border-gray-200 dark:border-gray-700">
-    <li
-      *ngFor="let solicitud of solicitudes"
-      class="mb-10 ms-6 bg-white dark:bg-slate-800 p-5 rounded-xl shadow-md"
-    >
-      <span
-        class="absolute flex items-center justify-center w-6 h-6 bg-indigo-100 rounded-full -start-3 ring-8 ring-white dark:ring-slate-900 dark:bg-indigo-900"
-      >
-        <svg
-          class="w-2.5 h-2.5 text-indigo-800 dark:text-indigo-300"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-        >
-          <path
-            d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"
-          />
-        </svg>
-      </span>
+  
 
-      <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-1">
-        {{ solicitud.nombreProyecto }}
-        <span
-          class="ml-3 bg-indigo-100 text-indigo-800 text-sm font-medium px-2 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300"
-          >Solicitud</span
-        >
-      </h3>
+<!-- Modal toggle -->
+<button data-modal-target="default-modal" data-modal-toggle="default-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+  Toggle modal
+</button>
 
-      <time class="block mb-2 text-sm text-gray-500 dark:text-gray-400">
-        Fecha: {{ solicitud.fecha }}
-      </time>
+<!-- Main modal -->
+<div id="default-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 w-full max-w-2xl max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
+            <!-- Modal header -->
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                    Terms of Service
+                </h3>
+                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="p-4 md:p-5 space-y-4">
+                <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                    With less than a month to go before the European Union enacts new consumer privacy laws for its citizens, companies around the world are updating their terms of service agreements to comply.
+                </p>
+                <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                    The European Union’s General Data Protection Regulation (G.D.P.R.) goes into effect on May 25 and is meant to ensure a common set of data rights in the European Union. It requires organizations to notify users as soon as possible of high-risk data breaches that could personally affect them.
+                </p>
+            </div>
+            <!-- Modal footer -->
+            <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+                <button data-modal-hide="default-modal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">I accept</button>
+                <button data-modal-hide="default-modal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Decline</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-      <p class="text-base text-gray-700 dark:text-gray-300 mb-4">
-        {{ solicitud.descripcion }}
-      </p>
-
-      <div class="flex gap-3">
-        <button
-          class="px-4 py-2 text-sm font-medium text-white bg-green-600 rounded hover:bg-green-700 transition"
-          (click)="aprobarSolicitud(solicitud)"
-        >
-          Aprobar
-        </button>
-        <button
-          class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded hover:bg-red-700 transition"
-          (click)="rechazarSolicitud(solicitud)"
-        >
-          Rechazar
-        </button>
-      </div>
-    </li>
-  </ol>
-</section>
+</div>

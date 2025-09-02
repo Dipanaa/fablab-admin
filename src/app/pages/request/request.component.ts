@@ -1,41 +1,76 @@
-import { NgFor } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'request',
-  imports: [NgFor],
+  imports: [CommonModule],
   templateUrl: './request.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RequestComponent {
+  // Lista simulada de solicitudes
   solicitudes = [
     {
-      nombreProyecto: 'Sistema de automatización FabLab',
-      fecha: '2025-06-27',
-      descripcion:
-        'Un sistema para agendar máquinas del laboratorio y registrar horas de uso con IoT.',
+      id: 1,
+      rut: '12.345.678-9',
+      nombre: 'Julian Pérez',
+      email: 'julian@example.com',
+      tipo: 'Ingreso',
+      estado: 'Pendiente',
+      fecha: new Date('2025-08-25'),
     },
     {
-      nombreProyecto: 'App de control de acceso NFC',
-      fecha: '2025-06-24',
-      descripcion:
-        'Aplicación para autenticar el ingreso al laboratorio mediante tarjetas NFC.',
+      id: 2,
+      rut: '9.876.543-2',
+      nombre: 'María González',
+      email: 'maria@example.com',
+      tipo: 'Creación',
+      estado: 'Pendiente',
+      fecha: new Date('2025-08-26'),
     },
     {
-      nombreProyecto: 'Sitio colaborativo de diseño 3D',
-      fecha: '2025-06-21',
-      descripcion:
-        'Portal web donde estudiantes puedan subir y descargar modelos 3D propios.',
-    },
+      id: 3,
+      rut: '15.432.678-1',
+      nombre: 'Pedro López',
+      email: 'pedro@example.com',
+      tipo: 'Eliminación',
+      estado: 'Pendiente',
+      fecha: new Date('2025-08-27'),
+    }
   ];
 
-  aprobarSolicitud(solicitud: any) {
-    alert(`Solicitud aprobada: ${solicitud.nombreProyecto}`);
-    // Aquí podrías moverla a otra lista, cambiar estado, o hacer un POST
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // Aceptar solicitud
+  aceptarSolicitud(id: number) {
+    const solicitud = this.solicitudes.find(s => s.id === id);
+    if (solicitud) solicitud.estado = 'Aceptada';
   }
 
-  rechazarSolicitud(solicitud: any) {
-    alert(`Solicitud rechazada: ${solicitud.nombreProyecto}`);
-    // Aquí puedes eliminarla o marcarla como rechazada
+  // Rechazar solicitud
+  rechazarSolicitud(id: number) {
+    const solicitud = this.solicitudes.find(s => s.id === id);
+    if (solicitud) solicitud.estado = 'Rechazada';
   }
 }

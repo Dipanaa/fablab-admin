@@ -68,14 +68,16 @@
       </button>
 
       <!-- Usuario -->
-      <div class="flex items-center gap-2">
+      <button type="button" class="flex items-center gap-2" routerLink="/user-profile">
         <img
-          src="https://i.pravatar.cc/40?u=usuario"
+          [src]="user.avatarUrl || 'https://tse1.mm.bing.net/th/id/OIP.sE-LgcPoi6NqteMjpaZ-kwHaHa?w=889&h=889&rs=1&pid=ImgDetMain&o=7&rm=3'"
           class="w-8 h-8 rounded-full"
           alt="avatar"
         />
-        <span class="text-sm text-gray-200 hidden sm:inline">Alexis</span>
-      </div>
+        <span class="text-sm text-gray-200 hidden sm:inline">{{ user.userName }}</span>
+      </button>
+
+
 
       <!-- Botón cerrar sesión -->
       <button

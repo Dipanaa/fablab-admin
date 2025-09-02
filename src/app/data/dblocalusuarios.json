@@ -6,7 +6,14 @@
     "carrera": "Ingeniería en Informática",
     "email": "alexis.perez@inacap.cl",
     "rol": "Integrante",
-    "proyectos_asignados": ["Super Impresora 3D", "Brazo Robótico", "Impresora 3D", "Brazo Robótico", "Impresora 3D", "Brazo Robótico"]
+    "proyectos_asignados": [
+      "Super Impresora 3D",
+      "Brazo Robótico",
+      "Impresora 3D",
+      "Brazo Robótico",
+      "Impresora 3D",
+      "Brazo Robótico"
+    ]
   },
   {
     "id_usuario": 2,
@@ -15,7 +22,10 @@
     "carrera": "Ingeniería Industrial",
     "email": "sandy.sandoza@inacap.cl",
     "rol": "Integrante",
-    "proyectos_asignados": ["Impresora 3D", "Brazo Robótico"]
+    "proyectos_asignados": [
+      "Impresora 3D",
+      "Brazo Robótico"
+    ]
   },
   {
     "id_usuario": 3,
@@ -24,7 +34,9 @@
     "carrera": "Ingeniería Electrónica",
     "email": "javier.morales@inacap.cl",
     "rol": "Profesor a cargo",
-    "proyectos_asignados": ["Brazo Robótico"]
+    "proyectos_asignados": [
+      "Brazo Robótico"
+    ]
   },
   {
     "id_usuario": 4,
@@ -42,7 +54,10 @@
     "carrera": "Automatización y Robótica",
     "email": "nicolas.escobar@inacap.cl",
     "rol": "Líder del laboratorio",
-    "proyectos_asignados": ["Impresora 3D", "Brazo Robótico"]
+    "proyectos_asignados": [
+      "Impresora 3D",
+      "Brazo Robótico"
+    ]
   },
   {
     "id_usuario": 6,
@@ -60,7 +75,9 @@
     "carrera": "Ingeniería Civil",
     "email": "valentina.soto@inacap.cl",
     "rol": "Integrante",
-    "proyectos_asignados": ["Brazo Robótico"]
+    "proyectos_asignados": [
+      "Brazo Robótico"
+    ]
   },
   {
     "id_usuario": 8,
@@ -69,7 +86,9 @@
     "carrera": "Ingeniería Mecánica",
     "email": "matias.rojas@inacap.cl",
     "rol": "Integrante",
-    "proyectos_asignados": ["Impresora 3D"]
+    "proyectos_asignados": [
+      "Impresora 3D"
+    ]
   },
   {
     "id_usuario": 9,
@@ -87,7 +106,9 @@
     "carrera": "Ingeniería en Informática",
     "email": "felipe.vargas@inacap.cl",
     "rol": "Integrante",
-    "proyectos_asignados": ["Brazo Robótico"]
+    "proyectos_asignados": [
+      "Brazo Robótico"
+    ]
   },
   {
     "id_usuario": 11,
@@ -105,7 +126,9 @@
     "carrera": "Ingeniería Electrónica",
     "email": "cristian.munoz@inacap.cl",
     "rol": "Integrante",
-    "proyectos_asignados": ["Impresora 3D"]
+    "proyectos_asignados": [
+      "Impresora 3D"
+    ]
   },
   {
     "id_usuario": 13,
@@ -123,7 +146,9 @@
     "carrera": "Automatización y Robótica",
     "email": "tomas.fuentes@inacap.cl",
     "rol": "Integrante",
-    "proyectos_asignados": ["Brazo Robótico"]
+    "proyectos_asignados": [
+      "Brazo Robótico"
+    ]
   },
   {
     "id_usuario": 15,
@@ -141,7 +166,9 @@
     "carrera": "Ingeniería Electrónica",
     "email": "ignacio.salazar@inacap.cl",
     "rol": "Integrante",
-    "proyectos_asignados": ["Impresora 3D"]
+    "proyectos_asignados": [
+      "Impresora 3D"
+    ]
   },
   {
     "id_usuario": 17,
@@ -159,7 +186,9 @@
     "carrera": "Ingeniería Industrial",
     "email": "gabriel.silva@inacap.cl",
     "rol": "Integrante",
-    "proyectos_asignados": ["Brazo Robótico"]
+    "proyectos_asignados": [
+      "Brazo Robótico"
+    ]
   },
   {
     "id_usuario": 19,
@@ -177,7 +206,9 @@
     "carrera": "Automatización y Robótica",
     "email": "vicente.morales@inacap.cl",
     "rol": "Integrante",
-    "proyectos_asignados": ["Impresora 3D"]
+    "proyectos_asignados": [
+      "Impresora 3D"
+    ]
   },
   {
     "id_usuario": 21,
@@ -195,7 +226,9 @@
     "carrera": "Ingeniería Electrónica",
     "email": "benjamin.araya@inacap.cl",
     "rol": "Integrante",
-    "proyectos_asignados": ["Brazo Robótico"]
+    "proyectos_asignados": [
+      "Brazo Robótico"
+    ]
   },
   {
     "id_usuario": 23,
@@ -213,7 +246,9 @@
     "carrera": "Ingeniería Industrial",
     "email": "lucas.navarro@inacap.cl",
     "rol": "Integrante",
-    "proyectos_asignados": ["Impresora 3D"]
+    "proyectos_asignados": [
+      "Impresora 3D"
+    ]
   },
   {
     "id_usuario": 25,
@@ -231,7 +266,9 @@
     "carrera": "Ingeniería Mecánica",
     "email": "maximiliano.bravo@inacap.cl",
     "rol": "Integrante",
-    "proyectos_asignados": ["Brazo Robótico"]
+    "proyectos_asignados": [
+      "Brazo Robótico"
+    ]
   },
   {
     "id_usuario": 27,
@@ -249,7 +286,9 @@
     "carrera": "Ingeniería Electrónica",
     "email": "diego.palma@inacap.cl",
     "rol": "Integrante",
-    "proyectos_asignados": ["Impresora 3D"]
+    "proyectos_asignados": [
+      "Impresora 3D"
+    ]
   },
   {
     "id_usuario": 29,
@@ -267,7 +306,9 @@
     "carrera": "Ingeniería Industrial",
     "email": "sebastian.tapia@inacap.cl",
     "rol": "Integrante",
-    "proyectos_asignados": ["Brazo Robótico"]
+    "proyectos_asignados": [
+      "Brazo Robótico"
+    ]
   },
   {
     "id_usuario": 31,
@@ -285,7 +326,9 @@
     "carrera": "Ingeniería Mecánica",
     "email": "emilio.castro@inacap.cl",
     "rol": "Integrante",
-    "proyectos_asignados": ["Impresora 3D"]
+    "proyectos_asignados": [
+      "Impresora 3D"
+    ]
   },
   {
     "id_usuario": 33,
@@ -303,7 +346,9 @@
     "carrera": "Ingeniería Electrónica",
     "email": "andres.figueroa@inacap.cl",
     "rol": "Integrante",
-    "proyectos_asignados": ["Brazo Robótico"]
+    "proyectos_asignados": [
+      "Brazo Robótico"
+    ]
   },
   {
     "id_usuario": 35,
@@ -321,7 +366,9 @@
     "carrera": "Ingeniería Industrial",
     "email": "francisco.guzman@inacap.cl",
     "rol": "Integrante",
-    "proyectos_asignados": ["Impresora 3D"]
+    "proyectos_asignados": [
+      "Impresora 3D"
+    ]
   },
   {
     "id_usuario": 37,
@@ -339,7 +386,9 @@
     "carrera": "Ingeniería Mecánica",
     "email": "pedro.herrera@inacap.cl",
     "rol": "Integrante",
-    "proyectos_asignados": ["Brazo Robótico"]
+    "proyectos_asignados": [
+      "Brazo Robótico"
+    ]
   },
   {
     "id_usuario": 39,
@@ -357,7 +406,9 @@
     "carrera": "Ingeniería Electrónica",
     "email": "rodrigo.reyes@inacap.cl",
     "rol": "Integrante",
-    "proyectos_asignados": ["Impresora 3D"]
+    "proyectos_asignados": [
+      "Impresora 3D"
+    ]
   },
   {
     "id_usuario": 41,
@@ -375,7 +426,9 @@
     "carrera": "Ingeniería Industrial",
     "email": "alejandro.rojas@inacap.cl",
     "rol": "Integrante",
-    "proyectos_asignados": ["Brazo Robótico"]
+    "proyectos_asignados": [
+      "Brazo Robótico"
+    ]
   },
   {
     "id_usuario": 43,
@@ -393,7 +446,9 @@
     "carrera": "Ingeniería Mecánica",
     "email": "cristobal.salinas@inacap.cl",
     "rol": "Integrante",
-    "proyectos_asignados": ["Impresora 3D"]
+    "proyectos_asignados": [
+      "Impresora 3D"
+    ]
   },
   {
     "id_usuario": 45,
@@ -411,7 +466,9 @@
     "carrera": "Ingeniería Electrónica",
     "email": "simon.castillo@inacap.cl",
     "rol": "Integrante",
-    "proyectos_asignados": ["Brazo Robótico"]
+    "proyectos_asignados": [
+      "Brazo Robótico"
+    ]
   },
   {
     "id_usuario": 47,
@@ -429,7 +486,9 @@
     "carrera": "Ingeniería Industrial",
     "email": "martin.perez@inacap.cl",
     "rol": "Integrante",
-    "proyectos_asignados": ["Impresora 3D"]
+    "proyectos_asignados": [
+      "Impresora 3D"
+    ]
   },
   {
     "id_usuario": 49,
@@ -447,6 +506,8 @@
     "carrera": "Ingeniería Mecánica",
     "email": "vicente.torres@inacap.cl",
     "rol": "Integrante",
-    "proyectos_asignados": ["Brazo Robótico"]
+    "proyectos_asignados": [
+      "Brazo Robótico"
+    ]
   }
 ]
