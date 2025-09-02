@@ -107,13 +107,13 @@
   <div
     class="bg-white p-8 md:p-12 md:w-1/2 flex items-center justify-center z-10 relative"
   >
-    <div class="w-full max-w-md rounded-2xl shadow-xl p-8 space-y-5">
+    <div class="w-full max-w-md rounded-2xl shadow-xl p-8 space-y-2">
       <div>
         <h1 class="text-3xl font-bold text-slate-900">Solicitud de ingreso</h1>
         <p class="text-gray-500 text-sm mt-1">Tomalo con responsabilidad</p>
       </div>
 
-      <form class="space-y-5">
+      <form class="space-y-2">
         <div>
           <label for="email" class="block text-sm font-medium text-gray-800"
             >Correo institucional</label
@@ -121,11 +121,17 @@
           <input
             name="emailId"
             [(ngModel)]="userRegisterObj.emailId"
+            required
+            pattern=".+@inacap\.cl$"
             id="emailId"
             type="text"
-            placeholder="correo@inacap.cl"
+            placeholder="correo@inacapmail.cl"
             class="w-full h-11 px-4 border border-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-800 text-gray-500"
           />
+          <span *ngIf="!isEmailValid()" class="text-red-500 text-sm">
+            Ingresa un correo válido de Inacap
+          </span>
+
         </div>
         <div>
           <label for="email" class="block text-sm font-medium text-gray-800"
@@ -145,6 +151,8 @@
             >Rut</label
           >
           <input
+            name="rut"
+            [(ngModel)]="userRegisterObj.rut"
             id="rut"
             type="text"
             placeholder="00.000.000-0"
@@ -157,6 +165,8 @@
             >Carrera</label
           >
           <input
+            name="carrera"
+            [(ngModel)]="userRegisterObj.carrera"
             id="carrera"
             type="text"
             placeholder="Selecciona tu carrera"
@@ -169,12 +179,28 @@
             >Telefono de contacto</label
           >
           <input
+            name="telefono"
+            [(ngModel)]="userRegisterObj.telefono"
             id="telefono"
             type="text"
             placeholder="+56 9 0000 0000"
             class="w-full h-11 px-4 border border-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-800 text-gray-500"
           />
         </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-800 mb-1">Foto de perfil</label>
+          <div class="flex items-center gap-3">
+            <label
+              class="cursor-pointer w-full h-11 px-4 border border-gray-800 rounded-md flex items-center justify-between text-indigo-500 font-semibold hover:ring-2 hover:ring-indigo-800 transition"
+            >
+              {{ avatarName || 'Selecciona una foto' }}
+              <input type="file" class="hidden" (change)="onAvatarChange($event)" />
+            </label>
+          </div>
+        </div>
+
+
 
         <div>
           <label for="password" class="block text-sm font-medium text-gray-700"

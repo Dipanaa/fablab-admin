@@ -6,17 +6,17 @@ import {
   output,
   signal,
 } from '@angular/core';
-import { routes } from '../../app.routes';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { map, Subscription, finalize, filter } from 'rxjs';
+import { NavigationEnd, Router, RouterLink } from '@angular/router';
+import { map, Subscription, filter } from 'rxjs';
 
 @Component({
   selector: 'header-main',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './header.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+  user: any = {};
   //Menu
   toggleMenu = output<boolean>();
   toggleMenuValue = signal<boolean>(true);
@@ -36,6 +36,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
         map((route: NavigationEnd) => route.urlAfterRedirects)
       )
       .subscribe((url) => this.rutaActual.set(url.split('/').slice(1)));
+    const storedUser = localStorage.getItem('currentUser');
+    if (storedUser) {
+      this.user = JSON.parse(storedUser);
+    }
   }
 
   ngOnDestroy(): void {

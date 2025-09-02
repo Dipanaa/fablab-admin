@@ -1,8 +1,8 @@
 [
   {
     "projectId": 1,
-    "title": "Impresora 3D",
-    "description": "Desarrollo de una impresora 3D personalizada para prototipos rápidos.",
+    "title": "Impresora 3D ultramega super epicamente wandinga",
+    "description": "Desarrollo de una impresora 3D personalizada para prototipos rápidos. lorem ipsun lalal lololo nombrelargo lirililarila",
     "date": "01/05/2024",
     "imgUrl": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=400&q=80",
     "categoria": "impresion 3D",
@@ -10,7 +10,10 @@
       "id": 101,
       "nombre": "Cartera Impresión 3D",
       "descripcion": "Proyectos relacionados con tecnologías de impresión 3D.",
-      "integrantes": ["Ana López", "Carlos Pérez"]
+      "integrantes": [
+        "Ana López",
+        "Carlos Pérez"
+      ]
     }
   },
   {
@@ -24,7 +27,11 @@
       "id": 102,
       "nombre": "Cartera Electrónica",
       "descripcion": "Proyectos de automatización y electrónica.",
-      "integrantes": ["Luis Gómez", "María Torres", "Javier Ruiz"]
+      "integrantes": [
+        "Luis Gómez",
+        "María Torres",
+        "Javier Ruiz"
+      ]
     }
   },
   {
@@ -38,7 +45,9 @@
       "id": 103,
       "nombre": "Cartera Corte Láser",
       "descripcion": "Proyectos con enfoque en diseño asistido por láser.",
-      "integrantes": ["Sofía Martínez"]
+      "integrantes": [
+        "Sofía Martínez"
+      ]
     }
   },
   {
@@ -52,7 +61,10 @@
       "id": 104,
       "nombre": "Cartera Domótica",
       "descripcion": "Proyectos de automatización del hogar.",
-      "integrantes": ["Pedro Sánchez", "Lucía Fernández"]
+      "integrantes": [
+        "Pedro Sánchez",
+        "Lucía Fernández"
+      ]
     }
   },
   {
@@ -66,7 +78,11 @@
       "id": 105,
       "nombre": "Cartera Drones",
       "descripcion": "Proyectos con tecnologías mixtas y movilidad.",
-      "integrantes": ["Miguel Ángel", "Elena Castro", "Raúl Díaz"]
+      "integrantes": [
+        "Miguel Ángel",
+        "Elena Castro",
+        "Raúl Díaz"
+      ]
     }
   },
   {
@@ -80,7 +96,9 @@
       "id": 106,
       "nombre": "Cartera Medio Ambiente",
       "descripcion": "Proyectos orientados a la sostenibilidad y monitoreo ambiental.",
-      "integrantes": ["Valeria Romero"]
+      "integrantes": [
+        "Valeria Romero"
+      ]
     }
   }
 ]

@@ -1,5 +1,5 @@
 <div
-  class="card bg-white text-gray-900 shadow-xl flex flex-col w-full h-[22rem] sm:h-[22rem] md:h-[24rem] lg:h-[22rem] xl:h-[24rem] max-w-full transition-transform duration-300 hover:scale-105 cursor-pointer dark:bg-base-100 dark:text-white"
+  class="card bg-white text-gray-900 shadow-xl flex flex-col w-90 h-96 max-w-xs transition-transform duration-300 hover:scale-105 cursor-pointer dark:bg-base-100 dark:text-white"
 >
   <!-- Imagen -->
   <figure class="w-full h-[55%] overflow-hidden">
@@ -11,21 +11,29 @@
   </figure>
 
   <!-- Contenido -->
-  <div class="card-body h-[45%] p-4">
+  <div class="card-body h-[45%] p-4 flex flex-col justify-between">
+    <!-- Título con corte -->
     <h2
-      class="card-title text-base sm:text-lg md:text-xl lg:text-xl xl:text-2xl"
-    >
-      {{ title() }}
-    </h2>
+  class="card-title text-base sm:text-lg md:text-xl font-semibold block w-full overflow-hidden whitespace-nowrap truncate"
+  title="{{ title() }}"
+  >
+    {{ title() }}
+  </h2>
 
-    <p class="text-sm sm:text-base md:text-base lg:text-base xl:text-lg">
-      Estado del proyecto: En desarrollo
-    </p>
-    <p class="text-sm sm:text-base md:text-base lg:text-base xl:text-lg">
-      Participantes:
-    </p>
-    <ul>
-      <li>Participante 1</li>
-    </ul>
+
+    <!-- Estado -->
+    <p class="text-sm sm:text-base">Estado del proyecto: En desarrollo</p>
+
+    <!-- Participantes con límite de altura -->
+    <div class="overflow-hidden">
+      <p class="text-sm sm:text-base font-medium">Participantes:</p>
+      <ul class="text-sm sm:text-base list-disc pl-5 max-h-12 overflow-y-auto">
+        <li>Participante 1</li>
+        <li>Participante 2</li>
+        <li>Participante 3</li>
+        <li>Participante 4</li>
+        <li>Participante 5</li>
+      </ul>
+    </div>
   </div>
 </div>
