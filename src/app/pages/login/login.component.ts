@@ -1,13 +1,32 @@
 import { Component, inject } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'login',
   templateUrl: './login.component.html',
-  imports: [FormsModule],
+  imports: [FormsModule, ReactiveFormsModule],
 })
 export class LoginComponent {
+
+  //TODO: Crear servicio auth
+  formBuilder = inject(FormBuilder);
+
+  //Formularios
+
+  fbLogin: FormGroup = this.formBuilder.group({
+    "email":["",[Validators.required]],
+    "contrasena":["",[Validators.required]]
+  });
+
+
+  fbRegister:FormGroup = this.formBuilder.group({});
+
+
+
+
+
+
   isLoginView: boolean = true;
 
   userRegisterObj: any = {
@@ -38,22 +57,11 @@ export class LoginComponent {
   }
 
   onLogin() {
-    const isLocalData = localStorage.getItem('localData');
-    if (isLocalData != null) {
-      const users = JSON.parse(isLocalData);
+    console.log(this.fbLogin.value);
 
-      const isUserFound = users.find(
-        (m: any) =>
-          m.emailId == this.userLogin.emailId &&
-          m.password == this.userLogin.password
-      );
-      if (isUserFound != undefined) {
-        this.router.navigateByUrl('layout');
-      } else {
-        alert('Correo o contraseña incorrecta');
-      }
-    } else {
-      alert('Usuario no encontrado');
-    }
+    //TODO: 1. Guarda el objeto en una variable 2. Crear interfaz de login
+
+
+
   }
 }

@@ -30,7 +30,7 @@ export class NewsComponent {
   }
 
   //Obtener Estado de la noticia
-  getState(estado: string){
+  getStateNew(estado: string){
 
     if(Object.hasOwn(this.newsState,estado)){
       return estado;
@@ -39,7 +39,7 @@ export class NewsComponent {
   }
 
   //Obtener Color de la noticia
-  getColor(estado: string){
+  getColorNew(estado: string){
      if(Object.hasOwn(this.newsState,estado)){
       return this.newsState[estado as keyof typeof this.newsState];
     }

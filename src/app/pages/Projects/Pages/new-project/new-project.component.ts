@@ -19,6 +19,9 @@ export class NewProjectComponent {
   //Tomamos referencias
   @ViewChild("successPost") successPost!: ElementRef;
 
+
+
+  //TODO: Igualar validadores a los del backend
   newProjectForm: FormGroup = this.formbuilder.group({
     titulo: ["",[Validators.required]],
     descripcionproyecto: [""],
