@@ -5,7 +5,7 @@ import { ProjectsInterface } from '../../interfaces/projects.interface';
 import { ProjectsService } from '../../../app/services/projects.service';
 
 @Component({
-  selector: 'projects-table',
+  selector: 'gestion-proyectos',
   standalone: true,
   imports: [NgFor],
   templateUrl: './projects-table.component.html',

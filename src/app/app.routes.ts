@@ -8,8 +8,9 @@ import { RequestComponent } from './pages/request/request.component';
 import { LoginComponent } from './auth/login/login.component';
 import { ProjectsTableComponent } from './pages/projects-table/projects-table.component';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
-import { AuthLayoutComponent } from './auth/layout/auth-layout/auth-layout.component';
 
+import { InventoryComponent } from './pages/inventory/inventory.component'
+import { AuthLayoutComponent } from './auth/layout/auth-layout/auth-layout.component';
 export const routes: Routes = [
   {
     path: '',
@@ -32,14 +33,15 @@ export const routes: Routes = [
           import('./pages/Projects/projects.routes').then((m) => m.default),
       },
       { path: 'usuarios', component: UsersComponent },
-      { path: 'projects-table', component: ProjectsTableComponent },
+      { path: 'gestion-proyectos', component: ProjectsTableComponent },
       {
         path: 'noticias',
         loadChildren: () =>
           import('./pages/News/news.routes').then((m) => m.default),
       },
       { path: 'solicitudes', component: RequestComponent },
-      { path: 'user-profile', component: UserProfileComponent },
+      { path: 'perfil-usuario', component: UserProfileComponent },
+      { path: 'inventario', component: InventoryComponent },
     ],
   },
 ];

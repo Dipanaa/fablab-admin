@@ -13,7 +13,6 @@ import { UsersService } from '../../services/users.service';
 })
 export class UsersComponent {
 
-
   usersService = inject(UsersService);
   listaUsuarios: any[] = dblocalusuarios;
   currentPage: number = 1;
@@ -23,6 +22,7 @@ export class UsersComponent {
   constructor() {
     // Llamada de prueba al iniciar
     this.usersService.obtenerUsuarios();
+    console.log(this.usersService.usuariosData());
   }
 
   // Ejemplos para pruebas
@@ -38,8 +38,16 @@ export class UsersComponent {
   // Paginacion
   // ---------------------------
 
+
+  //Esto esta hardcodeado!!!!!!!!!!!!!!!!!!! 
+  listaUsuarios: any[] = dblocalusuarios;
+  currentPage: number = 1;
+  itemsPerPage: number = 6;
+  get totalPages(): number {
+
   //Esto esta hardcodeado!!!!!!!!!!!!!!!!!!!
   totalPages(): number {
+
     return Math.ceil(this.listaUsuarios.length / this.itemsPerPage);
   }
 
