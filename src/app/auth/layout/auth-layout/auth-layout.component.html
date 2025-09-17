@@ -38,13 +38,12 @@
 
   @if (isLoginView()) {
     <div class="md:w-1/2">
-      <login/>
-
+      <login (loginMode)="isLoginView.set($event)"/>
     </div>
 
   }@else{
     <div class="md:w-1/2">
-      <register/>
+      <register (registerMode)="isLoginView.set($event)"/>
     </div>
   }
 </div>

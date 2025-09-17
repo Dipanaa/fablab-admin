@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, output, signal } from '@angular/core';
 import { FormsModule, FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgIf } from '@angular/common';
@@ -11,8 +11,11 @@ import { NgIf } from '@angular/common';
 })
 export class LoginComponent {
 
+  //Servicios
   formBuilder = inject(FormBuilder);
-  isLoginView = signal<boolean>(true);
+
+  //Atributos
+  loginMode = output<boolean>();
 
   //Formularios
 
@@ -24,13 +27,18 @@ export class LoginComponent {
 
   fbRegister:FormGroup = this.formBuilder.group({});
 
-
+  //Form de login
   onLogin() {
 
     console.log(this.fbLogin.value);
 
     //TODO: 1. Guarda el objeto en una variable 2. Crear interfaz de login
 
+  }
+
+  //Emitir valor de login
+  loginModeEmit(){
+    this.loginMode.emit(false);
   }
 
 }

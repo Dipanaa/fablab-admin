@@ -10,10 +10,6 @@ import { RegisterComponent } from '../../register/register/register.component';
 export class AuthLayoutComponent {
 
   //Toggle modo de ingreso
-  isLoginView = input<boolean>(false);
-
-
-
-
+  isLoginView = signal<boolean>(true);
 
 }

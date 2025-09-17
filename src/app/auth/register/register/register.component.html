@@ -7,7 +7,7 @@
         <p class="text-gray-500 text-sm mt-1">Tomalo con responsabilidad</p>
       </div>
 
-      <form class="space-y-2">
+      <form class="space-y-2" [formGroup]="fbRegister" (ngSubmit)="registerUser()">
         <div>
           <label for="email" class="block text-sm font-medium text-gray-800"
             >Correo institucional</label
@@ -15,11 +15,11 @@
           <input
             name="emailId"
             required
-            pattern=".+@inacap\.cl$"
             id="emailId"
             type="text"
             placeholder="correo@inacapmail.cl"
             class="w-full h-11 px-4 border border-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-800 text-gray-500"
+            formControlName="email"
           />
 
         </div>
@@ -28,11 +28,19 @@
             >Nombre</label
           >
           <input
-            name="userName"
-            id="userName"
-            type="text"
             placeholder="Nombre"
             class="w-full h-11 px-4 border border-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-800 text-gray-500"
+            formControlName="nombre"
+          />
+        </div>
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-800"
+            >Apellido</label
+          >
+          <input
+            placeholder="Apellido"
+            class="w-full h-11 px-4 border border-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-800 text-gray-500"
+            formControlName="apellido"
           />
         </div>
         <div>
@@ -45,6 +53,7 @@
             type="text"
             placeholder="00.000.000-0"
             class="w-full h-11 px-4 border border-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-800 text-gray-500"
+            formControlName="rut"
           />
         </div>
 
@@ -58,6 +67,7 @@
             type="text"
             placeholder="Selecciona tu carrera"
             class="w-full h-11 px-4 border border-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-800 text-gray-500"
+            formControlName="carrera"
           />
         </div>
 
@@ -71,6 +81,7 @@
             type="text"
             placeholder="+56 9 0000 0000"
             class="w-full h-11 px-4 border border-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-800 text-gray-500"
+            formControlName="telefono"
           />
         </div>
 
@@ -95,13 +106,10 @@
             id="password"
             type="password"
             placeholder="••••••••"
-            class="w-full h-11 px-4 text-gray-500 border border-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600"
+            lass="w-full h-11 px-4 text-gray-500 border border-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600"
+            formControlName="contrasena"
           />
-          <div class="text-right mt-1">
-            <a href="#" class="text-indigo-600 text-sm hover:underline"
-              >¿Olvidaste tu contraseña?</a
-            >
-          </div>
+
         </div>
 
         <button
@@ -113,8 +121,8 @@
         <div class="flex gap1 mt-1 items-end gap-1 justify-self-end">
           <p class="text-gray-500">¿Ya tienes una cuenta?</p>
           <a
-            href="#"
-            class="text-indigo-600 text-md hover:underline"
+            class="text-indigo-600 text-md hover:underline cursor-pointer"
+            (click)="registerModeEmit()"
           >
             Inicia sesion</a
           >

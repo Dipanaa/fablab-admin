@@ -4,6 +4,7 @@ import {
   Component,
   effect,
   ElementRef,
+  inject,
   input,
   Renderer2,
   signal,
@@ -20,17 +21,24 @@ import { Observable, Subscription } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidebarComponent implements AfterViewInit {
+
+  //Inyeccion servicios
+  render = inject(Renderer2)
+
+
   @ViewChild('sideMenu') sideMenu!: ElementRef;
   @ViewChild('navItems') navItems!: ElementRef;
 
-  //Activaacion de Menu
+  //Activacion de Menu
   menuActivate = input<boolean>(false);
 
+
+  //Ocultar o mostrar sidebar con observable
   observadorMenuChanges$?: Observable<boolean>;
   menuControllerObservable$?: Subscription;
 
 
-  constructor(private render: Renderer2) {
+  constructor() {
     this.observadorMenuChanges$ = toObservable(this.menuActivate);
   }
 
