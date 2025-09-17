@@ -1,6 +1,6 @@
 import { Component, input, signal } from '@angular/core';
 import { LoginComponent } from '../../login/login.component';
-import { RegisterComponent } from '../../register/register/register.component';
+import { RegisterComponent } from '../../register/register.component';
 
 @Component({
   selector: 'auth-layout',

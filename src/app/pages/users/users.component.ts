@@ -38,13 +38,6 @@ export class UsersComponent {
   // Paginacion
   // ---------------------------
 
-
-  //Esto esta hardcodeado!!!!!!!!!!!!!!!!!!! 
-  listaUsuarios: any[] = dblocalusuarios;
-  currentPage: number = 1;
-  itemsPerPage: number = 6;
-  get totalPages(): number {
-
   //Esto esta hardcodeado!!!!!!!!!!!!!!!!!!!
   totalPages(): number {
 
