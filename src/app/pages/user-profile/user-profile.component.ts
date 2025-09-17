@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule} from '@angular/forms';
 
 @Component({
-  selector: 'user-profile',
+  selector: 'perfil-usuario',
   imports: [FormsModule, NgIf],
   templateUrl: './user-profile.component.html'
 })
