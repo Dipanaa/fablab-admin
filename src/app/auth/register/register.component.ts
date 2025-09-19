@@ -1,5 +1,7 @@
 import { Component, output, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { passwordRegisterValidator } from '../../utils/FormsValidations/registerValidators';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'register',
@@ -10,6 +12,7 @@ export class RegisterComponent {
 
   //Servicios
   formBuilder = inject(FormBuilder);
+  authService = inject(AuthService);
 
   //Atributos
   registerMode = output<boolean>();
@@ -21,7 +24,7 @@ export class RegisterComponent {
     rut:["",[Validators.required,Validators.pattern(/\b[0-9|.]{1,10}\-[K|k|0-9]/gmi)]],
     carrera:["",[Validators.required]],
     telefono:["",[Validators.required,Validators.minLength(9)]],
-    contrasena:["",[Validators.required]] //TODO: Agregar validacion de contraseña con mayusculua y caracteres especiales
+    contrasena:["",[Validators.required,Validators.minLength(5),passwordRegisterValidator()]]
   });
 
    //Emitir valor de register
@@ -29,12 +32,14 @@ export class RegisterComponent {
     this.registerMode.emit(true);
   }
 
+  //Post de registro
   registerUser(){
     if(this.fbRegister.invalid){
-      console.log(this.fbRegister.controls["rut"].errors);
+      console.log(this.fbRegister.controls["contrasena"].errors);
       return;
     }
     console.log(this.fbRegister.value);
+    this.authService.registerUser(this.fbRegister.value);
   }
 
 
