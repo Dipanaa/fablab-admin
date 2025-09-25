@@ -41,7 +41,7 @@
             {{ producto.stock <= producto.stockMin ? 'Bajo stock' : 'Disponible' }}
           </span>
         </td>
-        <td class="px-4 py-2 border border-gray-600 space-x-2">
+        <td class="px-4 py-2 border border-gray-600 space-x-2 text-center">
           <button class="bg-indigo-600 text-white px-3 py-1 rounded hover:bg-indigo-700"
             (click)="openModal(producto, 'view')">Ver</button>
           <button class="bg-yellow-600 text-white px-3 py-1 rounded hover:bg-yellow-700"

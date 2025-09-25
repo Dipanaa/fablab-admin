@@ -116,6 +116,8 @@
       </thead>
       <tbody class="bg-white divide-y divide-gray-200">
         <tr *ngFor="let usuario of usersService.usuariosData()">
+          
+          <!-- Foto, nombre, correo -->
           <td class="px-4 py-4 whitespace-nowrap">
             <div class="flex items-center">
               <div class="flex-shrink-0 h-10 w-10">
@@ -135,15 +137,23 @@
               </div>
             </div>
           </td>
+
+          <!-- Rut -->
           <td class="px-4 py-4 whitespace-nowrap">
             <div class="text-sm text-gray-500">{{ usuario.rut }}</div>
           </td>
+
+          <!-- Carrera -->
           <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
             {{ usuario.carrera }}
           </td>
+
+          <!-- Rol -->
           <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
             {{ usuario.rol }}
           </td>
+
+          <!-- Proyectos -->
           <td
             class="px-4 py-4 min-w-[150px] max-w-[200px] text-sm text-gray-500 align-top"
           >
@@ -159,6 +169,8 @@
               </ol>
             </div>
           </td>
+
+          <!-- Acciones -->
           <td class="px-3 py-4 whitespace-nowrap text-sm font-medium">
             <a
               (click)="editarUsuario(usuario.id_usuario)"
@@ -171,6 +183,7 @@
               >Eliminar</a
             >
           </td>
+
         </tr>
       </tbody>
     </table>
