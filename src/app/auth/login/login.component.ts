@@ -1,7 +1,8 @@
-import { Component, inject, output, signal } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, output, signal } from '@angular/core';
 import { FormsModule, FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from '../auth.service';
+import { passwordValidator } from '../../utils/FormsValidations/authValidators';
 import { Router } from '@angular/router';
-import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'login',
@@ -9,34 +10,40 @@ import { NgIf } from '@angular/common';
 
   imports: [FormsModule, ReactiveFormsModule],
 })
-export class LoginComponent {
+export class LoginComponent{
 
   //Servicios
   formBuilder = inject(FormBuilder);
+  authService = inject(AuthService);
+  router = inject(Router);
 
   //Atributos
   loginMode = output<boolean>();
 
   //Formularios
-
   fbLogin: FormGroup = this.formBuilder.group({
     "email":["",[Validators.required]],
-    "contrasena":["",[Validators.required]]
+    "contrasena":["",[Validators.required,Validators.minLength(5),passwordValidator()]]
   });
 
-
-  fbRegister:FormGroup = this.formBuilder.group({});
-
   //Form de login
-  onLogin() {
+  loginUser() {
+    if(this.fbLogin.invalid){
+      console.log(this.fbLogin.controls["contrasena"].errors);
+      this.fbLogin.reset();
+      return;
+    }
+    this.authService.loginUser(this.fbLogin.value)
+    .subscribe((autenticacionCorrecta)=>{
+      if(autenticacionCorrecta){
+        this.router.navigateByUrl("/inicio");
+        return;
+      }
 
-    console.log(this.fbLogin.value);
-
-    //TODO: 1. Guarda el objeto en una variable 2. Crear interfaz de login
-
+    });
   }
 
-  //Emitir valor de login
+  //Emitir valor de login para cambiar a register
   loginModeEmit(){
     this.loginMode.emit(false);
   }

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import dblocalusuarios from '../../data/dblocalusuarios.json';
 import { UsersService } from '../../services/users.service';
@@ -17,7 +17,6 @@ export class UsersComponent {
   listaUsuarios: any[] = dblocalusuarios;
   currentPage: number = 1;
   itemsPerPage: number = 6;
-
 
   constructor() {
     // Llamada de prueba al iniciar

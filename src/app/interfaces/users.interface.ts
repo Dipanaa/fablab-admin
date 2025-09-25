@@ -6,6 +6,6 @@ export interface UsersInterface {
   rut: string;
   carrera: string;
   email: string;
-  rol: string;
+  rol?: string | null;
   proyectos_asignados?: ProjectsInterface[];
 }

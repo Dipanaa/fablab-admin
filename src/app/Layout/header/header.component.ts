@@ -1,15 +1,16 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  inject,
   OnDestroy,
   OnInit,
   output,
   signal,
 } from '@angular/core';
 
-import { routes } from '../../app.routes';
-import { ActivatedRoute, NavigationEnd, Router, RouterLink } from '@angular/router';
+import {  NavigationEnd, Router, RouterLink } from '@angular/router';
 import { map, Subscription, finalize, filter } from 'rxjs';
+import { AuthService } from '../../auth/auth.service';
 
 
 @Component({
@@ -20,7 +21,13 @@ import { map, Subscription, finalize, filter } from 'rxjs';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   user: any = {};
-  //Menu
+
+  //Servicios
+  authService = inject(AuthService);
+  router = inject(Router);
+
+
+  //Atributos
   toggleMenu = output<boolean>();
   toggleMenuValue = signal<boolean>(true);
 
@@ -59,5 +66,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
     this.toggleMenu.emit(this.toggleMenuValue());
     this.toggleMenuValue.set(true);
+  }
+
+  //Cerrar sesion del usuario
+  closeSesionButton(){
+    this.authService.closeSesion();
+    this.router.navigateByUrl("/auth");
   }
 }

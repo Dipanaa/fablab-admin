@@ -1,6 +1,7 @@
 import { NgIf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule} from '@angular/forms';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'perfil-usuario',
@@ -8,6 +9,11 @@ import { FormsModule} from '@angular/forms';
   templateUrl: './user-profile.component.html'
 })
 export class UserProfileComponent implements OnInit {
+
+  //Servicios
+  authService = inject(AuthService);
+
+  //Atributos
   editMode = false;
   user: any = {};
 

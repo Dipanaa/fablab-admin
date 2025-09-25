@@ -20,7 +20,7 @@ export function UsersApitoUsers(responseDataUser: UserResponse): UsersInterface{
 
 
 //Este mapea a array
-export function UserApiToUsersArray(responseDataUser: UserResponse[]):UsersInterface[]{
+export function UserApiToUsersArray(responseDataUser: UserResponse[]): UsersInterface[]{
   return responseDataUser.map((userResponseObj) => UsersApitoUsers(userResponseObj))
 
 }

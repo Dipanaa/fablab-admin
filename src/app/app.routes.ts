@@ -1,29 +1,25 @@
 import { Routes } from '@angular/router';
 import { LayoutComponent } from './Layout/layout.component';
-import { AllProjectsComponent } from './pages/Projects/Pages/all-projects/all-projects.component';
-import { NewsComponent } from './pages/News/News.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { UsersComponent } from './pages/users/users.component';
 import { RequestComponent } from './pages/request/request.component';
-import { LoginComponent } from './auth/login/login.component';
 import { ProjectsTableComponent } from './pages/projects-table/projects-table.component';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 
 import { InventoryComponent } from './pages/inventory/inventory.component'
 import { AuthLayoutComponent } from './auth/layout/auth-layout/auth-layout.component';
 import { Error404Component } from './pages/error404/error404.component';
+import { NotAuthenticatedGuard } from './auth/guards/not-authenticated.guard';
+import { isGeneralAuthenticatedGuard } from './guards/isGeneralAuthenticated.guard';
 export const routes: Routes = [
-  {
-    path: '',
-    redirectTo: 'auth',
-    pathMatch: 'full',
-  },
   {
     path: 'auth',
     component: AuthLayoutComponent,
+    canMatch: [NotAuthenticatedGuard]
   },
   {
     path: '',
+    canMatch: [isGeneralAuthenticatedGuard],
     component: LayoutComponent,
     children: [
       { path: 'layout', redirectTo: 'inicio', pathMatch: 'full' },
@@ -45,5 +41,9 @@ export const routes: Routes = [
       { path: 'inventario', component: InventoryComponent },
       { path: '**', component: Error404Component },
     ],
+  },
+  {
+    path: '**',
+    redirectTo: 'auth',
   },
 ];
