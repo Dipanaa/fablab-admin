@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
-import dblocalusuarios from '../../data/dblocalusuarios.json';
+import { NgFor} from '@angular/common';
 import { UsersService } from '../../services/users.service';
 
 
@@ -14,9 +13,9 @@ import { UsersService } from '../../services/users.service';
 export class UsersComponent {
 
   usersService = inject(UsersService);
-  listaUsuarios: any[] = dblocalusuarios;
-  currentPage: number = 1;
-  itemsPerPage: number = 6;
+
+  paginaActual: number = 1;
+  usuariosPorPagina: number = 6;
 
   constructor() {
     // Llamada de prueba al iniciar
@@ -36,21 +35,27 @@ export class UsersComponent {
   // ---------------------------
   // Paginacion
   // ---------------------------
-
-  //Esto esta hardcodeado!!!!!!!!!!!!!!!!!!!
   totalPages(): number {
-
-    return Math.ceil(this.listaUsuarios.length / this.itemsPerPage);
+    const totalUsuarios = this.usersService.usuariosData().length;
+    return Math.ceil(totalUsuarios / this.usuariosPorPagina);
   }
 
   usuariosPaginados() {
-    const start = (this.currentPage - 1) * this.itemsPerPage;
-    return this.listaUsuarios.slice(start, start + this.itemsPerPage);
+    //Obtenemos la lista completa de usuarios 
+    const listaCompleta = this.usersService.usuariosData()
+
+    // Calculamos el inicio y fin del pedaso que se mostrara
+    const start = (this.paginaActual - 1) * this.usuariosPorPagina;
+    const end = start + this.usuariosPorPagina;
+    
+    // Devolvemos solo la porción de la página actual
+    return listaCompleta.slice(start, end);
+    
   }
 
   paginasCompactas(): number[] {
     const total = this.totalPages();
-    const actual = this.currentPage;
+    const actual = this.paginaActual;
     const delta = 2; // Cuántos botones antes y después del actual
 
     const range: number[] = [];
@@ -81,7 +86,7 @@ export class UsersComponent {
 
   irAPagina(pagina: number) {
     if (pagina >= 1 && pagina <= this.totalPages()) {
-      this.currentPage = pagina;
+      this.paginaActual = pagina;
     }
   }
 }

@@ -64,33 +64,67 @@
     (decline)="closeModal()"
     (close)="closeModal()"
   >
-    <!-- Formulario para edición -->
+    <!-- Formulario dentro del modal para editar producto -->
     <div *ngIf="modalMode === 'edit'" class="space-y-3">
+
+      <!-- Campo: Nombre -->
       <label class="block">
         <span class="text-gray-300">Nombre</span>
-        <input [(ngModel)]="selectedProducto.nombre" class="w-full mt-1 p-2 bg-gray-800 rounded text-gray-200" />
+        <input
+          [(ngModel)]="selectedProducto.nombre"
+          class="w-full mt-1 p-2 bg-gray-800 rounded text-gray-200"
+        />
       </label>
+
+      <!-- Campo: Categoría -->
       <label class="block">
         <span class="text-gray-300">Categoría</span>
-        <input [(ngModel)]="selectedProducto.categoria" class="w-full mt-1 p-2 bg-gray-800 rounded text-gray-200" />
+        <input
+          [(ngModel)]="selectedProducto.categoria"
+          class="w-full mt-1 p-2 bg-gray-800 rounded text-gray-200"
+        />
       </label>
+
+      <!-- Campo: Stock actual -->
       <label class="block">
         <span class="text-gray-300">Stock</span>
-        <input type="number" [(ngModel)]="selectedProducto.stock" class="w-full mt-1 p-2 bg-gray-800 rounded text-gray-200" />
+        <input
+          type="number"
+          [(ngModel)]="selectedProducto.stock"
+          class="w-full mt-1 p-2 bg-gray-800 rounded text-gray-200"
+        />
       </label>
+
+      <!-- Campo: Stock mínimo permitido -->
       <label class="block">
         <span class="text-gray-300">Stock mínimo</span>
-        <input type="number" [(ngModel)]="selectedProducto.stockMin" class="w-full mt-1 p-2 bg-gray-800 rounded text-gray-200" />
+        <input
+          type="number"
+          [(ngModel)]="selectedProducto.stockMin"
+          class="w-full mt-1 p-2 bg-gray-800 rounded text-gray-200"
+        />
       </label>
+
+      <!-- Campo: Ubicación física -->
       <label class="block">
         <span class="text-gray-300">Ubicación</span>
-        <input [(ngModel)]="selectedProducto.ubicacion" class="w-full mt-1 p-2 bg-gray-800 rounded text-gray-200" />
+        <input
+          [(ngModel)]="selectedProducto.ubicacion"
+          class="w-full mt-1 p-2 bg-gray-800 rounded text-gray-200"
+        />
       </label>
+
+      <!-- Campo: Descripción del producto -->
       <label class="block">
         <span class="text-gray-300">Descripción</span>
-        <textarea [(ngModel)]="selectedProducto.descripcion" class="w-full mt-1 p-2 bg-gray-800 rounded text-gray-200"></textarea>
+        <textarea
+          [(ngModel)]="selectedProducto.descripcion"
+          class="w-full mt-1 p-2 bg-gray-800 rounded text-gray-200"
+        ></textarea>
       </label>
+
     </div>
+
 
     <!-- Mensaje de confirmación para eliminar -->
     <p *ngIf="modalMode === 'delete'" class="text-red-400">

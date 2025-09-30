@@ -3,7 +3,6 @@ import { IndividualProjectComponent } from './Pages/individual-project/individua
 import { AllProjectsComponent } from './Pages/all-projects/all-projects.component';
 import { NewProjectComponent } from './Pages/new-project/new-project.component';
 import { ProjectUpdateComponent } from './Pages/project-update/project-update.component';
-import { Error404Component } from '../error404/error404.component';
 
 export const routes: Routes = [
   {
@@ -21,10 +20,6 @@ export const routes: Routes = [
   {
     path: ':id', // Vista individual de un proyecto, ej: /123
     component: IndividualProjectComponent,
-  },
-  {
-    path: '**',
-    component: Error404Component, // Redirección por defecto
   },
 ];
 

@@ -115,7 +115,7 @@
         </tr>
       </thead>
       <tbody class="bg-white divide-y divide-gray-200">
-        <tr *ngFor="let usuario of usersService.usuariosData()">
+        <tr *ngFor="let usuario of usuariosPaginados()">
           
           <!-- Foto, nombre, correo -->
           <td class="px-4 py-4 whitespace-nowrap">
@@ -196,8 +196,8 @@
     <div class="flex items-center gap-8">
       <!-- Anterior -->
       <button
-        (click)="irAPagina(currentPage - 1)"
-        [disabled]="currentPage === 1"
+        (click)="irAPagina(paginaActual - 1)"
+        [disabled]="paginaActual === 1"
         class="rounded-md border border-slate-300 p-2.5 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-200 hover:text-white hover:bg-slate-800 hover:border-slate-800 focus:text-white focus:bg-slate-400 focus:border-slate-800 active:border-slate-800 active:text-white active:bg-slate-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
         type="button"
       >
@@ -217,14 +217,14 @@
 
       <!-- Texto -->
       <p class="text-slate-600">
-        Página <strong class="text-slate-800">{{ currentPage }}</strong> de
+        Página <strong class="text-slate-800">{{ paginaActual }}</strong> de
         <strong class="text-slate-800">{{ totalPages() }}</strong>
       </p>
 
       <!-- Siguiente -->
       <button
-        (click)="irAPagina(currentPage + 1)"
-        [disabled]="currentPage === totalPages()"
+        (click)="irAPagina(paginaActual + 1)"
+        [disabled]="paginaActual === totalPages()"
         class="rounded-md border border-slate-300 p-2.5 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-slate-800 hover:border-slate-800 focus:text-white focus:bg-slate-800 focus:border-slate-800 active:border-slate-800 active:text-white active:bg-slate-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
         type="button"
       >
