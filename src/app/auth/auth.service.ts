@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, OnInit, signal } from '@angular/core';
 import { TokenJwt } from '../interfaces/authResponses/tokenJwt.interface';
 import { UserResponseAuth } from '../interfaces/authResponses/userResponseAuth.interface';
-import { Observable, tap, map, catchError, of } from 'rxjs';
+import { Observable, tap, map, catchError, of, finalize, delay } from 'rxjs';
 import { rxResource } from '@angular/core/rxjs-interop';
 
 
@@ -14,9 +14,12 @@ export class AuthService{
 //TODO:Estado de authenticacion (verificar)
   //Servicios
   private _httpClient = inject(HttpClient);
+
+  //Atributos
   private _jwtToken = signal< TokenJwt | null >(null);
   private _autenticacion = signal<boolean>(false);
   userData = signal<UserResponseAuth | null>(null);
+  registerLoader = signal<boolean>(false);
 
   //Getter de autenticacion
   Autenticacion = computed(()=>{
@@ -53,19 +56,18 @@ export class AuthService{
   }
 
   //Postear usuarios
-  registerUser(formRegister: any): void{
-    this._httpClient.post("http://localhost:5263/api/autenticacion/usuarios/registro",formRegister)
-    .subscribe({
-      next: () => {
-        console.log("El usuario fue registrado con exito",);
-      },
-      error: (err) => {
-        console.log("Hubo un error al ingresar al usuario",err);
-      },
-      complete: () => {
-        console.log("Se completo la peticion post register");
-      }
-    })
+  registerUser(formRegister: any): Observable<boolean>{
+    return this._httpClient.post("http://localhost:5263/api/autenticacion/usuarios/registro",formRegister)
+    .pipe(
+      delay(4000),
+      map(()=> true),
+      finalize(()=>{
+        this.registerLoader.set(false);
+        console.log("Estado carga registro finalizado");
+      }),
+      catchError(()=> of(false))
+    )
+
   }
 
   //Renovar token

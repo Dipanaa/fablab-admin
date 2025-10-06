@@ -1,28 +1,31 @@
-import { Component, ElementRef, inject, input, OnInit, Renderer2, signal, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, input, OnInit, output, Renderer2, signal, ViewChild } from '@angular/core';
 import { NewsService } from '../../../../../../services/news.service';
 import { News } from '../../../../../../interfaces/news.interface';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SuccessComponent } from '../../../../../../shared/success-component/success-component.component';
+import { ModalComponentComponent } from '../../../../../../shared/modal-component/modal-component.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'updatenew',
-  imports: [ReactiveFormsModule,SuccessComponent],
+  imports: [ReactiveFormsModule,SuccessComponent,ModalComponentComponent],
   templateUrl: './updatenew.component.html',
 })
 export class UpdatenewComponent implements OnInit{
 
+  //Servicios
   formbuilder = inject(FormBuilder);
-
-  //Inyectar servicio
   NewsService = inject(NewsService);
   renderer2 = inject(Renderer2);
+  router = inject(Router);
+
+  //Atributos
+  isModalOpen = false; //valor para activacion del modal
+  idUpdate = input<number>();
+  statusOutput = output<boolean>();
 
   //Referencia del dom
   @ViewChild("successPost") successPost!: ElementRef;
-
-
-  //Id para actualizar
-  idUpdate = input<number>();
 
   //DataForm
   dataFormUpdate = signal<News | undefined >(undefined);
@@ -39,27 +42,39 @@ export class UpdatenewComponent implements OnInit{
   });
 
 
-
   ngOnInit(): void {
-    //Buscar y poner data de noticia
-    this.dataFormUpdate.set(
-      this.NewsService.newsResponse()
-      .find((obj)=> obj.id === this.idUpdate()))
+  //Buscar y poner data de noticia
+  this.dataFormUpdate.set(
+    this.NewsService.newsResponse()
+    .find((obj)=> obj.id === this.idUpdate()))
 
     if(this.dataFormUpdate()){
       this.UpdateNewForm.patchValue(this.dataFormUpdate()!);
     }
-    console.log(this.dataFormUpdate(),"---- update");
-
   }
 
+  //Peticion para actualizar contenido
   submitUpdateContent(){
-    console.log(this.idUpdate());
-    this.renderer2.removeClass(this.successPost.nativeElement,"hidden");
-    this.renderer2.addClass(this.successPost.nativeElement,"flex");
     const newUpdate: News = this.UpdateNewForm.value;
     newUpdate.id = this.idUpdate()!;
     this.NewsService.putNew(this.idUpdate()!,newUpdate)
+    .subscribe((status)=>{
+      if(status){
+        this.statusOutput.emit(true);
+        this.router.navigateByUrl("/noticias");
+        return;
+      }
+    });
+
   }
 
+  //Abrir modal de confirmacion
+  openModal() {
+    this.isModalOpen = true;
+  }
+
+  //Cerrar modal de confirmacion
+  closeModal() {
+    this.isModalOpen = false;
+  }
 }

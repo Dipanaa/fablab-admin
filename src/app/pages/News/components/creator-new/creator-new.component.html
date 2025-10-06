@@ -25,9 +25,9 @@
           formControlName="titulo"
 
         />
-        @if(NewsFormsValidations.ValidateErrors("titulo", CreationNewForm)){
+        @if(CustomFormsValidations.ValidateErrors("titulo", CreationNewForm)){
           <span class="text-red-500">
-            {{NewsFormsValidations.ValidateErrors("titulo", CreationNewForm)}}
+            {{CustomFormsValidations.ValidateErrors("titulo", CreationNewForm)}}
           </span>
 
         }
@@ -47,9 +47,9 @@
           class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
           formControlName="epigrafe"
         />
-        @if(NewsFormsValidations.ValidateErrors("epigrafe", CreationNewForm)){
+        @if(CustomFormsValidations.ValidateErrors("epigrafe", CreationNewForm)){
           <span class="text-red-500">
-            {{NewsFormsValidations.ValidateErrors("epigrafe", CreationNewForm)}}
+            {{CustomFormsValidations.ValidateErrors("epigrafe", CreationNewForm)}}
           </span>
 
         }
@@ -70,9 +70,9 @@
           formControlName="autor"
 
         />
-        @if(NewsFormsValidations.ValidateErrors("autor", CreationNewForm)){
+        @if(CustomFormsValidations.ValidateErrors("autor", CreationNewForm)){
           <span class="text-red-500">
-            {{NewsFormsValidations.ValidateErrors("autor", CreationNewForm)}}
+            {{CustomFormsValidations.ValidateErrors("autor", CreationNewForm)}}
           </span>
 
         }

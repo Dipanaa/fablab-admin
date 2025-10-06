@@ -1,6 +1,13 @@
 <div
-    class="bg-white p-8 md:p-12 flex items-center justify-center z-10 relative"
+    class="bg-white h-full p-8 md:p-12 flex items-center justify-center z-10 relative"
   >
+    @if(statusMessage()){
+      <div class="absolute right-0 top-0 mr-2 mt-2">
+        <status-message [messageDisplay]="statusMessageText"/>
+      </div>
+
+    }
+
     <div class="w-full max-w-md rounded-2xl shadow-xl p-8 space-y-2">
       <div>
         <h1 class="text-3xl font-bold text-slate-900">Solicitud de ingreso</h1>
@@ -21,8 +28,16 @@
             class="w-full h-11 px-4 border border-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-800 text-gray-500"
             formControlName="email"
           />
-
         </div>
+        <div class="my-2">
+          @if(CustomFormsValidations.ValidateErrors("email",fbRegister)){
+            <span class="text-red-500">
+              {{CustomFormsValidations.ValidateErrors("email", fbRegister)}}
+            </span>
+          }
+        </div>
+
+
         <div>
           <label for="email" class="block text-sm font-medium text-gray-800"
             >Nombre</label
@@ -33,6 +48,15 @@
             formControlName="nombre"
           />
         </div>
+        <div class="my-2">
+          @if(CustomFormsValidations.ValidateErrors("nombre",fbRegister)){
+            <span class="text-red-500">
+              {{CustomFormsValidations.ValidateErrors("nombre", fbRegister)}}
+            </span>
+          }
+        </div>
+
+
         <div>
           <label for="email" class="block text-sm font-medium text-gray-800"
             >Apellido</label
@@ -43,6 +67,15 @@
             formControlName="apellido"
           />
         </div>
+        <div class="my-2">
+          @if(CustomFormsValidations.ValidateErrors("apellido",fbRegister)){
+            <span class="text-red-500">
+              {{CustomFormsValidations.ValidateErrors("apellido", fbRegister)}}
+            </span>
+          }
+        </div>
+
+
         <div>
           <label for="email" class="block text-sm font-medium text-gray-800"
             >Rut</label
@@ -55,6 +88,13 @@
             class="w-full h-11 px-4 border border-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-800 text-gray-500"
             formControlName="rut"
           />
+        </div>
+        <div class="my-2">
+          @if(CustomFormsValidations.ValidateErrors("rut",fbRegister)){
+            <span class="text-red-500">
+              {{CustomFormsValidations.ValidateErrors("rut", fbRegister)}}
+            </span>
+          }
         </div>
 
         <div>
@@ -70,6 +110,13 @@
             formControlName="carrera"
           />
         </div>
+        <div class="my-2">
+          @if(CustomFormsValidations.ValidateErrors("carrera",fbRegister)){
+            <span class="text-red-500">
+              {{CustomFormsValidations.ValidateErrors("carrera", fbRegister)}}
+            </span>
+          }
+        </div>
 
         <div>
           <label for="email" class="block text-sm font-medium text-gray-800"
@@ -84,6 +131,14 @@
             formControlName="telefono"
           />
         </div>
+        <div class="my-2">
+          @if(CustomFormsValidations.ValidateErrors("telefono",fbRegister)){
+            <span class="text-red-500">
+              {{CustomFormsValidations.ValidateErrors("telefono", fbRegister)}}
+            </span>
+          }
+        </div>
+
 
         <div>
           <label for="password" class="block text-sm font-medium text-gray-700"
@@ -97,15 +152,34 @@
             class="w-full h-11 px-4 text-gray-500 border border-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600"
             formControlName="contrasena"
           />
-
         </div>
+        <div class="my-2">
+          @if(CustomFormsValidations.ValidateErrors("contrasena",fbRegister)){
+            <span class="text-red-500">
+              {{CustomFormsValidations.ValidateErrors("contrasena", fbRegister)}}
+            </span>
+          }
+        </div>
+        @if(!authService.registerLoader()){
+          <button
+            type="submit"
+            class="w-full h-11 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-md transition cursor-pointer"
+          >
+            Enviar solicitud
+          </button>
 
-        <button
-          type="submit"
-          class="w-full h-11 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-md transition"
-        >
-          Enviar solicitud
-        </button>
+        }
+        @if(authService.registerLoader()){
+          <button
+            type="submit"
+            class="w-full h-11 bg-gray-400 text-white font-semibold rounded-md transition cursor-pointer flex justify-center items-center"
+            [disabled]=""
+          >
+          <img src="../../../assets/icons/Rolling@1x-1.0s-200px-200px (1).svg" alt="" class="h-7 w-7">
+          </button>
+        }
+
+
         <div class="flex gap1 mt-1 items-end gap-1 justify-self-end">
           <p class="text-gray-500">¿Ya tienes una cuenta?</p>
           <a
@@ -118,3 +192,5 @@
       </form>
     </div>
   </div>
+
+

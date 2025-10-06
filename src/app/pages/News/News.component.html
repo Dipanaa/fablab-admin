@@ -8,6 +8,14 @@
   <h1 class="text-2xl">Cargando contenido...</h1>
 }
 
+@if(statusMessage()){
+  <status-message [messageDisplay]="notificacionsStatusService.statusTextMessage()"/>
+}
+
+
+
+
+
 <div class="flex justify-between flex-wrap md:flex-nowrap w-full gap-2">
   <div>
     <h1 class="text-3xl font-bold">Administración de noticias</h1>
@@ -23,7 +31,7 @@
 
 
 @if(newsService.newsResponse().length){
-  <div class="container flex flex-col gap-2 sm:flex-row sm:flex-wrap h-screen mt-5">
+  <div class="container flex flex-col gap-2 sm:flex-row sm:flex-wrap mt-5">
     @for (new of newsService.newsResponse(); track $index; let idx = $index) {
     <div class="w-full sm:w-[360px]">
         <div class="rounded-lg overflow-hidden h-[600px] animate__animated animate__fadeInLeft">

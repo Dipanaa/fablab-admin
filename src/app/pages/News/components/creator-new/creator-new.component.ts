@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { News } from '../../../../interfaces/news.interface';
 import { NewsService } from '../../../../services/news.service';
 import { SuccessComponent } from "../../../../shared/success-component/success-component.component";
-import { NewsFormsValidations } from '../../../../utils/FormsValidations/newsValidations';
+import { CustomFormsValidations } from '../../../../utils/FormsValidations/CustomValidations';
 
 @Component({
   selector: 'app-creator-new',
@@ -15,7 +15,7 @@ export class CreatorNewComponent {
   newsService = inject(NewsService);
   formbuilder = inject(FormBuilder);
   renderer2 = inject(Renderer2);
-  NewsFormsValidations = NewsFormsValidations;
+  CustomFormsValidations = CustomFormsValidations;
 
 
 

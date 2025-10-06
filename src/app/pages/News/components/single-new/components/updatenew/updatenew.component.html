@@ -1,4 +1,4 @@
-<form autocomplete="off" class="bg-white mt-5" [formGroup]="UpdateNewForm" (ngSubmit)="submitUpdateContent()">
+<form autocomplete="off" class="bg-white mt-2" [formGroup]="UpdateNewForm" (ngSubmit)="openModal()">
   <label
       for="epigrafe"
       class="block text-base font-medium text-black p-2">
@@ -52,7 +52,7 @@
     type="text"
     name="name"
     id="content"
-    rows="10"
+    rows="5"
     placeholder="Descripcion de la noticia"
     class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-black text-md outline-none focus:border-[#6A64F1] focus:shadow-md resize-none "
     formControlName="contenido"
@@ -63,10 +63,18 @@
   </div>
 </form>
 
-<!-- Success post -->
-<div class="h-screen absolute top-0 w-full justify-center items-center z-10 bg-gray-400/50 hidden" #successPost>
-  <success-component [urlName]="'/noticias'" [tipoDePeticion]="'Actualizados'"></success-component>
-</div>
+
+<modal-component
+    [show]="isModalOpen"
+    [description]="'¿Desea actualizar esta noticia con los datos introducidos?'"
+    acceptText="Aceptar"
+    declineText="Rechazar"
+    (accept)="submitUpdateContent()"
+    (decline)="closeModal()"
+    (close)="closeModal()"
+  ></modal-component>
+
+
 
 
 

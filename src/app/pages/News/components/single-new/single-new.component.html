@@ -9,27 +9,38 @@
 
 </div>
 
-@if(editMode()) {
-  <updatenew [idUpdate]="id()"></updatenew>
-}@else {
-  <div class="w-full bg-white">
-    <div class="text-black bg-white p-5 w-[75%] mx-auto">
-      <p class="mb-2">{{singleNewsData()?.epigrafe}}</p>
-      <p>{{singleNewsData()?.fechaPublicacion}}</p>
-      <h1 class="font-bold text-4xl text-justify mx-auto">{{singleNewsData()?.titulo}}</h1>
-      <div class="mt-5 flex">
 
-        <div class="p-5 bg-amber-200 w-fit rounded-4xl">img</div>
-        <div class="my-auto ml-5">
-          <p>Autor: {{singleNewsData()?.autor}}</p>
-          <p class="font-bold">Miembro de laboratorio FabLab</p>
-        </div>
-
-      </div>
-      <p class="mt-5">{{singleNewsData()?.contenido}}</p>
-    </div>
-  </div>
+@if(resourceNews.isLoading()){
+  <h1>Cargando...</h1>
 }
+
+@if(resourceNews.hasValue()){
+  @if(editMode()) {
+    <updatenew [idUpdate]="idNew()"></updatenew>
+  }@else {
+    <div class="w-full bg-white">
+      <div class="text-black bg-white p-5 w-[75%] mx-auto">
+        <p class="mb-2">{{singleNewsData()?.epigrafe}}</p>
+        <p>{{singleNewsData()?.fechaPublicacion}}</p>
+        <h1 class="font-bold text-4xl text-justify mx-auto">{{singleNewsData()?.titulo}}</h1>
+        <div class="mt-5 flex">
+
+          <div class="p-5 bg-amber-200 w-fit rounded-4xl">img</div>
+          <div class="my-auto ml-5">
+            <p>Autor: {{singleNewsData()?.autor}}</p>
+            <p class="font-bold">Miembro de laboratorio FabLab</p>
+          </div>
+
+        </div>
+        <p class="mt-5">{{singleNewsData()?.contenido}}</p>
+      </div>
+    </div>
+  }
+}
+
+
+
+
 
 <!-- Success post -->
 <div class="h-screen absolute top-0 w-full justify-center items-center z-10 bg-gray-400/50 hidden" #successPost>

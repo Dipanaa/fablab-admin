@@ -1,13 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { News } from '../interfaces/news.interface';
-import { finalize, map, Observable } from 'rxjs';
+import { catchError, finalize, map, Observable, of, pipe, tap } from 'rxjs';
+import { NotificacionsStatusService } from './notificacionsStatus.service';
 
 
 @Injectable({providedIn: 'root'})
 export class NewsService {
 
+  //Servicios
   private httpclient = inject(HttpClient);
+  private notificacionsService = inject(NotificacionsStatusService);
 
   //News data
   newsResponse = signal<News[]>([]);
@@ -17,14 +20,12 @@ export class NewsService {
   errorHandler = signal<string | undefined>(undefined);
 
 
-
+  //Obtencion de noticias al inyectar servicios
   constructor() {
     this.getNews();
-    console.log("se obtienen noticias");
-    console.log(this.newsResponse());
-    console.log(this.newsLoading(),"<-----")
   }
 
+  //Metodo get news suscrito
   getNews(): void{
      if(this.newsLoading()){
       return;
@@ -47,6 +48,14 @@ export class NewsService {
         console.log(error);
       }
     }
+    );
+  }
+
+  //Metodo get news para rxResource
+  getNewsRxResource(): Observable<News[]>{
+    return this.httpclient.get<News[]>("http://localhost:5263/api/noticias")
+    .pipe(
+      tap((resp)=> this.newsResponse.set(resp))
     );
   }
 
@@ -76,6 +85,7 @@ export class NewsService {
 
   }
 
+
   deleteNew(newsId: number): void{
     this.httpclient.delete(`http://localhost:5263/api/noticias/${newsId}`).subscribe({
       next: () => {
@@ -91,22 +101,16 @@ export class NewsService {
 
   }
 
-  putNew(newsId:number,newUpdate:News){
-    this.httpclient.put(`http://localhost:5263/api/noticias/${newsId}`,newUpdate).subscribe({
-      next: () => {
-        console.log("El registro fue actualizado con exito");
-      },
-      error: (err) => {
-        console.log("Hubo un error al actualizar la noticia",err);
-      },
-      complete: () => {
-        console.log("Se completo la peticion put");
-      }
-    })
-
+  //Actualizar noticia por id
+  putNew(newsId:number,newUpdate:News): Observable<boolean>{
+    return this.httpclient.put(`http://localhost:5263/api/noticias/${newsId}`,newUpdate)
+    .pipe(
+      map(()=> {
+        this.notificacionsService.statusMessage.set(true);
+        this.notificacionsService.statusTextMessage.set("Estado de noticia actualizado");
+        return true;
+      }),
+      catchError(()=> of(false))
+    )
   }
-
-
-
-
 }
