@@ -1,7 +1,11 @@
 <div class="p-6 space-y-8">
   <!-- Hero -->
-  <div class="bg-gradient-to-r from-indigo-600 to-indigo-700 text-white p-6 rounded-2xl shadow-lg">
-    <h1 class="text-2xl font-bold">Bienvenido, {{ authService.userData()?.nombre || "Usuario" }} 👋</h1>
+  <div
+    class="bg-gradient-to-r from-indigo-600 to-indigo-700 text-white p-6 rounded-2xl shadow-lg"
+  >
+    <h1 class="text-2xl font-bold">
+      Bienvenido, {{ authService.userData()?.nombre || "Usuario" }} 👋
+    </h1>
     <p class="text-sm">Aquí encontrarás lo más reciente del FabLab.</p>
   </div>
 
@@ -10,24 +14,55 @@
     <div class="lg:col-span-2 space-y-6">
       <!-- Noticias -->
       <section>
-        <h2 class="text-xl font-semibold text-gray-200 mb-3">📰 Noticias recientes</h2>
+        <h2 class="text-xl font-semibold text-gray-200 mb-3">
+          📰 Noticias recientes
+        </h2>
         <div class="space-y-3">
-          <div *ngFor="let new of newsService.newsResponse()" class="bg-gray-800 p-4 rounded-xl shadow hover:shadow-lg transition">
-            <h3 class="text-lg font-bold text-indigo-400">{{ new.titulo}}</h3>
-            <p class="text-sm text-gray-400">{{ new.fechaPublicacion | date:"short"}}</p>
-            <p class="text-gray-300 mt-2">{{ new.contenido }}</p>
+          @for (new of newsService.newsResponse() | slice:0:2; track new.id) {
+
+          <a
+            [routerLink]="['/noticias', new.id]"
+            class="block bg-gray-800 p-4 rounded-xl shadow hover:bg-gray-700 transition cursor-pointer"
+          >
+            <h3
+              class="text-lg font-bold text-indigo-400 overflow-hidden text-ellipsis whitespace-nowrap"
+            >
+              {{ new.titulo }}
+            </h3>
+
+            <p class="text-sm text-gray-400">
+              {{ new.fechaPublicacion | date : "short" }}
+            </p>
+
+            <div
+              class="text-gray-300 mt-2 h-10 overflow-hidden text-ellipsis whitespace-nowrap"
+            >
+              {{ new.contenido }}
+            </div>
+          </a>
+          } @empty {
+          <div class="bg-gray-800 p-4 rounded-xl text-gray-400 text-center">
+            No hay noticias recientes para mostrar.
           </div>
+          }
         </div>
       </section>
 
       <!-- Proyectos destacados -->
       <section>
-        <h2 class="text-xl font-semibold text-gray-200 mb-3">⭐ Proyectos destacados</h2>
+        <h2 class="text-xl font-semibold text-gray-200 mb-3">
+          ⭐ Proyectos destacados
+        </h2>
         <div class="grid sm:grid-cols-2 gap-4">
-          <div *ngFor="let proyecto of proyectosDestacados" class="bg-gray-800 rounded-xl shadow overflow-hidden hover:shadow-lg transition">
+          <div
+            *ngFor="let proyecto of proyectosDestacados"
+            class="bg-gray-800 rounded-xl shadow overflow-hidden hover:shadow-lg transition"
+          >
             <img [src]="proyecto.img" class="w-full h-40 object-cover" />
             <div class="p-4">
-              <h3 class="text-lg font-bold text-indigo-400">{{ proyecto.titulo }}</h3>
+              <h3 class="text-lg font-bold text-indigo-400">
+                {{ proyecto.titulo }}
+              </h3>
               <p class="text-gray-300">{{ proyecto.autor }}</p>
               <p class="text-sm text-gray-400">{{ proyecto.categoria }}</p>
             </div>
@@ -40,32 +75,47 @@
     <div class="space-y-6">
       <!-- Mis proyectos -->
       <section>
-        <h2 class="text-xl font-semibold text-gray-200 mb-3">📂 Mis proyectos</h2>
+        <h2 class="text-xl font-semibold text-gray-200 mb-3">
+          📂 Mis proyectos
+        </h2>
         <div class="space-y-3">
-          <div *ngFor="let proyecto of misProyectos" class="bg-gray-800 p-4 rounded-xl shadow hover:shadow-lg transition">
-            <h3 class="text-lg font-bold text-indigo-400">{{ proyecto.titulo }}</h3>
-            <p class="text-gray-300 text-sm">Último avance: {{ proyecto.ultimoAvance }}</p>
+          @for (proyecto of projectsService.projectsData(); track $index) {
+          <div
+            class="bg-gray-800 p-4 rounded-xl shadow hover:shadow-lg transition"
+          >
+            <h3 class="text-lg font-bold text-indigo-400">
+              {{ proyecto.title }}
+            </h3>
+            <p class="text-gray-300 text-sm">
+              {{ proyecto.description }}
+            </p>
           </div>
-        </div>
-      </section>
 
-      <!-- Eventos -->
-      <section>
-        <h2 class="text-xl font-semibold text-gray-200 mb-3">📅 Próximos eventos</h2>
-        <ul class="space-y-2">
-          <li *ngFor="let e of eventos" class="bg-gray-800 p-3 rounded-lg shadow text-gray-300">
-            <span class="font-bold text-indigo-400">{{ e.fecha }}:</span> {{ e.evento }}
-          </li>
-        </ul>
+          } @empty {
+          <div class="bg-gray-800 p-4 rounded-xl text-gray-400 text-center">
+            ¡Aún no tienes proyectos a tu nombre! <br />
+            <span
+              class="text-indigo-400 font-semibold cursor-pointer"
+              routerLink="/proyectos/nuevo"
+              >Crea un nuevo proyecto</span
+            >
+            en la sección de Proyectos para empezar.
+          </div>
+          }
+        </div>
       </section>
 
       <!-- Atajos -->
       <section>
-        <h2 class="text-xl font-semibold text-gray-200 mb-3">⚡ Atajos rápidos</h2>
+        <h2 class="text-xl font-semibold text-gray-200 mb-3">
+          ⚡ Atajos rápidos
+        </h2>
         <div class="grid grid-cols-2 gap-3">
-          <a *ngFor="let a of atajos"
-             [routerLink]="a.ruta"
-             class="flex flex-col items-center justify-center bg-indigo-600 text-white rounded-xl p-4 shadow hover:bg-indigo-700 transition">
+          <a
+            *ngFor="let a of atajos"
+            [routerLink]="a.ruta"
+            class="flex flex-col items-center justify-center bg-indigo-600 text-white rounded-xl p-4 shadow hover:bg-indigo-700 transition"
+          >
             <span class="text-2xl">{{ a.icon }}</span>
             <span class="text-sm mt-1">{{ a.label }}</span>
           </a>

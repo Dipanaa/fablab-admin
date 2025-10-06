@@ -25,16 +25,16 @@ export class ModalComponentComponent {
 
   onAccept() {
     this.accept.emit();
-    this.show = false;
   }
 
   onDecline() {
-    this.decline.emit();
-    this.show = false;
+    // Si no hay texto de rechazo, asumimos que no hay botón.
+    if (this.declineText) {
+      this.decline.emit();
+    }
   }
 
   onClose() {
     this.close.emit();
-    this.show = false;
   }
 }

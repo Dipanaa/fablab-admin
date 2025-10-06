@@ -6,7 +6,7 @@ import { RequestComponent } from './pages/request/request.component';
 import { ProjectsTableComponent } from './pages/projects-table/projects-table.component';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 
-import { InventoryComponent } from './pages/inventory/inventory.component'
+import { InventoryComponent } from './pages/inventory/inventory.component';
 import { AuthLayoutComponent } from './auth/layout/auth-layout/auth-layout.component';
 import { NotAuthenticatedGuard } from './auth/guards/not-authenticated.guard';
 import { isGeneralAuthenticatedGuard } from './guards/isGeneralAuthenticated.guard';
@@ -15,7 +15,7 @@ export const routes: Routes = [
   {
     path: 'auth',
     component: AuthLayoutComponent,
-    canMatch: [NotAuthenticatedGuard]
+    canMatch: [NotAuthenticatedGuard],
   },
   {
     path: '',
@@ -23,7 +23,8 @@ export const routes: Routes = [
     component: LayoutComponent,
     children: [
       { path: 'layout', redirectTo: 'inicio', pathMatch: 'full' },
-      { path: 'inicio', component: DashboardComponent },
+      { path: 'inicio', component: UserHomeComponent },
+      { path: 'metricas', component: DashboardComponent },
       {
         path: 'proyectos',
         loadChildren: () =>
@@ -39,7 +40,6 @@ export const routes: Routes = [
       { path: 'solicitudes', component: RequestComponent },
       { path: 'perfil-usuario', component: UserProfileComponent },
       { path: 'inventario', component: InventoryComponent },
-      { path: 'home', component: UserHomeComponent },
     ],
   },
   {

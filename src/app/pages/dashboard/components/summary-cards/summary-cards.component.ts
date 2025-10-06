@@ -4,6 +4,7 @@ import dblocalproyectos from '../../../../data/dblocalproyectos.json';
 import { RouterLink } from '@angular/router';
 import { ProjectsService } from '../../../../services/projects.service';
 import { NewsService } from '../../../../services/news.service';
+import { UsersService } from '../../../../services/users.service';
 
 @Component({
   selector: 'summary-cards',
@@ -15,10 +16,11 @@ export class SummaryCardsComponent implements AfterViewInit {
   //TODO: Crear servicio de metricas para servicios
 
   projectsService = inject(ProjectsService);
+  usersService = inject(UsersService)
   newsService = inject(NewsService);
 
   proyectosFinal = signal<number>(0);
-  usuariosFinal = dblocalusuarios.length;
+  usuariosFinal = signal<number>(0)
   noticiasFinal = signal<number>(0);
   proyectosAsignados = 0;
 
@@ -29,20 +31,24 @@ export class SummaryCardsComponent implements AfterViewInit {
 
   constructor(){
     this.projectsService.obtenerProyectos();
+    this.usersService.obtenerUsuarios();
     this.newsService.getNews();
     console.log(this.noticiasFinal());
 
     effect(()=>{
 
       const proyectos = this.projectsService.projectsData().length;
+      const usuarios = this.usersService.usuariosData().length;
       const noticias = this.newsService.newsResponse();
       console.log(this.newsService.newsResponse());
       if (noticias){
         this.noticiasFinal.set(this.newsService.newsResponse().length);
         this.proyectosFinal.set(this.projectsService.projectsData().length);
+        this.usuariosFinal.set(this.usersService.usuariosData().length);
 
         this.animateCount('proyectosCount',this.projectsService.projectsData().length);
         this.animateCount('noticiasCount',this.newsService.newsResponse().length);
+        this.animateCount('usuariosCount',this.usersService.usuariosData().length);
       }
 
     })
@@ -59,7 +65,6 @@ export class SummaryCardsComponent implements AfterViewInit {
       0
     );
 
-    this.animateCount('usuariosCount', this.usuariosFinal);
     this.animateCount('proyectosAsignadosCount', this.proyectosAsignados);
 
 
@@ -69,7 +74,7 @@ export class SummaryCardsComponent implements AfterViewInit {
     prop: 'proyectosCount' | 'usuariosCount' | 'proyectosAsignadosCount' | 'noticiasCount'  ,
     target: number
   ) {
-    const duration = 800;
+    const duration = 1000;
     const startTime = performance.now();
 
     const update = (currentTime: number) => {

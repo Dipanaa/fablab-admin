@@ -1,27 +1,24 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { NgFor} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+} from '@angular/core';
 import { UsersService } from '../../services/users.service';
-
-
 
 @Component({
   selector: 'users',
-  imports: [NgFor],
+  imports: [],
   templateUrl: './users.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UsersComponent {
-
   usersService = inject(UsersService);
 
-  paginaActual: number = 1;
-  usuariosPorPagina: number = 6;
+  paginaActual = signal<number>(1);
+  usuariosPorPagina: number = 5;
 
-  constructor() {
-    // Llamada de prueba al iniciar
-    this.usersService.obtenerUsuarios();
-    console.log(this.usersService.usuariosData());
-  }
+  constructor() {}
 
   // Ejemplos para pruebas
   editarUsuario(id: number) {
@@ -36,26 +33,25 @@ export class UsersComponent {
   // Paginacion
   // ---------------------------
   totalPages(): number {
-    const totalUsuarios = this.usersService.usuariosData().length;
-    return Math.ceil(totalUsuarios / this.usuariosPorPagina);
+    const totalUsuarios = this.usersService.usuariosBuscados().length;
+    return Math.ceil(totalUsuarios / this.usuariosPorPagina); // total / 5
   }
 
   usuariosPaginados() {
-    //Obtenemos la lista completa de usuarios 
-    const listaCompleta = this.usersService.usuariosData()
+    //Obtenemos la lista completa de usuarios
+    const listaCompleta = this.usersService.usuariosBuscados();
 
     // Calculamos el inicio y fin del pedaso que se mostrara
-    const start = (this.paginaActual - 1) * this.usuariosPorPagina;
+    const start = (this.paginaActual() - 1) * this.usuariosPorPagina;
     const end = start + this.usuariosPorPagina;
-    
+
     // Devolvemos solo la porción de la página actual
     return listaCompleta.slice(start, end);
-    
   }
 
   paginasCompactas(): number[] {
     const total = this.totalPages();
-    const actual = this.paginaActual;
+    const actual = this.paginaActual();
     const delta = 2; // Cuántos botones antes y después del actual
 
     const range: number[] = [];
@@ -86,7 +82,7 @@ export class UsersComponent {
 
   irAPagina(pagina: number) {
     if (pagina >= 1 && pagina <= this.totalPages()) {
-      this.paginaActual = pagina;
+      this.paginaActual.set(pagina);
     }
   }
 }

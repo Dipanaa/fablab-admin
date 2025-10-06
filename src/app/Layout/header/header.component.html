@@ -27,22 +27,24 @@
       </svg>
       <span class="text-gray-400">Panel</span>
       @for(route of rutaActual(); track $index; let i = $index){
-        <svg
-          class="w-4 h-4 text-gray-500"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-        >
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-        </svg>
-        @if(i == rutaActual().length-1){
-          <span class="text-indigo-400 capitalize cursor-pointer" >{{route}}</span>
-        }@else {
-          <span class="text-gray-500 capitalize cursor-pointer" routerLink="{{route}}">{{route}}</span>
-        }
-
-      }
+      <svg
+        class="w-4 h-4 text-gray-500"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+      </svg>
+      @if(i == rutaActual().length-1){
+      <span class="text-indigo-400 capitalize cursor-pointer">{{ route }}</span>
+      }@else {
+      <span
+        class="text-gray-500 capitalize cursor-pointer"
+        routerLink="{{ route }}"
+        >{{ route }}</span
+      >
+      } }
     </div>
   </div>
 
@@ -50,7 +52,10 @@
     <!-- Opciones a la derecha -->
     <div class="flex items-center space-x-4">
       <!-- Botón notificación (puedes dejarlo opcional) -->
-      <button class="relative hover:text-indigo-400 transition">
+      <button
+        class="relative hover:text-indigo-400 transition"
+        routerLink="/solicitudes"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -68,16 +73,23 @@
       </button>
 
       <!-- Usuario -->
-      <button type="button" class="flex items-center gap-2" routerLink="/perfil-usuario">
+      <button
+        type="button"
+        class="flex items-center gap-2"
+        routerLink="/perfil-usuario"
+      >
         <img
-          [src]="user.avatarUrl || 'https://tse1.mm.bing.net/th/id/OIP.sE-LgcPoi6NqteMjpaZ-kwHaHa?w=889&h=889&rs=1&pid=ImgDetMain&o=7&rm=3'"
+          [src]="
+            user.avatarUrl ||
+            'https://tse1.mm.bing.net/th/id/OIP.sE-LgcPoi6NqteMjpaZ-kwHaHa?w=889&h=889&rs=1&pid=ImgDetMain&o=7&rm=3'
+          "
           class="w-8 h-8 rounded-full"
           alt="avatar"
         />
-        <span class="text-sm text-gray-200 hidden sm:inline">{{ user.userName }}</span>
+        <span class="text-sm text-gray-200 hidden sm:inline">{{
+          user.userName
+        }}</span>
       </button>
-
-
 
       <!-- Botón cerrar sesión -->
       <button
