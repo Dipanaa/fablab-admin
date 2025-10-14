@@ -21,6 +21,8 @@ export class ModalComponentComponent {
   @Output() decline = new EventEmitter<void>();
   @Output() close = new EventEmitter<void>();
 
+
+
   onAccept() {
     this.accept.emit();
   }

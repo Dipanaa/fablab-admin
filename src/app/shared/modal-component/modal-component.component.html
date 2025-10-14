@@ -12,7 +12,7 @@
         </h3>
         <button
           type="button"
-          class="text-gray-400 hover:text-white"
+          class="text-gray-400 hover:text-white cursor-pointer"
           (click)="onClose()"
         >
           ✕
@@ -31,14 +31,14 @@
       <div class="flex items-center p-4 border-t border-gray-500">
         <button
           type="button"
-          class="text-white bg-green-700 hover:bg-green-800 px-5 py-2.5 rounded-lg"
+          class="text-white bg-green-700 hover:bg-green-800 px-5 py-2.5 rounded-lg cursor-pointer"
           (click)="onAccept()"
         >
           {{ acceptText }}
         </button>
         <button
           type="button"
-          class="ms-3 px-5 py-2.5 text-sm font-medium rounded-lg bg-red-700 hover:bg-red-800"
+          class="ms-3 px-5 py-2.5 text-sm font-medium rounded-lg bg-red-700 hover:bg-red-800 cursor-pointer"
           (click)="onDecline()"
         >
           {{ declineText }}

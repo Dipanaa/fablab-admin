@@ -4,23 +4,28 @@ import { News } from '../../../../interfaces/news.interface';
 import { NewsService } from '../../../../services/news.service';
 import { SuccessComponent } from "../../../../shared/success-component/success-component.component";
 import { CustomFormsValidations } from '../../../../utils/FormsValidations/CustomValidations';
+import { ModalComponentComponent } from "../../../../shared/modal-component/modal-component.component";
+import { NotificacionsStatusService } from '../../../../services/notificacionsStatus.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-creator-new',
-  imports: [ReactiveFormsModule, SuccessComponent],
+  imports: [ReactiveFormsModule, ModalComponentComponent],
   templateUrl: './creator-new.component.html',
 })
 export class CreatorNewComponent {
-  //Se inyectan servicios e instancian campos
+  //Servicios
   newsService = inject(NewsService);
   formbuilder = inject(FormBuilder);
   renderer2 = inject(Renderer2);
+  notificacionsStatusService = inject(NotificacionsStatusService);
+  router = inject(Router);
   CustomFormsValidations = CustomFormsValidations;
 
 
 
-  //Tomamos referencias
-  @ViewChild("successPost") successPost!: ElementRef;
+  //Atributos
+  isModalOpen: boolean = false;
 
   //Campos de los forms
   CreationNewForm: FormGroup = this.formbuilder.group({
@@ -33,18 +38,33 @@ export class CreatorNewComponent {
     imgurlautor: [""]
   });
 
+  //Postear contenido de los forms
   submitPostContent(){
     if(this.CreationNewForm.invalid){
       this.CreationNewForm.markAllAsTouched();
       return;
     }
 
-    //TODO: Recibir output de confirmacion
-
+    //TODO: Falta loader en boton
     const newPost: News = this.CreationNewForm.value;
-    this.renderer2.removeClass(this.successPost.nativeElement,"hidden");
-    this.renderer2.addClass(this.successPost.nativeElement,"flex");
-    this.newsService.postNew(newPost);
+    this.newsService.postNew(newPost).subscribe((status)=>{
+      if(status){
+        this.router.navigateByUrl("/noticias");
+      }
+    })
   }
+
+  //Abrir modal de confirmacion
+  openModal() {
+    this.isModalOpen = true;
+  }
+
+  //Cerrar modal de confirmacion
+  closeModal() {
+    this.isModalOpen = false;
+  }
+
+
+
 
 }

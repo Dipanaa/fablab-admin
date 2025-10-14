@@ -59,45 +59,40 @@ export class NewsService {
     );
   }
 
-  postNew(news: News):void{
+  //Creacion de noticia
+  //TODO: Conversar si transformar a observable boolean
+  postNew(news: News): Observable<boolean>{
 
     if(this.newsLoading()){
-      return;
+      return of(false);
     }
+    //Cargando
     this.newsLoading.set(true);
 
-    this.httpclient.post("http://localhost:5263/api/noticias",news).pipe(
-      finalize(()=> {
-        this.newsLoading.set(false);
-      })
+    return this.httpclient.post("http://localhost:5263/api/noticias",news).pipe(
+      map(()=> {
+        this.notificacionsService.statusMessage.set(true);
+        this.notificacionsService.statusTextMessage.set("Estado de noticia actualizado");
+        return true;
+      }),
+      finalize(()=> this.newsLoading.set(false)),
+      catchError(()=> of(false))
     )
-      .subscribe({
-      next: () => {
-        console.log("Los datos fueron insertados con exito");
-      },
-      error: (err) => {
-        console.log("Hubo un error en el ingreso de la noticia",err);
-      },
-      complete: () => {
-        console.log("Se completo la peticion");
-      }
-    })
 
   }
 
-
-  deleteNew(newsId: number): void{
-    this.httpclient.delete(`http://localhost:5263/api/noticias/${newsId}`).subscribe({
-      next: () => {
-        console.log("El registro fue eliminado con exito");
-      },
-      error: (err) => {
-        console.log("Hubo un error al eliminar la noticia",err);
-      },
-      complete: () => {
-        console.log("Se completo la peticion delete");
-      }
-    });
+  //Eliminacion de noticias
+  //TODO: Vincular a componente
+  deleteNew(newsId: number): Observable<boolean>{
+    return this.httpclient.delete(`http://localhost:5263/api/noticias/${newsId}`).pipe(
+      map(()=> {
+        this.notificacionsService.statusMessage.set(true);
+        this.notificacionsService.statusTextMessage.set("Noticia eliminada con exito");
+        return true;
+      }),
+      finalize(()=> this.newsLoading.set(false)),
+      catchError(()=> of(false))
+    );
 
   }
 

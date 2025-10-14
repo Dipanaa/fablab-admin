@@ -6,7 +6,7 @@
 
 <h1 class="text-2xl font-bold">Ingresar Noticia</h1>
 <!-- component -->
-<div class="flex items-center justify-center p-12">
+<div class="flex items-center justify-center px-6 mt-3">
   <div class="mx-auto w-full">
     <form autocomplete="off" [formGroup]="CreationNewForm" (ngSubmit)="submitPostContent()">
       <div class="mb-5">
@@ -92,20 +92,25 @@
           class="w-full resize-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
           formControlName="contenido"
         ></textarea>
-      </div>
-      <div>
-        <button
-          class="hover:bg-[#6A64F1]/70 rounded-md bg-[#6A64F1] py-3 px-8 text-base font-semibold text-white outline-none cursor-pointer"
-        >
-          Submit
-        </button>
+        <div>
+        </div>
       </div>
     </form>
-  </div>
+    <button
+      class="hover:bg-[#6A64F1]/70 rounded-md bg-[#6A64F1] py-3 px-8 text-base font-semibold text-white outline-none cursor-pointer"
+      (click)="openModal()"
+    >
+      Ingresar
+    </button>
+</div>
 </div>
 
-<!-- Componente de exito de peticion -->
-<div class="h-screen absolute top-0 w-full justify-center items-center z-10 bg-gray-400/50 hidden" #successPost>
-  <success-component [urlName]="'/noticias'" [tipoDePeticion]="'Ingresados'"></success-component>
-</div>
 
+
+<modal-component
+[show]="isModalOpen"
+[description]="'¿Desea crear esta noticia con los datos introducidos?'"
+(accept)="submitPostContent()"
+(close)="closeModal()"
+(decline)="closeModal()"
+/>

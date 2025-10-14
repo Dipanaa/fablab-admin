@@ -5,6 +5,7 @@ export class NotificacionsStatusService {
 
   //Atributos
   statusTextMessage = signal<string>("");
+  statusErrorMessage = signal<string>("");
   statusMessage = signal<boolean>(false);
   timerId: any | null = null;
 

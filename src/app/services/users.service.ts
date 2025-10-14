@@ -1,9 +1,10 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { UsersInterface } from '../interfaces/users.interface';
 import { HttpClient } from '@angular/common/http';
-import { finalize, map, Observable, tap } from 'rxjs';
+import { catchError, finalize, map, Observable, of, tap } from 'rxjs';
 import { UserResponse } from '../utils/responses/userResponse';
 import { UserApiToUsersArray } from '../utils/mappers/usersMapper';
+import { NotificacionsStatusService } from './notificacionsStatus.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,48 +12,13 @@ import { UserApiToUsersArray } from '../utils/mappers/usersMapper';
 export class UsersService {
   //Inyectar httpClient
   httpClient = inject(HttpClient);
+  notificationStatusService = inject(NotificacionsStatusService);
 
   //Data user de usuarios
   usuariosData = signal<UsersInterface[]>([]);
 
   //Palabra clave para busqueda
   buscarTermino = signal<string>('');
-
-  obtenerUsuarios() {
-    return this.httpClient
-      .get<UserResponse[]>('http://localhost:5263/api/usuarios')
-      .pipe(
-        map((users) => {
-          console.log(users);
-          return UserApiToUsersArray(users);
-        }),
-        tap((users) => this.usuariosData.set(users)),
-        finalize(() => console.log())
-      )
-      .subscribe({
-        next: () => {
-          console.log('Usuarios Correcto');
-        },
-        error: (err) => {
-          console.log('Hubo un error', err);
-        },
-        complete: () => {
-          console.log('Se completo la peticion');
-        },
-      });
-  }
-
-  agregarUsuario(usuario: any) {
-    console.log('UsersService: agregarUsuario ejecutado', usuario);
-  }
-
-  editarUsuario(id: number) {
-    console.log('UsersService: editarUsuario ejecutado', id);
-  }
-
-  eliminarUsuario(id: number) {
-    console.log('UsersService: eliminarUsuario ejecutado', id);
-  }
 
   // ----Logica del buscador de usuarios---
 
@@ -75,4 +41,52 @@ export class UsersService {
 
     return listaBase;
   });
+
+
+  //Get de obtencion de usuarios
+  obtenerUsuarios() {
+    return this.httpClient
+    .get<UserResponse[]>('http://localhost:5263/api/usuarios')
+    .pipe(
+      map((users) => {
+        console.log(users);
+        return UserApiToUsersArray(users);
+      }),
+      tap((users) => this.usuariosData.set(users)),
+      finalize(() => console.log())
+    )
+    .subscribe({
+      next: () => {
+        console.log('Usuarios Correcto');
+      },
+      error: (err) => {
+        console.log('Hubo un error', err);
+      },
+      complete: () => {
+        console.log('Se completo la peticion');
+      },
+    });
+  }
+
+  //Put de obtencion de usuarios
+  editarUsuario(id: number,dataUser: UsersInterface): Observable<boolean> {
+    return this.httpClient.put(`http://localhost:5263/api/usuarios/${id}`,dataUser)
+    .pipe(
+      map(()=> {
+        this.notificationStatusService.statusMessage.set(true);
+        this.notificationStatusService.statusTextMessage.set("Información de usuario actualizada");
+        return true;
+      }),
+      catchError((err)=>{
+        this.notificationStatusService.statusErrorMessage.set(err);
+        console.log(err);
+        return of(false);
+      })
+    )
+  }
+
+  eliminarUsuario(id: number) {
+    console.log('UsersService: eliminarUsuario ejecutado', id);
+  }
 }
+

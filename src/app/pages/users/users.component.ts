@@ -20,6 +20,7 @@ import { PaginationComponent } from '../../shared/pagination/pagination.componen
 export class UsersComponent {
   usersService = inject(UsersService);
   paginationService = inject(PaginationService);
+  notificacionStatusService = inject(NotificacionsStatusService);
 
   constructor() {
     // Effect se encarga de estar atento por si una de las signal dentro de el cambian
@@ -33,6 +34,26 @@ export class UsersComponent {
       // 2. Resetea el Estado: Le pide al cerebro que vuelva a la página 1.
       this.paginationService.goToPage(1);
     });
+
+  // Ejemplos para pruebas
+  editarUsuario(id: number, dataUserForm: UsersInterface) {
+    this.usersService.editarUsuario(id,dataUserForm).subscribe(
+      (status) => {
+        if(status){
+          this.notificacionStatusService.showMessage();
+          return;
+        }
+      }
+    );
+  }
+
+
+
+
+
+
+  eliminarUsuario(id: number) {
+    this.usersService.eliminarUsuario(id);
   }
 
   // ---------------------------

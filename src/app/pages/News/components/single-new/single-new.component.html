@@ -4,10 +4,21 @@
   </div>
   <div class="flex justify-end gap-3 mb-5 ">
     <button class="btn btn-info" (click)="formMode()">Editar noticia</button>
-    <button class="btn btn-error" (click)="deleteNewByRoute()">Eliminar noticia</button>
+    <button class="btn btn-error" (click)="openModal()">Eliminar noticia</button>
   </div>
-
 </div>
+
+
+<modal-component
+[show]="isModalOpen"
+[title]="singleNewsData()?.titulo!"
+[description]="'¿Desea eliminar esta noticia?'"
+(accept)="deleteNewByRoute()"
+(decline)="closeModal()"
+(close)="closeModal()"
+/>
+
+
 
 
 @if(resourceNews.isLoading()){
@@ -37,15 +48,6 @@
     </div>
   }
 }
-
-
-
-
-
-<!-- Success post -->
-<div class="h-screen absolute top-0 w-full justify-center items-center z-10 bg-gray-400/50 hidden" #successPost>
-  <success-component [urlName]="'/noticias'" [tipoDePeticion]="'Eliminados'"></success-component>
-</div>
 
 
 
