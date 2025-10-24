@@ -22,8 +22,18 @@ export class UsersComponent {
   usuariosPorPagina: number = 5;
 
 
+
+
+
+
+
+
+  //TODO: Injectar router, crear formulario de actualizacion
   // Ejemplos para pruebas
   editarUsuario(id: number, dataUserForm: UsersInterface) {
+
+    //TODO: Validacion de formulario
+
     this.usersService.editarUsuario(id,dataUserForm).subscribe(
       (status) => {
         if(status){
