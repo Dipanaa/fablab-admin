@@ -4,12 +4,10 @@ import { RegisterComponent } from '../../register/register.component';
 
 @Component({
   selector: 'auth-layout',
-  imports: [LoginComponent,RegisterComponent],
+  imports: [LoginComponent, RegisterComponent],
   templateUrl: './auth-layout.component.html',
 })
 export class AuthLayoutComponent {
-
   //Toggle modo de ingreso
   isLoginView = signal<boolean>(true);
-
 }

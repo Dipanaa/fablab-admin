@@ -1,4 +1,4 @@
-import { ProjectsInterface } from "./projects.interface";
+import { ProjectsInterface } from './projects.interface';
 
 export interface UsersInterface {
   id_usuario: number;

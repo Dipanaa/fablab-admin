@@ -37,13 +37,13 @@
   <!-- Sección derecha (formulario) -->
 
   @if (isLoginView()) {
-    <div class="md:w-1/2 animate__animated animate__fadeInLeft">
-      <login (loginMode)="isLoginView.set($event)"/>
-    </div>
+  <div class="md:w-1/2 animate__animated animate__fadeInLeft">
+    <login (loginMode)="isLoginView.set($event)" />
+  </div>
 
   }@else{
-    <div class="md:w-1/2 animate__animated animate__fadeInLeft">
-      <register (registerMode)="isLoginView.set($event)"/>
-    </div>
+  <div class="md:w-1/2 animate__animated animate__fadeInLeft">
+    <register (registerMode)="isLoginView.set($event)" />
+  </div>
   }
 </div>

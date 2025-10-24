@@ -1,8 +1,24 @@
-import { Component, inject, OnDestroy, OnInit, output, signal } from '@angular/core';
-import { FormsModule, FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import {
+  Component,
+  inject,
+  OnDestroy,
+  OnInit,
+  output,
+  signal,
+} from '@angular/core';
+import {
+  FormsModule,
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { passwordValidator } from '../../utils/FormsValidations/authValidators';
 import { Router } from '@angular/router';
+import { UsersService } from '../../services/users.service';
+import { NotificacionsStatusService } from '../../services/notificacionsStatus.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'login',
@@ -10,8 +26,7 @@ import { Router } from '@angular/router';
 
   imports: [FormsModule, ReactiveFormsModule],
 })
-export class LoginComponent{
-
+export class LoginComponent {
   //Servicios
   formBuilder = inject(FormBuilder);
   authService = inject(AuthService);
@@ -22,30 +37,32 @@ export class LoginComponent{
 
   //Formularios
   fbLogin: FormGroup = this.formBuilder.group({
-    "email":["",[Validators.required]],
-    "contrasena":["",[Validators.required,Validators.minLength(5),passwordValidator()]]
+    email: ['', [Validators.required]],
+    contrasena: [
+      '',
+      [Validators.required, Validators.minLength(5), passwordValidator()],
+    ],
   });
 
   //Form de login
   loginUser() {
-    if(this.fbLogin.invalid){
-      console.log(this.fbLogin.controls["contrasena"].errors);
+    if (this.fbLogin.invalid) {
+      console.log(this.fbLogin.controls['contrasena'].errors);
       this.fbLogin.reset();
       return;
     }
-    this.authService.loginUser(this.fbLogin.value)
-    .subscribe((autenticacionCorrecta)=>{
-      if(autenticacionCorrecta){
-        this.router.navigateByUrl("/inicio");
-        return;
-      }
-
-    });
+    this.authService
+      .loginUser(this.fbLogin.value)
+      .subscribe((autenticacionCorrecta) => {
+        if (autenticacionCorrecta) {
+          this.router.navigateByUrl('/inicio');
+          return;
+        }
+      });
   }
 
   //Emitir valor de login para cambiar a register
-  loginModeEmit(){
+  loginModeEmit() {
     this.loginMode.emit(false);
   }
-
 }

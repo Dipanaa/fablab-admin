@@ -70,13 +70,11 @@
             <button
               class="bg-indigo-600 text-gray-200 px-3 py-1 rounded hover:bg-indigo-700"
             >
-              <!-- (click)="openModal('edit', usuario.id_usuario)" -->
               Editar
             </button>
             <button
               class="bg-red-600 text-gray-200 px-3 py-1 rounded hover:bg-red-700"
             >
-              <!-- (click)="openModal('delete', usuario.id_usuario)" -->
               Eliminar
             </button>
           </td>
@@ -103,4 +101,7 @@
     [totalPages]="paginationService.totalPages()"
     (pageChange)="paginationService.goToPage($event)"
   />
+
+  <!-- Modal -->
+  <modal-edition />
 </div>
