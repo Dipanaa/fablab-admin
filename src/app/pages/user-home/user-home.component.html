@@ -3,8 +3,22 @@
   <div
     class="bg-gradient-to-r from-indigo-600 to-indigo-700 text-white p-6 rounded-2xl shadow-lg"
   >
-    <h1 class="text-2xl font-bold">
-      Bienvenido, {{ authService.userData()?.nombre || "Usuario" }} 👋
+    <h1 class="text-2xl font-bold flex items-center gap-2">
+      Bienvenido, {{ authService.userData()?.nombre || "Usuario" }}
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="size-6"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Zm6-10.125a1.875 1.875 0 1 1-3.75 0 1.875 1.875 0 0 1 3.75 0Zm1.294 6.336a6.721 6.721 0 0 1-3.17.789 6.721 6.721 0 0 1-3.168-.789 3.376 3.376 0 0 1 6.338 0Z"
+        />
+      </svg>
     </h1>
     <p class="text-sm">Aquí encontrarás lo más reciente del FabLab.</p>
   </div>
@@ -14,8 +28,24 @@
     <div class="lg:col-span-2 space-y-6">
       <!-- Noticias -->
       <section>
-        <h2 class="text-xl font-semibold text-gray-200 mb-3">
-          📰 Noticias recientes
+        <h2
+          class="text-xl font-semibold text-gray-200 mb-3 flex items-center gap-2"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="size-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5M6 7.5h3v3H6v-3Z"
+            />
+          </svg>
+          Noticias recientes
         </h2>
         <div class="space-y-3">
           @for (new of newsService.newsResponse() | slice:0:2; track new.id) {
@@ -50,8 +80,24 @@
 
       <!-- Proyectos destacados -->
       <section>
-        <h2 class="text-xl font-semibold text-gray-200 mb-3">
-          ⭐ Proyectos destacados
+        <h2
+          class="text-xl font-semibold text-gray-200 mb-3 flex items-center gap-2"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="size-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"
+            />
+          </svg>
+          Proyectos destacados
         </h2>
         <div class="grid sm:grid-cols-2 gap-4">
           <div
@@ -75,8 +121,24 @@
     <div class="space-y-6">
       <!-- Mis proyectos -->
       <section>
-        <h2 class="text-xl font-semibold text-gray-200 mb-3">
-          📂 Mis proyectos
+        <h2
+          class="text-xl font-semibold text-gray-200 mb-3 flex items-center gap-2"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="size-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z"
+            />
+          </svg>
+          Mis proyectos
         </h2>
         <div class="space-y-3">
           @for (proyecto of projectsService.projectsData(); track $index) {
@@ -106,21 +168,128 @@
       </section>
 
       <!-- Atajos -->
-      <section>
-        <h2 class="text-xl font-semibold text-gray-200 mb-3">
-          ⚡ Atajos rápidos
+      <!-- <section>
+        <h2
+          class="text-xl font-semibold text-gray-200 mb-3 flex items-center gap-2"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="size-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z"
+            />
+          </svg>
+          Atajos rápidos
         </h2>
         <div class="grid grid-cols-2 gap-3">
           <a
-            *ngFor="let a of atajos"
-            [routerLink]="a.ruta"
+            routerLink="/proyectos/nuevo"
             class="flex flex-col items-center justify-center bg-indigo-600 text-white rounded-xl p-4 shadow hover:bg-indigo-700 transition"
           >
-            <span class="text-2xl">{{ a.icon }}</span>
-            <span class="text-sm mt-1">{{ a.label }}</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 10.5v6m3-3H9m4.06-7.19-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z"
+              />
+            </svg>
+            <span class="text-sm mt-1">Crear nuevo proyecto</span>
+          </a>
+
+          <a
+            routerLink="/avances/nuevo"
+            class="flex flex-col items-center justify-center bg-indigo-600 text-white rounded-xl p-4 shadow hover:bg-indigo-700 transition"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"
+              />
+            </svg>
+
+            <span class="text-sm mt-1">Subir un avance</span>
+          </a>
+
+          <a
+            routerLink="/soporte/nuevo"
+            class="flex flex-col items-center justify-center bg-indigo-600 text-white rounded-xl p-4 shadow hover:bg-indigo-700 transition"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.996-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z"
+              />
+            </svg>
+            <span class="text-sm mt-1">Solicitar Asistencia</span>
+          </a>
+
+          <a
+            routerLink="/inventario/consulta"
+            class="flex flex-col items-center justify-center bg-indigo-600 text-white rounded-xl p-4 shadow hover:bg-indigo-700 transition"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M11.35 3.86a.75.75 0 0 0-.712 0l-1.944.972-.994 2.768Z"
+              />
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 7.5h.008v.008H12V7.5Zm0 3h.008v.008H12v3Z"
+              />
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M16.8 7.5h-.008v.008H16.8V7.5Zm0 3h-.008v.008H16.8v3Z"
+              />
+              <path
+                fill-rule="evenodd"
+                d="M12 2.25c-5.403 0-10.835 4.968-10.978 11.24-.01.428.322.766.75.766h19.5c.428 0 .765-.338.755-.766-.143-6.272-5.575-11.24-10.978-11.24ZM7.785 18.75a.75.75 0 0 1 0-1.5h.008a.75.75 0 0 1 0 1.5h-.008Z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            <span class="text-sm mt-1">Consultar Inventario</span>
           </a>
         </div>
-      </section>
+      </section> -->
     </div>
   </div>
 </div>

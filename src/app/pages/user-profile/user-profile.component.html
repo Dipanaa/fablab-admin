@@ -1,14 +1,25 @@
 <div class="max-w-lg mx-auto p-6 bg-slate-800 rounded-2xl shadow-lg">
   <!-- Encabezado -->
   <div class="flex items-center space-x-4 border-b pb-4">
-    <img
-      class="h-16 w-16 rounded-full object-cover border"
-      [src]="user.avatarUrl || 'https://tse1.mm.bing.net/th/id/OIP.sE-LgcPoi6NqteMjpaZ-kwHaHa?w=889&h=889&rs=1&pid=ImgDetMain&o=7&rm=3'"
-      alt="Avatar"
-    />
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+      class="size-20"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+      />
+    </svg>
+
     <div>
       <h2 class="text-xl font-bold text-white">
-        {{ authService.userData()?.nombre }} {{ authService.userData()?.apellido }}
+        {{ authService.userData()?.nombre }}
+        {{ authService.userData()?.apellido }}
       </h2>
       <p class="text-gray-300">{{ user.emailId }}</p>
     </div>
@@ -24,43 +35,39 @@
         type="text"
         [readonly]="!editMode"
         class="w-full mt-1 p-2 border rounded-lg"
-        value="{{authService.userData()?.nombre}} {{authService.userData()?.apellido}}"
+        value="{{ authService.userData()?.nombre }} {{
+          authService.userData()?.apellido
+        }}"
       />
     </div>
 
     <div>
-      <label class="block text-sm font-medium text-gray-300">
-        Rut
-      </label>
+      <label class="block text-sm font-medium text-gray-300"> Rut </label>
       <input
         type="text"
         [readonly]="!editMode"
         class="w-full mt-1 p-2 border rounded-lg"
-        value="{{authService.userData()?.rut}}"
+        value="{{ authService.userData()?.rut }}"
       />
     </div>
 
     <div>
-      <label class="block text-sm font-medium text-gray-300">
-        Carrera
-      </label>
+      <label class="block text-sm font-medium text-gray-300"> Carrera </label>
       <input
         type="text"
         [readonly]="!editMode"
         class="w-full mt-1 p-2 border rounded-lg"
-        value="{{authService.userData()?.carrera}}"
+        value="{{ authService.userData()?.carrera }}"
       />
     </div>
 
     <div>
-      <label class="block text-sm font-medium text-gray-300">
-        Teléfono
-      </label>
+      <label class="block text-sm font-medium text-gray-300"> Teléfono </label>
       <input
         type="tel"
         [readonly]="!editMode"
         class="w-full mt-1 p-2 border rounded-lg"
-        value="{{authService.userData()?.telefono}}"
+        value="{{ authService.userData()?.telefono }}"
       />
     </div>
   </div>

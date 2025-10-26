@@ -1,4 +1,3 @@
-
 <!-- TODO: Hacer diagramas de logica para manejo de animacion -->
 
 <header-main (toggleMenu)="menuControllerIntermediary.set($event)" />
@@ -7,7 +6,9 @@
   <main class="flex bg-gray-900 text-white w-full">
     <sidebar [menuActivate]="menuControllerIntermediary()" />
     <!-- Aquí van los componentes -->
-    <section class="p-5 w-full overflow-y-auto h-screen relative overflow-x-hidden">
+    <section
+      class="p-5 w-full overflow-y-auto h-screen relative overflow-x-hidden"
+    >
       <router-outlet></router-outlet>
     </section>
   </main>

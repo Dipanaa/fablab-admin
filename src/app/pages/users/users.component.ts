@@ -10,7 +10,7 @@ import { PaginationService } from '../../services/pagination.service';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { NotificacionsStatusService } from '../../services/notificacionsStatus.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { ModalEditComponent } from "../../shared/modal-edit/modal-edit.component";
+import { ModalEditComponent } from '../../shared/modal-edit/modal-edit.component';
 
 @Component({
   selector: 'users',
@@ -29,12 +29,14 @@ export class UsersComponent {
   modalView = signal<boolean>(false);
   modalId = signal<number>(0);
 
-  fbUser: FormGroup = this.formbuilder.group(
-    {
-      "test":[""],
-      "test2":[""]
-    }
-  )
+  fbUser: FormGroup = this.formbuilder.group({
+    Nombre: [''],
+    Apellido: [''],
+    Correo: [''],
+    Rut: [''],
+    Carrera: [''],
+    Rol: [''],
+  });
 
   constructor() {
     effect(() => {
@@ -48,14 +50,16 @@ export class UsersComponent {
   }
 
   //Metodos
-  dataForm(data: Object){
+  dataForm(data: Object) {
     console.log(data);
   }
 
-  modalEditView(id:number){
+  modalEditView(id: number) {
     this.modalId.set(id);
-    (!this.modalView())?this.modalView.set(true):this.modalView.set(false);
-
+    !this.modalView() ? this.modalView.set(true) : this.modalView.set(false);
   }
 
+  modalDeleteView() {
+    console.log('Hola nerd');
+  }
 }

@@ -13,45 +13,123 @@
     </div>
   </div>
 
-  <!-- Tabla -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <!-- Insumos totales  -->
+    <div
+      class="bg-slate-800 p-5 rounded-xl shadow border border-slate-700 flex items-center gap-4 transition transform hover:-translate-y-1 cursor-default"
+    >
+      <div class="bg-indigo-900/50 text-indigo-400 p-3 rounded-full">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="size-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 0 1-1.125-1.125M3.375 19.5h7.5c.621 0 1.125-.504 1.125-1.125m-9.75 0V5.625m0 12.75v-1.5c0-.621.504-1.125 1.125-1.125m18.375 2.625V5.625m0 12.75c0 .621-.504 1.125-1.125 1.125m1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125m0 3.75h-7.5A1.125 1.125 0 0 1 12 18.375m9.75-12.75c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125m19.5 0v1.5c0 .621-.504 1.125-1.125 1.125M2.25 5.625v1.5c0 .621.504 1.125 1.125 1.125m0 0h17.25m-17.25 0h7.5c.621 0 1.125.504 1.125 1.125M3.375 8.25c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125m17.25-3.75h-7.5c-.621 0-1.125.504-1.125 1.125m8.625-1.125c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125m-17.25 0h7.5m-7.5 0c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125M12 10.875v-1.5m0 1.5c0 .621-.504 1.125-1.125 1.125M12 10.875c0 .621.504 1.125 1.125 1.125m-2.25 0c.621 0 1.125.504 1.125 1.125M13.125 12h7.5m-7.5 0c-.621 0-1.125.504-1.125 1.125M20.625 12c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125m-17.25 0h7.5M12 14.625v-1.5m0 1.5c0 .621-.504 1.125-1.125 1.125M12 14.625c0 .621.504 1.125 1.125 1.125m-2.25 0c.621 0 1.125.504 1.125 1.125m0 1.5v-1.5m0 0c0-.621.504-1.125 1.125-1.125m0 0h7.5"
+          />
+        </svg>
+      </div>
+      <div>
+        <h2 class="text-sm text-gray-400">Insumos Totales</h2>
+        <p class="text-3xl font-bold text-indigo-400">
+          {{ totalInsumosCount }}
+        </p>
+      </div>
+    </div>
+
+    <!-- Insumos en bajo stock -->
+    <div
+      class="bg-slate-800 p-5 rounded-xl shadow border border-slate-700 flex items-center gap-4 transition transform hover:-translate-y-1 cursor-default"
+    >
+      <div class="bg-yellow-900/50 text-yellow-400 p-3 rounded-full">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="size-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"
+          />
+        </svg>
+      </div>
+      <div>
+        <h2 class="text-sm text-gray-400">Insumos en Bajo Stock</h2>
+        <p class="text-3xl font-bold text-yellow-500">{{ bajoStockCount }}</p>
+      </div>
+    </div>
+
+    <!-- Insumos sin stock -->
+    <div
+      class="bg-slate-800 p-5 rounded-xl shadow border border-slate-700 flex items-center gap-4 transition transform hover:-translate-y-1 cursor-default"
+    >
+      <div class="bg-red-900/50 text-red-400 p-3 rounded-full">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="size-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z"
+          />
+        </svg>
+      </div>
+      <div>
+        <h2 class="text-sm text-gray-400">Insumos sin Stock</h2>
+        <p class="text-3xl font-bold text-red-500">{{ itemsCeroStockCount }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabla de insumos-->
   <div class="h-auto w-full overflow-auto rounded-lg border border-slate-800">
     <table class="min-w-full text-sm text-left text-gray-300">
       <thead class="text-xs uppercase bg-slate-800 text-gray-400 sticky top-0">
         <tr>
-          <th class="px-4 py-3 font-medium">ID</th>
-          <th class="px-4 py-3 font-medium">Nombre</th>
-          <th class="px-4 py-3 font-medium">Categoría</th>
-          <th class="px-4 py-3 font-medium">Stock</th>
-          <th class="px-4 py-3 font-medium">Ubicación</th>
-          <th class="px-4 py-3 font-medium">Estado</th>
-          <th class="px-4 py-3 font-medium text-center">Acciones</th>
+          <th class="px-4 py-3 font-bold">ID</th>
+          <th class="px-4 py-3 font-bold">Nombre</th>
+          <th class="px-4 py-3 font-bold">Categoría</th>
+          <th class="px-4 py-3 font-bold">Stock</th>
+          <th class="px-4 py-3 font-bold">Ubicación</th>
+          <th class="px-4 py-3 font-bold">Estado</th>
+          <th class="px-4 py-3 font-bold text-center">Acciones</th>
         </tr>
       </thead>
 
       <tbody class="divide-y divide-slate-800">
         <tr
-          *ngFor="let producto of productos"
+          *ngFor="let insumo of insumos"
           class="hover:bg-slate-800/60 transition"
         >
-          <td class="px-4 py-4 text-gray-300">{{ producto.id }}</td>
-          <td class="px-4 py-4 text-gray-300">{{ producto.nombre }}</td>
-          <td class="px-4 py-4 text-gray-300">{{ producto.categoria }}</td>
-          <td class="px-4 py-4 text-gray-300">{{ producto.stock }}</td>
-          <td class="px-4 py-4 text-gray-300">{{ producto.ubicacion }}</td>
+          <td class="px-4 py-4 text-gray-300">{{ insumo.id }}</td>
+          <td class="px-4 py-4 text-gray-300">{{ insumo.nombre }}</td>
+          <td class="px-4 py-4 text-gray-300">{{ insumo.categoria }}</td>
+          <td class="px-4 py-4 text-gray-300">{{ insumo.stock }}</td>
+          <td class="px-4 py-4 text-gray-300">{{ insumo.ubicacion }}</td>
 
           <td class="px-4 py-4">
             <span
               [ngClass]="{
-                'text-red-500 font-semibold':
-                  producto.stock <= producto.stockMin,
-                'text-green-500 font-semibold':
-                  producto.stock > producto.stockMin
+                'text-red-500 font-semibold': insumo.stock <= insumo.stockMin,
+                'text-green-500 font-semibold': insumo.stock > insumo.stockMin
               }"
             >
               {{
-                producto.stock <= producto.stockMin
-                  ? "Bajo stock"
-                  : "Disponible"
+                insumo.stock <= insumo.stockMin ? "Bajo stock" : "Disponible"
               }}
             </span>
           </td>
@@ -59,19 +137,13 @@
           <td class="px-4 py-4 text-center space-x-3">
             <button
               class="bg-indigo-600 text-gray-200 px-3 py-1 rounded hover:bg-indigo-700 transition"
-              (click)="openModal(producto, 'view')"
-            >
-              Ver
-            </button>
-            <button
-              class="bg-yellow-600 text-gray-200 px-3 py-1 rounded hover:bg-yellow-700 transition"
-              (click)="openModal(producto, 'edit')"
+              (click)="modalEditView(insumo.id)"
             >
               Editar
             </button>
+
             <button
               class="bg-red-600 text-gray-200 px-3 py-1 rounded hover:bg-red-700 transition"
-              (click)="openModal(producto, 'delete')"
             >
               Eliminar
             </button>
@@ -79,12 +151,12 @@
         </tr>
 
         <!-- Fila vacía (sin resultados) -->
-        <tr *ngIf="productos.length === 0">
+        <tr *ngIf="insumos.length === 0">
           <td
             colspan="7"
             class="text-center py-6 text-gray-400 bg-slate-800 rounded-b-lg"
           >
-            No se encontraron productos en el inventario.
+            No se encontraron insumos en el inventario.
           </td>
         </tr>
       </tbody>
@@ -99,15 +171,12 @@
     (pageChange)="paginationService.goToPage($event)"
   />
 
-  <!-- Resumen -->
-  <div class="flex gap-4 mb-2 items-center">
-    <div class="flex items-center gap-2 bg-slate-800 p-5 rounded-xl shadow">
-      <p class="text-lg text-white">Insumos totales:</p>
-      <h3 class="text-xl font-bold text-white">{{ totalProductos }}</h3>
-    </div>
-    <div class="flex items-center gap-2 bg-slate-800 p-5 rounded-xl shadow">
-      <p class="text-lg text-white">Productos en bajo stock:</p>
-      <h3 class="text-xl font-bold text-red-500">{{ bajoStock }}</h3>
-    </div>
-  </div>
+  @if(modalView()) {
+  <modal-edit
+    [fbEdit]="fbInventory"
+    (fbEditSend)="dataForm($event)"
+    (closeModal)="modalView.set($event)"
+    [modalTitle]="'Editar item'"
+  ></modal-edit>
+  }
 </div>

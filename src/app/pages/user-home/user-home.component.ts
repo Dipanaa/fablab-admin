@@ -27,22 +27,6 @@ export class UserHomeComponent {
     this.projectsService.obtenerProyectos();
   }
 
-  // Noticias simuladas
-  noticias = [
-    {
-      titulo: 'Nuevo curso de impresión 3D',
-      fecha: '2025-09-25',
-      autor: 'Admin',
-      resumen: 'Aprende modelado básico y slicing.',
-    },
-    {
-      titulo: 'Actualización de horarios',
-      fecha: '2025-09-20',
-      autor: 'FabLab',
-      resumen: 'El laboratorio cerrará a las 20:00 en septiembre.',
-    },
-  ];
-
   // Proyectos destacados simulados
   proyectosDestacados = [
     {
@@ -73,23 +57,5 @@ export class UserHomeComponent {
       titulo: 'Aplicación FabLab',
       ultimoAvance: 'Se agregó login de usuarios.',
     },
-  ];
-
-  // Avisos y eventos
-  eventos = [
-    { fecha: '2025-10-01', evento: 'Taller de corte láser' },
-    { fecha: '2025-10-05', evento: 'Entrega de proyectos de software' },
-  ];
-
-  // Atajos
-  atajos = [
-    { label: 'Crear nuevo proyecto', icon: '➕', ruta: '/proyectos/nuevo' },
-    { label: 'Subir un avance', icon: '⬆️', ruta: '/avances/nuevo' },
-    {
-      label: 'Ver mis estadísticas',
-      icon: '📊',
-      ruta: '/usuario/estadisticas',
-    },
-    { label: 'Explorar proyectos', icon: '👥', ruta: '/proyectos' },
   ];
 }
