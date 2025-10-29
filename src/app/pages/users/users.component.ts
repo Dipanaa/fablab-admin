@@ -1,9 +1,4 @@
-import {
-  Component,
-  effect,
-  inject,
-  signal,
-} from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { UsersService } from '../../services/users.service';
 import { PaginationService } from '../../services/pagination.service';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
@@ -12,13 +7,19 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ModalEditComponent } from '../../shared/modal-edit/modal-edit.component';
 import { Router } from '@angular/router';
 import { UsersToApi } from '../../utils/mappers/usersMapper';
+import { BuscadorComponent } from '../../shared/searcher/searcher.component';
 
 @Component({
   selector: 'users',
-  imports: [PaginationComponent, ReactiveFormsModule, ModalEditComponent],
+  imports: [
+    PaginationComponent,
+    ReactiveFormsModule,
+    ModalEditComponent,
+    BuscadorComponent,
+  ],
   templateUrl: './users.component.html',
 })
-export class UsersComponent{
+export class UsersComponent {
   //Servicios
   usersService = inject(UsersService);
   paginationService = inject(PaginationService);
@@ -53,22 +54,21 @@ export class UsersComponent{
   //Metodos
   //Todo: Investigar implementacion de genericos
   dataFormPut(data: any): void {
-    if(!data){
+    if (!data) {
       return;
     }
 
     //Mapeamos la data a la respuesta
     const dataRequest = UsersToApi(data);
 
-    this.usersService.editarUsuario(this.modalId(),dataRequest).subscribe((status) =>
-      {
-        if(status){
-          this.router.navigateByUrl("/usuarios");
+    this.usersService
+      .editarUsuario(this.modalId(), dataRequest)
+      .subscribe((status) => {
+        if (status) {
+          this.router.navigateByUrl('/usuarios');
           return;
         }
-      }
-    );
-
+      });
   }
 
   //Abre modal de edicion y coloca valores de usuario.
