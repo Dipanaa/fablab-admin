@@ -6,6 +6,7 @@ import { BuscadorComponent } from '../../shared/searcher/searcher.component';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { PaginationService } from '../../services/pagination.service';
 import { ModalEditComponent } from '../../shared/modal-edit/modal-edit.component';
+import { FooterComponent } from '../../shared/footer/footer';
 
 @Component({
   selector: 'inventory',
@@ -15,6 +16,7 @@ import { ModalEditComponent } from '../../shared/modal-edit/modal-edit.component
     BuscadorComponent,
     PaginationComponent,
     ModalEditComponent,
+    FooterComponent,
   ],
   templateUrl: './inventory.component.html',
 })

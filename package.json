@@ -10,6 +10,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular/cdk": "^19.2.19",
     "@angular/common": "^19.2.0",
     "@angular/compiler": "^19.2.0",
     "@angular/core": "^19.2.0",
@@ -22,7 +23,7 @@
     "@fullcalendar/daygrid": "^6.1.17",
     "@tailwindcss/postcss": "^4.1.10",
     "animate.css": "^4.1.1",
-    "chart.js": "^4.5.0",
+    "chart.js": "^4.5.1",
     "countup.js": "^2.9.0",
     "jwt-decode": "^4.0.0",
     "particles.js": "^2.0.0",
