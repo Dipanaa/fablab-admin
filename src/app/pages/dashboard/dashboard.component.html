@@ -1,17 +1,61 @@
-<!-- Saludo -->
-<div>
-  <h1 class="text-3xl font-bold pb-2">Panel administrativo</h1>
-  <h2 class="text-2xl font-bold pb-2">
-    Hola {{ username || "Usuario" }}, bienvenido al Panel Administrativo
-  </h2>
-  <p class="text-gray-400 mb-4">
-    Aquí puedes visualizar y administrar los parámetros del laboratorio.
-  </p>
+<!-- Encabezado -->
+<div
+  class="bg-gradient-to-r from-indigo-700 to-indigo-800 text-white p-6 mb-5 rounded-2xl shadow-lg flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4"
+>
+  <div>
+    <h1 class="text-2xl font-bold flex items-center gap-2">
+      Panel Administrativo
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="size-7"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M3.75 4.5h16.5m-16.5 0a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 3.75 19.5h16.5a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 20.25 4.5m-16.5 0V3A2.25 2.25 0 0 1 6 0.75h12A2.25 2.25 0 0 1 20.25 3v1.5"
+        />
+      </svg>
+    </h1>
+    <h2 class="text-lg font-medium mt-1">
+      Hola {{ username || "Administrador" }}, bienvenido de nuevo 👋
+    </h2>
+    <p class="text-gray-300 text-sm">
+      Gestiona usuarios, proyectos y revisa el estado general del laboratorio.
+    </p>
+  </div>
 </div>
 
 <!-- Tarjetas de resumen -->
 <summary-cards />
 
-<!-- Graficos -->
+<!-- Divider -->
+<div class="border-t border-slate-600 my-6"></div>
 
-<div class="divider"></div>
+<!-- Gráficos -->
+<div class="space-y-6">
+  <h2 class="text-2xl font-semibold text-gray-100 flex items-center gap-2">
+    <div class="bg-indigo-900/50 text-indigo-400 p-3 rounded-full">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="size-6"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5m.75-9 3-3 2.148 2.148A12.061 12.061 0 0 1 16.5 7.605"
+        />
+      </svg>
+    </div>
+
+    Métricas y estadísticas
+  </h2>
+  <charts></charts>
+</div>

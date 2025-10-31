@@ -1,7 +1,7 @@
-<div class="p-6 space-y-8">
+<div class="space-y-8">
   <!-- Hero -->
   <div
-    class="bg-gradient-to-r from-indigo-600 to-indigo-700 text-white p-6 rounded-2xl shadow-lg"
+    class="bg-gradient-to-r from-indigo-600 to-indigo-700 text-white rounded-2xl shadow-lg p-6"
   >
     <h1 class="text-2xl font-bold flex items-center gap-2">
       Bienvenido, {{ authService.userData()?.nombre || "Usuario" }}
@@ -141,7 +141,8 @@
           Mis proyectos
         </h2>
         <div class="space-y-3">
-          @for (proyecto of projectsService.projectsData(); track $index) {
+          @for (proyecto of projectsService.projectsData()| slice:0:3; track
+          $index) {
           <div
             class="bg-gray-800 p-4 rounded-xl shadow hover:shadow-lg transition"
           >
@@ -166,130 +167,7 @@
           }
         </div>
       </section>
-
-      <!-- Atajos -->
-      <!-- <section>
-        <h2
-          class="text-xl font-semibold text-gray-200 mb-3 flex items-center gap-2"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="size-6"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z"
-            />
-          </svg>
-          Atajos rápidos
-        </h2>
-        <div class="grid grid-cols-2 gap-3">
-          <a
-            routerLink="/proyectos/nuevo"
-            class="flex flex-col items-center justify-center bg-indigo-600 text-white rounded-xl p-4 shadow hover:bg-indigo-700 transition"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="size-6"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M12 10.5v6m3-3H9m4.06-7.19-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z"
-              />
-            </svg>
-            <span class="text-sm mt-1">Crear nuevo proyecto</span>
-          </a>
-
-          <a
-            routerLink="/avances/nuevo"
-            class="flex flex-col items-center justify-center bg-indigo-600 text-white rounded-xl p-4 shadow hover:bg-indigo-700 transition"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="size-6"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"
-              />
-            </svg>
-
-            <span class="text-sm mt-1">Subir un avance</span>
-          </a>
-
-          <a
-            routerLink="/soporte/nuevo"
-            class="flex flex-col items-center justify-center bg-indigo-600 text-white rounded-xl p-4 shadow hover:bg-indigo-700 transition"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="size-6"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.996-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z"
-              />
-            </svg>
-            <span class="text-sm mt-1">Solicitar Asistencia</span>
-          </a>
-
-          <a
-            routerLink="/inventario/consulta"
-            class="flex flex-col items-center justify-center bg-indigo-600 text-white rounded-xl p-4 shadow hover:bg-indigo-700 transition"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="size-6"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M11.35 3.86a.75.75 0 0 0-.712 0l-1.944.972-.994 2.768Z"
-              />
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M12 7.5h.008v.008H12V7.5Zm0 3h.008v.008H12v3Z"
-              />
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M16.8 7.5h-.008v.008H16.8V7.5Zm0 3h-.008v.008H16.8v3Z"
-              />
-              <path
-                fill-rule="evenodd"
-                d="M12 2.25c-5.403 0-10.835 4.968-10.978 11.24-.01.428.322.766.75.766h19.5c.428 0 .765-.338.755-.766-.143-6.272-5.575-11.24-10.978-11.24ZM7.785 18.75a.75.75 0 0 1 0-1.5h.008a.75.75 0 0 1 0 1.5h-.008Z"
-                clip-rule="evenodd"
-              />
-            </svg>
-            <span class="text-sm mt-1">Consultar Inventario</span>
-          </a>
-        </div>
-      </section> -->
     </div>
   </div>
+  <app-footer pageName="Panel de usuario"></app-footer>
 </div>
