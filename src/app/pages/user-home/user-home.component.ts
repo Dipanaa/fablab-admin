@@ -5,10 +5,11 @@ import { RouterLink } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
 import { NewsService } from '../../services/news.service';
 import { ProjectsService } from '../../services/projects.service';
+import { FooterComponent } from '../../shared/footer/footer';
 
 @Component({
   selector: 'user-home',
-  imports: [NgFor, RouterLink, DatePipe, SlicePipe],
+  imports: [NgFor, RouterLink, DatePipe, SlicePipe, FooterComponent],
   templateUrl: './user-home.component.html',
 })
 export class UserHomeComponent {

@@ -1,63 +1,88 @@
+<!-- Contenedor general -->
 <section
-  class="p-6 max-w-3xl mx-auto bg-white dark:bg-slate-900 rounded-xl shadow-md"
+  class="p-6 max-w-3xl mx-auto bg-white dark:bg-slate-800 rounded-2xl shadow-lg transition-all"
 >
-  <h2 class="text-3xl font-bold text-slate-800 mb-6">
+  <!-- Título principal -->
+  <h2
+    class="text-3xl font-bold text-slate-800 dark:text-white mb-6 flex items-center gap-2"
+  >
+    <!-- Ícono opcional (puedes usar lucide-angular) -->
+    <i class="bi bi-pencil-square text-indigo-600"></i>
     Actualizar Proyecto:
-    <span class="text-indigo-600">{{
-      proyectoEncontrado?.title || "Cargando..."
-    }}</span>
+    <span class="text-indigo-600">
+      {{ proyectoEncontrado?.title || "Cargando..." }}
+    </span>
   </h2>
 
-  <form (submit)="guardarActualizacion($event)">
-    <!-- Título de la actualización -->
-    <div class="mb-4">
+  <!-- Formulario de actualización -->
+  <form (submit)="guardarActualizacion($event)" class="space-y-6">
+    <!-- Campo: Título -->
+    <div>
       <label
-        class="block mb-1 text-sm font-medium text-gray-700"
-        >Título</label
+        for="titulo"
+        class="block mb-1 text-sm font-semibold text-gray-700 dark:text-gray-300"
       >
+        Título de la actualización
+      </label>
       <input
+        id="titulo"
         type="text"
         name="titulo"
         required
         placeholder="Ej. Se ensambló la estructura base"
-        class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-indigo-600 dark:bg-slate-800 text-black"
+        class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-600 dark:bg-slate-800 dark:border-slate-700 dark:text-gray-100"
       />
+      <p class="text-xs text-gray-500 mt-1">
+        Sé breve y claro. Esto se mostrará como título de la actualización.
+      </p>
     </div>
 
-    <!-- Descripción -->
-    <div class="mb-4">
+    <!-- Campo: Descripción -->
+    <div>
       <label
-        class="block mb-1 text-sm font-medium text-gray-700"
-        >Descripción</label
+        for="descripcion"
+        class="block mb-1 text-sm font-semibold text-gray-700 dark:text-gray-300"
       >
+        Descripción detallada
+      </label>
       <textarea
+        id="descripcion"
         name="descripcion"
         rows="4"
         required
         placeholder="Describe el avance o modificación realizada..."
-        class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-indigo-600 dark:bg-slate-800 text-black"
+        class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-600 dark:bg-slate-800 dark:border-slate-700 dark:text-gray-100"
       ></textarea>
+      <p class="text-xs text-gray-500 mt-1">
+        Incluye detalles relevantes, materiales usados o problemas resueltos.
+      </p>
     </div>
 
-    <!-- Imagen opcional -->
-    <div class="mb-4">
+    <!-- Campo: Imagen -->
+    <div>
       <label
-        class="block mb-1 text-sm font-medium text-gray-700"
-        >Imagen (opcional)</label
+        for="imagen"
+        class="block mb-1 text-sm font-semibold text-gray-700 dark:text-gray-300"
       >
+        Imagen (opcional)
+      </label>
       <input
+        id="imagen"
         type="file"
         name="imagen"
         accept="image/*"
-        class="w-full text-sm text-gray-500 dark:text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
+        class="w-full text-sm text-gray-500 dark:text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-500 dark:file:bg-slate-700 dark:file:text-gray-100"
       />
+      <p class="text-xs text-gray-500 mt-1">
+        Puedes subir una imagen que muestre el progreso o resultado del avance.
+      </p>
     </div>
 
-    <!-- Botón -->
+    <!-- Botón de envío -->
     <div class="flex justify-end">
       <button
         type="submit"
-        class="bg-indigo-600 px-6 py-2 rounded-md hover:bg-indigo-700 transition"
+        class="bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-400 transition"
       >
         Guardar actualización
       </button>

@@ -1,112 +1,133 @@
 <section
-  class="p-6 max-w-3xl mx-auto bg-white dark:bg-slate-900 rounded-xl shadow-md"
+  class="p-8 max-w-4xl mx-auto bg-white dark:bg-slate-900 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-800 transition-all duration-300"
 >
-  <h2 class="text-3xl font-bold text-slate-800 dark:text-white mb-6">
+  <h2
+    class="text-3xl font-bold text-slate-800 dark:text-white mb-8 text-center"
+  >
     Solicitud de Creación de Proyecto
   </h2>
 
-  <form autocomplete="off" [formGroup]="newProjectForm" (ngSubmit)="submitNewProject()" >
+  <form
+    autocomplete="off"
+    [formGroup]="newProjectForm"
+    (ngSubmit)="submitNewProject()"
+    class="space-y-6"
+  >
     <!-- Título -->
     <div>
       <label
-        class="block mb-1 text-sm font-medium text-gray-700 "
-        >Título del proyecto</label
+        class="block mb-2 text-sm font-semibold text-slate-700 dark:text-slate-200"
       >
+        Título del proyecto
+      </label>
       <input
         type="text"
         name="titulo"
         required
-        class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-indigo-600 dark:bg-slate-800 text-black "
-        placeholder="Ej. Plataforma para domótica"
         formControlName="titulo"
+        class="w-full px-4 py-2.5 border border-slate-300 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent dark:bg-slate-800 dark:text-white transition"
+        placeholder="Ej. Plataforma para domótica"
       />
     </div>
 
     <!-- Descripción -->
     <div>
       <label
-        class="block mb-1 text-sm font-medium text-gray-700 dark:text-white "
-        >Descripción breve</label
+        class="block mb-2 text-sm font-semibold text-slate-700 dark:text-slate-200"
       >
+        Descripción breve
+      </label>
       <textarea
         name="descripcion"
         rows="4"
         required
-        class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-indigo-600 dark:bg-slate-800 text-black"
-        placeholder="Describe en que consiste tu proyecto en pocas palabras..."
         formControlName="descripcionproyecto"
+        class="w-full px-4 py-2.5 border border-slate-300 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent dark:bg-slate-800 dark:text-white transition resize-none"
+        placeholder="Describe brevemente en qué consiste tu proyecto..."
       ></textarea>
     </div>
 
-    <!-- Categoría -->
-    <div>
-      <label
-        class="block mb-1 text-sm font-medium text-gray-700 "
-        >Categoría</label
-      >
-      <select
-        name="categoria"
-        required
-        class="w-full px-4 py-2 border rounded-md dark:bg-slate-800 text-black"
-        formControlName="categoria"
-      >
-        <option value="" disabled selected>Selecciona una categoría</option>
-        <option>Impresión 3D</option>
-        <option>Corte Láser</option>
-        <option>Electrónica</option>
-        <option>Mixto</option>
-      </select>
+    <!-- Categoría y Área -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Categoría -->
+      <div>
+        <label
+          class="block mb-2 text-sm font-semibold text-slate-700 dark:text-slate-200"
+        >
+          Categoría
+        </label>
+        <select
+          name="categoria"
+          required
+          formControlName="categoria"
+          class="w-full px-4 py-2.5 border border-slate-300 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent dark:bg-slate-800 dark:text-white transition"
+        >
+          <option value="" disabled selected>Selecciona una categoría</option>
+          <option>Impresión 3D</option>
+          <option>Corte Láser</option>
+          <option>Electrónica</option>
+          <option>Mixto</option>
+          <option>Otro</option>
+        </select>
+      </div>
+
+      <!-- Área de aplicación -->
+      <div>
+        <label
+          class="block mb-2 text-sm font-semibold text-slate-700 dark:text-slate-200"
+        >
+          Área de aplicación
+        </label>
+        <input
+          type="text"
+          name="areaaplicacion"
+          required
+          formControlName="areaaplicacion"
+          class="w-full px-4 py-2.5 border border-slate-300 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent dark:bg-slate-800 dark:text-white transition"
+          placeholder="Ej. Educación, diseño, ingeniería..."
+        />
+      </div>
     </div>
 
-    <div>
-      <label
-        class="block mb-1 text-sm font-medium text-gray-700 "
-        >Area de aplicación</label
-      >
-      <input
-        type="text"
-        name="titulo"
-        required
-        class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-indigo-600 dark:bg-slate-800 text-black "
-        placeholder="Area de aplicacion"
-        formControlName="areaaplicacion"
-      />
-    </div>
+    <!-- Link y fecha -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Link -->
+      <div>
+        <label
+          class="block mb-2 text-sm font-semibold text-slate-700 dark:text-slate-200"
+        >
+          Link de referencia (opcional)
+        </label>
+        <input
+          type="url"
+          name="referencia"
+          placeholder="https://..."
+          class="w-full px-4 py-2.5 border border-slate-300 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent dark:bg-slate-800 dark:text-white transition"
+        />
+      </div>
 
-    <!-- Link de referencia -->
-    <div>
-      <label
-        class="block mb-1 text-sm font-medium text-gray-700 "
-        >Link de referencia (opcional)</label
-      >
-      <input
-        type="url"
-        name="referencia"
-        placeholder="https://..."
-        class="w-full px-4 py-2 border rounded-md dark:bg-slate-800 text-black"
-      />
-    </div>
-
-    <!-- Fecha -->
-    <div>
-      <label
-        class="block mb-1 text-sm font-medium text-gray-700 "
-        >Fecha estimada de inicio</label
-      >
-      <input
-        type="date"
-        name="fechaInicio"
-        required
-        class="w-full px-4 py-2 border rounded-md dark:bg-slate-800 text-black"
-        formControlName="fechainicio"
-      />
+      <!-- Fecha -->
+      <div>
+        <label
+          class="block mb-2 text-sm font-semibold text-slate-700 dark:text-slate-200"
+        >
+          Fecha estimada de inicio
+        </label>
+        <input
+          type="date"
+          name="fechainicio"
+          required
+          formControlName="fechainicio"
+          class="w-full px-4 py-2.5 border border-slate-300 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent dark:bg-slate-800 dark:text-white transition"
+        />
+      </div>
     </div>
 
     <!-- Botón -->
-    <div class="flex justify-end pt-4">
+    <div class="flex justify-end pt-6">
       <button
         type="submit"
-        class="bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700 transition"
+        class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2.5 rounded-lg font-medium transition shadow-sm hover:shadow-md focus:ring-2 focus:ring-indigo-500"
       >
         Enviar solicitud
       </button>
@@ -114,8 +135,4 @@
   </form>
 </section>
 
-<!-- Componente de exito de peticion -->
-<div class="h-screen absolute top-0 w-full justify-center items-center z-10 bg-gray-400/50 hidden" #successPost>
-  <success-component [urlName]="'/proyectos'" [tipoDePeticion]="'Ingresado'"></success-component>
-</div>
-
+<!-- Éxito de envío -->

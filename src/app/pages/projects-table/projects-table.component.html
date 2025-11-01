@@ -1,110 +1,105 @@
-<div class="rounded-lg shadow flex flex-col">
-  <h1 class="text-3xl font-bold text-white mb-6">
-    Tabla de Proyectos
-  </h1>
-
-  <!-- Tabla scrollable -->
-  <div class="overflow-y-auto max-h-[500px]">
-    <table
-      class="min-w-full text-sm text-left text-gray-500 dark:text-gray-400"
+<div class="border-slate-800 flex flex-col gap-3">
+  <div
+    class="flex flex-col md:flex-row md:items-center md:justify-between gap-4"
+  >
+    <h1 class="text-3xl font-bold text-white">Administración de Proyectos</h1>
+    <!-- Controles: buscador + filtros -->
+    <div
+      class="flex flex-col md:flex-row items-stretch md:items-center gap-3 w-full md:w-auto"
     >
-      <thead
-        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 sticky top-0 z-10"
-      >
-        <tr>
-          <th class="px-6 py-3">Proyecto</th>
-          <th class="px-6 py-3">Fecha</th>
-          <th class="px-6 py-3">Descripción</th>
-          <th class="px-6 py-3">Categoria</th>
-          <th class="px-6 py-3">Integrantes</th>
-          <th class="px-6 py-3">Acciones</th>
-        </tr>
-      </thead>
-      <tbody class="bg-white divide-y divide-gray-200">
-        <tr *ngFor="let proyecto of projectsService.projectsData()">
-          <!-- Proyecto (imagen + título + categoría) -->
-          <!-- Proyecto -->
-<td class="px-6 py-4">
-  <div class="flex items-center h-16">
-    <img
-      class="h-12 w-12 rounded object-cover flex-shrink-0"
-      [src]="proyecto.imgUrl"
-      alt="Imagen del proyecto"
-    />
-    <div class="ml-4 max-w-[12rem]">
-      <div
-        class="text-sm font-medium text-gray-900 line-clamp-2"
-        title="{{ proyecto.title }}"
-      >
-        {{ proyecto.title }}
-      </div>
-      <div class="text-sm text-gray-500 truncate">
-        {{ proyecto.categoria }}
-      </div>
+      <!-- Buscador -->
+      <searcher></searcher>
     </div>
   </div>
-</td>
 
+  <div class="h-auto w-full overflow-auto rounded-lg border border-slate-800">
+    <table class="min-w-full text-sm text-left text-gray-300">
+      <thead class="text-xs uppercase bg-slate-800 text-gray-400 sticky top-0">
+        <tr>
+          <th class="px-6 py-3 font-bold">Proyecto</th>
+          <th class="px-6 py-3 font-bold">Fecha</th>
+          <th class="px-6 py-3 font-bold">Descripción</th>
+          <th class="px-6 py-3 font-bold">Categoría</th>
+          <th class="px-6 py-3 font-bold">Integrantes</th>
+          <th class="px-6 py-3 font-bold">Acciones</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-slate-800">
+        <tr
+          *ngFor="let proyecto of projectsService.projectsData()"
+          class="bg-gray-900 hover:bg-slate-800/60 transition"
+        >
+          <td class="px-6 py-4">
+            <div class="flex items-center h-16">
+              <img
+                class="h-12 w-12 rounded object-cover flex-shrink-0 border border-slate-700"
+                [src]="proyecto.imgUrl"
+                alt="Imagen del proyecto"
+              />
+              <div class="ml-4 max-w-[12rem]">
+                <div
+                  class="text-sm font-medium text-white line-clamp-2"
+                  title="{{ proyecto.title }}"
+                >
+                  {{ proyecto.title }}
+                </div>
+              </div>
+            </div>
+          </td>
 
-          <!-- Fecha -->
-          <td class="px-6 py-4">{{ proyecto.date }}</td>
+          <td class="px-6 py-4 text-gray-400 whitespace-nowrap">
+            {{ proyecto.date }}
+          </td>
 
-          <!-- Descripción scrollable si es larga -->
           <td class="px-6 py-4 align-top">
-            <div class="max-h-[3.5rem] overflow-y-auto text-sm text-gray-600">
+            <div
+              class="max-h-[3.5rem] overflow-y-auto text-sm text-gray-400 pr-2"
+            >
               {{ proyecto.description }}
             </div>
           </td>
 
-          <!-- Cartera -->
-          <td class="px-6 py-4">{{ proyecto.categoria }}</td>
+          <td class="px-6 py-4 text-gray-400">
+            <span
+              class="text-indigo-300 text-xs font-semibold px-2 py-1 rounded-full"
+            >
+              {{ proyecto.categoria }}
+            </span>
+          </td>
 
-          <!-- Integrantes scrollables sin bullets -->
           <td class="px-6 py-4 align-top">
-            <div class="max-h-[4rem] overflow-y-auto">
-              <ol class="list-decimal list-inside text-sm text-gray-600">
-
+            <div class="max-h-[4rem] overflow-y-auto text-gray-400">
+              <ol class="list-decimal list-inside text-sm">
+                <li class="text-gray-500 italic">Lista de integrantes...</li>
               </ol>
             </div>
           </td>
 
-          <!-- Acciones -->
-          <td class="px-3 py-4 whitespace-nowrap text-sm font-medium">
+          <td class="px-4 py-4 whitespace-nowrap text-sm font-medium space-x-3">
             <a
               (click)="editarProyecto(proyecto.projectId)"
-              class="text-indigo-600 hover:text-indigo-900 cursor-pointer"
-              >Editar</a
+              class="text-indigo-400 hover:text-indigo-300 cursor-pointer transition"
             >
+              Editar
+            </a>
             <a
               (click)="eliminarProyecto(proyecto.projectId)"
-              class="ml-2 text-red-600 hover:text-red-900 cursor-pointer"
-              >Eliminar</a
+              class="text-red-500 hover:text-red-400 cursor-pointer transition"
             >
+              Eliminar
+            </a>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <!-- Botones de paginación abajo fuera del scroll -->
-  <div class="flex items-center justify-center gap-4 mt-4">
-    <button
-      (click)="irAPagina(currentPage - 1)"
-      [disabled]="currentPage === 1"
-      class="btn"
-    >
-      Anterior
-    </button>
-    <span class="text-slate-600">
-      Página <strong>{{ currentPage }}</strong> de
-      <strong>{{ totalPages }}</strong>
-    </span>
-    <button
-      (click)="irAPagina(currentPage + 1)"
-      [disabled]="currentPage === totalPages"
-      class="btn"
-    >
-      Siguiente
-    </button>
-  </div>
+  <!-- Paginación -->
+  <!-- Aqui conectamos el componente <pagination> con el paginationService
+       enviando los 3 parametros que necesita y dejando activo el event a la espera de algun cambio-->
+  <pagination
+    [currentPage]="paginationService.currentPage()"
+    [totalPages]="paginationService.totalPages()"
+    (pageChange)="paginationService.goToPage($event)"
+  />
 </div>

@@ -1,9 +1,4 @@
-import {
-  Component,
-  effect,
-  inject,
-  signal,
-} from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { UsersService } from '../../services/users.service';
 import { PaginationService } from '../../services/pagination.service';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
@@ -12,14 +7,22 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ModalEditComponent } from '../../shared/modal-edit/modal-edit.component';
 import { Router } from '@angular/router';
 import { UsersToApi } from '../../utils/mappers/usersMapper';
+import { BuscadorComponent } from '../../shared/searcher/searcher.component';
 import { StatusMessageComponent } from '../../shared/status-message/status-message.component';
 
 @Component({
   selector: 'users',
-  imports: [PaginationComponent, ReactiveFormsModule, ModalEditComponent,StatusMessageComponent],
+  imports: [
+    PaginationComponent,
+    ReactiveFormsModule,
+    ModalEditComponent,
+    BuscadorComponent,
+    StatusMessageComponent,
+    ModalEditComponent
+  ],
   templateUrl: './users.component.html',
 })
-export class UsersComponent{
+export class UsersComponent {
   //Servicios
   usersService = inject(UsersService);
   paginationService = inject(PaginationService);
@@ -53,7 +56,7 @@ export class UsersComponent{
   //Metodos
   //Todo: Investigar implementacion de genericos
   dataFormPut(data: any): void {
-    if(!data){
+    if (!data) {
       return;
     }
 
@@ -66,11 +69,9 @@ export class UsersComponent{
           this.usersService.dataUsersResource.reload();
           this.notificationStatusService.showMessage();
           console.log(this.notificationStatusService.statusTextMessage());
-          return;
         }
       }
-    );
-
+    )
   }
 
   //Abre modal de edicion y coloca valores de usuario.

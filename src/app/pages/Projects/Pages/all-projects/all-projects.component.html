@@ -1,51 +1,59 @@
-<div class="flex justify-between items-center mb-5">
-  <h1 class="text-3xl font-bold">Mis proyectos</h1>
-  <button
-    routerLink="new-project"
-    class="bg-indigo-600 text-white px-4 py-2 rounded-xl shadow hover:bg-indigo-700 transition flex items-center gap-2"
+<div class="border-slate-800 flex flex-col gap-3">
+  <!-- Encabezado igualado al de Project Table -->
+  <div
+    class="flex flex-col md:flex-row md:items-center md:justify-between gap-4"
   >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      class="w-5 h-5"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
+    <h1 class="text-3xl font-bold text-white">Panel Proyectos Personales</h1>
+    <div
+      class="flex flex-col md:flex-row items-stretch md:items-center gap-3 w-full md:w-auto"
     >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M12 4v16m8-8H4"
-      />
-    </svg>
-    Crear un nuevo proyecto
-  </button>
-</div>
-
-<!-- Scroll horizontal -->
-<div class="overflow-x-auto pb-4">
-  <div class="flex gap-4 px-1 min-w-max">
-    <app-card
-      *ngFor="let proyecto of projectsService.projectsData()"
-      [title]="proyecto.title"
-      [imgUrl]="proyecto.imgUrl??''"
-      [routerLink]="[proyecto.projectId]"
-    ></app-card>
+      <button
+        routerLink="new-project"
+        class="bg-indigo-600 text-white px-4 py-2 rounded-xl shadow hover:bg-indigo-700 transition flex items-center gap-2"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-5 h-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 4v16m8-8H4"
+          />
+        </svg>
+        Crear nuevo proyecto
+      </button>
+    </div>
   </div>
-</div>
 
-<div class="divider"></div>
+  <!-- Sección de proyectos personales -->
+  <div class="overflow-x-auto pb-4">
+    <div class="flex gap-4 px-1 min-w-max">
+      <app-card
+        *ngFor="let proyecto of projectsService.projectsData()"
+        [title]="proyecto.title"
+        [imgUrl]="proyecto.imgUrl ?? 'assets/img/default-project.png'"
+        [routerLink]="[proyecto.projectId]"
+      ></app-card>
+    </div>
+  </div>
 
-<h1 class="text-2xl font-bold mb-5">Proyectos en conjunto</h1>
+  <div class="divider"></div>
 
-<!-- Scroll horizontal -->
-<div class="overflow-x-auto pb-4">
-  <div class="flex gap-4 px-1 min-w-max">
-    <app-card
-      *ngFor="let proyecto of proyecto | slice : 0 : 5"
-      [title]="proyecto.title"
-      [imgUrl]="proyecto.imgUrl??''"
-      [routerLink]="[proyecto.projectId]"
-    ></app-card>
+  <!-- Sección de proyectos en conjunto -->
+  <h2 class="text-2xl font-bold text-white mb-4">Proyectos en conjunto</h2>
+  <div class="overflow-x-auto pb-4">
+    <div class="flex gap-4 px-1 min-w-max">
+      <app-card
+        *ngFor="let proyecto of proyecto | slice : 0 : 5"
+        [title]="proyecto.title"
+        [imgUrl]="proyecto.imgUrl ?? 'assets/img/default-project.png'"
+        [routerLink]="[proyecto.projectId]"
+      ></app-card>
+    </div>
   </div>
 </div>
