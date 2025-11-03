@@ -76,7 +76,7 @@
               <ol class="list-decimal list-inside text-xs">
                 @for (usuarios of usersService.usuariosData(); track $index) {
                 @for (project of usuarios.proyectos_asignados; track $index) {
-                <li>{{ project.title }}</li>
+                <li>{{ project.titulo }}</li>
                 } }
               </ol>
             </div>

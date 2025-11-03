@@ -1,4 +1,5 @@
 export interface UserResponseAuth {
+  id:                  number;
   nombre:              string;
   apellido:            string;
   rut:                 string;

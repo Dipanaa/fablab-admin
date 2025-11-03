@@ -2,7 +2,7 @@ import { computed, inject, Injectable, signal } from '@angular/core';
 import { UsersInterface } from '../interfaces/users.interface';
 import { HttpClient } from '@angular/common/http';
 import { catchError, finalize, map, Observable, of, tap } from 'rxjs';
-import { UserResponse } from '../utils/responses/userResponse';
+import { UserResponse } from '../utils/responses-interfaces/userResponse';
 import { UserApiToUsersArray } from '../utils/mappers/usersMapper';
 import { NotificacionsStatusService } from './notificacionsStatus.service';
 import { rxResource } from '@angular/core/rxjs-interop';

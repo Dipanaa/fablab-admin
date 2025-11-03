@@ -29,7 +29,7 @@ export class IndividualProjectComponent implements OnInit {
 
   searchById(id: number): void {
     const objectFind = this.projectsService.projectsData().find(
-      (proyecto) => proyecto.projectId === id
+      (proyecto) => proyecto.id === id
     );
     this.proyectoEncontrado = objectFind;
   }

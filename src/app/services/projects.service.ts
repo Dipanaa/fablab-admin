@@ -1,16 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { ProjectsResponse } from '../utils/responses/projectsResponse';
-import { finalize, map, tap } from 'rxjs';
+import { ProjectsResponse } from '../utils/responses-interfaces/projectsResponse';
+import { catchError, finalize, map, of, tap } from 'rxjs';
 import { projectApiToProjectsArray } from '../utils/mappers/projectsMapper';
 import { ProjectsInterface } from '../interfaces/projects.interface';
+import { NotificacionsStatusService } from './notificacionsStatus.service';
+import { ProjectsCreateInterface } from '../utils/request-interfaces/projectsCreateInterface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProjectsService {
-  //Inyectar httpClient
+  //Servicios
   httpClient = inject(HttpClient);
+  notificationsService = inject(NotificacionsStatusService);
 
   //Projects
   projectsData = signal<ProjectsInterface[]>([]);
@@ -41,20 +44,17 @@ export class ProjectsService {
     return this.projectsData;
   }
 
-  agregarProyecto(proyecto: any) {
-    this.httpClient
-      .post<ProjectsResponse[]>('http://localhost:5263/api/proyectos', proyecto)
-      .subscribe({
-        next: () => {
-          console.log('Los datos fueron insertados con exito');
-        },
-        error: (err) => {
-          console.log('Hubo un error en el ingreso del projectos', err);
-        },
-        complete: () => {
-          console.log('Se completo la peticion');
-        },
-      });
+  //Agregar proyecto con id de usuario
+  agregarProyecto(proyecto: ProjectsCreateInterface) {
+    return this.httpClient.post<ProjectsResponse[]>('http://localhost:5263/api/proyectos', proyecto)
+      .pipe(
+        map(()=> {
+          this.notificationsService.statusMessage.set(true);
+          this.notificationsService.statusTextMessage.set("Proyecto creado correctamente");
+          return true;
+        }),
+        catchError(()=> of(false))
+      )
   }
 
   editarProyecto(id: number) {

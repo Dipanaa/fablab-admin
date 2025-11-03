@@ -10,7 +10,7 @@ export class NewsService {
 
   //Servicios
   private httpclient = inject(HttpClient);
-  private notificacionsService = inject(NotificacionsStatusService);
+  private notificationsService = inject(NotificacionsStatusService);
 
   //News data
   newsResponse = signal<News[]>([]);
@@ -70,8 +70,8 @@ export class NewsService {
 
     return this.httpclient.post("http://localhost:5263/api/noticias",news).pipe(
       map(()=> {
-        this.notificacionsService.statusMessage.set(true);
-        this.notificacionsService.statusTextMessage.set("Noticia creada correctamente");
+        this.notificationsService.statusMessage.set(true);
+        this.notificationsService.statusTextMessage.set("Noticia creada correctamente");
         return true;
       }),
       finalize(()=> this.newsLoading.set(false)),
@@ -85,8 +85,8 @@ export class NewsService {
   deleteNew(newsId: number): Observable<boolean>{
     return this.httpclient.delete(`http://localhost:5263/api/noticias/${newsId}`).pipe(
       map(()=> {
-        this.notificacionsService.statusMessage.set(true);
-        this.notificacionsService.statusTextMessage.set("Noticia eliminada con exito");
+        this.notificationsService.statusMessage.set(true);
+        this.notificationsService.statusTextMessage.set("Noticia eliminada con exito");
         return true;
       }),
       finalize(()=> this.newsLoading.set(false)),
@@ -100,8 +100,8 @@ export class NewsService {
     return this.httpclient.put(`http://localhost:5263/api/noticias/${newsId}`,newUpdate)
     .pipe(
       map(()=> {
-        this.notificacionsService.statusMessage.set(true);
-        this.notificacionsService.statusTextMessage.set("Estado de noticia actualizado");
+        this.notificationsService.statusMessage.set(true);
+        this.notificationsService.statusTextMessage.set("Estado de noticia actualizado");
         return true;
       }),
       catchError(()=> of(false))

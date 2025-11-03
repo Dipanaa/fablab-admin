@@ -20,7 +20,7 @@ export class ProjectUpdateComponent implements OnInit {
     this.route.paramMap.subscribe((params) => {
       this.idProyecto = Number(params.get('id'));
       this.proyectoEncontrado = this.proyectos.find(
-        (proyecto) => proyecto.projectId === this.idProyecto
+        (proyecto) => proyecto.id === this.idProyecto
       );
 
       console.log('Proyecto a actualizar:', this.proyectoEncontrado);

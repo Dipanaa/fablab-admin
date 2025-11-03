@@ -30,7 +30,6 @@ export class AuthService{
   })
 
   //Verificar token de autenticacion en localstorage
-
   revisarEstadoToken = rxResource({
     loader: () => {
       return this.checkStatus();
@@ -90,9 +89,6 @@ export class AuthService{
         this._jwtToken.set(resp);
         this._autenticacion.set(true);
         localStorage.setItem("token",resp.token);
-
-        console.log("token renovado");
-        console.log("Verificar estado de token",this._autenticacion());
       }),
       map((resp)=> true),
       catchError((error)=>{

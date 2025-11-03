@@ -5,18 +5,22 @@ import { CommonModule } from '@angular/common';
 import { CardComponent } from '../../components/card/card.component';
 import { ProjectsInterface } from '../../../../interfaces/projects.interface';
 import { ProjectsService } from '../../../../services/projects.service';
+import { NotificacionsStatusService } from '../../../../services/notificacionsStatus.service';
+import { StatusMessageComponent } from '../../../../shared/status-message/status-message.component';
 @Component({
   selector: 'all-projects',
   standalone: true,
-  imports: [CommonModule, CardComponent, RouterLink],
+  imports: [CommonModule, CardComponent, RouterLink,StatusMessageComponent],
   templateUrl: './all-projects.component.html',
 })
 export class AllProjectsComponent {
 
   //Inyeccion de servicios
   projectsService = inject(ProjectsService);
+  notificacionStatus = inject(NotificacionsStatusService);
 
   constructor(){
+    //TODO: Implementar rxResource en el servicio
     this.projectsService.obtenerProyectos();
     console.log(this.projectsService.projectsData());
   }

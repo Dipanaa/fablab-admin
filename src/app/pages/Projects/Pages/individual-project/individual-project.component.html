@@ -25,11 +25,11 @@
       <div class="flex flex-col justify-between w-full lg:w-1/2 text-slate-200">
         <div>
           <h2 class="text-2xl font-semibold mb-3 text-indigo-400">
-            {{ proyectoEncontrado?.title || "Proyecto sin título" }}
+            {{ proyectoEncontrado?.titulo || "Proyecto sin título" }}
           </h2>
           <p class="text-slate-300 mb-4 leading-relaxed">
             {{
-              proyectoEncontrado?.description ||
+              proyectoEncontrado?.descripcionproyecto ||
                 "No hay descripción disponible para este proyecto."
             }}
           </p>
@@ -37,7 +37,7 @@
           <ul class="space-y-1 text-sm">
             <li>
               <strong>📅 Fecha:</strong>
-              {{ proyectoEncontrado?.date || "Sin registrar" }}
+              {{ proyectoEncontrado?.fechainicio || "Sin registrar" }}
             </li>
             <li>
               <strong>🧠 Categoría:</strong>
@@ -143,7 +143,7 @@
         class="bg-indigo-600 px-4 py-2 rounded-lg text-white hover:bg-indigo-700 transition-transform hover:scale-105 flex items-center gap-2"
         [routerLink]="[
           '/proyectos/project-update',
-          proyectoEncontrado?.projectId
+          proyectoEncontrado?.id
         ]"
       >
         <svg

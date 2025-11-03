@@ -1,3 +1,9 @@
+@if(notificacionStatus.statusMessage()){
+  <status-message></status-message>
+}s
+
+
+
 <div class="border-slate-800 flex flex-col gap-3">
   <!-- Encabezado igualado al de Project Table -->
   <div
@@ -35,9 +41,9 @@
     <div class="flex gap-4 px-1 min-w-max">
       <app-card
         *ngFor="let proyecto of projectsService.projectsData()"
-        [title]="proyecto.title"
+        [title]="proyecto.titulo"
         [imgUrl]="proyecto.imgUrl ?? 'assets/img/default-project.png'"
-        [routerLink]="[proyecto.projectId]"
+        [routerLink]="[proyecto.id]"
       ></app-card>
     </div>
   </div>
@@ -50,9 +56,9 @@
     <div class="flex gap-4 px-1 min-w-max">
       <app-card
         *ngFor="let proyecto of proyecto | slice : 0 : 5"
-        [title]="proyecto.title"
+        [title]="proyecto.titulo"
         [imgUrl]="proyecto.imgUrl ?? 'assets/img/default-project.png'"
-        [routerLink]="[proyecto.projectId]"
+        [routerLink]="[proyecto.id]"
       ></app-card>
     </div>
   </div>
