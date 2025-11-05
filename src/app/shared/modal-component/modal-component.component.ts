@@ -10,7 +10,7 @@ export class ModalComponentComponent {
   //Atributos
 
   //Parametros de entrada
-  @Input() show = false;
+  @Input() show = false; //Permite la apertura del modal
   @Input() title = 'Título del modal';
   @Input() description = 'Descripción del contenido del modal';
   @Input() acceptText = 'Aceptar';
@@ -18,10 +18,8 @@ export class ModalComponentComponent {
 
   //Parametros de salida
   @Output() accept = new EventEmitter<void>();
-  @Output() decline = new EventEmitter<void>();
-  @Output() close = new EventEmitter<void>();
-
-
+  decline = output<boolean>();
+  close = output<boolean>();
 
   onAccept() {
     this.accept.emit();
@@ -30,11 +28,11 @@ export class ModalComponentComponent {
   onDecline() {
     // Si no hay texto de rechazo, asumimos que no hay botón.
     if (this.declineText) {
-      this.decline.emit();
+      this.decline.emit(false );
     }
   }
 
   onClose() {
-    this.close.emit();
+    this.close.emit(false);
   }
 }

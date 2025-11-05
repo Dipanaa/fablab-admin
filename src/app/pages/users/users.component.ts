@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { UsersToApi } from '../../utils/mappers/usersMapper';
 import { BuscadorComponent } from '../../shared/searcher/searcher.component';
 import { StatusMessageComponent } from '../../shared/status-message/status-message.component';
+import { ModalComponentComponent } from '../../shared/modal-component/modal-component.component';
 
 @Component({
   selector: 'users',
@@ -18,7 +19,7 @@ import { StatusMessageComponent } from '../../shared/status-message/status-messa
     ModalEditComponent,
     BuscadorComponent,
     StatusMessageComponent,
-    ModalEditComponent
+    ModalComponentComponent
   ],
   templateUrl: './users.component.html',
 })
@@ -30,8 +31,9 @@ export class UsersComponent {
   formbuilder = inject(FormBuilder);
 
   //Atributos
-  modalView = signal<boolean>(false);
-  modalId = signal<number>(0);
+  openEditView = signal<boolean>(false);
+  openDeleteView = signal<boolean>(false);
+  modalIdUser = signal<number | undefined>(0);
 
   //FB en base a WEB API
   fbUser: FormGroup = this.formbuilder.group({
@@ -62,26 +64,49 @@ export class UsersComponent {
     //Mapeamos la data a la respuesta
     const dataRequest = UsersToApi(data);
 
-    this.usersService.putUsers(this.modalId(),dataRequest).subscribe((status) =>
+    this.usersService.putUsers(this.modalIdUser()!,dataRequest).subscribe((status) =>
       {
         if(status){
           this.usersService.dataUsersResource.reload();
           this.notificationStatusService.showMessage();
-          console.log(this.notificationStatusService.statusTextMessage());
         }
+      }
+    )
+  }
+
+  deleteUser(){
+    if(!this.modalIdUser()){
+      return;
+    }
+
+    this.usersService.deleteUsers(this.modalIdUser()!).subscribe(
+      (status) =>
+      {
+        if(status){
+          this.usersService.dataUsersResource.reload();
+          this.notificationStatusService.showMessage();
+          this.openDeleteView.set(false);
+          return;
+        }
+        this.usersService.dataUsersResource.reload();
+        this.notificationStatusService.showMessage();
+        this.openDeleteView.set(false);
+
+
       }
     )
   }
 
   //Abre modal de edicion y coloca valores de usuario.
   modalEditView(id: number) {
-    this.modalId.set(id);
+    this.modalIdUser.set(id);
     const userFind = this.usersService.searchUserForId(id);
     this.fbUser.patchValue(userFind!);
-    !this.modalView() ? this.modalView.set(true) : this.modalView.set(false);
+    !this.openEditView() ? this.openEditView.set(true) : this.openEditView.set(false);
   }
 
-  modalDeleteView() {
-    console.log('Hola nerd');
+  modalDeleteView(id: number) {
+    this.modalIdUser.set(id);
+    !this.openDeleteView() ? this.openDeleteView.set(true) : this.openDeleteView.set(false);
   }
 }

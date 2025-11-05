@@ -13,7 +13,7 @@ import { ProjectsCreateInterface } from '../utils/request-interfaces/projectsCre
 export class ProjectsService {
   //Servicios
   httpClient = inject(HttpClient);
-  notificationsService = inject(NotificacionsStatusService);
+  notificationStatusService = inject(NotificacionsStatusService);
 
   //Projects
   projectsData = signal<ProjectsInterface[]>([]);
@@ -51,13 +51,13 @@ export class ProjectsService {
     return this.httpClient.post<ProjectsResponse[]>('http://localhost:5263/api/proyectos', proyecto)
       .pipe(
         map(()=> {
-          this.notificationsService.statusMessage.set(true);
-          this.notificationsService.statusTextMessage.set("Proyecto creado correctamente");
+          this.notificationStatusService.statusMessage.set(true);
+          this.notificationStatusService.statusTextMessage.set("Proyecto creado correctamente");
           return true;
         }),
         catchError(()=> {
-          this.notificationsService.statusMessage.set(true);
-          this.notificationsService.statusErrorMessage.set("Error en la creación del proyecto");
+          this.notificationStatusService.statusMessage.set(true);
+          this.notificationStatusService.statusErrorMessage.set("Error en la creación del proyecto");
           return of(false)
         })
       )
@@ -68,6 +68,19 @@ export class ProjectsService {
   }
 
   deleteProject(id: number) {
-    console.log('ProjectsService: eliminarProyecto ejecutado', id);
+    return this.httpClient.delete(`http://localhost:5263/api/proyectos/${id}`)
+    .pipe(
+      map(()=> {
+        this.notificationStatusService.statusMessage.set(true);
+        this.notificationStatusService.statusTextMessage.set("proyecto eliminado correctamente");
+        return true;
+      }),
+      //TODO: Implementar interfaz de error en base a asp net
+      catchError((err)=>{
+        this.notificationStatusService.statusMessage.set(true);
+        this.notificationStatusService.statusErrorMessage.set(err.error.detail);
+        return of(false);
+      })
+    );
   }
 }

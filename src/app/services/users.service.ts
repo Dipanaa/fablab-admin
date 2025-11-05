@@ -84,25 +84,35 @@ export class UsersService {
         console.log(err);
         return of(false);
       })
-    )
+    );
   }
 
-  deleteUsers(id: number) {
-    console.log('UsersService: eliminarUsuario ejecutado', id);
+  //Delete de usuarios, SOLO administradores
+  deleteUsers(id: number): Observable<boolean> {
+    return this.httpClient.delete(`http://localhost:5263/api/usuarios/${id}`)
+    .pipe(
+      map(()=> {
+        this.notificationStatusService.statusMessage.set(true);
+        this.notificationStatusService.statusTextMessage.set("usuario eliminado correctamente");
+        return true;
+      }),
+      //TODO: Implementar interfaz de error en base a asp net
+      catchError((err)=>{
+        this.notificationStatusService.statusMessage.set(true);
+        this.notificationStatusService.statusErrorMessage.set(err.error.detail);
+        return of(false);
+      })
+    );
+
   }
 
   searchUserForId(id: number): UsersInterface | void{
-
     if(this.usersData().length == 0){
       return;
     }
     const usuarioBuscado = this.usersData().find(user => user.id_usuario == id);
     return usuarioBuscado;
-
   }
-
-
-
 
 }
 

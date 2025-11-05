@@ -1,15 +1,28 @@
 @if(notificationStatusService.statusMessage()){
-  <status-message [messageDisplay]="notificationStatusService.statusTextMessage()"></status-message>
+  <status-message></status-message>
 }
 
-@if(modalView()) {
+@if(openEditView()) {
 <modal-edit
   [fbEdit]="fbUser"
   (fbEditSend)="dataFormPut($event)"
-  (closeModal)="modalView.set($event)"
+  (closeModal)="openEditView.set($event)"
   [modalTitle]="'Editar usuario'"
 ></modal-edit>
 }
+
+@if(openDeleteView()){
+  <modal-component
+  [show]="openDeleteView()"
+  [title]="'¿Esta seguro que desea eliminar este usuario?'"
+  [description]="'El usuario perdera acceso al sistema y no podra ser partícipe de las funciones del laboratorio.'"
+  (close)="openDeleteView.set($event)"
+  (decline)="openDeleteView.set($event)"
+  (accept)="deleteUser()"
+  ></modal-component>
+}
+
+
 
 
 
@@ -91,7 +104,7 @@
             </button>
             <button
               class="bg-red-600 text-gray-200 px-3 py-1 rounded hover:bg-red-700 cursor-pointer"
-              (click)="modalDeleteView()"
+              (click)="modalDeleteView(usuario.id_usuario)"
             >
               Eliminar
             </button>
