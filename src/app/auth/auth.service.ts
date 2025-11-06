@@ -37,7 +37,7 @@ export class AuthService{
 
   //Logear usuarios
   loginUser(formLogin: any): Observable<boolean>{
-    return this._httpClient.post<TokenJwt>("https://fablabwebapi20251104221404-crbeb0b9cafvhqg3.canadacentral-01.azurewebsites.net/api/autenticacion/usuarios/login",formLogin)
+    return this._httpClient.post<TokenJwt>("http://localhost:5263/api/autenticacion/usuarios/login",formLogin)
     .pipe(
       tap((resp)=> {
         this.userData.set(resp.usuario);
@@ -55,7 +55,7 @@ export class AuthService{
 
   //Postear usuarios
   registerUser(formRegister: any): Observable<boolean>{
-    return this._httpClient.post("https://fablabwebapi20251104221404-crbeb0b9cafvhqg3.canadacentral-01.azurewebsites.net/api/autenticacion/usuarios/registro",formRegister)
+    return this._httpClient.post("http://localhost:5263/api/autenticacion/usuarios/registro",formRegister)
     .pipe(
       delay(4000),
       map(()=> true),
@@ -80,7 +80,7 @@ export class AuthService{
     }
 
     //TODO: Modificar con interceptores el encabezado
-    return this._httpClient.get<TokenJwt>("https://fablabwebapi20251104221404-crbeb0b9cafvhqg3.canadacentral-01.azurewebsites.net/api/autenticacion/usuarios/check-status",{
+    return this._httpClient.get<TokenJwt>("http://localhost:5263/api/autenticacion/usuarios/check-status",{
       headers: {
         'Authorization': `Bearer ${token}`
       }
