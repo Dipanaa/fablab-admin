@@ -123,54 +123,56 @@
       </thead>
 
       <tbody class="divide-y divide-slate-800">
-        <tr
-          *ngFor="let insumo of insumos"
-          class="hover:bg-slate-800/60 transition"
-        >
-          <td class="px-4 py-4 text-gray-300">{{ insumo.id }}</td>
-          <td class="px-4 py-4 text-gray-300">{{ insumo.nombre }}</td>
-          <td class="px-4 py-4 text-gray-300">{{ insumo.categoria }}</td>
-          <td class="px-4 py-4 text-gray-300">{{ insumo.stock }}</td>
-          <td class="px-4 py-4 text-gray-300">{{ insumo.ubicacion }}</td>
-
-          <td class="px-4 py-4">
-            <span
-              [ngClass]="{
-                'text-red-500 font-semibold': insumo.stock <= insumo.stockMin,
-                'text-green-500 font-semibold': insumo.stock > insumo.stockMin
-              }"
+        @for(insumo of inventoryService.inventoryData(); track insumo.id){
+            <tr
+              class="hover:bg-slate-800/60 transition"
             >
-              {{
-                insumo.stock <= insumo.stockMin ? "Bajo stock" : "Disponible"
-              }}
-            </span>
-          </td>
+              <td class="px-4 py-4 text-gray-300">{{ insumo.id }}</td>
+              <td class="px-4 py-4 text-gray-300">{{ insumo.nombre }}</td>
+              <td class="px-4 py-4 text-gray-300">{{ insumo.categoria }}</td>
+              <td class="px-4 py-4 text-gray-300">{{ insumo.stock }}</td>
+              <td class="px-4 py-4 text-gray-300">{{ insumo.ubicacion }}</td>
 
-          <td class="px-4 py-4 text-center space-x-3">
-            <button
-              class="bg-indigo-600 text-gray-200 px-3 py-1 rounded hover:bg-indigo-700 transition cursor-pointer"
-              (click)="modalEditView(insumo.id)"
-            >
-              Editar
-            </button>
+              <td class="px-4 py-4">
+                <span
+                  [ngClass]="{
+                    'text-red-500 font-semibold': insumo.stock <= 10,
+                    'text-green-500 font-semibold': insumo.stock > 10
+                  }"
+                >
+                  {{
+                    insumo.stock <= 10 ? "Bajo stock" : "Disponible"
+                  }}
+                </span>
+              </td>
 
-            <button
-              class="bg-red-600 text-gray-200 px-3 py-1 rounded hover:bg-red-700 transition cursor-pointer"
-            >
-              Eliminar
-            </button>
-          </td>
-        </tr>
+              <td class="px-4 py-4 text-center space-x-3">
+                <button
+                  class="bg-indigo-600 text-gray-200 px-3 py-1 rounded hover:bg-indigo-700 transition cursor-pointer"
+                  (click)="modalEditView(insumo.id)"
+                >
+                  Editar
+                </button>
 
-        <!-- Fila vacía (sin resultados) -->
-        <tr *ngIf="insumos.length === 0">
-          <td
-            colspan="7"
-            class="text-center py-6 text-gray-400 bg-slate-800 rounded-b-lg"
-          >
-            No se encontraron insumos en el inventario.
-          </td>
-        </tr>
+                <button
+                  class="bg-red-600 text-gray-200 px-3 py-1 rounded hover:bg-red-700 transition cursor-pointer"
+                >
+                  Eliminar
+                </button>
+              </td>
+          </tr>
+          @if(inventoryService.inventoryData().length === 0){
+            <!-- Fila vacía (sin resultados) -->
+            <tr>
+              <td
+                colspan="7"
+                class="text-center py-6 text-gray-400 bg-slate-800 rounded-b-lg"
+              >
+                No se encontraron insumos en el inventario.
+              </td>
+            </tr>
+          }
+        }
       </tbody>
     </table>
   </div>
