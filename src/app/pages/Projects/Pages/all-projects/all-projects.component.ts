@@ -10,27 +10,22 @@ import { StatusMessageComponent } from '../../../../shared/status-message/status
 @Component({
   selector: 'all-projects',
   standalone: true,
-  imports: [CommonModule, CardComponent, RouterLink,StatusMessageComponent],
+  imports: [CommonModule, CardComponent, RouterLink, StatusMessageComponent],
   templateUrl: './all-projects.component.html',
 })
 export class AllProjectsComponent {
-
   //Inyeccion de servicios
   projectsService = inject(ProjectsService);
   notificacionStatus = inject(NotificacionsStatusService);
 
-  constructor(){
+  constructor() {
     //TODO: Implementar rxResource en el servicio
     this.projectsService.getProjects();
     console.log(this.projectsService.projectsData());
   }
 
-
   proyecto: ProjectsInterface[] = dblocalproyectos;
   ngOnInit() {
     window.scrollTo({ top: 0, behavior: 'auto' });
   }
-
-
-
 }

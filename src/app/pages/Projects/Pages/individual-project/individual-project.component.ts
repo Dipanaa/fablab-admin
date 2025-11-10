@@ -1,38 +1,57 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import dblocalproyectos from '../../../../data/dblocalproyectos.json';
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { ActivatedRoute, RouterLink, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ProjectsInterface } from '../../../../interfaces/projects.interface';
 import { ProjectsService } from '../../../../services/projects.service';
+import { ModalComponentComponent } from '../../../../shared/modal-component/modal-component.component';
+import { BackButtonComponent } from '../../../../shared/back-button/back-button';
 
 @Component({
   selector: 'individual-project',
   templateUrl: './individual-project.component.html',
-  imports: [RouterLink, CommonModule],
+  imports: [
+    RouterLink,
+    CommonModule,
+    ModalComponentComponent,
+    BackButtonComponent,
+  ],
   standalone: true,
 })
 export class IndividualProjectComponent implements OnInit {
   //Servicios
   projectsService = inject(ProjectsService);
   route = inject(ActivatedRoute);
+  private router = inject(Router);
 
   //Atributos
-  project: ProjectsInterface[] = dblocalproyectos;
   projectoFound?: ProjectsInterface;
+  openDeleteView = signal<boolean>(false);
+  projectModalId = signal<number | undefined>(undefined);
 
   //Ciclos de vida
   ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    console.log(this.project);
-    this.searchById(id);
-    console.log(this.projectoFound);
+    this.projectModalId.set(id);
+    console.log(id);
   }
 
   //Metodos
-  searchById(id: number): void {
-    const objectFind = this.projectsService.projectsData().find(
-      (proyecto) => proyecto.id === id
-    );
-    this.projectoFound = objectFind;
+  deleteProject() {
+    console.log('Detele project', this.projectModalId());
+
+    if (!this.projectModalId) {
+      return;
+    }
+    this.projectsService
+      .deleteProject(this.projectModalId()!)
+      .subscribe((status) => {
+        if (status) {
+          this.openDeleteView.set(false);
+          this.router.navigate(['/proyectos']);
+          return;
+        }
+
+        this.openDeleteView.set(false);
+      });
   }
 }

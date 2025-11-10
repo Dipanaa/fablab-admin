@@ -19,7 +19,7 @@ import { ModalComponentComponent } from '../../shared/modal-component/modal-comp
     ModalEditComponent,
     BuscadorComponent,
     StatusMessageComponent,
-    ModalComponentComponent
+    ModalComponentComponent,
   ],
   templateUrl: './users.component.html',
 })
@@ -47,7 +47,9 @@ export class UsersComponent {
   constructor() {
     effect(() => {
       //Alimenta (paginationService): Pasa la nueva lista filtrada a PaginationService.
-      this.paginationService.setDataList(this.usersService.searchUserByFilter()); // Aqui se ponen los datos que vamos a trabajar a travez del servicio
+      this.paginationService.setDataList(
+        this.usersService.searchUserByFilter()
+      ); // Aqui se ponen los datos que vamos a trabajar a travez del servicio
 
       //Resetea el Estado: Le pide al cerebro que vuelva a la página 1.
       this.paginationService.goToPage(1);
@@ -64,37 +66,32 @@ export class UsersComponent {
     //Mapeamos la data a la respuesta
     const dataRequest = UsersToApi(data);
 
-    this.usersService.putUsers(this.modalIdUser()!,dataRequest).subscribe((status) =>
-      {
-        if(status){
+    this.usersService
+      .putUsers(this.modalIdUser()!, dataRequest)
+      .subscribe((status) => {
+        if (status) {
           this.usersService.dataUsersResource.reload();
           this.notificationStatusService.showMessage();
         }
-      }
-    )
+      });
   }
 
-  deleteUser(){
-    if(!this.modalIdUser()){
+  deleteUser() {
+    if (!this.modalIdUser()) {
       return;
     }
 
-    this.usersService.deleteUsers(this.modalIdUser()!).subscribe(
-      (status) =>
-      {
-        if(status){
-          this.usersService.dataUsersResource.reload();
-          this.notificationStatusService.showMessage();
-          this.openDeleteView.set(false);
-          return;
-        }
+    this.usersService.deleteUsers(this.modalIdUser()!).subscribe((status) => {
+      if (status) {
         this.usersService.dataUsersResource.reload();
         this.notificationStatusService.showMessage();
         this.openDeleteView.set(false);
-
-
+        return;
       }
-    )
+      this.usersService.dataUsersResource.reload();
+      this.notificationStatusService.showMessage();
+      this.openDeleteView.set(false);
+    });
   }
 
   //Abre modal de edicion y coloca valores de usuario.
@@ -102,11 +99,15 @@ export class UsersComponent {
     this.modalIdUser.set(id);
     const userFind = this.usersService.searchUserForId(id);
     this.fbUser.patchValue(userFind!);
-    !this.openEditView() ? this.openEditView.set(true) : this.openEditView.set(false);
+    !this.openEditView()
+      ? this.openEditView.set(true)
+      : this.openEditView.set(false);
   }
 
   modalDeleteView(id: number) {
     this.modalIdUser.set(id);
-    !this.openDeleteView() ? this.openDeleteView.set(true) : this.openDeleteView.set(false);
+    !this.openDeleteView()
+      ? this.openDeleteView.set(true)
+      : this.openDeleteView.set(false);
   }
 }

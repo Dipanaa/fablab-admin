@@ -1,7 +1,16 @@
-<!-- ======================= -->
-<!-- Vista Individual Proyecto -->
-<!-- ======================= -->
-
+@if(openDeleteView()){
+<modal-component
+  [show]="openDeleteView()"
+  [title]="'¿Esta seguro que desea eliminar este proyecto?'"
+  [description]="
+    'El o los usuarios participes del proyecto ya no tendran mas acceso a el'
+  "
+  (close)="openDeleteView.set(false)"
+  (decline)="openDeleteView.set(false)"
+  (accept)="deleteProject()"
+></modal-component>
+}
+<div class="flex justify-end mr-8"><back-button></back-button></div>
 <section class="flex flex-col gap-10 p-4 md:p-8">
   <!-- 🧩 Sección de Previsualización -->
   <div
@@ -63,6 +72,7 @@
 
         <div class="flex justify-end mt-6 gap-4">
           <button
+            (click)="openDeleteView.set(true)"
             class="bg-red-600 text-gray-200 px-5 py-2 rounded-lg hover:bg-red-700 transition cursor-pointer"
           >
             Eliminar</button

@@ -2,10 +2,11 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProjectsInterface } from '../../../../interfaces/projects.interface';
 import dblocalproyectos from '../../../../data/dblocalproyectos.json';
+import { BackButtonComponent } from '../../../../shared/back-button/back-button';
 
 @Component({
   selector: 'project-update',
-  imports: [],
+  imports: [BackButtonComponent],
   templateUrl: './project-update.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

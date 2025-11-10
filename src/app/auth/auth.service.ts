@@ -8,12 +8,8 @@ import { UsersInterface } from '../interfaces/users.interface';
 import { UsersAuthApitoUser } from '../utils/mappers/usersMapper';
 import { tokenGetter } from '../app.config';
 
-
-
-@Injectable({providedIn: 'root'})
-export class AuthService{
-
-
+@Injectable({ providedIn: 'root' })
+export class AuthService {
   //Servicios
   private _httpClient = inject(HttpClient);
 
@@ -24,18 +20,18 @@ export class AuthService{
   registerLoader = signal<boolean>(false);
 
   //Getter de autenticacion
-  Autentication = computed(()=>{
-    if (this._autentication()){
+  Autentication = computed(() => {
+    if (this._autentication()) {
       return true;
     }
     return false;
-  })
+  });
 
   //Verificar token de autenticacion en localstorage
   checkTokenStatus = rxResource({
     loader: () => {
       return this.checkStatus();
-    }
+    },
   });
 
   //Logear usuarios
@@ -58,24 +54,29 @@ export class AuthService{
   }
 
   //Postear usuarios
-  registerUser(formRegister: any): Observable<boolean>{
-    return this._httpClient.post("http://localhost:5263/api/autenticacion/usuarios/registro",formRegister)
-    .pipe(
-      delay(4000),
-      map(()=> true),
-      finalize(()=>{
-        this.registerLoader.set(false);
-        console.log("Estado carga registro finalizado");
-      }),
-      catchError((err)=> {
-        console.log(err);
-        return of(false)})
-    )
-
+  registerUser(formRegister: any): Observable<boolean> {
+    return this._httpClient
+      .post(
+        'http://localhost:5263/api/autenticacion/usuarios/registro',
+        formRegister
+      )
+      .pipe(
+        delay(4000),
+        map(() => true),
+        finalize(() => {
+          this.registerLoader.set(false);
+          console.log('Estado carga registro finalizado');
+        }),
+        catchError((err) => {
+          console.log(err);
+          return of(false);
+        })
+      );
   }
 
   //Renovar token
-  checkStatus(): Observable<boolean>{
+  checkStatus(): Observable<boolean> {
+    const token = localStorage.getItem('token');
 
     const token = localStorage.getItem("token");
 
@@ -104,7 +105,6 @@ export class AuthService{
     this._jwtToken.set(null);
     this._autentication.set(false);
     this.userData.set(null);
-    localStorage.removeItem("token");
+    localStorage.removeItem('token');
   }
-
 }

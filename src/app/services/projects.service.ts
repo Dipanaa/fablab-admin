@@ -35,7 +35,6 @@ export class ProjectsService {
           console.log(response);
         },
         error: (err) => {
-
           console.log('Hubo un error en el ingreso del projectos', err);
         },
         complete: () => {
@@ -49,17 +48,21 @@ export class ProjectsService {
   postProject(proyecto: any) {
     return this.httpClient.post<ProjectsResponse[]>('http://localhost:5263/api/proyectos', proyecto)
       .pipe(
-        map(()=> {
+        map(() => {
           this.notificationStatusService.statusMessage.set(true);
-          this.notificationStatusService.statusTextMessage.set("Proyecto creado correctamente");
+          this.notificationStatusService.statusTextMessage.set(
+            'Proyecto creado correctamente'
+          );
           return true;
         }),
-        catchError(()=> {
+        catchError(() => {
           this.notificationStatusService.statusMessage.set(true);
-          this.notificationStatusService.statusErrorMessage.set("Error en la creación del proyecto");
-          return of(false)
+          this.notificationStatusService.statusErrorMessage.set(
+            'Error en la creación del proyecto'
+          );
+          return of(false);
         })
-      )
+      );
   }
 
   putProject(id: number) {
@@ -67,20 +70,24 @@ export class ProjectsService {
   }
 
   deleteProject(id: number) {
-    return this.httpClient.delete(`http://localhost:5263/api/proyectos/${id}`)
-    .pipe(
-      map(()=> {
-        this.notificationStatusService.statusMessage.set(true);
-        this.notificationStatusService.statusTextMessage.set("proyecto eliminado correctamente");
-        return true;
-      }),
-      //TODO: Implementar interfaz de error en base a asp net
-      catchError((err)=>{
-        this.notificationStatusService.statusMessage.set(true);
-        this.notificationStatusService.statusErrorMessage.set(err.error.detail);
-        return of(false);
-      })
-    );
+    return this.httpClient
+      .delete(`http://localhost:5263/api/proyectos/${id}`)
+      .pipe(
+        map(() => {
+          this.notificationStatusService.statusMessage.set(true);
+          this.notificationStatusService.statusTextMessage.set(
+            'proyecto eliminado correctamente'
+          );
+          return true;
+        }),
+        //TODO: Implementar interfaz de error en base a asp net
+        catchError((err) => {
+          this.notificationStatusService.statusMessage.set(true);
+          this.notificationStatusService.statusErrorMessage.set(
+            err.error.detail
+          );
+          return of(false);
+        })
+      );
   }
-
 }

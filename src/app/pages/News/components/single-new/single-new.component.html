@@ -1,55 +1,97 @@
-<div class="w-full flex justify-between flex-wrap">
-  <div>
-    <h1 class="text-3xl font-bold">Previsualización de noticia</h1>
-  </div>
-  <div class="flex justify-end gap-3 mb-5 ">
-    <button class="btn btn-info" (click)="formMode()">Editar noticia</button>
-    <button class="btn btn-error" (click)="openModal()">Eliminar noticia</button>
-  </div>
+<div class="flex justify-end pr-8">
+  <back-button></back-button>
 </div>
+<div class="p-6 space-y-6">
+  <div class="bg-slate-900 p-6 rounded-2xl shadow-lg border border-slate-700">
+    <div class="w-full flex justify-between flex-wrap items-center">
+      <h1 class="text-3xl font-bold text-white">
+        {{ editMode() ? "Edición de noticia" : "Previsualización de noticia" }}
+      </h1>
 
-
-<modal-component
-[show]="isModalOpen"
-[title]="singleNewsData()?.titulo!"
-[description]="'¿Desea eliminar esta noticia?'"
-(accept)="deleteNewByRoute()"
-(decline)="closeModal()"
-(close)="closeModal()"
-/>
-
-
-
-
-@if(resourceNews.isLoading()){
-  <h1>Cargando...</h1>
-}
-
-@if(resourceNews.hasValue()){
-  @if(editMode()) {
-    <updatenew [idUpdate]="idNew()"></updatenew>
-  }@else {
-    <div class="w-full bg-white">
-      <div class="text-black bg-white p-5 w-[75%] mx-auto">
-        <p class="mb-2">{{singleNewsData()?.epigrafe}}</p>
-        <p>{{singleNewsData()?.fechaPublicacion}}</p>
-        <h1 class="font-bold text-4xl text-justify mx-auto">{{singleNewsData()?.titulo}}</h1>
-        <div class="mt-5 flex">
-
-          <div class="p-5 bg-amber-200 w-fit rounded-4xl">img</div>
-          <div class="my-auto ml-5">
-            <p>Autor: {{singleNewsData()?.autor}}</p>
-            <p class="font-bold">Miembro de laboratorio FabLab</p>
-          </div>
-
-        </div>
-        <p class="mt-5">{{singleNewsData()?.contenido}}</p>
+      <div class="flex justify-end gap-3 mb-0">
+        <button
+          class="px-4 py-2 text-sm font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 transition"
+          (click)="formMode()"
+        >
+          {{ editMode() ? "Previsualizar noticia" : "Editar noticia" }}
+        </button>
+        <button
+          class="px-4 py-2 text-sm font-medium rounded-lg text-white bg-red-600 hover:bg-red-700 transition"
+          (click)="openModal()"
+        >
+          Eliminar noticia
+        </button>
       </div>
     </div>
-  }
-}
+  </div>
 
+  <modal-component
+    [show]="isModalOpen"
+    [title]="singleNewsData()?.titulo!"
+    [description]="'¿Desea eliminar esta noticia?'"
+    (accept)="deleteNewByRoute()"
+    (decline)="closeModal()"
+    (close)="closeModal()"
+  />
 
+  @if(resourceNews.isLoading()){
+  <h1 class="text-indigo-400 text-xl text-center py-12">Cargando...</h1>
+  } @if(resourceNews.hasValue()){ @if(editMode()) {
+  <updatenew [idUpdate]="idNew()"></updatenew>
+  } @else {
+  <div class="w-full">
+    <div
+      class="bg-white text-black p-8 w-full max-w-6xl mx-auto rounded-2xl shadow-lg border border-gray-300 space-y-6"
+    >
+      <p
+        class="text-sm font-medium uppercase tracking-wider text-indigo-600 mb-2"
+      >
+        {{ singleNewsData()?.epigrafe }}
+      </p>
+      <p class="text-sm text-gray-500">
+        {{ singleNewsData()?.fechaPublicacion }}
+      </p>
 
+      <h1 class="font-bold text-4xl text-black text-justify mx-auto">
+        {{ singleNewsData()?.titulo }}
+      </h1>
 
+      <div class="mt-5 pt-4 border-t border-gray-300 flex items-center gap-4">
+        <div
+          class="p-3 bg-indigo-100 text-indigo-600 rounded-full flex-shrink-0"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="size-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 18.75a7.5 7.5 0 0 1 14.998 0H4.501Z"
+            />
+          </svg>
+        </div>
 
+        <div class="ml-1">
+          <p class="text-lg text-black font-semibold">
+            Autor: {{ singleNewsData()?.autor }}
+          </p>
+          <p class="font-medium text-gray-500 text-sm">
+            Miembro de laboratorio FabLab
+          </p>
+        </div>
+      </div>
+
+      <div class="pt-4 border-t border-gray-300">
+        <p class="text-base text-gray-700 leading-relaxed whitespace-pre-line">
+          {{ singleNewsData()?.contenido }}
+        </p>
+      </div>
+    </div>
+  </div>
+  } }
+</div>
