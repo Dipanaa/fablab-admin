@@ -4,6 +4,7 @@ import { NotificationResponse } from "../responses-interfaces/notificationRespon
 export function notificationApiToNotification(responseDataNotification: NotificationResponse): NotificationInterface{
 
   return {
+    id: responseDataNotification.id,
     nombre: `${responseDataNotification.nombre} ${responseDataNotification.apellido}`,
     email: responseDataNotification.email,
     tipo: responseDataNotification.tipo,

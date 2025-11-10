@@ -40,7 +40,7 @@
       <app-card
         *ngFor="let proyecto of projectsService.projectsData()"
         [title]="proyecto.titulo"
-        [imgUrl]="proyecto.imgUrl ?? 'assets/img/default-project.png'"
+        [imgUrl]="proyecto.imgurl ?? 'assets/img/default-project.png'"
         [routerLink]="[proyecto.id]"
       ></app-card>
     </div>
@@ -55,7 +55,7 @@
       <app-card
         *ngFor="let proyecto of proyecto | slice : 0 : 5"
         [title]="proyecto.titulo"
-        [imgUrl]="proyecto.imgUrl ?? 'assets/img/default-project.png'"
+        [imgUrl]="proyecto.imgurl ?? 'assets/img/default-project.png'"
         [routerLink]="[proyecto.id]"
       ></app-card>
     </div>

@@ -33,7 +33,7 @@ export class NotificationsService {
 
   //Notificaciones de ingreso
   getRegisterNotifications(): Observable<boolean>{
-    return this.httpClient.get<NotificationResponse[]>(`http://localhost:5263/api/notificaciones/registro`)
+    return this.httpClient.get<NotificationResponse[]>(`http://localhost:5263/api/notificaciones/ingreso`)
     .pipe(
       map((dataNotifications)=> {
         this.notificationsData.update((data)=> [...data, ...notificationsApiToNotificationsArray(dataNotifications)]);
@@ -47,5 +47,23 @@ export class NotificationsService {
       })
     );
   }
+
+  postRegisterNotification(id:number): Observable<boolean>{
+    return this.httpClient.post(`http://localhost:5263/api/notificaciones/ingreso/${id}`,{})
+    .pipe(
+      map(()=> {
+        return true;
+      }),
+      //TODO: Implementar interfaz de error en base a asp net
+      catchError((err)=>{
+        this.notificationStatusService.statusMessage.set(true);
+        this.notificationStatusService.statusErrorMessage.set(err.error.detail);
+        return of(false);
+      })
+    );
+
+  }
+
+
 }
 

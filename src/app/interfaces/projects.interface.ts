@@ -5,5 +5,5 @@ export interface ProjectsInterface {
   descripcionproyecto: string;
   fechainicio: Date | string;
   areaaplicacion: string
-  imgUrl?: string;
+  imgurl?: string;
 }

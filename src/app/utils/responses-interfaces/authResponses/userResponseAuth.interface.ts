@@ -6,4 +6,5 @@ export interface UserResponseAuth {
   correoInstitucional: string;
   carrera:             string;
   telefono:            string;
+  imgUrl:              string;
 }

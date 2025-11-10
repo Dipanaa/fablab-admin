@@ -10,8 +10,10 @@ export interface UserResponse {
   carrera:             string;
   laboratorioId:       number;
   rolId:               number;
+  telefono:            string;
   laboratorio:         Laboratorio;
   rol:                 Rol;
+  imgUrl:              string;
   proyectos:           ProjectsResponse[];
 }
 

@@ -15,6 +15,12 @@ export class UsersService {
   httpClient = inject(HttpClient);
   notificationStatusService = inject(NotificacionsStatusService);
 
+
+  //Atributos
+
+  //Loader put
+  loaderPutProfile = signal<boolean>(false);
+
   //Data user de usuarios
   usersData = signal<UsersInterface[]>([]);
 
@@ -27,8 +33,6 @@ export class UsersService {
       return this.getUsers();
     }
   })
-
-
 
 
   // ----Logica del buscador de usuarios---
@@ -87,6 +91,30 @@ export class UsersService {
     );
   }
 
+  //Put con foto para edicion de usuarios
+  putUserWithPhoto(data: any, id:number): Observable<boolean>{
+    if(this.loaderPutProfile()){
+      return of(false);
+    }
+
+    this.loaderPutProfile.set(true);
+
+    return this.httpClient.put(`http://localhost:5263/api/usuarios/perfil/${id}`,data)
+    .pipe(
+      map(()=> {
+        this.notificationStatusService.statusMessage.set(true);
+        this.notificationStatusService.statusTextMessage.set("Información de usuario actualizada");
+        this.loaderPutProfile.set(false);
+        return true;
+      }),
+      catchError((err)=>{
+        this.notificationStatusService.statusErrorMessage.set(err);
+        console.log(err);
+        this.loaderPutProfile.set(false);
+        return of(false);
+      })
+    );
+  }
   //Delete de usuarios, SOLO administradores
   deleteUsers(id: number): Observable<boolean> {
     return this.httpClient.delete(`http://localhost:5263/api/usuarios/${id}`)
@@ -113,6 +141,12 @@ export class UsersService {
     const usuarioBuscado = this.usersData().find(user => user.id_usuario == id);
     return usuarioBuscado;
   }
+
+
+
+
+
+
 
 }
 

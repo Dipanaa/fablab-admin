@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ModalComponentComponent } from "../../shared/modal-component/modal-component.component";
 import { BuscadorComponent } from "../../shared/searcher/searcher.component";
 import { NotificationsService } from '../../services/notifications.service';
+import { NotificacionsStatusService } from '../../services/notificacionsStatus.service';
 
 @Component({
   selector: 'request',
@@ -10,11 +11,24 @@ import { NotificationsService } from '../../services/notifications.service';
   templateUrl: './request.component.html',
 })
 export class RequestComponent {
-onBuscador($event: Event) {
-throw new Error('Method not implemented.');
-}
-
   //Servicios
+  notificacionsStatusService = inject(NotificacionsStatusService);
   notificationsService = inject(NotificationsService);
+
+
+  acceptNotification(id:number){
+
+    console.log(id);
+
+
+    this.notificationsService.postRegisterNotification(id).subscribe(
+      (status) => {
+        if (status){
+          this.notificationsService.registerNotificationResource.reload();
+          this.notificacionsStatusService.showMessage();
+        }
+      }
+    )
+  }
 
 }

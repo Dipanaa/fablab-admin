@@ -1,100 +1,148 @@
-<div class="max-w-lg mx-auto p-6 bg-slate-800 rounded-2xl shadow-lg">
-  <!-- Encabezado -->
+
+<div class="max-w-lg mx-auto bg-slate-800 rounded-2xl shadow-lg relative">
+  @if(usersService.loaderPutProfile()){
+    <div class="bg-slate-800/70 flex justify-center items-center w-full h-full z-10 rounded-2xl shadow-lg absolute">
+      <img src="../../../assets/icons/Rolling@1x-1.0s-200px-200px (1).svg" alt="" class="size-10">
+    </div>
+  }
+
+  <div class="p-6">
+    <!-- Encabezado -->
   <div class="flex items-center space-x-4 border-b pb-4">
-    <svg
+    @if(!authService.userData()?.foto_perfil){
+      <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
       stroke-width="1.5"
       stroke="currentColor"
       class="size-20"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-      />
-    </svg>
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+        />
+      </svg>
+    }@else{
+      <img [src]="authService.userData()?.foto_perfil" alt="" class="size-20">
 
-    <div>
-      <h2 class="text-xl font-bold text-white">
-        {{ authService.userData()?.nombre }}
-        {{ authService.userData()?.apellido }}
-      </h2>
-      <p class="text-gray-300">{{ user.emailId }}</p>
-    </div>
+      <div>
+        <h2 class="text-xl font-bold text-white">
+          {{ authService.userData()?.nombre }}
+          {{ authService.userData()?.apellido }}
+        </h2>
+        <p class="text-gray-300">{{ user.emailId }}</p>
+      </div>
+
+    }
+
+
   </div>
 
-  <!-- Info personal -->
-  <div class="mt-4 space-y-3">
-    <div>
-      <label class="block text-sm font-medium text-gray-300">
-        Nombre completo
-      </label>
-      <input
-        type="text"
-        [readonly]="!editMode"
-        class="w-full mt-1 p-2 border rounded-lg"
-        value="{{ authService.userData()?.nombre }} {{
-          authService.userData()?.apellido
-        }}"
-      />
+  @if(editMode){
+    <div class="mt-4 text-sm font-medium text-gray-300">Cambiar foto de perfil</div>
+    <input type="file" (change)="imageFileSelected($event)" class="btn btn-primary p-2 cursor pointer">
+  }
+
+  <form [formGroup]="fbUser">
+
+    <!-- Info personal -->
+    <div class="mt-4 space-y-3">
+      <div>
+        <label class="block text-sm font-medium text-gray-300">
+          Nombre
+        </label>
+        <input
+          type="text"
+          [readonly]="!editMode"
+          class="w-full mt-1 p-2 border rounded-lg"
+          value="{{ authService.userData()?.nombre }} {{
+            authService.userData()?.apellido
+          }}"
+          formControlName="nombre"
+        />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-300">
+          Apellido
+        </label>
+        <input
+          type="text"
+          [readonly]="!editMode"
+          class="w-full mt-1 p-2 border rounded-lg"
+          value="{{ authService.userData()?.apellido }} {{
+            authService.userData()?.apellido
+          }}"
+          formControlName="apellido"
+        />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-300"> Rut </label>
+        <input
+          type="text"
+          [readonly]="!editMode"
+          class="w-full mt-1 p-2 border rounded-lg"
+          value="{{ authService.userData()?.rut }}"
+          formControlName="rut"
+
+        />
+
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-300"> Carrera </label>
+        <input
+          type="text"
+          [readonly]="!editMode"
+          class="w-full mt-1 p-2 border rounded-lg"
+          value="{{ authService.userData()?.carrera }}"
+          formControlName="carrera"
+        />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-300"> Teléfono </label>
+        <input
+          type="tel"
+          [readonly]="!editMode"
+          class="w-full mt-1 p-2 border rounded-lg"
+          value="{{ authService.userData()?.telefono}}"
+          formControlName="telefono"
+        />
+      </div>
     </div>
 
-    <div>
-      <label class="block text-sm font-medium text-gray-300"> Rut </label>
-      <input
-        type="text"
-        [readonly]="!editMode"
-        class="w-full mt-1 p-2 border rounded-lg"
-        value="{{ authService.userData()?.rut }}"
-      />
-    </div>
-
-    <div>
-      <label class="block text-sm font-medium text-gray-300"> Carrera </label>
-      <input
-        type="text"
-        [readonly]="!editMode"
-        class="w-full mt-1 p-2 border rounded-lg"
-        value="{{ authService.userData()?.carrera }}"
-      />
-    </div>
-
-    <div>
-      <label class="block text-sm font-medium text-gray-300"> Teléfono </label>
-      <input
-        type="tel"
-        [readonly]="!editMode"
-        class="w-full mt-1 p-2 border rounded-lg"
-        value="{{ authService.userData()?.telefono }}"
-      />
-    </div>
-  </div>
+  </form>
 
   <!-- Botones -->
   <div class="flex justify-end gap-2 mt-6">
     <button
       *ngIf="!editMode"
       (click)="toggleEdit()"
-      class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
+      class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition cursor-pointer"
     >
       Editar
     </button>
 
     <button
       *ngIf="editMode"
-      (click)="saveChanges()"
-      class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
+      (click)="submitDataUser()"
+      class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition cursor-pointer"
     >
       Guardar
     </button>
     <button
       *ngIf="editMode"
       (click)="cancelEdit()"
-      class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
+      class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition cursor-pointer"
     >
       Cancelar
     </button>
   </div>
+
+  </div>
+
 </div>

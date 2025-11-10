@@ -7,6 +7,8 @@ export interface UsersInterface {
   rut: string;
   carrera: string;
   email: string;
+  telefono: string;
   rol?: string | null;
+  foto_perfil?: string;
   proyectos_asignados?: ProjectsInterface[];
 }

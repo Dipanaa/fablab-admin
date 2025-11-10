@@ -1,9 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, OnInit, signal } from '@angular/core';
-import { TokenJwt } from '../interfaces/authResponses/tokenJwt.interface';
-import { UserResponseAuth } from '../interfaces/authResponses/userResponseAuth.interface';
+import { TokenJwt } from '../utils/responses-interfaces/authResponses/tokenJwt.interface';
+import { UserResponseAuth } from '../utils/responses-interfaces/authResponses/userResponseAuth.interface';
 import { Observable, tap, map, catchError, of, finalize, delay } from 'rxjs';
 import { rxResource } from '@angular/core/rxjs-interop';
+import { UsersInterface } from '../interfaces/users.interface';
+import { UsersAuthApitoUser } from '../utils/mappers/usersMapper';
+import { tokenGetter } from '../app.config';
 
 
 
@@ -15,9 +18,9 @@ export class AuthService{
   private _httpClient = inject(HttpClient);
 
   //Atributos
-  private _jwtToken = signal< TokenJwt | null >(null);
+  public _jwtToken = signal< TokenJwt | null >(null);
   private _autentication = signal<boolean>(false);
-  userData = signal<UserResponseAuth | null>(null);
+  userData = signal<UsersInterface | null>(null);
   registerLoader = signal<boolean>(false);
 
   //Getter de autenticacion
@@ -40,7 +43,8 @@ export class AuthService{
     return this._httpClient.post<TokenJwt>("http://localhost:5263/api/autenticacion/usuarios/login",formLogin)
     .pipe(
       tap((resp)=> {
-        this.userData.set(resp.usuario);
+        console.log(resp);
+        this.userData.set(UsersAuthApitoUser(resp.usuario));
         this._jwtToken.set(resp);
         this._autentication.set(true);
         localStorage.setItem("token",resp.token);
@@ -75,18 +79,14 @@ export class AuthService{
 
     const token = localStorage.getItem("token");
 
+
     if (!token){
       return of(false);
     }
 
-    //TODO: Modificar con interceptores el encabezado
-    return this._httpClient.get<TokenJwt>("http://localhost:5263/api/autenticacion/usuarios/check-status",{
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    }).pipe(
+    return this._httpClient.get<TokenJwt>("http://localhost:5263/api/autenticacion/usuarios/check-status").pipe(
       tap((resp)=> {
-        this.userData.set(resp.usuario);
+        this.userData.set(UsersAuthApitoUser(resp.usuario));
         this._jwtToken.set(resp);
         this._autentication.set(true);
         localStorage.setItem("token",resp.token);

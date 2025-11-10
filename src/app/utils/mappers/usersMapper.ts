@@ -1,4 +1,5 @@
 import { UsersInterface } from "../../interfaces/users.interface";
+import { UserResponseAuth } from "../responses-interfaces/authResponses/userResponseAuth.interface";
 import { UserResponse } from "../responses-interfaces/userResponse";
 import { projectApiToProjectsArray, projectsApiToProjects } from "./projectsMapper";
 
@@ -16,15 +17,33 @@ export function UsersApitoUsers(responseDataUser: UserResponse): UsersInterface{
     carrera: responseDataUser.carrera,
     email: responseDataUser.correoInstitucional,
     rol: responseDataUser.rol.tipoRol,
+    telefono: responseDataUser.telefono,
+    foto_perfil: responseDataUser.imgUrl,
     proyectos_asignados: projectApiToProjectsArray(responseDataUser.proyectos ?? [])
   }
 
 }
+
+export function UsersAuthApitoUser(responseDataUser: UserResponseAuth): UsersInterface{
+
+  return {
+    id_usuario : responseDataUser.id,
+    nombre: responseDataUser.nombre,
+    apellido: responseDataUser.apellido,
+    rut: responseDataUser.rut,
+    carrera: responseDataUser.carrera,
+    telefono: responseDataUser.telefono,
+    foto_perfil: responseDataUser.imgUrl,
+    email: responseDataUser.correoInstitucional,
+  }
+
+}
+
+
 //Este mapea a array
 export function UserApiToUsersArray(responseDataUser: UserResponse[]): UsersInterface[]{
   return responseDataUser.map((userResponseObj) => UsersApitoUsers(userResponseObj))
 }
-
 
 
 //REQUEST

@@ -29,7 +29,6 @@ export class LoginComponent{
   //Form de login
   loginUser() {
     if(this.fbLogin.invalid){
-      console.log(this.fbLogin.controls["contrasena"].errors);
       this.fbLogin.reset();
       return;
     }

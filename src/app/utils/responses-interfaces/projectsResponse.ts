@@ -7,5 +7,6 @@ export interface ProjectsResponse {
   descripcionProyecto: string;
   areaAplicacion:      string;
   fechaInicio:         Date;
+  imgUrl:              string;
   usuarios: Array<UsersInterface>;
 }

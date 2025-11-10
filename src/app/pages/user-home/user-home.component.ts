@@ -6,16 +6,21 @@ import { AuthService } from '../../auth/auth.service';
 import { NewsService } from '../../services/news.service';
 import { ProjectsService } from '../../services/projects.service';
 import { FooterComponent } from '../../shared/footer/footer';
+import { StatusMessageComponent } from '../../shared/status-message/status-message.component';
+import { NotificacionsStatusService } from '../../services/notificacionsStatus.service';
 
 @Component({
   selector: 'user-home',
-  imports: [NgFor, RouterLink, DatePipe, SlicePipe, FooterComponent],
+  imports: [NgFor, RouterLink, DatePipe, SlicePipe, FooterComponent, StatusMessageComponent],
   templateUrl: './user-home.component.html',
 })
 export class UserHomeComponent {
+
+  //Servicios
   authService = inject(AuthService);
   newsService = inject(NewsService);
   projectsService = inject(ProjectsService);
+  notificacionsStatusService = inject(NotificacionsStatusService);
 
   username: string | null = '';
   ngOnInit() {
