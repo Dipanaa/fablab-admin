@@ -1,6 +1,8 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
+  effect,
   inject,
   signal,
 } from '@angular/core';
@@ -13,6 +15,7 @@ import { ModalComponentComponent } from '../../shared/modal-component/modal-comp
 import { NotificacionsStatusService } from '../../services/notificacionsStatus.service';
 import { StatusMessageComponent } from '../../shared/status-message/status-message.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ProjectsInterface } from '../../interfaces/projects.interface';
 
 @Component({
   selector: 'gestion-proyectos',
@@ -34,14 +37,46 @@ export class ProjectsTableComponent {
   projectsService = inject(ProjectsService);
   paginationService = inject(PaginationService);
   notificationStatusService = inject(NotificacionsStatusService);
+  public searchTerm = signal<string>('');
 
   //Atributos
   openDeleteView = signal<boolean>(false);
   projectModalId = signal<number | undefined>(undefined);
 
+  public filteredProjects = computed<ProjectsInterface[]>(() => {
+    const term = this.searchTerm().toLowerCase();
+    // 🚨 CLAVE: Lee la lista REAL de proyectos del servicio (NO de una propiedad local).
+    const projects = this.projectsService.projectsData();
+
+    if (!term) {
+      return projects;
+    }
+
+    return projects.filter(
+      (proyecto) =>
+        proyecto.titulo.toLowerCase().includes(term) ||
+        proyecto.descripcionproyecto.toLowerCase().includes(term) ||
+        proyecto.categoria.toLowerCase().includes(term)
+    );
+  });
+
+  onSearch(term: string): void {
+    // Actualiza la signal del término, lo que automáticamente recalcula filteredProjects()
+    this.searchTerm.set(term);
+  }
+
   constructor() {
     // Llamada de prueba al iniciar
     this.projectsService.getProjects();
+    effect(() => {
+      const projectList = this.filteredProjects();
+
+      // 1. Alimenta al PaginationService con la lista completa de la DB
+      this.paginationService.setDataList(projectList);
+
+      // 2. Resetea la página a 1 cada vez que se carga nueva data (previene el bug de la página 3)
+      this.paginationService.goToPage(1);
+    });
   }
 
   //Ciclos de vida

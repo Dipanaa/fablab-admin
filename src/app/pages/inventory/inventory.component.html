@@ -3,34 +3,29 @@
   [fbEdit]="fbInventory"
   (fbEditSend)="dataFormPut($event)"
   (closeModal)="modalView.set($event)"
-  [modalTitle]="'Editar usuario'"
+  [modalTitle]="'Editar item'"
 ></modal-edit>
 }
 
-
-
-
-<div class="border-slate-800 flex flex-col gap-3">
-  <!-- Header -->
+<div class="border-fablab-border flex flex-col gap-3">
   <div
     class="flex flex-col md:flex-row md:items-center md:justify-between gap-4"
   >
-    <h1 class="text-3xl font-bold text-white">Gestión de Inventario</h1>
-    <!-- Controles: buscador + filtros -->
+    <h1 class="text-3xl font-bold text-fablab-text-primary">
+      Gestión de Inventario
+    </h1>
     <div
       class="flex flex-col md:flex-row items-stretch md:items-center gap-3 w-full md:w-auto"
     >
-      <!-- Buscador -->
       <searcher></searcher>
     </div>
   </div>
 
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-    <!-- Insumos totales  -->
     <div
-      class="bg-slate-800 p-5 rounded-xl shadow border border-slate-700 flex items-center gap-4 transition transform hover:-translate-y-1 cursor-default"
+      class="bg-fablab-card-bg p-5 rounded-xl shadow border border-fablab-border flex items-center gap-4 transition transform hover:-translate-y-1 cursor-default"
     >
-      <div class="bg-indigo-900/50 text-indigo-400 p-3 rounded-full">
+      <div class="bg-green-600 text-green-200 p-3 rounded-full">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -47,18 +42,17 @@
         </svg>
       </div>
       <div>
-        <h2 class="text-sm text-gray-400">Insumos Totales</h2>
-        <p class="text-3xl font-bold text-indigo-400">
+        <h2 class="text-sm text-fablab-text-secondary">Insumos Totales</h2>
+        <p class="text-3xl font-bold text-fablab-primary">
           {{ totalInsumosCount }}
         </p>
       </div>
     </div>
 
-    <!-- Insumos en bajo stock -->
     <div
-      class="bg-slate-800 p-5 rounded-xl shadow border border-slate-700 flex items-center gap-4 transition transform hover:-translate-y-1 cursor-default"
+      class="bg-fablab-card-bg p-5 rounded-xl shadow border border-fablab-border flex items-center gap-4 transition transform hover:-translate-y-1 cursor-default"
     >
-      <div class="bg-yellow-900/50 text-yellow-400 p-3 rounded-full">
+      <div class="bg-yellow-500 text-yellow-200 p-3 rounded-full">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -75,16 +69,17 @@
         </svg>
       </div>
       <div>
-        <h2 class="text-sm text-gray-400">Insumos en Bajo Stock</h2>
+        <h2 class="text-sm text-fablab-text-secondary">
+          Insumos en Bajo Stock
+        </h2>
         <p class="text-3xl font-bold text-yellow-500">{{ bajoStockCount }}</p>
       </div>
     </div>
 
-    <!-- Insumos sin stock -->
     <div
-      class="bg-slate-800 p-5 rounded-xl shadow border border-slate-700 flex items-center gap-4 transition transform hover:-translate-y-1 cursor-default"
+      class="bg-fablab-card-bg p-5 rounded-xl shadow border border-fablab-border flex items-center gap-4 transition transform hover:-translate-y-1 cursor-default"
     >
-      <div class="bg-red-900/50 text-red-400 p-3 rounded-full">
+      <div class="bg-red-800 text-red-200 p-3 rounded-full">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -101,16 +96,19 @@
         </svg>
       </div>
       <div>
-        <h2 class="text-sm text-gray-400">Insumos sin Stock</h2>
+        <h2 class="text-sm text-fablab-text-secondary">Insumos sin Stock</h2>
         <p class="text-3xl font-bold text-red-500">{{ itemsCeroStockCount }}</p>
       </div>
     </div>
   </div>
 
-  <!-- Tabla de insumos-->
-  <div class="h-auto w-full overflow-auto rounded-lg border border-slate-800">
-    <table class="min-w-full text-sm text-left text-gray-300">
-      <thead class="text-xs uppercase bg-slate-800 text-gray-400 sticky top-0">
+  <div
+    class="h-auto w-full overflow-auto rounded-lg border border-fablab-border bg-fablab-card-bg"
+  >
+    <table class="min-w-full text-sm text-left text-fablab-text-secondary">
+      <thead
+        class="text-xs uppercase bg-fablab-text-secondary text-fablab-bg sticky top-0"
+      >
         <tr>
           <th class="px-4 py-3 font-bold">ID</th>
           <th class="px-4 py-3 font-bold">Nombre</th>
@@ -122,62 +120,62 @@
         </tr>
       </thead>
 
-      <tbody class="divide-y divide-slate-800">
-        @for(insumo of inventoryService.inventoryData(); track insumo.id){
-            <tr
-              class="hover:bg-slate-800/60 transition"
+      <tbody class="divide-y divide-fablab-border">
+        @for(insumo of paginationService.pagedItems(); track insumo.id){
+        <tr class="hover:bg-fablab-border transition">
+          <td class="px-4 py-4 text-fablab-text-secondary">{{ insumo.id }}</td>
+          <td class="px-4 py-4 text-fablab-text-secondary">
+            {{ insumo.nombre }}
+          </td>
+          <td class="px-4 py-4 text-fablab-text-secondary">
+            {{ insumo.categoria }}
+          </td>
+          <td class="px-4 py-4 text-fablab-text-secondary">
+            {{ insumo.stock }}
+          </td>
+          <td class="px-4 py-4 text-fablab-text-secondary">
+            {{ insumo.ubicacion }}
+          </td>
+
+          <td class="px-4 py-4">
+            <span
+              [ngClass]="{
+                'text-red-500 font-semibold': insumo.stock <= 10,
+                'text-green-500 font-semibold': insumo.stock > 10
+              }"
             >
-              <td class="px-4 py-4 text-gray-300">{{ insumo.id }}</td>
-              <td class="px-4 py-4 text-gray-300">{{ insumo.nombre }}</td>
-              <td class="px-4 py-4 text-gray-300">{{ insumo.categoria }}</td>
-              <td class="px-4 py-4 text-gray-300">{{ insumo.stock }}</td>
-              <td class="px-4 py-4 text-gray-300">{{ insumo.ubicacion }}</td>
+              {{ insumo.stock <= 10 ? "Bajo stock" : "Disponible" }}
+            </span>
+          </td>
 
-              <td class="px-4 py-4">
-                <span
-                  [ngClass]="{
-                    'text-red-500 font-semibold': insumo.stock <= 10,
-                    'text-green-500 font-semibold': insumo.stock > 10
-                  }"
-                >
-                  {{
-                    insumo.stock <= 10 ? "Bajo stock" : "Disponible"
-                  }}
-                </span>
-              </td>
+          <td class="px-4 py-4 text-center space-x-3">
+            <button
+              class="bg-fablab-accent text-black px-3 py-1 rounded hover:bg-fablab-accent-dark transition cursor-pointer"
+              (click)="modalEditView(insumo.id)"
+            >
+              Editar
+            </button>
 
-              <td class="px-4 py-4 text-center space-x-3">
-                <button
-                  class="bg-indigo-600 text-gray-200 px-3 py-1 rounded hover:bg-indigo-700 transition cursor-pointer"
-                  (click)="modalEditView(insumo.id)"
-                >
-                  Editar
-                </button>
-
-                <button
-                  class="bg-red-600 text-gray-200 px-3 py-1 rounded hover:bg-red-700 transition cursor-pointer"
-                >
-                  Eliminar
-                </button>
-              </td>
-          </tr>
-          @if(inventoryService.inventoryData().length === 0){
-            <!-- Fila vacía (sin resultados) -->
-            <tr>
-              <td
-                colspan="7"
-                class="text-center py-6 text-gray-400 bg-slate-800 rounded-b-lg"
-              >
-                No se encontraron insumos en el inventario.
-              </td>
-            </tr>
-          }
-        }
+            <button
+              class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 transition cursor-pointer"
+            >
+              Eliminar
+            </button>
+          </td>
+        </tr>
+        @if(inventoryService.inventoryData().length === 0){
+        <tr>
+          <td
+            colspan="7"
+            class="text-center py-6 text-fablab-text-secondary bg-fablab-card-bg rounded-b-lg"
+          >
+            No se encontraron insumos en el inventario.
+          </td>
+        </tr>
+        } }
       </tbody>
     </table>
   </div>
-
-  <!-- Paginación -->
 
   <pagination
     [currentPage]="paginationService.currentPage()"

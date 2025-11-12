@@ -1,11 +1,11 @@
-<div class="flex justify-end mr-8 mb-5"><back-button></back-button></div>
+<div class="flex justify-end pb-8 pr-8">
+  <back-button></back-button>
+</div>
 
 <section
-  class="p-8 max-w-4xl mx-auto bg-white dark:bg-slate-900 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-800 transition-all duration-300"
+  class="p-8 max-w-4xl mx-auto bg-fablab-bg-card rounded-2xl shadow-lg transition-all border border-fablab-border"
 >
-  <h2
-    class="text-3xl font-bold text-slate-800 dark:text-white mb-8 text-center"
-  >
+  <h2 class="text-3xl font-bold text-fablab-text-primary mb-8 text-center">
     Solicitud de Creación de Proyecto
   </h2>
 
@@ -15,11 +15,8 @@
     (ngSubmit)="submitNewProject()"
     class="space-y-6"
   >
-    <!-- Título -->
     <div>
-      <label
-        class="block mb-2 text-sm font-semibold text-slate-700 dark:text-slate-200"
-      >
+      <label class="block mb-2 text-sm font-semibold text-fablab-text-light">
         Título del proyecto
       </label>
       <input
@@ -27,16 +24,13 @@
         name="titulo"
         required
         formControlName="titulo"
-        class="w-full px-4 py-2.5 border border-slate-300 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent dark:bg-slate-800 dark:text-white text-black transition"
+        class="w-full px-4 py-2.5 border border-fablab-border rounded-lg focus:ring-2 focus:ring-fablab-primary focus:border-transparent bg-fablab-bg transition text-fablab-text-primary"
         placeholder="Ej. Plataforma para domótica"
       />
     </div>
 
-    <!-- Descripción -->
     <div>
-      <label
-        class="block mb-2 text-sm font-semibold text-slate-700 dark:text-slate-200"
-      >
+      <label class="block mb-2 text-sm font-semibold text-fablab-text-light">
         Descripción breve
       </label>
       <textarea
@@ -44,40 +38,33 @@
         rows="4"
         required
         formControlName="descripcionproyecto"
-        class="w-full px-4 py-2.5 border border-slate-300 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent dark:bg-slate-800 dark:text-white text-black transition resize-none"
+        class="w-full px-4 py-2.5 border border-fablab-border rounded-lg focus:ring-2 focus:ring-fablab-primary focus:border-transparent bg-fablab-bg transition resize-none text-fablab-text-primary"
         placeholder="Describe brevemente en qué consiste tu proyecto..."
       ></textarea>
     </div>
 
-    <!-- Categoría y Área -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <!-- Categoría -->
       <div>
-        <label
-          class="block mb-2 text-sm font-semibold text-slate-700 dark:text-slate-200"
-        >
+        <label class="block mb-2 text-sm font-semibold text-fablab-text-light">
           Categoría
         </label>
         <select
           name="categoria"
           required
           formControlName="categoria"
-          class="w-full px-4 py-2.5 border border-slate-300 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent dark:bg-slate-800 dark:text-white text-black transition"
+          class="w-full px-4 py-2.5 border border-fablab-border rounded-lg focus:ring-2 focus:ring-fablab-primary focus:border-transparent bg-fablab-bg transition text-fablab-text-primary"
         >
           <option value="" disabled selected>Selecciona una categoría</option>
-          <option>Impresión 3D</option>
-          <option>Corte Láser</option>
-          <option>Electrónica</option>
-          <option>Mixto</option>
-          <option>Otro</option>
+          <option class="bg-fablab-bg-card">Impresión 3D</option>
+          <option class="bg-fablab-bg-card">Corte Láser</option>
+          <option class="bg-fablab-bg-card">Electrónica</option>
+          <option class="bg-fablab-bg-card">Mixto</option>
+          <option class="bg-fablab-bg-card">Otro</option>
         </select>
       </div>
 
-      <!-- Área de aplicación -->
       <div>
-        <label
-          class="block mb-2 text-sm font-semibold text-slate-700 dark:text-slate-200"
-        >
+        <label class="block mb-2 text-sm font-semibold text-fablab-text-light">
           Área de aplicación
         </label>
         <input
@@ -85,34 +72,27 @@
           name="areaaplicacion"
           required
           formControlName="areaaplicacion"
-          class="w-full px-4 py-2.5 border border-slate-300 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent dark:bg-slate-800 dark:text-white text-black transition"
+          class="w-full px-4 py-2.5 border border-fablab-border rounded-lg focus:ring-2 focus:ring-fablab-primary focus:border-transparent bg-fablab-bg transition text-fablab-text-primary"
           placeholder="Ej. Educación, diseño, ingeniería..."
         />
       </div>
     </div>
 
-    <!-- Link y fecha -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <!-- Link -->
       <div>
-        <label
-          class="block mb-2 text-sm font-semibold text-slate-700 dark:text-slate-200"
-        >
+        <label class="block mb-2 text-sm font-semibold text-fablab-text-light">
           Link de referencia (opcional)
         </label>
         <input
           type="url"
           name="referencia"
           placeholder="https://..."
-          class="w-full px-4 py-2.5 border border-slate-300 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent dark:bg-slate-800 dark:text-white text-black transition"
+          class="w-full px-4 py-2.5 border border-fablab-border rounded-lg focus:ring-2 focus:ring-fablab-primary focus:border-transparent bg-fablab-bg transition text-fablab-text-primary"
         />
       </div>
 
-      <!-- Fecha -->
       <div>
-        <label
-          class="block mb-2 text-sm font-semibold text-slate-700 dark:text-slate-200"
-        >
+        <label class="block mb-2 text-sm font-semibold text-fablab-text-light">
           Fecha estimada de inicio
         </label>
         <input
@@ -120,31 +100,29 @@
           name="fechainicio"
           required
           formControlName="fechainicio"
-          class="w-full px-4 py-2.5 border border-slate-300 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent dark:bg-slate-800 dark:text-white text-black transition"
+          class="w-full px-4 py-2.5 border border-fablab-border rounded-lg focus:ring-2 focus:ring-fablab-primary focus:border-transparent bg-fablab-bg transition text-fablab-text-primary"
         />
       </div>
     </div>
 
-    <!-- Foto de proyecto -->
     <div>
-        <label
-          class="block mb-2 text-sm font-semibold text-slate-700 dark:text-slate-200"
-        >
-          Agregar imagen de proyecto
-        </label>
-        <input type="file" (change)="imageFileSelected($event)" class="btn btn-primary p-2 cursor pointer">
-      </div>
+      <label class="block mb-2 text-sm font-semibold text-fablab-text-light">
+        Agregar imagen de proyecto
+      </label>
+      <input
+        type="file"
+        (change)="imageFileSelected($event)"
+        class="w-full text-sm text-fablab-text-secondary file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-fablab-card-bg file:text-black hover:file:bg-fablab-accent-dark cursor-pointer"
+      />
+    </div>
 
-    <!-- Botón -->
     <div class="flex justify-end pt-6">
       <button
         type="submit"
-        class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2.5 rounded-lg font-medium transition shadow-sm hover:shadow-md focus:ring-2 focus:ring-indigo-500"
+        class="bg-fablab-accent hover:bg-fablab-accent-dark text-black px-6 py-2.5 rounded-lg font-medium transition shadow-sm hover:shadow-md focus:ring-2 focus:ring-fablab-primary"
       >
-        Enviar solicitud
+        Crear proyecto
       </button>
     </div>
   </form>
 </section>
-
-<!-- Éxito de envío -->

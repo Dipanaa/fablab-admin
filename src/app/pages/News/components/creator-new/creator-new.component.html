@@ -1,116 +1,127 @@
-<!-- TODO: Hacer componente cargando contenido -->
-
+<div class="flex justify-end pb-8 pr-8">
+  <back-button></back-button>
+</div>
 @if(newsService.newsLoading()){
-  <h1 class="text-2xl">Cargando contenido...</h1>
+<h1 class="text-3xl text-fablab-text-primary text-center">
+  Cargando contenido...
+</h1>
 }
 
-<h1 class="text-2xl font-bold">Ingresar Noticia</h1>
-<!-- component -->
-<div class="flex items-center justify-center px-6 mt-3">
-  <div class="mx-auto w-full">
-    <form autocomplete="off" [formGroup]="CreationNewForm" (ngSubmit)="submitPostContent()">
+<div class="flex items-center justify-center px-6">
+  <div
+    class="mx-auto w-full max-w-4xl p-8 rounded-2xl shadow-lg border border-fablab-border bg-fablab-card-bg"
+  >
+    <h1 class="text-4xl font-bold text-fablab-text-primary mb-4">
+      Ingresar Noticia
+    </h1>
+    <form
+      autocomplete="off"
+      [formGroup]="CreationNewForm"
+      (ngSubmit)="submitPostContent()"
+      class="space-y-6"
+    >
       <div class="mb-5">
         <label
-          for="name"
-          class="mb-3 block text-base font-medium text-white"
+          for="titulo"
+          class="mb-3 block text-base font-medium text-fablab-text-light"
         >
-          Titulo de la noticia
+          Título de la noticia
         </label>
         <input
           type="text"
-          name="name"
-          id="name"
-          placeholder="Titulo de la noticia"
-          class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+          name="titulo"
+          id="titulo"
+          placeholder="Título principal del anuncio"
+          class="w-full rounded-md border border-fablab-border bg-fablab-bg py-3 px-6 text-base font-medium text-fablab-text-primary outline-none focus:border-fablab-primary focus:shadow-md"
           formControlName="titulo"
-
         />
         @if(CustomFormsValidations.ValidateErrors("titulo", CreationNewForm)){
-          <span class="text-red-500">
-            {{CustomFormsValidations.ValidateErrors("titulo", CreationNewForm)}}
-          </span>
-
+        <span class="text-red-500 mt-1 block">
+          {{ CustomFormsValidations.ValidateErrors("titulo", CreationNewForm) }}
+        </span>
         }
       </div>
+
       <div class="mb-5">
         <label
-          for="email"
-          class="mb-3 block text-base font-medium  text-white"
+          for="epigrafe"
+          class="mb-3 block text-base font-medium text-fablab-text-light"
         >
-          Epigrafe
+          Epígrafe
         </label>
         <input
-          type="email"
-          name="email"
-          id="email"
-          placeholder="epigrafe"
-          class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+          type="text"
+          name="epigrafe"
+          id="epigrafe"
+          placeholder="Resumen o subtítulo de la noticia"
+          class="w-full rounded-md border border-fablab-border bg-fablab-bg py-3 px-6 text-base font-medium text-fablab-text-light outline-none focus:border-fablab-primary focus:shadow-md"
           formControlName="epigrafe"
         />
         @if(CustomFormsValidations.ValidateErrors("epigrafe", CreationNewForm)){
-          <span class="text-red-500">
-            {{CustomFormsValidations.ValidateErrors("epigrafe", CreationNewForm)}}
-          </span>
-
+        <span class="text-red-500 mt-1 block">
+          {{
+            CustomFormsValidations.ValidateErrors("epigrafe", CreationNewForm)
+          }}
+        </span>
         }
       </div>
+
       <div class="mb-5">
         <label
-          for="subject"
-          class="mb-3 block text-base font-medium  text-white"
+          for="autor"
+          class="mb-3 block text-base font-medium text-fablab-text-light"
         >
           Autor
         </label>
         <input
           type="text"
-          name="subject"
-          id="subject"
-          placeholder="Autor"
-          class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+          name="autor"
+          id="autor"
+          placeholder="Nombre del autor o departamento"
+          class="w-full rounded-md border border-fablab-border bg-fablab-bg py-3 px-6 text-base font-medium text-fablab-text-light outline-none focus:border-fablab-primary focus:shadow-md"
           formControlName="autor"
-
         />
         @if(CustomFormsValidations.ValidateErrors("autor", CreationNewForm)){
-          <span class="text-red-500">
-            {{CustomFormsValidations.ValidateErrors("autor", CreationNewForm)}}
-          </span>
-
+        <span class="text-red-500 mt-1 block">
+          {{ CustomFormsValidations.ValidateErrors("autor", CreationNewForm) }}
+        </span>
         }
       </div>
+
       <div class="mb-5">
         <label
-          for="message"
-          class="mb-3 block text-base font-medium  text-white"
+          for="contenido"
+          class="mb-3 block text-base font-medium text-fablab-text-light"
         >
           Contenido
         </label>
         <textarea
           rows="9"
-          name="message"
-          id="message"
-          placeholder="Contenido"
-          class="w-full resize-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+          name="contenido"
+          id="contenido"
+          placeholder="Contenido detallado de la noticia"
+          class="w-full resize-none rounded-md border border-fablab-border bg-fablab-bg py-3 px-6 text-base font-medium text-fablab-text-light outline-none focus:border-fablab-primary focus:shadow-md"
           formControlName="contenido"
         ></textarea>
-        <div>
-        </div>
+      </div>
+
+      <div class="flex justify-end pt-4">
+        <button
+          type="submit"
+          class="rounded-md bg-fablab-accent py-3 px-8 text-base font-semibold text-black outline-none hover:bg-fablab-accent-dark transition"
+          [disabled]="CreationNewForm.invalid"
+        >
+          Ingresar Noticia
+        </button>
       </div>
     </form>
-    <button
-      class="hover:bg-[#6A64F1]/70 rounded-md bg-[#6A64F1] py-3 px-8 text-base font-semibold text-white outline-none cursor-pointer"
-      (click)="openModal()"
-    >
-      Ingresar
-    </button>
+  </div>
 </div>
-</div>
-
-
 
 <modal-component
-[show]="isModalOpen"
-[description]="'¿Desea crear esta noticia con los datos introducidos?'"
-(accept)="submitPostContent()"
-(close)="closeModal()"
-(decline)="closeModal()"
+  [show]="isModalOpen"
+  [description]="'¿Desea crear esta noticia con los datos introducidos?'"
+  (accept)="submitPostContent()"
+  (close)="closeModal()"
+  (decline)="closeModal()"
 />

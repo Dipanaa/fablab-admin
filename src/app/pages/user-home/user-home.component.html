@@ -1,14 +1,10 @@
 @if(notificacionsStatusService.statusMessage()){
-  <status-message></status-message>
+<status-message></status-message>
 }
 
-
-
-
 <div class="space-y-8">
-  <!-- Hero -->
   <div
-    class="bg-gradient-to-r from-indigo-600 to-indigo-700 text-white rounded-2xl shadow-lg p-6"
+    class="bg-fablab-accent-dark text-fablab-text-primary rounded-2xl shadow-lg p-6"
   >
     <h1 class="text-2xl font-bold flex items-center gap-2">
       Bienvenido, {{ authService.userData()?.nombre || "Usuario" }}
@@ -18,7 +14,7 @@
         viewBox="0 0 24 24"
         stroke-width="1.5"
         stroke="currentColor"
-        class="size-6"
+        class="size-6 text-fablab-text-primary"
       >
         <path
           stroke-linecap="round"
@@ -27,16 +23,16 @@
         />
       </svg>
     </h1>
-    <p class="text-sm">Aquí encontrarás lo más reciente del FabLab.</p>
+    <p class="text-sm text-fablab-text-primary">
+      Aquí encontrarás lo más reciente del FabLab.
+    </p>
   </div>
 
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-    <!-- Columna principal -->
     <div class="lg:col-span-2 space-y-6">
-      <!-- Noticias -->
       <section>
         <h2
-          class="text-xl font-semibold text-gray-200 mb-3 flex items-center gap-2"
+          class="text-xl font-semibold text-fablab-text-primary mb-3 flex items-center gap-2"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -44,7 +40,7 @@
             viewBox="0 0 24 24"
             stroke-width="1.5"
             stroke="currentColor"
-            class="size-6"
+            class="size-6 text-fablab-text-primary"
           >
             <path
               stroke-linecap="round"
@@ -59,36 +55,37 @@
 
           <a
             [routerLink]="['/noticias', new.id]"
-            class="block bg-gray-800 p-4 rounded-xl shadow hover:bg-gray-700 transition cursor-pointer"
+            class="block bg-fablab-card-bg p-4 rounded-xl shadow hover:bg-fablab-border transition cursor-pointer"
           >
             <h3
-              class="text-lg font-bold text-indigo-400 overflow-hidden text-ellipsis whitespace-nowrap"
+              class="text-lg font-bold text-fablab-primary overflow-hidden text-ellipsis whitespace-nowrap"
             >
               {{ new.titulo }}
             </h3>
 
-            <p class="text-sm text-gray-400">
+            <p class="text-sm text-fablab-text-secondary">
               {{ new.fechaPublicacion | date : "short" }}
             </p>
 
             <div
-              class="text-gray-300 mt-2 h-10 overflow-hidden text-ellipsis whitespace-nowrap"
+              class="text-fablab-text-secondary mt-2 h-10 overflow-hidden text-ellipsis whitespace-nowrap"
             >
               {{ new.contenido }}
             </div>
           </a>
           } @empty {
-          <div class="bg-gray-800 p-4 rounded-xl text-gray-400 text-center">
+          <div
+            class="bg-fablab-card-bg p-4 rounded-xl text-fablab-text-secondary text-center"
+          >
             No hay noticias recientes para mostrar.
           </div>
           }
         </div>
       </section>
 
-      <!-- Proyectos destacados -->
       <section>
         <h2
-          class="text-xl font-semibold text-gray-200 mb-3 flex items-center gap-2"
+          class="text-xl font-semibold text-fablab-text-primary mb-3 flex items-center gap-2"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -96,7 +93,7 @@
             viewBox="0 0 24 24"
             stroke-width="1.5"
             stroke="currentColor"
-            class="size-6"
+            class="size-6 text-fablab-text-primary"
           >
             <path
               stroke-linecap="round"
@@ -109,27 +106,27 @@
         <div class="grid sm:grid-cols-2 gap-4">
           <div
             *ngFor="let proyecto of proyectosDestacados"
-            class="bg-gray-800 rounded-xl shadow overflow-hidden hover:shadow-lg transition"
+            class="bg-fablab-card-bg rounded-xl shadow overflow-hidden hover:shadow-lg transition border border-fablab-border"
           >
             <img [src]="proyecto.img" class="w-full h-40 object-cover" />
             <div class="p-4">
-              <h3 class="text-lg font-bold text-indigo-400">
+              <h3 class="text-lg font-bold text-fablab-primary">
                 {{ proyecto.titulo }}
               </h3>
-              <p class="text-gray-300">{{ proyecto.autor }}</p>
-              <p class="text-sm text-gray-400">{{ proyecto.categoria }}</p>
+              <p class="text-fablab-text-secondary">{{ proyecto.autor }}</p>
+              <p class="text-sm text-fablab-text-secondary">
+                {{ proyecto.categoria }}
+              </p>
             </div>
           </div>
         </div>
       </section>
     </div>
 
-    <!-- Columna secundaria -->
     <div class="space-y-6">
-      <!-- Mis proyectos -->
       <section>
         <h2
-          class="text-xl font-semibold text-gray-200 mb-3 flex items-center gap-2"
+          class="text-xl font-semibold text-fablab-text-primary mb-3 flex items-center gap-2"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -137,7 +134,7 @@
             viewBox="0 0 24 24"
             stroke-width="1.5"
             stroke="currentColor"
-            class="size-6"
+            class="size-6 text-fablab-text-primary"
           >
             <path
               stroke-linecap="round"
@@ -151,21 +148,23 @@
           @for (proyecto of projectsService.projectsData()| slice:0:3; track
           $index) {
           <div
-            class="bg-gray-800 p-4 rounded-xl shadow hover:shadow-lg transition"
+            class="bg-fablab-card-bg p-4 rounded-xl shadow hover:shadow-lg transition border border-fablab-border"
           >
-            <h3 class="text-lg font-bold text-indigo-400">
+            <h3 class="text-lg font-bold text-fablab-primary">
               {{ proyecto.titulo }}
             </h3>
-            <p class="text-gray-300 text-sm">
+            <p class="text-fablab-text-secondary text-sm">
               {{ proyecto.descripcionproyecto }}
             </p>
           </div>
 
           } @empty {
-          <div class="bg-gray-800 p-4 rounded-xl text-gray-400 text-center">
+          <div
+            class="bg-fablab-card-bg p-4 rounded-xl text-fablab-text-secondary text-center border border-fablab-border"
+          >
             ¡Aún no tienes proyectos a tu nombre! <br />
             <span
-              class="text-indigo-400 font-semibold cursor-pointer"
+              class="text-fablab-primary font-semibold cursor-pointer"
               routerLink="/proyectos/nuevo"
               >Crea un nuevo proyecto</span
             >

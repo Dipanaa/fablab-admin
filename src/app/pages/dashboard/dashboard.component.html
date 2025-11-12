@@ -1,8 +1,6 @@
-
-
 <!-- Encabezado -->
 <div
-  class="bg-gradient-to-r from-indigo-700 to-indigo-800 text-white p-6 mb-5 rounded-2xl shadow-lg flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4"
+  class="bg-gradient-to-r bg-fablab-accent text-fablab-text-primary p-6 mb-5 rounded-2xl shadow-lg flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4"
 >
   <div>
     <h1 class="text-2xl font-bold flex items-center gap-2">
@@ -25,7 +23,7 @@
     <h2 class="text-lg font-medium mt-1">
       Hola {{ username || "Administrador" }}, bienvenido de nuevo 👋
     </h2>
-    <p class="text-gray-300 text-sm">
+    <p class="text-fablab-text-secondary text-sm">
       Gestiona usuarios, proyectos y revisa el estado general del laboratorio.
     </p>
   </div>
@@ -35,12 +33,14 @@
 <summary-cards />
 
 <!-- Divider -->
-<div class="border-t border-slate-600 my-6"></div>
+<div class="border-t border-fablab-border my-6"></div>
 
 <!-- Gráficos -->
 <div class="space-y-6">
-  <h2 class="text-2xl font-semibold text-gray-100 flex items-center gap-2">
-    <div class="bg-indigo-900/50 text-indigo-400 p-3 rounded-full">
+  <h2
+    class="text-2xl font-semibold text-fablab-text-primary flex items-center gap-2"
+  >
+    <div class="bg-fablab-accent/90 text-fablab-primary p-3 rounded-full">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -61,3 +61,4 @@
   </h2>
   <charts></charts>
 </div>
+<app-footer pageName="Panel de Administrador"></app-footer>

@@ -1,49 +1,45 @@
 @if(notificationStatusService.statusMessage()){
-  <status-message></status-message>
-}
-
-@if(openEditView()) {
+<status-message></status-message>
+} @if(openEditView()) {
 <modal-edit
   [fbEdit]="fbUser"
   (fbEditSend)="dataFormPut($event)"
   (closeModal)="openEditView.set($event)"
   [modalTitle]="'Editar usuario'"
 ></modal-edit>
-}
-
-@if(openDeleteView()){
-  <modal-component
+} @if(openDeleteView()){
+<modal-component
   [show]="openDeleteView()"
   [title]="'¿Esta seguro que desea eliminar este usuario?'"
-  [description]="'El usuario perdera acceso al sistema y no podra ser partícipe de las funciones del laboratorio.'"
-  (close)="openDeleteView.set($event)"
-  (decline)="openDeleteView.set($event)"
+  [description]="
+    'El usuario perdera acceso al sistema y no podra ser partícipe de las funciones del laboratorio.'
+  "
+  (close)="openDeleteView.set(false)"
+  (decline)="openDeleteView.set(false)"
   (accept)="deleteUser()"
-  ></modal-component>
+></modal-component>
 }
 
-
-
-
-
-<div class="border-slate-800 flex flex-col gap-3">
-  <!-- Header -->
+<div class="border-fablab-border flex flex-col gap-3">
   <div
     class="flex flex-col md:flex-row md:items-center md:justify-between gap-4"
   >
-    <h1 class="text-3xl font-bold text-white">Administración de Usuarios</h1>
-    <!-- Controles: buscador + filtros -->
+    <h1 class="text-3xl font-bold text-fablab-text-primary">
+      Administración de Usuarios
+    </h1>
     <div
       class="flex flex-col md:flex-row items-stretch md:items-center gap-3 w-full md:w-auto"
     >
-      <!-- Buscador -->
       <searcher></searcher>
     </div>
   </div>
-  <!-- Tabla -->
-  <div class="h-auto w-full overflow-auto rounded-lg border border-slate-800">
-    <table class="min-w-full text-sm text-left text-gray-300">
-      <thead class="text-xs uppercase bg-slate-800 text-gray-400 sticky top-0">
+  <div
+    class="h-auto w-full overflow-auto rounded-lg border border-fablab-border bg-fablab-card-bg"
+  >
+    <table class="min-w-full text-sm text-left text-fablab-text-secondary">
+      <thead
+        class="text-xs uppercase bg-fablab-text-secondary text-fablab-bg sticky top-0"
+      >
         <tr>
           <th scope="col" class="px-4 py-3 font-bold">Nombre</th>
           <th scope="col" class="px-4 py-3 font-bold">Rut</th>
@@ -53,11 +49,10 @@
           <th scope="col" class="px-4 py-3 font-bold">Acciones</th>
         </tr>
       </thead>
-      <tbody class="divide-y divide-slate-800">
+      <tbody class="divide-y divide-fablab-border">
         @for (usuario of paginationService.pagedItems(); track
         usuario.id_usuario) {
-        <tr class="hover:bg-slate-800/60 transition">
-          <!-- Foto, nombre, correo -->
+        <tr class="hover:bg-fablab-border transition">
           <td class="px-4 py-4 whitespace-nowrap">
             <div class="flex items-center">
               <img
@@ -66,44 +61,47 @@
                 alt="{{ usuario.nombre }}"
               />
               <div class="ml-3">
-                <div class="font-medium text-white">{{ usuario.nombre}} {{usuario.apellido}}</div>
-                <div class="text-xs text-gray-400">
+                <div class="font-medium text-fablab-text-primary">
+                  {{ usuario.nombre }} {{ usuario.apellido }}
+                </div>
+                <div class="text-xs text-fablab-text-secondary">
                   {{ usuario.email || "sin_email@example.com" }}
                 </div>
               </div>
             </div>
           </td>
 
-          <!-- Rut -->
-          <td class="px-4 py-4 text-gray-400">{{ usuario.rut }}</td>
+          <td class="px-4 py-4 text-fablab-text-secondary">
+            {{ usuario.rut }}
+          </td>
 
-          <!-- Carrera -->
-          <td class="px-4 py-4 text-gray-400">{{ usuario.carrera }}</td>
+          <td class="px-4 py-4 text-fablab-text-secondary">
+            {{ usuario.carrera }}
+          </td>
 
-          <!-- Rol -->
-          <td class="px-4 py-4 text-gray-400">{{ usuario.rol }}</td>
+          <td class="px-4 py-4 text-fablab-text-secondary">
+            {{ usuario.rol }}
+          </td>
 
-          <!-- Proyectos -->
-          <td class="px-4 py-4 text-gray-400">
+          <td class="px-4 py-4 text-fablab-text-secondary">
             <div class="max-h-10 overflow-y-auto">
               <ol class="list-decimal list-inside text-xs">
-                @for (usuarios of usersService.usersData(); track $index) {
-                @for (project of usuarios.proyectos_asignados; track $index) {
+                @for (usuarios of usersService.usersData(); track $index) { @for
+                (project of usuarios.proyectos_asignados; track $index) {
                 <li>{{ project.titulo }}</li>
                 } }
               </ol>
             </div>
           </td>
-          <!-- Acciones -->
-          <td class="px-4 py-4 text-gray-400 space-x-4">
+          <td class="px-4 py-4 text-fablab-text-secondary space-x-4">
             <button
-              class="bg-indigo-600 text-gray-200 px-3 py-1 rounded hover:bg-indigo-700 cursor-pointer"
+              class="bg-fablab-accent text-black px-3 py-1 rounded hover:bg-fablab-accent-dark cursor-pointer"
               (click)="modalEditView(usuario.id_usuario)"
             >
               Editar
             </button>
             <button
-              class="bg-red-600 text-gray-200 px-3 py-1 rounded hover:bg-red-700 cursor-pointer"
+              class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 cursor-pointer"
               (click)="modalDeleteView(usuario.id_usuario)"
             >
               Eliminar
@@ -114,7 +112,7 @@
         <tr>
           <td
             colspan="6"
-            class="text-center py-6 text-gray-400 bg-slate-800 rounded-b-lg"
+            class="text-center py-6 text-fablab-text-secondary bg-fablab-card-bg rounded-b-lg"
           >
             No se encontraron usuarios que coincidan con la búsqueda.
           </td>
@@ -124,17 +122,9 @@
     </table>
   </div>
 
-  <!-- Paginación -->
-  <!-- Aqui conectamos el componente <pagination> con el paginationService
-       enviando los 3 parametros que necesita y dejando activo el event a la espera de algun cambio-->
   <pagination
     [currentPage]="paginationService.currentPage()"
     [totalPages]="paginationService.totalPages()"
     (pageChange)="paginationService.goToPage($event)"
   />
 </div>
-
-
-
-
-

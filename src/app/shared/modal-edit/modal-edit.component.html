@@ -1,44 +1,43 @@
-<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/70">
+<div
+  class="fixed inset-0 z-50 flex items-center justify-center w-full h-full bg-fablab-bg/70"
+>
   <div class="relative w-full max-w-2xl p-4">
     <div
-      class="relative bg-slate-900 rounded-2xl shadow-lg flex flex-col max-h-[90vh] border border-slate-700"
+      class="relative bg-fablab-card-bg rounded-2xl shadow-lg flex flex-col max-h-[90vh] border border-fablab-border"
     >
-      <!-- Header -->
       <div
-        class="flex items-center justify-between p-4 border-b border-slate-700"
+        class="flex items-center justify-between p-4 border-b border-fablab-border"
       >
-        <h2 class="text-2xl font-semibold text-white">
+        <h3 class="text-xl font-semibold text-fablab-text-primary">
           {{ modalTitle() }}
-        </h2>
+        </h3>
         <button
           type="button"
-          class="text-gray-400 hover:text-white text-xl"
+          class="text-fablab-text-light hover:text-fablab-text-primary text-xl cursor-pointer"
           (click)="closeModal.emit(false)"
         >
           ✕
         </button>
       </div>
 
-      <!-- Formulario -->
       <div class="p-6 space-y-4 overflow-y-auto">
         <form [formGroup]="fbEdit()!" (ngSubmit)="emitForm()" class="space-y-4">
           @for (controlName of formKeys(fbEdit()!); track $index) {
           <div class="flex flex-col">
-            <label class="text-gray-300 text-sm mb-1 capitalize">
+            <label class="text-fablab-text-light text-sm mb-1 capitalize">
               {{ controlName }}
             </label>
             <input
               type="text"
               formControlName="{{ controlName }}"
-              class="bg-slate-800 border border-slate-700 text-white rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600"
+              class="bg-fablab-bg border border-fablab-border text-fablab-text-primary rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-fablab-primary"
             />
           </div>
           }
         </form>
       </div>
 
-      <!-- Footer -->
-      <div class="flex justify-end p-4 gap-2 border-t border-slate-700">
+      <div class="flex justify-end p-4 gap-2 border-t border-fablab-border">
         <button
           type="button"
           class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700"
@@ -48,7 +47,7 @@
         </button>
         <button
           type="button"
-          class="bg-indigo-600 text-whie px-4 py-2 rounded-lg hover:bg-indigo-700 transition"
+          class="bg-fablab-accent text-black px-4 py-2 rounded-lg hover:bg-fablab-accent-dark transition"
           (click)="emitForm()"
         >
           Subir cambios

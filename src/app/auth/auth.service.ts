@@ -14,7 +14,7 @@ export class AuthService {
   private _httpClient = inject(HttpClient);
 
   //Atributos
-  public _jwtToken = signal< TokenJwt | null >(null);
+  public _jwtToken = signal<TokenJwt | null>(null);
   private _autentication = signal<boolean>(false);
   userData = signal<UsersInterface | null>(null);
   registerLoader = signal<boolean>(false);
@@ -35,22 +35,26 @@ export class AuthService {
   });
 
   //Logear usuarios
-  loginUser(formLogin: any): Observable<boolean>{
-    return this._httpClient.post<TokenJwt>("http://localhost:5263/api/autenticacion/usuarios/login",formLogin)
-    .pipe(
-      tap((resp)=> {
-        console.log(resp);
-        this.userData.set(UsersAuthApitoUser(resp.usuario));
-        this._jwtToken.set(resp);
-        this._autentication.set(true);
-        localStorage.setItem("token",resp.token);
-      }),
-      map((resp)=> true),
-      catchError((error)=>{
-        console.log(error);
-        return of(false);
-      })
-    );
+  loginUser(formLogin: any): Observable<boolean> {
+    return this._httpClient
+      .post<TokenJwt>(
+        'http://localhost:5263/api/autenticacion/usuarios/login',
+        formLogin
+      )
+      .pipe(
+        tap((resp) => {
+          console.log(resp);
+          this.userData.set(UsersAuthApitoUser(resp.usuario));
+          this._jwtToken.set(resp);
+          this._autentication.set(true);
+          localStorage.setItem('token', resp.token);
+        }),
+        map((resp) => true),
+        catchError((error) => {
+          console.log(error);
+          return of(false);
+        })
+      );
   }
 
   //Postear usuarios
@@ -78,26 +82,27 @@ export class AuthService {
   checkStatus(): Observable<boolean> {
     const token = localStorage.getItem('token');
 
-    const token = localStorage.getItem("token");
-
-
-    if (!token){
+    if (!token) {
       return of(false);
     }
 
-    return this._httpClient.get<TokenJwt>("http://localhost:5263/api/autenticacion/usuarios/check-status").pipe(
-      tap((resp)=> {
-        this.userData.set(UsersAuthApitoUser(resp.usuario));
-        this._jwtToken.set(resp);
-        this._autentication.set(true);
-        localStorage.setItem("token",resp.token);
-      }),
-      map((resp)=> true),
-      catchError((error)=>{
-        console.log(error);
-        return of(false);
-      })
-    )
+    return this._httpClient
+      .get<TokenJwt>(
+        'http://localhost:5263/api/autenticacion/usuarios/check-status'
+      )
+      .pipe(
+        tap((resp) => {
+          this.userData.set(UsersAuthApitoUser(resp.usuario));
+          this._jwtToken.set(resp);
+          this._autentication.set(true);
+          localStorage.setItem('token', resp.token);
+        }),
+        map((resp) => true),
+        catchError((error) => {
+          console.log(error);
+          return of(false);
+        })
+      );
   }
 
   //Cerrar sesion

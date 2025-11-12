@@ -1,4 +1,41 @@
-/* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
 @plugin "daisyui";
 @import 'animate.css';
+
+/* Tabla de estilos Lightspace (Original) */
+@theme {  
+    /* Fondo y Superficies */
+    --color-fablab-bg: #101828;      /* (Antes slate-900/gray-900) */
+    --color-fablab-card-bg: #364153; /* (Antes slate-800/gray-800) */
+    --color-fablab-border: #4A5568;  /* (Antes border-slate-700) */
+
+    /* Texto */
+    --color-fablab-text-primary: #FFFFFF; /* (Antes text-white/slate-200) */
+    --color-fablab-text-secondary: #A0AEC0; /* (Antes text-gray-400/500) */
+
+    /* Acento y Estado */
+    --color-fablab-accent: #432dd7;        /* (Antes bg-indigo-600) */
+    --color-fablab-accent-dark: #372aac;   /* (Antes hover:bg-indigo-700) */
+    --color-fablab-danger: #DC2626;        /* (Antes bg-red-600) */
+    --color-fablab-success: #16A34A;       /* (Antes bg-green-600) */
+    
+}
+
+/* Tabla de estilos Fablab (Nueva) */
+@theme{
+
+
+    --color-fablab-bg: #FFFFFF;        /* (Blanco Puro, base del layout) */
+    --color-fablab-card-bg: #e9e9e9;   /* (Gris Muy Claro, fondo de tarjetas/sidebar - bg-gray-100) */
+    --color-fablab-border: #E5E7EB;    /* (Gris Claro, bordes y divisores - border-gray-200) */
+
+
+    --color-fablab-text-primary: #1F2937; /* (Gris Oscuro, títulos y texto principal - text-gray-800) */
+    --color-fablab-text-secondary: #6B7280; /* (Gris Medio, texto secundario - text-gray-500) */
+
+
+    --color-fablab-accent: #FFCC00;         /* (Amarillo FabLab, acento principal y botones activos) */
+    --color-fablab-accent-dark: #FFB600;    /* (Amarillo Oscuro, para el hover del acento) */
+    --color-fablab-danger: #DC2626;         /* (Rojo, Danger/Eliminar) */
+    --color-fablab-success: #16A34A;        /* (Verde, Éxito) */
+}

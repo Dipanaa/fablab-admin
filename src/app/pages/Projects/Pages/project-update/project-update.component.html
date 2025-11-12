@@ -1,28 +1,22 @@
 <div class="flex justify-end pb-8 pr-8">
   <back-button></back-button>
 </div>
-<!-- Contenedor general -->
 <section
-  class="p-6 max-w-3xl mx-auto bg-white dark:bg-slate-800 rounded-2xl shadow-lg transition-all"
+  class="p-6 max-w-3xl mx-auto bg-slate-900 rounded-2xl shadow-lg transition-all border border-slate-700"
 >
-  <!-- Título principal -->
-  <h2
-    class="text-3xl font-bold text-slate-800 dark:text-white mb-6 flex items-center gap-2"
-  >
-    <i class="bi bi-pencil-square text-indigo-600"></i>
+  <h2 class="text-3xl font-bold text-slate-100 mb-6 flex items-center gap-2">
+    <i class="bi bi-pencil-square text-indigo-400"></i>
     Actualizar Proyecto:
-    <span class="text-indigo-600">
+    <span class="text-indigo-400">
       {{ proyectoEncontrado?.titulo || "Cargando..." }}
     </span>
   </h2>
 
-  <!-- Formulario de actualización -->
   <form (submit)="guardarActualizacion($event)" class="space-y-6">
-    <!-- Campo: Título -->
     <div>
       <label
         for="titulo"
-        class="block mb-1 text-sm font-semibold text-gray-700 dark:text-gray-300"
+        class="block mb-1 text-sm font-semibold text-gray-300"
       >
         Título de la actualización
       </label>
@@ -32,18 +26,17 @@
         name="titulo"
         required
         placeholder="Ej. Se ensambló la estructura base"
-        class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-600 dark:bg-slate-800 dark:border-slate-700 dark:text-gray-100"
+        class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-600 bg-slate-800 border-slate-700 text-gray-100"
       />
       <p class="text-xs text-gray-500 mt-1">
         Sé breve y claro. Esto se mostrará como título de la actualización.
       </p>
     </div>
 
-    <!-- Campo: Descripción -->
     <div>
       <label
         for="descripcion"
-        class="block mb-1 text-sm font-semibold text-gray-700 dark:text-gray-300"
+        class="block mb-1 text-sm font-semibold text-gray-300"
       >
         Descripción detallada
       </label>
@@ -53,18 +46,17 @@
         rows="4"
         required
         placeholder="Describe el avance o modificación realizada..."
-        class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-600 dark:bg-slate-800 dark:border-slate-700 dark:text-gray-100"
+        class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-600 bg-slate-800 border-slate-700 text-gray-100"
       ></textarea>
       <p class="text-xs text-gray-500 mt-1">
         Incluye detalles relevantes, materiales usados o problemas resueltos.
       </p>
     </div>
 
-    <!-- Campo: Imagen -->
     <div>
       <label
         for="imagen"
-        class="block mb-1 text-sm font-semibold text-gray-700 dark:text-gray-300"
+        class="block mb-1 text-sm font-semibold text-gray-300"
       >
         Imagen (opcional)
       </label>
@@ -73,14 +65,13 @@
         type="file"
         name="imagen"
         accept="image/*"
-        class="w-full text-sm text-gray-500 dark:text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-500 dark:file:bg-slate-700 dark:file:text-gray-100"
+        class="w-full text-sm text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-700 file:text-white hover:file:bg-indigo-600"
       />
       <p class="text-xs text-gray-500 mt-1">
         Puedes subir una imagen que muestre el progreso o resultado del avance.
       </p>
     </div>
 
-    <!-- Botón de envío -->
     <div class="flex justify-end">
       <button
         type="submit"

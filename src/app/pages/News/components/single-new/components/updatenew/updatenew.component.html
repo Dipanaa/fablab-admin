@@ -1,5 +1,5 @@
 <div
-  class="w-full max-w-6xl mx-auto rounded-2xl shadow-lg border border-slate-700 bg-slate-900 p-8"
+  class="w-full max-w-6xl mx-auto rounded-2xl shadow-lg border border-fablab-border bg-fablab-card-bg p-8"
 >
   <form
     autocomplete="off"
@@ -8,56 +8,68 @@
     class="space-y-4"
   >
     <div>
-      <label for="epigrafe" class="block text-sm font-medium text-gray-300">
+      <label
+        for="epigrafe"
+        class="block text-sm font-medium text-fablab-text-light"
+      >
         Epígrafe
       </label>
       <textarea
         id="epigrafe"
         rows="1"
         placeholder="Epígrafe o subtítulo de la noticia"
-        class="w-full rounded-lg border border-slate-700 bg-slate-800 py-3 px-4 text-gray-300 text-md font-medium outline-none resize-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600"
+        class="w-full rounded-lg border border-fablab-border bg-fablab-bg py-3 px-4 text-fablab-text-light text-md font-medium outline-none resize-none focus:border-fablab-primary focus:ring-1 focus:ring-fablab-primary"
         formControlName="epigrafe"
         value="{{ dataFormUpdate()?.epigrafe }}"
       ></textarea>
     </div>
 
     <div>
-      <label for="title" class="block text-sm font-medium text-gray-300">
+      <label
+        for="title"
+        class="block text-sm font-medium text-fablab-text-light"
+      >
         Título de la noticia
       </label>
       <textarea
         id="title"
         rows="2"
         placeholder="Título principal"
-        class="w-full rounded-lg border border-slate-700 bg-slate-800 py-3 px-4 text-white text-3xl font-bold outline-none resize-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600"
+        class="w-full rounded-lg border border-fablab-border bg-fablab-bg py-3 px-4 text-fablab-text-primary text-3xl font-bold outline-none resize-none focus:border-fablab-primary focus:ring-1 focus:ring-fablab-primary"
         formControlName="titulo"
         value="{{ dataFormUpdate()?.titulo }}"
       ></textarea>
     </div>
 
     <div>
-      <label for="autor" class="block text-sm font-medium text-gray-300">
+      <label
+        for="autor"
+        class="block text-sm font-medium text-fablab-text-light"
+      >
         Autor de la noticia
       </label>
       <textarea
         id="autor"
         rows="1"
         placeholder="Autor de la noticia"
-        class="w-full rounded-lg border border-slate-700 bg-slate-800 py-3 px-4 text-gray-300 text-lg font-medium outline-none resize-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600"
+        class="w-full rounded-lg border border-fablab-border bg-fablab-bg py-3 px-4 text-fablab-text-light text-lg font-medium outline-none resize-none focus:border-fablab-primary focus:ring-1 focus:ring-fablab-primary"
         formControlName="autor"
         value="{{ dataFormUpdate()?.autor }}"
       ></textarea>
     </div>
 
     <div>
-      <label for="content" class="block text-sm font-medium text-gray-300">
+      <label
+        for="content"
+        class="block text-sm font-medium text-fablab-text-light"
+      >
         Contenido de la noticia
       </label>
       <textarea
         id="content"
         rows="8"
         placeholder="Descripción detallada de la noticia"
-        class="w-full rounded-lg border border-slate-700 bg-slate-800 py-3 px-4 text-gray-300 text-md outline-none resize-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600"
+        class="w-full rounded-lg border border-fablab-border bg-fablab-bg py-3 px-4 text-fablab-text-light text-md outline-none resize-none focus:border-fablab-primary focus:ring-1 focus:ring-fablab-primary"
         formControlName="contenido"
         value="{{ dataFormUpdate()?.contenido }}"
       ></textarea>
@@ -66,7 +78,7 @@
     <div class="pt-4 flex justify-end">
       <button
         type="submit"
-        class="px-6 py-3 text-white text-base font-medium rounded-lg bg-indigo-600 hover:bg-indigo-700 transition shadow-md"
+        class="px-6 py-3 text-black text-base font-medium rounded-lg bg-fablab-accent hover:bg-fablab-accent-dark transition shadow-md"
       >
         Actualizar Contenido
       </button>

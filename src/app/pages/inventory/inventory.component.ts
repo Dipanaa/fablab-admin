@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { ModalComponentComponent } from '../../shared/modal-component/modal-component.component';
 import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
 import { BuscadorComponent } from '../../shared/searcher/searcher.component';
@@ -22,7 +22,6 @@ import { InventoryService } from '../../services/inventory.service';
   templateUrl: './inventory.component.html',
 })
 export class InventoryComponent {
-
   //Servicios
   paginationService = inject(PaginationService);
   formbuilder = inject(FormBuilder);
@@ -47,6 +46,16 @@ export class InventoryComponent {
     this.calcularMetricasYAnimar();
   }
 
+  //Esto no lo eh entendido al 100%
+  constructor() {
+    this.inventoryService.getInventoryItems().subscribe();
+    effect(() => {
+      const inventoryList = this.inventoryService.inventoryData();
+      this.paginationService.setDataList(inventoryList);
+      this.paginationService.goToPage(1);
+    });
+  }
+
   onBuscador($event: Event) {
     throw new Error('Method not implemented.');
   }
@@ -68,10 +77,9 @@ export class InventoryComponent {
   }
 
   //TODO: Crear interfaz de inventario
-  dataFormPut(data: any){
+  dataFormPut(data: any) {
     console.log(data);
   }
-
 
   get totalInsumos() {
     return this.inventoryService.inventoryData().length;
@@ -80,22 +88,25 @@ export class InventoryComponent {
   //TODO: Cambiar a idioma ingles
   get bajoStock() {
     // Devolver cuántos insumos están en o por debajo de su stock mínimo
-    return this.inventoryService.inventoryData().filter((p) => p.stock <= 10).length;
+    return this.inventoryService.inventoryData().filter((p) => p.stock <= 10)
+      .length;
   }
 
   get itemsCeroStock(): number {
-    return this.inventoryService.inventoryData().filter((p) => p.stock === 0).length;
+    return this.inventoryService.inventoryData().filter((p) => p.stock === 0)
+      .length;
   }
-
 
   calcularMetricasYAnimar() {
     // 1. Calcular los valores objetivo (target)
     const total = this.inventoryService.inventoryData().length;
-    const ceroStock = this.inventoryService.inventoryData().filter((p) => p.stock === 0).length;
+    const ceroStock = this.inventoryService
+      .inventoryData()
+      .filter((p) => p.stock === 0).length;
     // Asumiendo que 'stockMin' existe en tus objetos
-    const bajoStock = this.inventoryService.inventoryData().filter(
-      (p) => p.stock > 0 && p.stock <= 10
-    ).length;
+    const bajoStock = this.inventoryService
+      .inventoryData()
+      .filter((p) => p.stock > 0 && p.stock <= 10).length;
 
     // 2. Llamar a la animación para cada métrica
     this.animateCount('totalInsumosCount', total);

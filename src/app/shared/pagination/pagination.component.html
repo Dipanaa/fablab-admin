@@ -1,8 +1,10 @@
-<div class="flex items-center justify-center gap-6 text-gray-400 mt-4">
+<div
+  class="flex items-center justify-center gap-6 text-fablab-text-secondary mt-4"
+>
   <button
     (click)="previousPage()"
     [disabled]="currentPage === 1"
-    class="p-2 rounded-lg border border-slate-700 hover:bg-slate-800 disabled:opacity-50"
+    class="p-2 rounded-lg border border-fablab-border hover:bg-fablab-card-bg disabled:opacity-50 transition"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -10,7 +12,7 @@
       viewBox="0 0 24 24"
       stroke-width="1.5"
       stroke="currentColor"
-      class="size-6"
+      class="size-6 text-fablab-text-primary"
     >
       <path
         stroke-linecap="round"
@@ -21,14 +23,15 @@
   </button>
 
   <p>
-    Página <strong class="text-white">{{ currentPage }}</strong> de
-    <strong class="text-white">{{ totalPages }}</strong>
+    Página
+    <strong class="text-fablab-text-primary">{{ currentPage }}</strong> de
+    <strong class="text-fablab-text-primary">{{ totalPages }}</strong>
   </p>
 
   <button
     (click)="nextPage()"
     [disabled]="currentPage === totalPages"
-    class="p-2 rounded-lg border border-slate-700 hover:bg-slate-800 disabled:opacity-50"
+    class="p-2 rounded-lg border border-fablab-border hover:bg-fablab-card-bg disabled:opacity-50 transition"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -36,7 +39,7 @@
       viewBox="0 0 24 24"
       stroke-width="1.5"
       stroke="currentColor"
-      class="size-6"
+      class="size-6 text-fablab-text-primary"
     >
       <path
         stroke-linecap="round"

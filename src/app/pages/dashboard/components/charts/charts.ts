@@ -3,13 +3,21 @@ import { Chart, registerables } from 'chart.js';
 
 Chart.register(...registerables);
 
+// Definimos el color principal RGB del amarillo FabLab: R=255, G=204, B=0
+const FABLAB_R = 255;
+const FABLAB_G = 204;
+const FABLAB_B = 0;
+// El color que usaremos para texto y ejes (Gris claro sobre fondo oscuro)
+const TEXT_COLOR = '#333333';
+const GRID_COLOR = 'rgba(100, 100, 100, 0.2)'; // Líneas muy sutiles
+
 @Component({
   selector: 'charts',
   templateUrl: './charts.html',
 })
 export class Charts implements OnInit {
   // ===========================
-  // GRÁFICO DE PROYECTOS POR MES
+  // GRÁFICO 1: PROYECTOS POR MES (Línea)
   // ===========================
   public proyectosData = {
     labels: [
@@ -30,11 +38,13 @@ export class Charts implements OnInit {
       {
         label: 'Cantidad de Proyectos',
         data: [5, 8, 12, 6, 9, 15, 10, 7, 13, 11, 14, 16],
-        fill: false,
-        borderColor: 'rgba(99, 102, 241, 1)',
-        backgroundColor: 'rgba(99, 102, 241, 0.2)',
+        fill: true, // Cambié a true para una mejor visualización del área
+        // 🚨 COLOR LÍNEA: Amarillo FabLab Sólido
+        borderColor: `rgba(${FABLAB_R}, ${FABLAB_G}, ${FABLAB_B}, 1)`,
+        // 🚨 COLOR FONDO: Amarillo FabLab Transparente
+        backgroundColor: `rgba(${FABLAB_R}, ${FABLAB_G}, ${FABLAB_B}, 0.2)`,
         tension: 0.4,
-        pointBackgroundColor: 'rgba(139, 92, 246, 1)',
+        pointBackgroundColor: `rgba(${FABLAB_R}, ${FABLAB_G}, ${FABLAB_B}, 1)`,
         pointBorderColor: 'white',
         pointRadius: 5,
         pointHoverRadius: 7,
@@ -49,7 +59,7 @@ export class Charts implements OnInit {
   };
 
   // ===========================
-  // GRÁFICO DE USUARIOS ACTIVOS POR MES
+  // GRÁFICO 2: USUARIOS ACTIVOS POR MES (Línea)
   // ===========================
   public usuariosData = {
     labels: [
@@ -70,11 +80,13 @@ export class Charts implements OnInit {
       {
         label: 'Usuarios Activos',
         data: [15, 20, 25, 18, 22, 30, 28, 24, 32, 29, 35, 40],
-        fill: false,
-        borderColor: 'rgba(79, 70, 229, 1)',
-        backgroundColor: 'rgba(79, 70, 229, 0.2)',
+        fill: true,
+        // 🚨 COLOR LÍNEA: Amarillo FabLab Sólido
+        borderColor: `rgba(${FABLAB_R}, ${FABLAB_G}, ${FABLAB_B}, 1)`,
+        // 🚨 COLOR FONDO: Amarillo FabLab Transparente
+        backgroundColor: `rgba(${FABLAB_R}, ${FABLAB_G}, ${FABLAB_B}, 0.2)`,
         tension: 0.4,
-        pointBackgroundColor: 'rgba(139, 92, 246, 1)',
+        pointBackgroundColor: `rgba(${FABLAB_R}, ${FABLAB_G}, ${FABLAB_B}, 1)`,
         pointBorderColor: 'white',
         pointRadius: 5,
         pointHoverRadius: 7,
@@ -89,7 +101,7 @@ export class Charts implements OnInit {
   };
 
   // ===========================
-  // GRÁFICO DE PROYECTOS POR USUARIO
+  // GRÁFICO 3: PROYECTOS POR USUARIO (Barras)
   // ===========================
   public proyectosPorUsuarioData = {
     labels: [
@@ -105,18 +117,19 @@ export class Charts implements OnInit {
       {
         label: 'Proyectos por Usuario',
         data: [10, 8, 6, 4, 12, 9, 5],
+        // 🚨 COLOR BARRAS: Usaremos el amarillo FabLab en un array para simular la variedad
         backgroundColor: [
-          'rgba(99, 102, 241, 0.7)',
-          'rgba(139, 92, 246, 0.7)',
-          'rgba(167, 139, 250, 0.7)',
-          'rgba(79, 70, 229, 0.7)',
-          'rgba(129, 140, 248, 0.7)',
-          'rgba(147, 197, 253, 0.7)',
-          'rgba(56, 189, 248, 0.7)',
+          `rgba(${FABLAB_R}, ${FABLAB_G}, ${FABLAB_B}, 0.8)`,
+          `rgba(${FABLAB_R}, ${FABLAB_G}, ${FABLAB_B}, 0.7)`,
+          `rgba(${FABLAB_R}, ${FABLAB_G}, ${FABLAB_B}, 0.6)`,
+          `rgba(${FABLAB_R}, ${FABLAB_G}, ${FABLAB_B}, 0.5)`,
+          `rgba(${FABLAB_R}, ${FABLAB_G}, ${FABLAB_B}, 0.9)`,
+          `rgba(${FABLAB_R}, ${FABLAB_G}, ${FABLAB_B}, 0.4)`,
+          `rgba(${FABLAB_R}, ${FABLAB_G}, ${FABLAB_B}, 0.3)`,
         ],
         borderColor: 'rgba(255, 255, 255, 0.2)',
         borderWidth: 1,
-        borderRadius: 8, // esquinas redondeadas
+        borderRadius: 8,
       },
     ],
   };
@@ -125,28 +138,30 @@ export class Charts implements OnInit {
     type: 'bar',
     data: this.proyectosPorUsuarioData,
     options: {
-      indexAxis: 'y', // barras horizontales
+      indexAxis: 'y',
       responsive: true,
       plugins: {
         legend: {
-          display: false, // no mostrar leyenda, es obvio por el título
+          display: false,
         },
         title: {
           display: true,
           text: 'Proyectos por Usuario',
-          color: '#E0E0E0',
+          // 🚨 Color del título del gráfico
+          color: TEXT_COLOR,
           font: { size: 16, weight: 'bold' },
         },
       },
       scales: {
         x: {
           beginAtZero: true,
-          ticks: { color: '#E0E0E0' },
-          grid: { color: 'rgba(100,100,100,0.2)' },
+          // 🚨 Color de las etiquetas y líneas de grid
+          ticks: { color: TEXT_COLOR },
+          grid: { color: GRID_COLOR },
         },
         y: {
-          ticks: { color: '#E0E0E0' },
-          grid: { color: 'rgba(100,100,100,0.2)' },
+          ticks: { color: TEXT_COLOR },
+          grid: { color: GRID_COLOR },
         },
       },
     },
@@ -161,26 +176,29 @@ export class Charts implements OnInit {
       plugins: {
         legend: {
           labels: {
-            color: '#E0E0E0',
+            // 🚨 Color de la leyenda
+            color: TEXT_COLOR,
             font: { size: 14 },
           },
         },
         title: {
           display: true,
           text: label,
-          color: '#E0E0E0',
+          // 🚨 Color del título
+          color: TEXT_COLOR,
           font: { size: 16, weight: 'bold' },
         },
       },
       scales: {
         x: {
-          ticks: { color: '#E0E0E0' },
-          grid: { color: 'rgba(100,100,100,0.2)' },
+          // 🚨 Color de las etiquetas y líneas de grid
+          ticks: { color: TEXT_COLOR },
+          grid: { color: GRID_COLOR },
         },
         y: {
           beginAtZero: true,
-          ticks: { color: '#E0E0E0' },
-          grid: { color: 'rgba(100,100,100,0.2)' },
+          ticks: { color: TEXT_COLOR },
+          grid: { color: GRID_COLOR },
         },
       },
     };

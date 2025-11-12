@@ -12,18 +12,16 @@
 }
 <div class="flex justify-end mr-8"><back-button></back-button></div>
 <section class="flex flex-col gap-10 p-4 md:p-8">
-  <!-- 🧩 Sección de Previsualización -->
   <div
-    class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl shadow-lg p-6 md:p-10 border border-slate-700"
+    class="bg-fablab-card-bg rounded-2xl shadow-lg p-6 md:p-10 border border-fablab-border"
   >
-    <h1 class="text-3xl font-bold text-white mb-6">
+    <h1 class="text-3xl font-bold text-fablab-text-primary mb-6">
       Previsualización del Proyecto
     </h1>
 
     <div class="flex flex-col lg:flex-row gap-8">
-      <!-- Imagen -->
       <figure
-        class="relative flex-shrink-0 w-full lg:w-1/2 h-64 md:h-80 bg-slate-700 rounded-2xl overflow-hidden flex items-center justify-center"
+        class="relative flex-shrink-0 w-full lg:w-1/2 h-64 md:h-80 bg-fablab-border rounded-2xl overflow-hidden flex items-center justify-center"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -31,7 +29,7 @@
           viewBox="0 0 24 24"
           stroke-width="1.2"
           stroke="currentColor"
-          class="w-48 h-48 text-slate-500"
+          class="w-48 h-48 text-fablab-text-secondary"
         >
           <path
             stroke-linecap="round"
@@ -41,13 +39,14 @@
         </svg>
       </figure>
 
-      <!-- Descripción -->
-      <div class="flex flex-col justify-between w-full lg:w-1/2 text-slate-200">
+      <div
+        class="flex flex-col justify-between w-full lg:w-1/2 text-fablab-text-primary"
+      >
         <div>
-          <h2 class="text-2xl font-semibold mb-3 text-indigo-400">
+          <h2 class="text-2xl font-semibold mb-3 text-fablab-primary">
             {{ projectoFound?.titulo || "Proyecto sin título" }}
           </h2>
-          <p class="text-slate-300 mb-4 leading-relaxed">
+          <p class="text-fablab-text-secondary mb-4 leading-relaxed">
             {{
               projectoFound?.descripcionproyecto ||
                 "No hay descripción disponible para este proyecto."
@@ -73,11 +72,11 @@
         <div class="flex justify-end mt-6 gap-4">
           <button
             (click)="openDeleteView.set(true)"
-            class="bg-red-600 text-gray-200 px-5 py-2 rounded-lg hover:bg-red-700 transition cursor-pointer"
+            class="bg-fablab-danger text-white px-5 py-2 rounded-lg hover:bg-red-700 transition cursor-pointer"
           >
             Eliminar</button
           ><button
-            class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-lg transition-transform hover:scale-105 cursor-pointer"
+            class="bg-fablab-accent hover:bg-fablab-accent-dark text-black px-5 py-2 rounded-lg transition-transform hover:scale-105 cursor-pointer"
           >
             Editar
           </button>
@@ -86,22 +85,20 @@
     </div>
   </div>
 
-  <!-- 🧭 Hoja de Ruta del Proyecto (Maqueta) -->
-  <div
-    class="bg-white dark:bg-slate-900 rounded-2xl p-6 md:p-10 shadow-lg border border-slate-700"
+  <!-- <div
+    class="bg-fablab-card-bg rounded-2xl p-6 md:p-10 shadow-lg border border-fablab-border"
   >
-    <h1 class="text-3xl font-bold text-slate-900 dark:text-white mb-6">
+    <h1 class="text-3xl font-bold text-fablab-text-primary mb-6">
       Hoja de ruta del proyecto
     </h1>
 
-    <ol class="relative border-s border-gray-200 dark:border-gray-700">
-      <!-- Etapa 1 -->
+    <ol class="relative border-s border-fablab-border">
       <li class="mb-10 ms-6">
         <span
-          class="absolute flex items-center justify-center w-6 h-6 bg-indigo-100 rounded-full -start-3 ring-8 ring-white dark:ring-slate-900 dark:bg-indigo-900"
+          class="absolute flex items-center justify-center w-6 h-6 bg-fablab-primary rounded-full -start-3 ring-8 ring-fablab-card-bg"
         >
           <svg
-            class="w-2.5 h-2.5 text-indigo-800 dark:text-indigo-300"
+            class="w-2.5 h-2.5 text-black"
             fill="currentColor"
             viewBox="0 0 20 20"
           >
@@ -111,52 +108,50 @@
           </svg>
         </span>
         <h3
-          class="flex items-center mb-1 text-lg font-semibold text-gray-900 dark:text-white"
+          class="flex items-center mb-1 text-lg font-semibold text-fablab-text-primary"
         >
           Fase de planificación
           <span
-            class="bg-indigo-100 text-indigo-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-indigo-900 dark:text-indigo-300 ms-3"
+            class="bg-fablab-primary/20 text-fablab-primary text-sm font-medium me-2 px-2.5 py-0.5 rounded-sm ms-3"
           >
             En curso
           </span>
         </h3>
-        <time class="block mb-2 text-sm text-gray-400 dark:text-gray-500"
+        <time class="block mb-2 text-sm text-fablab-text-secondary"
           >Inicio: Octubre 2025</time
         >
-        <p class="text-gray-500 dark:text-gray-400 mb-4">
+        <p class="text-fablab-text-secondary mb-4">
           Se definen objetivos, materiales y responsables del proyecto.
         </p>
       </li>
 
-      <!-- Etapa 2 -->
       <li class="mb-10 ms-6">
         <span
-          class="absolute flex items-center justify-center w-6 h-6 bg-indigo-100 rounded-full -start-3 ring-8 ring-white dark:ring-slate-900 dark:bg-indigo-900"
+          class="absolute flex items-center justify-center w-6 h-6 bg-fablab-primary/20 rounded-full -start-3 ring-8 ring-fablab-card-bg"
         ></span>
-        <h3 class="mb-1 text-lg font-semibold text-gray-900 dark:text-white">
+        <h3 class="mb-1 text-lg font-semibold text-fablab-text-primary">
           Desarrollo del prototipo
         </h3>
-        <time class="block mb-2 text-sm text-gray-400 dark:text-gray-500"
+        <time class="block mb-2 text-sm text-fablab-text-secondary"
           >Próximo paso</time
         >
-        <p class="text-gray-500 dark:text-gray-400">
+        <p class="text-fablab-text-secondary">
           Etapa de modelado 3D, programación o pruebas según el tipo de
           proyecto.
         </p>
       </li>
 
-      <!-- Etapa 3 -->
       <li class="ms-6">
         <span
-          class="absolute flex items-center justify-center w-6 h-6 bg-indigo-100 rounded-full -start-3 ring-8 ring-white dark:ring-slate-900 dark:bg-indigo-900"
+          class="absolute flex items-center justify-center w-6 h-6 bg-fablab-primary/20 rounded-full -start-3 ring-8 ring-fablab-card-bg"
         ></span>
-        <h3 class="mb-1 text-lg font-semibold text-gray-900 dark:text-white">
+        <h3 class="mb-1 text-lg font-semibold text-fablab-text-primary">
           Presentación final
         </h3>
-        <time class="block mb-2 text-sm text-gray-400 dark:text-gray-500"
+        <time class="block mb-2 text-sm text-fablab-text-secondary"
           >Pendiente</time
         >
-        <p class="text-gray-500 dark:text-gray-400">
+        <p class="text-fablab-text-secondary">
           Se documentan los resultados y se realiza la exposición del proyecto.
         </p>
       </li>
@@ -164,12 +159,12 @@
 
     <div class="flex justify-center pt-6">
       <button
-        class="bg-indigo-600 px-4 py-2 rounded-lg text-white hover:bg-indigo-700 transition-transform hover:scale-105 flex items-center gap-2"
+        class="bg-fablab-accent px-4 py-2 rounded-lg text-black hover:bg-fablab-accent-dark transition-transform hover:scale-105 flex items-center gap-2"
         [routerLink]="['/proyectos/project-update', projectoFound?.id]"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class="w-5 h-5"
+          class="w-5 h-5 text-black"
           fill="none"
           stroke="currentColor"
           stroke-width="2"
@@ -184,5 +179,5 @@
         Agregar Etapa
       </button>
     </div>
-  </div>
+  </div> -->
 </section>

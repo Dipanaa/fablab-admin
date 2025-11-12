@@ -1,19 +1,19 @@
 <header
-  class="bg-slate-900 text-white shadow-md px-6 py-4 flex relative items-center"
+  class="bg-fablab-bg text-fablab-text-primary shadow-md px-6 py-4 flex relative items-center"
 >
   <div class="flex gap-5">
     <img
       src="../../../assets/icons/menuIcon.png"
-      class="w-[35px] h-[35px] ml-5 cursor-pointer hover:rounded hover:bg-indigo-600"
+      class="w-[35px] h-[35px] ml-5 cursor-pointer rounded bg-fablab-accent hover:bg-fablab-accent-dark"
       alt=""
       (click)="toggleMenuActivate()"
     />
     <!-- Breadcrumbs / Ruta actual -->
     <div
-      class="items-center space-x-2 text-sm font-medium text-gray-300 hidden sm:flex"
+      class="items-center space-x-2 text-sm font-medium text-fablab-text-secondary hidden sm:flex"
     >
       <svg
-        class="w-5 h-5 text-white"
+        class="w-5 h-5 text-fablab-text-primary"
         fill="none"
         stroke="currentColor"
         stroke-width="2"
@@ -25,10 +25,10 @@
           d="M19 21H5a2 2 0 0 1-2-2V7h18v12a2 2 0 0 1-2 2zM16 3H8v4h8V3z"
         />
       </svg>
-      <span class="text-gray-400">Panel</span>
+      <span class="text-fablab-text-secondary">Panel</span>
       @for(route of actualRoute(); track $index; let i = $index){
       <svg
-        class="w-4 h-4 text-gray-500"
+        class="w-4 h-4 text-fablab-text-secondary"
         fill="none"
         stroke="currentColor"
         stroke-width="2"
@@ -37,10 +37,12 @@
         <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
       </svg>
       @if(i == actualRoute().length-1){
-      <span class="text-indigo-400 capitalize cursor-pointer">{{ route }}</span>
+      <span class="text-fablab-accent-dark capitalize cursor-pointer">{{
+        route
+      }}</span>
       }@else {
       <span
-        class="text-gray-500 capitalize cursor-pointer"
+        class="text-fablab-text-secondary capitalize cursor-pointer"
         routerLink="{{ route }}"
         >{{ route }}</span
       >
@@ -57,15 +59,19 @@
         class="flex items-center gap-2"
         routerLink="/perfil-usuario"
       >
-        <img [src]="authService.userData()?.foto_perfil" alt="" class="w-10 h-10 rounded-4xl hover:bg-gray-400 cursor-pointer">
-        <span class="text-sm text-gray-200 hidden sm:inline">{{
+        <img
+          [src]="authService.userData()?.foto_perfil"
+          alt=""
+          class="w-10 h-10 rounded-4xl hover:bg-fablab-text-primary cursor-pointer"
+        />
+        <span class="text-sm text-fablab-text-primary hidden sm:inline">{{
           user.userName
         }}</span>
       </button>
 
       <!-- Botón cerrar sesión -->
       <button
-        class="bg-indigo-600 hover:bg-indigo-700 transition px-3 py-1.5 text-sm rounded-xl font-semibold cursor-pointer"
+        class="bg-fablab-accent hover:bg-fablab-accent-dark transition px-3 py-1.5 text-sm rounded-xl font-semibold cursor-pointer"
       >
         <a (click)="closeSesionButton()">Cerrar sesión</a>
       </button>

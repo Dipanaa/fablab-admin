@@ -1,21 +1,24 @@
-<div class="border-slate-800 flex flex-col gap-3">
-  <!-- Header -->
+<div class="border-fablab-border flex flex-col gap-3">
   <div
     class="flex flex-col md:flex-row md:items-center md:justify-between gap-4"
   >
-    <h2 class="text-3xl font-bold text-white">Administración de Solicitudes</h2>
+    <h2 class="text-3xl font-bold text-fablab-text-primary">
+      Administración de Solicitudes
+    </h2>
     <div
       class="flex flex-col md:flex-row items-stretch md:items-center gap-3 w-full md:w-auto"
     >
-      <!-- Buscador -->
       <searcher></searcher>
     </div>
   </div>
 
-  <!-- Tabla -->
-  <div class="h-auto w-full overflow-auto rounded-lg border border-slate-800">
-    <table class="min-w-full text-sm text-left text-gray-300">
-      <thead class="text-xs uppercase bg-slate-800 text-gray-400 sticky top-0">
+  <div
+    class="h-auto w-full overflow-auto rounded-lg border border-fablab-border bg-fablab-card-bg"
+  >
+    <table class="min-w-full text-sm text-left text-fablab-text-secondary">
+      <thead
+        class="text-xs uppercase bg-fablab-text-secondary text-fablab-bg sticky top-0"
+      >
         <tr>
           <th scope="col" class="px-4 py-3 font-bold">RUT</th>
           <th scope="col" class="px-4 py-3 font-bold">Nombre</th>
@@ -27,23 +30,32 @@
         </tr>
       </thead>
 
-      <tbody class="divide-y divide-slate-800">
+      <tbody class="divide-y divide-fablab-border">
         <tr
           *ngFor="let solicitud of notificationsService.notificationsData()"
-          class="hover:bg-slate-800/60 transition"
+          class="bg-fablab-card-bg hover:bg-fablab-border transition"
         >
-          <td class="px-4 py-4 text-gray-400">{{ solicitud.rut }}</td>
-          <td class="px-4 py-4 text-gray-400">{{ solicitud.nombre }}</td>
-          <td class="px-4 py-4 text-gray-400">{{ solicitud.email }}</td>
-          <td class="px-4 py-4 text-gray-400">{{ solicitud.tipo }}</td>
-          <td class="px-4 py-4 text-gray-400">
+          <td class="px-4 py-4 text-fablab-text-secondary">
+            {{ solicitud.rut }}
+          </td>
+          <td class="px-4 py-4 text-fablab-text-secondary">
+            {{ solicitud.nombre }}
+          </td>
+          <td class="px-4 py-4 text-fablab-text-secondary">
+            {{ solicitud.email }}
+          </td>
+          <td class="px-4 py-4 text-fablab-text-secondary">
+            {{ solicitud.tipo }}
+          </td>
+          <td class="px-4 py-4 text-fablab-text-secondary">
             {{ solicitud.fecha | date : "dd/MM/yyyy" }}
           </td>
 
           <td class="px-4 py-4">
             <span
               [ngClass]="{
-                'text-yellow-400 font-medium': solicitud.estado === 'Pendiente',
+                'text-fablab-primary font-medium':
+                  solicitud.estado === 'Pendiente',
                 'text-green-500 font-semibold': solicitud.estado === 'Aceptada',
                 'text-red-500 font-bold': solicitud.estado === 'Rechazada'
               }"
@@ -52,15 +64,15 @@
             </span>
           </td>
 
-          <td class="px-4 py-4 text-gray-400 space-x-4" >
+          <td class="px-4 py-4 text-fablab-text-secondary space-x-4">
             <button
-            (click)="acceptNotification(solicitud.id)"
-              class="bg-indigo-600 text-gray-200 px-3 py-1 rounded hover:bg-indigo-700 cursor-pointer"
+              (click)="acceptNotification(solicitud.id)"
+              class="bg-fablab-accent text-black px-3 py-1 rounded hover:bg-fablab-accent-dark cursor-pointer"
             >
               Aceptar
             </button>
-             <button
-              class="bg-red-500 text-gray-200 px-3 py-1 rounded hover:bg-indigo-700 cursor-pointer"
+            <button
+              class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 cursor-pointer"
             >
               Rechazar
             </button>
@@ -70,7 +82,7 @@
         <tr *ngIf="notificationsService.notificationsData().length === 0">
           <td
             colspan="8"
-            class="text-center py-6 text-gray-400 bg-slate-800 rounded-b-lg"
+            class="text-center py-6 text-fablab-text-secondary bg-fablab-card-bg rounded-b-lg"
           >
             No se encontraron solicitudes que coincidan con la búsqueda.
           </td>
@@ -78,6 +90,4 @@
       </tbody>
     </table>
   </div>
-
-
 </div>
