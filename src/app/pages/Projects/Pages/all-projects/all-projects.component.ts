@@ -22,8 +22,6 @@ export class AllProjectsComponent {
   projectsData = this.projectsService.projectsResource.value();
 
 
-
-
   proyecto: ProjectsInterface[] = dblocalproyectos;
   ngOnInit() {
     window.scrollTo({ top: 0, behavior: 'auto' });

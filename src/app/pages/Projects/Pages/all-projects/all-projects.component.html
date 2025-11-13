@@ -1,8 +1,9 @@
-@if(notificacionStatus.statusMessage()){
-<status-message></status-message>
-}
-
 <div class="border-fablab-border flex flex-col gap-3">
+  @if(notificacionStatus.statusMessage()){
+    <div class="fixed mb-2 mr-2 right-0 bottom-0">
+      <status-message></status-message>
+    </div>
+  }
   <div
     class="flex flex-col md:flex-row md:items-center md:justify-between gap-4"
   >

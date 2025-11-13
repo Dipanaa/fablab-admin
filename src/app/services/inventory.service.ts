@@ -27,19 +27,20 @@ export class InventoryService {
   //Metodos
 
   getInventoryItems(): Observable<boolean>{
+    console.log("la llamada a la api se realizo");
     return this.httpClient.get<InventoryResponse[]>(`http://localhost:5263/api/inventario`)
-        .pipe(
-          map((data)=> {
-            this.inventoryData.update((currentData)=> [...currentData, ...inventoryApiToInventoryArray(data)])
-            return true;
-          }),
-          //TODO: Implementar interfaz de error en base a asp net
-          catchError((err)=>{
-            this.notificationStatusService.statusMessage.set(true);
-            this.notificationStatusService.statusErrorMessage.set(err.error.detail);
-            return of(false);
-          })
-        );
+    .pipe(
+      map((data)=> {
+        this.inventoryData.update(()=> inventoryApiToInventoryArray(data));
+        return true;
+      }),
+      //TODO: Implementar interfaz de error en base a asp net
+      catchError((err)=>{
+        this.notificationStatusService.statusMessage.set(true);
+        this.notificationStatusService.statusErrorMessage.set(err.error.detail);
+        return of(false);
+      })
+    );
   }
 }
 

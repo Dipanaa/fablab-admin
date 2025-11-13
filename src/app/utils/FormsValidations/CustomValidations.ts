@@ -8,7 +8,11 @@ export class CustomFormsValidations{
     null;
   }
 
-  static ValidateErrors(fieldName: string, FormBuilder:FormGroup){
+  static ValidateErrors(fieldName: string, FormBuilder:FormGroup,optionalName?: string){
+
+    //Nombre del campo a usar
+    const fieldNameToUse = (optionalName)? optionalName: fieldName;
+
 
     if(!this.ValidateField(fieldName, FormBuilder)){
 
@@ -23,7 +27,9 @@ export class CustomFormsValidations{
         case 'required':
           return "Este campo es requerido";
         case 'minlength':
-          return `El ${fieldName} debe contener un minimo de ${errors["minlength"].requiredLength} caracteres`;
+          return `El ${fieldNameToUse} debe contener un minimo de ${errors["minlength"].requiredLength} caracteres`;
+        case 'maxlength':
+          return `El ${fieldNameToUse} debe contener un maximo de ${errors["maxlength"].requiredLength} caracteres`;
         case 'min':
           return `Minimo de ${errors["min"].min}`
         case 'passwordRegister':

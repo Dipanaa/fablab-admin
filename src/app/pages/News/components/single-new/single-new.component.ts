@@ -69,6 +69,7 @@ export class SingleNewComponent implements OnInit {
       if (status) {
         this.router.navigateByUrl('/noticias');
         this.notificacionsStatusService.showMessage();
+        this.newsService.getNews();
         return;
       }
     });

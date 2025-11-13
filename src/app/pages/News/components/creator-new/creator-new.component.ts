@@ -65,8 +65,10 @@ export class CreatorNewComponent {
     const newPost: News = this.CreationNewForm.value;
     this.newsService.postNew(newPost).subscribe((status) => {
       if (status) {
-        this.router.navigateByUrl('/noticias');
+        this.newsService.getNews();
         this.notificacionsStatusService.showMessage();
+        this.router.navigateByUrl('/noticias');
+        return;
       }
     });
   }

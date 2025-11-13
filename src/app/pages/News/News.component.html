@@ -1,6 +1,8 @@
 @if(newsService.newsLoading()){
 <h1 class="text-2xl">Cargando contenido...</h1>
-} @if(statusMessage()){
+}
+
+@if(statusMessage()){
 <status-message
   [messageDisplay]="notificacionsStatusService.statusTextMessage()"
 />

@@ -7,11 +7,13 @@ import { ProjectsCreateInterface } from '../../../../utils/request-interfaces/pr
 import { AuthService } from '../../../../auth/auth.service';
 import { Router } from '@angular/router';
 import { BackButtonComponent } from '../../../../shared/back-button/back-button';
+import { StatusMessageComponent } from '../../../../shared/status-message/status-message.component';
+import { CustomFormsValidations } from '../../../../utils/FormsValidations/CustomValidations';
 
 @Component({
   selector: 'new-project',
   templateUrl: './new-project.component.html',
-  imports: [ReactiveFormsModule, BackButtonComponent],
+  imports: [ReactiveFormsModule, BackButtonComponent, StatusMessageComponent],
 })
 export class NewProjectComponent {
   //Inyeccion de servicios
@@ -20,6 +22,7 @@ export class NewProjectComponent {
   authService = inject(AuthService);
   router = inject(Router);
   notificacionStatus = inject(NotificacionsStatusService);
+  CustomFormsValidations = CustomFormsValidations;
 
   //Atributos
   imageSelected = signal<File | null>(null);
@@ -28,7 +31,7 @@ export class NewProjectComponent {
     titulo: ['', [Validators.required, Validators.minLength(5)]],
     descripcionproyecto: ['', [Validators.required, Validators.maxLength(500)]],
     categoria: ['', [Validators.required]],
-    areaaplicacion: ['', [Validators.required]],
+    areaaplicacion: ['', [Validators.required,Validators.maxLength(20),Validators.minLength(5)]],
     fechainicio: [''],
   });
 
@@ -57,8 +60,11 @@ export class NewProjectComponent {
     //Formulario multiparte
     const formData = new FormData();
 
-    if(this.imageSelected() != null){
-      formData.append("ImgUrl", this.imageSelected()!, this.imageSelected()?.name);
+    //Narrowing imagen
+    const image = this.imageSelected();
+
+    if(image != null){
+      formData.append("ImgUrl", image, image.name);
     }
 
     formData.append("dataproject", JSON.stringify(this.newProjectForm.value));

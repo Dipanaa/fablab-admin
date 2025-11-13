@@ -11,7 +11,6 @@ import { NotificacionsStatusService } from '../../../../services/notificacionsSt
   selector: 'individual-project',
   templateUrl: './individual-project.component.html',
   imports: [
-    RouterLink,
     CommonModule,
     ModalComponentComponent,
     BackButtonComponent,
@@ -29,6 +28,7 @@ export class IndividualProjectComponent implements OnInit {
   projectoFound?: ProjectsInterface;
   openDeleteView = signal<boolean>(false);
   projectModalId = signal<number | undefined>(undefined);
+  projectsData = this.projectsService.projectsResource.value();
 
   //Ciclos de vida
   ngOnInit() {

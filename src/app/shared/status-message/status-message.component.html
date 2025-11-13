@@ -1,7 +1,7 @@
 @if(notificationStatus.statusTextMessage()){
   <div class="p-2 flex justify-center animate__animated animate__fadeInRight overflow-x-hidden"
   >
-    <p class="bg-green-700 p-6 rounded-2xl shadow-xl">
+    <p class="bg-fablab-success p-6 rounded-2xl shadow-xl text-fablab-bg">
       {{messageDisplay()}}
     </p>
   </div>
@@ -9,7 +9,7 @@
 @else{
   <div class="p-2 flex justify-center animate__animated animate__fadeInRight overflow-x-hidden "
   >
-    <p class="bg-red-700 p-6 rounded-2xl shadow-xl">
+    <p class="bg-fablab-danger p-6 rounded-2xl shadow-xl text-fablab-bg">
       {{messageDisplayError()}}
     </p>
   </div>

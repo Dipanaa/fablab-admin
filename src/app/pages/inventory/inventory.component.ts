@@ -48,7 +48,6 @@ export class InventoryComponent {
 
   //Esto no lo eh entendido al 100%
   constructor() {
-    this.inventoryService.getInventoryItems().subscribe();
     effect(() => {
       const inventoryList = this.inventoryService.inventoryData();
       this.paginationService.setDataList(inventoryList);

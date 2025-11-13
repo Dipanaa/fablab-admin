@@ -45,10 +45,6 @@ export class NewsComponent {
   //Mensaje de estado para mensajes, se puede expandir logica a error
   statusMessage = computed(()=> (this.notificacionsStatusService.statusMessage())?true:false);
 
-  constructor(){
-    this.newsService.getNews();
-  }
-
   //Obtener Estado de la noticia
   getStateNew(estado: string) {
     if (Object.hasOwn(this.newsState, estado)) {

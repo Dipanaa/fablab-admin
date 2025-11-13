@@ -74,7 +74,6 @@ export class AuthService {
         formRegister
       )
       .pipe(
-        delay(4000),
         map(() =>{
           this._notificationStatusService.statusMessage.set(true);
           this._notificationStatusService.statusTextMessage.set("Solicitud de ingreso enviada correctamente a la espera de aprobación");
