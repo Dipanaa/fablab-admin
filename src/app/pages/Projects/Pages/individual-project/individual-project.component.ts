@@ -5,6 +5,7 @@ import { ProjectsInterface } from '../../../../interfaces/projects.interface';
 import { ProjectsService } from '../../../../services/projects.service';
 import { ModalComponentComponent } from '../../../../shared/modal-component/modal-component.component';
 import { BackButtonComponent } from '../../../../shared/back-button/back-button';
+import { NotificacionsStatusService } from '../../../../services/notificacionsStatus.service';
 
 @Component({
   selector: 'individual-project',
@@ -22,6 +23,7 @@ export class IndividualProjectComponent implements OnInit {
   projectsService = inject(ProjectsService);
   route = inject(ActivatedRoute);
   private router = inject(Router);
+  notificacionsStatusService = inject(NotificacionsStatusService);
 
   //Atributos
   projectoFound?: ProjectsInterface;
@@ -32,7 +34,6 @@ export class IndividualProjectComponent implements OnInit {
   ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.projectModalId.set(id);
-    console.log(id);
   }
 
   //Metodos
@@ -47,6 +48,8 @@ export class IndividualProjectComponent implements OnInit {
       .subscribe((status) => {
         if (status) {
           this.openDeleteView.set(false);
+          this.notificacionsStatusService.showMessage();
+          this.projectsService.projectsResource.reload();
           this.router.navigate(['/proyectos']);
           return;
         }

@@ -67,12 +67,11 @@ export class NewProjectComponent {
     this.proyectsService.postProject(formData)
     .subscribe((status)=>{
       if(status){
-        console.log(this.notificacionStatus.statusTextMessage());
+        this.proyectsService.projectsResource.reload();
         this.notificacionStatus.showMessage();
         this.router.navigateByUrl('/proyectos');
         return;
       }
-      console.log(this.notificacionStatus.statusErrorMessage());
       this.notificacionStatus.showMessage();
       this.router.navigateByUrl('/proyectos');
     });

@@ -8,11 +8,9 @@ export const isGeneralAuthenticatedGuard: CanMatchFn = async (
   segments: UrlSegment[]
 ) => {
   const authService = inject(AuthService);
-  console.log("autenticado",authService.Autentication());
 
   const isAuthenticated = await firstValueFrom (authService.checkStatus());
 
-  console.log(isAuthenticated,"Estado de autenticacion");
 
   if (isAuthenticated){
     return true;

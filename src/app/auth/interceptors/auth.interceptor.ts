@@ -3,14 +3,18 @@ import { inject } from "@angular/core";
 import { AuthService } from "../auth.service";
 
 export function authInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn) {
-  const authToken = inject(AuthService)._jwtToken()?.token;
+  const authToken = inject(AuthService).tokenJWT();
 
   if(!authToken){
-    return next(req);
+    const newReq = req.clone({
+
+      headers: req.headers.append("Authorization", `Bearer `),
+    });
+    return next(newReq);
   }
 
   const newReq = req.clone({
-    headers: req.headers.append("Authorization", `Bearer ${authToken}`),
+    headers: req.headers.set("Authorization", `Bearer ${authToken}`),
   });
   return next(newReq);
 }

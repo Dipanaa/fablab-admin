@@ -4,6 +4,7 @@ import { passwordValidator } from '../../utils/FormsValidations/authValidators';
 import { AuthService } from '../auth.service';
 import { CustomFormsValidations } from '../../utils/FormsValidations/CustomValidations';
 import { StatusMessageComponent } from '../../shared/status-message/status-message.component';
+import { NotificacionsStatusService } from '../../services/notificacionsStatus.service';
 
 
 @Component({
@@ -16,12 +17,11 @@ export class RegisterComponent {
   //Servicios
   formBuilder = inject(FormBuilder);
   authService = inject(AuthService);
+  notificacionsStatusService = inject(NotificacionsStatusService);
   CustomFormsValidations = CustomFormsValidations;
 
   //Atributos
   registerMode = output<boolean>();
-  statusMessage = signal<boolean>(false);
-  statusMessageText: string = "Registro de datos exitoso!";
 
   fbRegister:FormGroup = this.formBuilder.group({
     email:["",[Validators.required,Validators.pattern(/.+@inacapmail\.cl$/g)]],
@@ -40,7 +40,7 @@ export class RegisterComponent {
 
   //Post de registro
   registerUser(){
-    if(this.fbRegister.invalid){
+    if(this.fbRegister.invalid || this.authService.registerLoader()){
       this.fbRegister.markAllAsTouched();
       return;
     }
@@ -50,12 +50,11 @@ export class RegisterComponent {
     this.authService.registerUser(this.fbRegister.value)
     .subscribe((status)=>{
       if(status){
-        this.statusMessage.set(true);
-        setTimeout(()=>{
-          this.statusMessage.set(false)
-        },5000);
+        this.fbRegister.reset();
+        this.notificacionsStatusService.showMessage();
         return;
       }
+      this.notificacionsStatusService.showMessage();
     });
   }
 

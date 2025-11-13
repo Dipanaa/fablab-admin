@@ -30,7 +30,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ProjectsTableComponent {
   //Servicios
   route = inject(ActivatedRoute);
-  private router = inject(Router);
   projectsService = inject(ProjectsService);
   paginationService = inject(PaginationService);
   notificationStatusService = inject(NotificacionsStatusService);
@@ -38,11 +37,9 @@ export class ProjectsTableComponent {
   //Atributos
   openDeleteView = signal<boolean>(false);
   projectModalId = signal<number | undefined>(undefined);
+  projectsData = this.projectsService.projectsResource.value();
 
-  constructor() {
-    // Llamada de prueba al iniciar
-    this.projectsService.getProjects();
-  }
+
 
   //Ciclos de vida
   ngOnInit() {
@@ -67,10 +64,11 @@ export class ProjectsTableComponent {
       .subscribe((status) => {
         if (status) {
           this.openDeleteView.set(false);
-          this.router.navigate(['/gestion-proyectos']);
+          this.projectsService.projectsResource.reload();
+          this.notificationStatusService.showMessage();
+
           return;
         }
-
         this.openDeleteView.set(false);
       });
   }

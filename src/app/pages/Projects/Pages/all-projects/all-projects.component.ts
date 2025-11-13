@@ -14,15 +14,15 @@ import { StatusMessageComponent } from '../../../../shared/status-message/status
   templateUrl: './all-projects.component.html',
 })
 export class AllProjectsComponent {
-  //Inyeccion de servicios
+  //Servicios
   projectsService = inject(ProjectsService);
   notificacionStatus = inject(NotificacionsStatusService);
 
-  constructor() {
-    //TODO: Implementar rxResource en el servicio
-    this.projectsService.getProjects();
-    console.log(this.projectsService.projectsData());
-  }
+  //Atributos
+  projectsData = this.projectsService.projectsResource.value();
+
+
+
 
   proyecto: ProjectsInterface[] = dblocalproyectos;
   ngOnInit() {

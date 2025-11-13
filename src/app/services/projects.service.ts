@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { ProjectsResponse } from '../utils/responses-interfaces/projectsResponse';
-import { catchError, finalize, map, of, tap } from 'rxjs';
+import { catchError, finalize, map, Observable, of, tap } from 'rxjs';
 import { projectApiToProjectsArray } from '../utils/mappers/projectsMapper';
 import { ProjectsInterface } from '../interfaces/projects.interface';
 import { NotificacionsStatusService } from './notificacionsStatus.service';
 import { ProjectsCreateInterface } from '../utils/request-interfaces/projectsCreateInterface';
+import { rxResource } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root',
@@ -20,28 +21,25 @@ export class ProjectsService {
 
   //TODO: Implementar rxResource para obtencion de data
 
-  getProjects() {
-    this.httpClient
-      .get<ProjectsResponse[]>('http://localhost:5263/api/proyectos')
-      .pipe(
-        map((projects) => {
-          return projectApiToProjectsArray(projects);
-        }),
-        tap((projects) => this.projectsData.set(projects)),
-        finalize(() => console.log(this.projectsData()))
-      )
-      .subscribe({
-        next: (response) => {
-          console.log(response);
-        },
-        error: (err) => {
-          console.log('Hubo un error en el ingreso del projectos', err);
-        },
-        complete: () => {
-          console.log('Se completo la peticion');
-        },
-      });
-    return this.projectsData;
+  projectsResource = rxResource({
+    loader: () => {
+      return this.getProjects();
+    }
+  })
+
+  getProjects(): Observable<boolean> {
+    return this.httpClient
+    .get<ProjectsResponse[]>('http://localhost:5263/api/proyectos')
+    .pipe(
+      map((projects) => {
+        this.projectsData.set(projectApiToProjectsArray(projects))
+        return true;
+      }),
+      catchError((error)=> {
+        return of(false);
+      })
+    )
+
   }
 
   //Agregar proyecto con id de usuario

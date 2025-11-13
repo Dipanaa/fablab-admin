@@ -1,13 +1,6 @@
 <div
     class="bg-white h-full p-8 md:p-12 flex items-center justify-center z-10 relative"
   >
-    @if(statusMessage()){
-      <div class="absolute right-0 top-0 mr-2 mt-2">
-        <status-message/>
-      </div>
-
-    }
-
     <div class="w-full max-w-md rounded-2xl shadow-xl p-8 space-y-2">
       <div>
         <h1 class="text-3xl font-bold text-slate-900">Solicitud de ingreso</h1>
@@ -179,7 +172,6 @@
           </button>
         }
 
-
         <div class="flex gap1 mt-1 items-end gap-1 justify-self-end">
           <p class="text-gray-500">¿Ya tienes una cuenta?</p>
           <a
@@ -189,7 +181,13 @@
             Inicia sesion</a
           >
         </div>
+
       </form>
+      @if(notificacionsStatusService.statusMessage()){
+        <div class="mr-2 mt-2">
+          <status-message/>
+        </div>
+      }
     </div>
   </div>
 
