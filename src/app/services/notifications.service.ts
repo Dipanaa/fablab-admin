@@ -58,7 +58,7 @@ export class NotificationsService {
       //TODO: Implementar interfaz de error en base a asp net
       catchError((err)=>{
         this.notificationStatusService.statusMessage.set(true);
-        this.notificationStatusService.statusErrorMessage.set(err.error.detail);
+        this.notificationStatusService.statusErrorMessage.set("Hubo un error al aceptar la solicitud");
         return of(false);
       })
     );
@@ -76,7 +76,7 @@ export class NotificationsService {
       //TODO: Implementar interfaz de error en base a asp net
       catchError((err)=>{
         this.notificationStatusService.statusMessage.set(true);
-        this.notificationStatusService.statusErrorMessage.set(err.error.detail);
+        this.notificationStatusService.statusErrorMessage.set("Hubo un error al aceptar la solicitud");
         return of(false);
       })
     );

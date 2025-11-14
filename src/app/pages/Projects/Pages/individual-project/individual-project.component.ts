@@ -1,5 +1,5 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
-import { ActivatedRoute, RouterLink, Router } from '@angular/router';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ProjectsInterface } from '../../../../interfaces/projects.interface';
 import { ProjectsService } from '../../../../services/projects.service';
@@ -25,10 +25,20 @@ export class IndividualProjectComponent implements OnInit {
   notificacionsStatusService = inject(NotificacionsStatusService);
 
   //Atributos
-  projectoFound?: ProjectsInterface;
   openDeleteView = signal<boolean>(false);
   projectModalId = signal<number | undefined>(undefined);
   projectsData = this.projectsService.projectsResource.value();
+  loading = signal<boolean>(false);
+
+  //Computed para recalcular señal
+  projectFound = computed<ProjectsInterface | undefined>(()=>{
+    if(this.projectsService.projectsResource.hasValue()){
+      return this.projectsService.searchProjectById(this.projectModalId()!);
+    }
+    return;
+  })
+
+
 
   //Ciclos de vida
   ngOnInit() {
@@ -38,23 +48,29 @@ export class IndividualProjectComponent implements OnInit {
 
   //Metodos
   deleteProject() {
-    console.log('Detele project', this.projectModalId());
 
-    if (!this.projectModalId) {
+    if (!this.projectModalId && this.loading()) {
       return;
     }
+
+    this.loading.set(true);
+
     this.projectsService
       .deleteProject(this.projectModalId()!)
       .subscribe((status) => {
         if (status) {
           this.openDeleteView.set(false);
+          this.loading.set(false);
+
           this.notificacionsStatusService.showMessage();
           this.projectsService.projectsResource.reload();
           this.router.navigate(['/proyectos']);
           return;
         }
-
+        this.loading.set(false);
         this.openDeleteView.set(false);
+        this.projectsService.projectsResource.reload();
+        this.router.navigate(['/proyectos']);
       });
   }
 }

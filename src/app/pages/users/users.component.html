@@ -1,13 +1,21 @@
 @if(notificationStatusService.statusMessage()){
-<status-message></status-message>
-} @if(openEditView()) {
+  <div class="fixed mb-2 mr-2 right-0 bottom-0">
+    <status-message></status-message>
+  </div>
+}
+
+@if(openEditView()) {
 <modal-edit
   [fbEdit]="fbUser"
   (fbEditSend)="dataFormPut($event)"
   (closeModal)="openEditView.set($event)"
   [modalTitle]="'Editar usuario'"
+  [loading]="loading()"
 ></modal-edit>
-} @if(openDeleteView()){
+}
+
+
+@if(openDeleteView()){
 <modal-component
   [show]="openDeleteView()"
   [title]="'¿Esta seguro que desea eliminar este usuario?'"
@@ -17,6 +25,7 @@
   (close)="openDeleteView.set(false)"
   (decline)="openDeleteView.set(false)"
   (accept)="deleteUser()"
+  [loading]="loading()"
 ></modal-component>
 }
 
@@ -57,7 +66,7 @@
             <div class="flex items-center">
               <img
                 class="h-10 w-10 rounded-full"
-                src="https://i.pravatar.cc/150?u={{ usuario.rut }}"
+                [src]="usuario.foto_perfil"
                 alt="{{ usuario.nombre }}"
               />
               <div class="ml-3">

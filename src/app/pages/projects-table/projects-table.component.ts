@@ -43,6 +43,8 @@ export class ProjectsTableComponent {
   projectModalId = signal<number | undefined>(undefined);
   projectsData = this.projectsService.projectsResource.value();
 
+  loading = signal<boolean>(false);
+
 
   public filteredProjects = computed<ProjectsInterface[]>(() => {
     const term = this.searchTerm().toLowerCase();
@@ -93,11 +95,13 @@ export class ProjectsTableComponent {
   }
 
   deleteProject() {
-    console.log('Detele project', this.projectModalId());
 
-    if (!this.projectModalId) {
+    if (!this.projectModalId || this.loading()) {
       return;
     }
+
+    this.loading.set(true);
+
     this.projectsService
       .deleteProject(this.projectModalId()!)
       .subscribe((status) => {
@@ -105,10 +109,12 @@ export class ProjectsTableComponent {
           this.openDeleteView.set(false);
           this.projectsService.projectsResource.reload();
           this.notificationStatusService.showMessage();
-
+          this.loading.set(false);
           return;
         }
+        this.notificationStatusService.showMessage();
         this.openDeleteView.set(false);
+        this.loading.set(false);
       });
   }
 }

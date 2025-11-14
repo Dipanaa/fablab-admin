@@ -1,6 +1,11 @@
 @if(notificationStatusService.statusMessage()){
-<status-message></status-message>
-} @if(openDeleteView()){
+  <div class="fixed mb-2 mr-2 right-0 bottom-0">
+    <status-message></status-message>
+  </div>
+}
+
+
+@if(openDeleteView()){
 <modal-component
   [show]="openDeleteView()"
   [title]="'¿Esta seguro que desea eliminar este proyecto?'"
@@ -10,6 +15,7 @@
   (close)="openDeleteView.set(false)"
   (decline)="openDeleteView.set(false)"
   (accept)="deleteProject()"
+  [loading]="loading()"
 ></modal-component>
 }
 

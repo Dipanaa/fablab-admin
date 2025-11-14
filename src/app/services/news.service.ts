@@ -76,8 +76,12 @@ export class NewsService {
         this.notificationsService.statusTextMessage.set("Noticia creada correctamente");
         return true;
       }),
+      catchError(()=> {
+        this.notificationsService.statusMessage.set(true);
+        this.notificationsService.statusErrorMessage.set("Hubo un problema al crear la noticia");
+        return of(false);
+      }),
       finalize(()=> this.postLoading.set(false)),
-      catchError(()=> of(false))
     )
 
   }
@@ -106,7 +110,11 @@ export class NewsService {
         this.notificationsService.statusTextMessage.set("Estado de noticia actualizado");
         return true;
       }),
-      catchError(()=> of(false))
+      catchError(()=> {
+        this.notificationsService.statusMessage.set(true);
+        this.notificationsService.statusErrorMessage.set("Hubo un problema al actualizar la noticia");
+        return of(false);
+      })
     )
   }
 }

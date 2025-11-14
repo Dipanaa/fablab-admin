@@ -32,27 +32,46 @@
               formControlName="{{ controlName }}"
               class="bg-fablab-bg border border-fablab-border text-fablab-text-primary rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-fablab-primary"
             />
+            <div class="my-2">
+            @if(CustomFormsValidations.ValidateErrors(controlName.toString(),fbEdit()!)){
+              <span class="text-red-500">
+                {{CustomFormsValidations.ValidateErrors(controlName.toString(), fbEdit()!)}}
+              </span>
+            }
+        </div>
           </div>
           }
         </form>
       </div>
 
-      <div class="flex justify-end p-4 gap-2 border-t border-fablab-border">
+
+      @if(loading()){
         <button
-          type="button"
-          class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700"
-          (click)="closeModal.emit(false)"
+          type="submit"
+          class="w-full h-11 bg-gray-400 text-white font-semibold rounded-md transition cursor-pointer flex justify-center items-center"
+          [disabled]=""
         >
-          Cancelar
+          <img src="../../../assets/icons/Rolling@1x-1.0s-200px-200px (1).svg" alt="" class="h-7 w-7">
         </button>
-        <button
-          type="button"
-          class="bg-fablab-accent text-black px-4 py-2 rounded-lg hover:bg-fablab-accent-dark transition"
-          (click)="emitForm()"
-        >
-          Subir cambios
-        </button>
-      </div>
+      }
+      @else {
+        <div class="flex justify-end p-4 gap-2 border-t border-fablab-border">
+          <button
+            type="button"
+            class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700"
+            (click)="closeModal.emit(false)"
+          >
+            Cancelar
+          </button>
+          <button
+            type="button"
+            class="bg-fablab-accent text-black px-4 py-2 rounded-lg hover:bg-fablab-accent-dark transition"
+            (click)="emitForm()"
+          >
+            Subir cambios
+          </button>
+        </div>
+      }
     </div>
   </div>
 </div>

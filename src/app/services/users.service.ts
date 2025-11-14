@@ -1,7 +1,7 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { UsersInterface } from '../interfaces/users.interface';
 import { HttpClient } from '@angular/common/http';
-import { catchError, finalize, map, Observable, of, tap } from 'rxjs';
+import { catchError, delay, finalize, map, Observable, of, tap } from 'rxjs';
 import { UserResponse } from '../utils/responses-interfaces/userResponse';
 import { UserApiToUsersArray } from '../utils/mappers/usersMapper';
 import { NotificacionsStatusService } from './notificacionsStatus.service';
@@ -78,13 +78,14 @@ export class UsersService {
   putUsers(id: number,dataUser: any): Observable<boolean> {
     return this.httpClient.put(`http://localhost:5263/api/usuarios/${id}`,dataUser)
     .pipe(
+      delay(3000),
       map(()=> {
         this.notificationStatusService.statusMessage.set(true);
         this.notificationStatusService.statusTextMessage.set("Información de usuario actualizada");
         return true;
       }),
       catchError((err)=>{
-        this.notificationStatusService.statusErrorMessage.set(err);
+        this.notificationStatusService.statusErrorMessage.set("Hubo un error al actualizar el usuario");
         console.log(err);
         return of(false);
       })
@@ -121,13 +122,13 @@ export class UsersService {
     .pipe(
       map(()=> {
         this.notificationStatusService.statusMessage.set(true);
-        this.notificationStatusService.statusTextMessage.set("usuario eliminado correctamente");
+        this.notificationStatusService.statusTextMessage.set("Usuario eliminado correctamente");
         return true;
       }),
       //TODO: Implementar interfaz de error en base a asp net
       catchError((err)=>{
         this.notificationStatusService.statusMessage.set(true);
-        this.notificationStatusService.statusErrorMessage.set(err.error.detail);
+        this.notificationStatusService.statusErrorMessage.set("Hubo un error al eliminar el usuario");
         return of(false);
       })
     );
@@ -141,12 +142,6 @@ export class UsersService {
     const usuarioBuscado = this.usersData().find(user => user.id_usuario == id);
     return usuarioBuscado;
   }
-
-
-
-
-
-
 
 }
 

@@ -8,6 +8,7 @@
   (close)="openDeleteView.set(false)"
   (decline)="openDeleteView.set(false)"
   (accept)="deleteProject()"
+  [loading]="loading()"
 ></modal-component>
 }
 <div class="flex justify-end mr-8">
@@ -15,10 +16,12 @@
 </div>
 
 @if(projectsService.projectsResource.isLoading()){
-  <h1>CARGANDOOOO</h1>
+  <div class="flex bg-fablab-card-bg mx-auto my-auto w-[90%] h-[50%] mt-8 rounded-2xl shadow-lg justify-center items-center">
+    <img src="../../../../../assets/icons/Rolling@1x-1.0s-200px-200px (1).svg" alt="" class="w-20 h-20">
+  </div>
 }
 
-@if(projectsService.projectsResource.hasValue()){
+@if(projectsService.projectsResource.hasValue() && projectFound()){
   <section class="flex flex-col gap-10 p-4 md:p-8">
   <div
     class="bg-fablab-card-bg rounded-2xl shadow-lg p-6 md:p-10 border border-fablab-border"
@@ -31,7 +34,7 @@
       <figure
         class="relative flex-shrink-0 w-full lg:w-1/2 h-64 md:h-80 bg-fablab-border rounded-2xl overflow-hidden flex items-center justify-center"
       >
-      @if(!projectoFound?.imgurl){
+      @if(!projectFound()?.imgurl){
 
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -48,7 +51,7 @@
           />
         </svg>
       }@else{
-        <img [src]="projectoFound?.imgurl" alt="hola" class="w-48 h-48">
+        <img [src]="projectFound()?.imgurl" alt="hola" class="w-48 h-48">
       }
       </figure>
 
@@ -57,11 +60,11 @@
       >
         <div>
           <h2 class="text-2xl font-semibold mb-3 text-fablab-primary">
-            {{ projectoFound?.titulo || "Proyecto sin título" }}
+            {{ projectFound()?.titulo || "Proyecto sin título" }}
           </h2>
           <p class="text-fablab-text-secondary mb-4 leading-relaxed">
             {{
-              projectoFound?.descripcionproyecto ||
+              projectFound()?.descripcionproyecto ||
                 "No hay descripción disponible para este proyecto."
             }}
           </p>
@@ -69,11 +72,11 @@
           <ul class="space-y-1 text-sm">
             <li>
               <strong>📅 Fecha:</strong>
-              {{ projectoFound?.fechainicio || "Sin registrar" }}
+              {{ projectFound()?.fechainicio || "Sin registrar" }}
             </li>
             <li>
               <strong>🧠 Categoría:</strong>
-              logica para la categoria del projecto
+              {{ projectFound()?.categoria}}
             </li>
             <li>
               <strong>👥 Integrantes:</strong>

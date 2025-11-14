@@ -24,6 +24,7 @@ export class UpdatenewComponent implements OnInit{
   isModalOpen = false; //valor para activacion del modal
   idUpdate = input<number>();
   statusOutput = output<boolean>();
+  loading = signal<boolean>(false);
 
   //Referencia del dom
   @ViewChild("successPost") successPost!: ElementRef;
@@ -56,6 +57,13 @@ export class UpdatenewComponent implements OnInit{
 
   //Peticion para actualizar contenido
   submitUpdateContent(){
+
+    if(!this.idUpdate() || this.loading()){
+      return;
+    }
+
+    this.loading.set(true);
+
     const newUpdate: News = this.UpdateNewForm.value;
     newUpdate.id = this.idUpdate()!;
     this.NewsService.putNew(this.idUpdate()!,newUpdate)
@@ -64,8 +72,14 @@ export class UpdatenewComponent implements OnInit{
         this.statusOutput.emit(true);
         this.router.navigateByUrl("/noticias");
         this.notificacionsStatusService.showMessage();
+        this.loading.set(false);
         return;
       }
+      this.statusOutput.emit(true);
+      this.router.navigateByUrl("/noticias");
+      this.notificacionsStatusService.showMessage();
+      this.loading.set(false);
+
     });
 
   }

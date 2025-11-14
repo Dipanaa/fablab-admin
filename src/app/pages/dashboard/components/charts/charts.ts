@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, computed, effect, ElementRef, inject, OnInit, viewChild } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
+import { GraphicsService } from '../../../../services/graphics.service';
+import { ProjectsByUser } from '../../../../interfaces/graphicsInterfaces/projectsByUser.interface';
 
 Chart.register(...registerables);
 
@@ -16,6 +18,23 @@ const GRID_COLOR = 'rgba(100, 100, 100, 0.2)'; // Líneas muy sutiles
   templateUrl: './charts.html',
 })
 export class Charts implements OnInit {
+
+  //Servicios
+  graphicsService = inject(GraphicsService);
+
+  //Atributos
+  dataLabelsData = computed< ProjectsByUser>(()=>{
+    if(this.graphicsService.graphicsResource.hasValue()){
+      console.log(this.graphicsService.graphicsResource.value());
+      return this.graphicsService.graphicsResource.value();
+    }
+    return {labelsNombres:[],proyectosCuenta:[]};
+  });
+
+  canvasProyectosPorUsuario = viewChild<ElementRef<HTMLCanvasElement>>('proyectosPorUsuarioChart');
+
+
+  //Metodos
   // ===========================
   // GRÁFICO 1: PROYECTOS POR MES (Línea)
   // ===========================
@@ -63,18 +82,13 @@ export class Charts implements OnInit {
   // ===========================
   public usuariosData = {
     labels: [
-      'Enero',
-      'Febrero',
-      'Marzo',
-      'Abril',
-      'Mayo',
-      'Junio',
-      'Julio',
-      'Agosto',
-      'Septiembre',
-      'Octubre',
-      'Noviembre',
-      'Diciembre',
+      'Alexis',
+      'Valentina',
+      'Tomás',
+      'Ignacia',
+      'Sebastián',
+      'Roberto',
+      'Rodrigo',
     ],
     datasets: [
       {
@@ -103,20 +117,13 @@ export class Charts implements OnInit {
   // ===========================
   // GRÁFICO 3: PROYECTOS POR USUARIO (Barras)
   // ===========================
-  public proyectosPorUsuarioData = {
-    labels: [
-      'Alexis',
-      'Valentina',
-      'Tomás',
-      'Ignacia',
-      'Sebastián',
-      'Roberto',
-      'Rodrigo',
-    ],
+  public proyectosPorUsuarioData = computed(()=>{
+    return {
+    labels: this.dataLabelsData().labelsNombres,
     datasets: [
       {
         label: 'Proyectos por Usuario',
-        data: [10, 8, 6, 4, 12, 9, 5],
+        data: this.dataLabelsData().proyectosCuenta,
         // 🚨 COLOR BARRAS: Usaremos el amarillo FabLab en un array para simular la variedad
         backgroundColor: [
           `rgba(${FABLAB_R}, ${FABLAB_G}, ${FABLAB_B}, 0.8)`,
@@ -134,38 +141,42 @@ export class Charts implements OnInit {
     ],
   };
 
-  public proyectosPorUsuarioConfig: any = {
-    type: 'bar',
-    data: this.proyectosPorUsuarioData,
-    options: {
-      indexAxis: 'y',
-      responsive: true,
-      plugins: {
-        legend: {
-          display: false,
+  })
+
+  public proyectosPorUsuarioConfig = computed(()=>{
+    return {
+      type: 'bar',
+      data: this.proyectosPorUsuarioData(),
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        plugins: {
+          legend: {
+            display: false,
+          },
+          title: {
+            display: true,
+            text: 'Proyectos por Usuario',
+            // 🚨 Color del título del gráfico
+            color: TEXT_COLOR,
+            font: { size: 16, weight: 'bold' },
+          },
         },
-        title: {
-          display: true,
-          text: 'Proyectos por Usuario',
-          // 🚨 Color del título del gráfico
-          color: TEXT_COLOR,
-          font: { size: 16, weight: 'bold' },
+        scales: {
+          x: {
+            beginAtZero: true,
+            // 🚨 Color de las etiquetas y líneas de grid
+            ticks: { color: TEXT_COLOR },
+            grid: { color: GRID_COLOR },
+          },
+          y: {
+            ticks: { color: TEXT_COLOR },
+            grid: { color: GRID_COLOR },
+          },
         },
       },
-      scales: {
-        x: {
-          beginAtZero: true,
-          // 🚨 Color de las etiquetas y líneas de grid
-          ticks: { color: TEXT_COLOR },
-          grid: { color: GRID_COLOR },
-        },
-        y: {
-          ticks: { color: TEXT_COLOR },
-          grid: { color: GRID_COLOR },
-        },
-      },
-    },
-  };
+  }
+  });
 
   // ===========================
   // CONFIGURACIÓN BASE PARA LOS DEMÁS GRÁFICOS
@@ -204,12 +215,38 @@ export class Charts implements OnInit {
     };
   }
 
+  constructor() {
+    // ¡MODIFICADO! Este effect ahora crea y destruye el gráfico
+    effect((onCleanup) => {
+      // 1. Lee la config (como ya lo hacías)
+      const config = this.proyectosPorUsuarioConfig();
+
+      // 2. Lee el signal del canvas
+      const canvasEl = this.canvasProyectosPorUsuario();
+
+      // 3. Si el canvas ya existe en el DOM...
+      if (canvasEl) {
+        // ...crea el gráfico
+        const chart = new Chart(canvasEl.nativeElement, config as any);
+
+        // 4. Registra una "limpieza"
+        // Esto se ejecuta ANTES de que el effect corra de nuevo,
+        // o cuando el componente se destruye.
+        onCleanup(() => {
+          chart.destroy(); // Destruye el gráfico anterior
+        });
+      }
+    });
+  }
+
+
+
+
   // ===========================
   // INICIALIZACIÓN DE TODOS LOS GRÁFICOS
   // ===========================
   ngOnInit(): void {
     new Chart('proyectosChart', this.proyectosConfig);
     new Chart('usuariosChart', this.usuariosConfig);
-    new Chart('proyectosPorUsuarioChart', this.proyectosPorUsuarioConfig);
   }
 }

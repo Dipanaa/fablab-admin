@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, output, Output } from '@angular/core';
+import { Component, EventEmitter, input, Input, output, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -15,6 +15,8 @@ export class ModalComponentComponent {
   @Input() description = 'Descripción del contenido del modal';
   @Input() acceptText = 'Aceptar';
   @Input() declineText = 'Cancelar';
+  loading = input<boolean>(false);
+
 
   //Parametros de salida
   @Output() accept = new EventEmitter<void>();

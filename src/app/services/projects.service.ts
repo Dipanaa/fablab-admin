@@ -91,7 +91,7 @@ export class ProjectsService {
         catchError((err) => {
           this.notificationStatusService.statusMessage.set(true);
           this.notificationStatusService.statusErrorMessage.set(
-            err.error.detail
+            "Se produjo un error al eliminar el proyecto"
           );
           return of(false);
         })

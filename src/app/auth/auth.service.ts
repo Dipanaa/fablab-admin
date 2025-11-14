@@ -40,9 +40,8 @@ export class AuthService {
 
   //Logear usuarios
   loginUser(formLogin: any): Observable<boolean>{
-    return this._httpClient.post<TokenJwt>("http://localhost:5263/api/autenticacion/usuarios/login",formLogin)
+    return this._httpClient.post<TokenJwt>("http://localhost:5263/api/autenticacion/usuarios/login",formLogin,)
     .pipe(
-      delay(5000),
       tap((resp)=> {
         this.userData.set(UsersAuthApitoUser(resp.usuario));
         this._jwtToken.set(resp);
@@ -50,9 +49,7 @@ export class AuthService {
         this._autentication.set(true);
         localStorage.setItem("token",resp.token);
       }),
-      map((resp) => {
-
-
+      map(() => {
         return true;
       }),
       finalize(() => {

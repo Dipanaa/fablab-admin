@@ -1,11 +1,36 @@
+@if(notificacionsStatusService.statusMessage()){
+  <div class="fixed mb-2 mr-2 right-0 bottom-0">
+    <status-message></status-message>
+  </div>
+}
+
+
+
 @if(modalView()) {
 <modal-edit
   [fbEdit]="fbInventory"
   (fbEditSend)="dataFormPut($event)"
   (closeModal)="modalView.set($event)"
   [modalTitle]="'Editar item'"
+  [loading]="loading()"
 ></modal-edit>
 }
+
+@if(modalDelete()){
+  <modal-component
+    [show]="modalDelete()"
+    [title]="'¿Esta seguro que desea eliminar este item?'"
+    [description]="
+      'El item sera eliminado de la base de datos'
+    "
+    (close)="modalDelete.set(false)"
+    (decline)="modalDelete.set(false)"
+    (accept)="dataFormDelete()"
+    [loading]="loading()"
+  ></modal-component>
+}
+
+
 
 <div class="border-fablab-border flex flex-col gap-3">
   <div
@@ -151,13 +176,14 @@
           <td class="px-4 py-4 text-center space-x-3">
             <button
               class="bg-fablab-accent text-black px-3 py-1 rounded hover:bg-fablab-accent-dark transition cursor-pointer"
-              (click)="modalEditView(insumo.id)"
+              (click)="openModalEditView(insumo.id)"
             >
               Editar
             </button>
 
             <button
               class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 transition cursor-pointer"
+              (click)="openModalDeleteView(insumo.id)"
             >
               Eliminar
             </button>
@@ -183,14 +209,6 @@
     (pageChange)="paginationService.goToPage($event)"
   />
 
-  @if(modalView()) {
-  <modal-edit
-    [fbEdit]="fbInventory"
-    (fbEditSend)="dataForm($event)"
-    (closeModal)="modalView.set($event)"
-    [modalTitle]="'Editar item'"
-  ></modal-edit>
-  }
-</div>
+
 
 <app-footer pageName="Gestión de Inventario"></app-footer>

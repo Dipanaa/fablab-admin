@@ -31,6 +31,7 @@ export class SingleNewComponent implements OnInit {
   //Atributos
   singleNewsData = signal<News | undefined>(undefined);
   idNew = signal<number>(0);
+  loading = signal<boolean>(false);
 
   //Modo de edicion y PROXIMAMENTE modo de eliminacion
   editMode = signal<boolean>(false);
@@ -65,13 +66,25 @@ export class SingleNewComponent implements OnInit {
 
   //Eliminar por id de ruta
   deleteNewByRoute() {
+    if(!this.idNew() || this.loading()){
+      return;
+    }
+
+    this.loading.set(true);
+
     this.newsService.deleteNew(this.idNew()).subscribe((status) => {
       if (status) {
         this.router.navigateByUrl('/noticias');
         this.notificacionsStatusService.showMessage();
         this.newsService.getNews();
+        this.loading.set(false);
         return;
       }
+
+      this.router.navigateByUrl('/noticias');
+      this.notificacionsStatusService.showMessage();
+      this.newsService.getNews();
+      this.loading.set(false);
     });
   }
 

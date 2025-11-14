@@ -25,9 +25,7 @@ export class InventoryService {
 
 
   //Metodos
-
   getInventoryItems(): Observable<boolean>{
-    console.log("la llamada a la api se realizo");
     return this.httpClient.get<InventoryResponse[]>(`http://localhost:5263/api/inventario`)
     .pipe(
       map((data)=> {
@@ -42,5 +40,56 @@ export class InventoryService {
       })
     );
   }
+
+  //TODO: Pasar a interfaz la data
+  putInventoryitem(data: any, id: number): Observable<boolean>{
+    return this.httpClient.put<InventoryResponse[]>(`http://localhost:5263/api/inventario/${id}`,data)
+    .pipe(
+      map((data)=> {
+        this.notificationStatusService.statusMessage.set(true);
+        this.notificationStatusService.statusTextMessage.set("Item actualizado correctamente");
+        return true;
+      }),
+      //TODO: Implementar interfaz de error en base a asp net
+      catchError((err)=>{
+        this.notificationStatusService.statusMessage.set(true);
+        this.notificationStatusService.statusErrorMessage.set("Hubo un problema en la actualización del item");
+        return of(false);
+      })
+    );
+  }
+
+  deleteInventoryitem(id:number): Observable<boolean>{
+    return this.httpClient.delete<InventoryResponse[]>(`http://localhost:5263/api/inventario/${id}`)
+    .pipe(
+      map((data)=> {
+        this.notificationStatusService.statusMessage.set(true);
+        this.notificationStatusService.statusTextMessage.set("Item eliminado correctamente");
+        return true;
+      }),
+      //TODO: Implementar interfaz de error en base a asp net
+      catchError((err)=>{
+        this.notificationStatusService.statusMessage.set(true);
+        this.notificationStatusService.statusErrorMessage.set("Hubo un problema en la elimianación del item");
+        return of(false);
+      })
+    );
+
+  }
+
+  searchItemForId(id:number){
+     if(this.inventoryData().length == 0){
+      return;
+    }
+    const itemFound = this.inventoryData().find(item => item.id == id);
+    return itemFound;
+
+  }
+
+
+
+
+
+
 }
 

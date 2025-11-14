@@ -33,14 +33,12 @@ export class SummaryCardsComponent implements AfterViewInit {
     this.projectsService.getProjects();
     this.usersService.getUsers();
     this.newsService.getNews();
-    console.log(this.noticiasFinal());
 
     effect(()=>{
 
       const proyectos = this.projectsService.projectsData().length;
       const usuarios = this.usersService.usersData().length;
       const noticias = this.newsService.newsResponse();
-      console.log(this.newsService.newsResponse());
       if (noticias){
         this.noticiasFinal.set(this.newsService.newsResponse().length);
         this.proyectosFinal.set(this.projectsService.projectsData().length);

@@ -1,5 +1,6 @@
-import { Component, inject, input, OnInit, output } from '@angular/core';
+import { Component, inject, input, OnInit, output, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { CustomFormsValidations } from '../../utils/FormsValidations/CustomValidations';
 
 @Component({
   selector: 'modal-edit',
@@ -7,35 +8,25 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
   templateUrl: './modal-edit.component.html',
   styles: ``,
 })
-export class ModalEditComponent implements OnInit {
+export class ModalEditComponent {
   //Servicios
   FormBuilder = inject(FormBuilder);
+  CustomFormsValidations = CustomFormsValidations;
 
   //Atributos
   fbEdit = input<FormGroup>();
   fbEditSend = output<FormGroup>();
   closeModal = output<boolean>();
   modalTitle = input<string>('Editar Elemento');
-
-  ngOnInit() {
-    console.log(this.fbEdit()?.value);
-  }
+  loading = input<boolean>(false);
 
   //Metodos
 
   //Emision de formularios
   emitForm(): void {
-    //Clg de prueba para ver los datos
-    const formData = this.fbEdit()?.value;
-    console.log('Data lista para emitir:', formData);
-
     //Envio de datos
     this.fbEditSend.emit(this.fbEdit()?.value);
-    console.log(this.fbEdit);
 
-    //Reseteo del modal y cerrado (Falta el loader antes de esto)
-    this.fbEdit()?.reset();
-    this.closeModal.emit(false);
   }
 
   //Llaves de form

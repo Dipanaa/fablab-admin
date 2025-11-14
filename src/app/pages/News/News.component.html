@@ -3,9 +3,9 @@
 }
 
 @if(statusMessage()){
-<status-message
-  [messageDisplay]="notificacionsStatusService.statusTextMessage()"
-/>
+  <div class="fixed mb-2 mr-2 right-0 bottom-0">
+    <status-message></status-message>
+  </div>
 }
 
 <div class="flex justify-between flex-wrap md:flex-nowrap w-full gap-2">

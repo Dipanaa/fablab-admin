@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ModalComponentComponent } from "../../shared/modal-component/modal-component.component";
 import { BuscadorComponent } from "../../shared/searcher/searcher.component";
@@ -8,10 +8,11 @@ import { StatusMessageComponent } from '../../shared/status-message/status-messa
 
 @Component({
   selector: 'request',
-  imports: [CommonModule, ModalComponentComponent, BuscadorComponent, StatusMessageComponent],
+  imports: [CommonModule, BuscadorComponent, StatusMessageComponent],
   templateUrl: './request.component.html',
 })
 export class RequestComponent{
+  //TODO: Falta una tabla de loading
   //Servicios
   notificacionsStatusService = inject(NotificacionsStatusService);
   notificationsService = inject(NotificationsService);
@@ -19,7 +20,14 @@ export class RequestComponent{
   //Atributos
   isOpenModalView = signal<boolean>(false);
   notificationId = signal<number | null>(null);
-  notificationsActive = this.notificationsService.registerNotificationResource.value();
+
+  notificationsActive = computed(()=>{
+    if(this.notificationsService.registerNotificationResource.hasValue()){
+      return this.notificationsService.notificationsData();
+    }
+    return;
+  })
+
 
 
   acceptNotification(id:number){
@@ -33,6 +41,7 @@ export class RequestComponent{
           this.notificacionsStatusService.showMessage();
           return;
         }
+        this.notificationsService.registerNotificationResource.reload();
         this.notificacionsStatusService.showMessage();
       }
     )
@@ -40,6 +49,7 @@ export class RequestComponent{
 
   deleteNotification(id:number){
     if(!id){
+      console.log("algo paso");
       return;
     }
     this.notificationsService.deleteRegisterNotification(id).subscribe(
@@ -49,6 +59,7 @@ export class RequestComponent{
           this.notificacionsStatusService.showMessage();
           return;
         }
+        this.notificationsService.registerNotificationResource.reload();
         this.notificacionsStatusService.showMessage();
       }
     )

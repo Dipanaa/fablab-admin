@@ -47,7 +47,7 @@ export function UserApiToUsersArray(responseDataUser: UserResponse[]): UsersInte
 
 
 //REQUEST
-export function UsersToApi(dataUser: UsersInterface): Object{
+export function UsersToApi(dataUser: UsersInterface | any): Object{
   return {
     nombre: dataUser.nombre,
     apellido: dataUser.apellido,
