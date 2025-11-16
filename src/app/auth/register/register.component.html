@@ -1,196 +1,207 @@
 <div
-    class="bg-white h-full p-8 md:p-12 flex items-center justify-center z-10 relative"
-  >
-    @if(statusMessage()){
-      <div class="absolute right-0 top-0 mr-2 mt-2">
-        <status-message/>
-      </div>
-
-    }
-
-    <div class="w-full max-w-md rounded-2xl shadow-xl p-8 space-y-2">
-      <div>
-        <h1 class="text-3xl font-bold text-slate-900">Solicitud de ingreso</h1>
-        <p class="text-gray-500 text-sm mt-1">Tomalo con responsabilidad</p>
-      </div>
-
-      <form class="space-y-2" [formGroup]="fbRegister" (ngSubmit)="registerUser()">
-        <div>
-          <label for="email" class="block text-sm font-medium text-gray-800"
-            >Correo institucional</label
-          >
-          <input
-            name="emailId"
-            required
-            id="emailId"
-            type="text"
-            placeholder="correo@inacapmail.cl"
-            class="w-full h-11 px-4 border border-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-800 text-gray-500"
-            formControlName="email"
-          />
-        </div>
-        <div class="my-2">
-          @if(CustomFormsValidations.ValidateErrors("email",fbRegister)){
-            <span class="text-red-500">
-              {{CustomFormsValidations.ValidateErrors("email", fbRegister)}}
-            </span>
-          }
-        </div>
-
-
-        <div>
-          <label for="email" class="block text-sm font-medium text-gray-800"
-            >Nombre</label
-          >
-          <input
-            placeholder="Nombre"
-            class="w-full h-11 px-4 border border-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-800 text-gray-500"
-            formControlName="nombre"
-          />
-        </div>
-        <div class="my-2">
-          @if(CustomFormsValidations.ValidateErrors("nombre",fbRegister)){
-            <span class="text-red-500">
-              {{CustomFormsValidations.ValidateErrors("nombre", fbRegister)}}
-            </span>
-          }
-        </div>
-
-
-        <div>
-          <label for="email" class="block text-sm font-medium text-gray-800"
-            >Apellido</label
-          >
-          <input
-            placeholder="Apellido"
-            class="w-full h-11 px-4 border border-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-800 text-gray-500"
-            formControlName="apellido"
-          />
-        </div>
-        <div class="my-2">
-          @if(CustomFormsValidations.ValidateErrors("apellido",fbRegister)){
-            <span class="text-red-500">
-              {{CustomFormsValidations.ValidateErrors("apellido", fbRegister)}}
-            </span>
-          }
-        </div>
-
-
-        <div>
-          <label for="email" class="block text-sm font-medium text-gray-800"
-            >Rut</label
-          >
-          <input
-            name="rut"
-            id="rut"
-            type="text"
-            placeholder="00.000.000-0"
-            class="w-full h-11 px-4 border border-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-800 text-gray-500"
-            formControlName="rut"
-          />
-        </div>
-        <div class="my-2">
-          @if(CustomFormsValidations.ValidateErrors("rut",fbRegister)){
-            <span class="text-red-500">
-              {{CustomFormsValidations.ValidateErrors("rut", fbRegister)}}
-            </span>
-          }
-        </div>
-
-        <div>
-          <label for="email" class="block text-sm font-medium text-gray-800"
-            >Carrera</label
-          >
-          <input
-            name="carrera"
-            id="carrera"
-            type="text"
-            placeholder="Selecciona tu carrera"
-            class="w-full h-11 px-4 border border-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-800 text-gray-500"
-            formControlName="carrera"
-          />
-        </div>
-        <div class="my-2">
-          @if(CustomFormsValidations.ValidateErrors("carrera",fbRegister)){
-            <span class="text-red-500">
-              {{CustomFormsValidations.ValidateErrors("carrera", fbRegister)}}
-            </span>
-          }
-        </div>
-
-        <div>
-          <label for="email" class="block text-sm font-medium text-gray-800"
-            >Telefono de contacto</label
-          >
-          <input
-            name="telefono"
-            id="telefono"
-            type="text"
-            placeholder="+56 9 0000 0000"
-            class="w-full h-11 px-4 border border-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-800 text-gray-500"
-            formControlName="telefono"
-          />
-        </div>
-        <div class="my-2">
-          @if(CustomFormsValidations.ValidateErrors("telefono",fbRegister)){
-            <span class="text-red-500">
-              {{CustomFormsValidations.ValidateErrors("telefono", fbRegister)}}
-            </span>
-          }
-        </div>
-
-
-        <div>
-          <label for="password" class="block text-sm font-medium text-gray-700"
-            >Contraseña</label
-          >
-          <input
-            name="password"
-            id="password"
-            type="password"
-            placeholder="••••••••"
-            class="w-full h-11 px-4 text-gray-500 border border-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600"
-            formControlName="contrasena"
-          />
-        </div>
-        <div class="my-2">
-          @if(CustomFormsValidations.ValidateErrors("contrasena",fbRegister)){
-            <span class="text-red-500">
-              {{CustomFormsValidations.ValidateErrors("contrasena", fbRegister)}}
-            </span>
-          }
-        </div>
-        @if(!authService.registerLoader()){
-          <button
-            type="submit"
-            class="w-full h-11 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-md transition cursor-pointer"
-          >
-            Enviar solicitud
-          </button>
-
-        }
-        @if(authService.registerLoader()){
-          <button
-            type="submit"
-            class="w-full h-11 bg-gray-400 text-white font-semibold rounded-md transition cursor-pointer flex justify-center items-center"
-            [disabled]=""
-          >
-          <img src="../../../assets/icons/Rolling@1x-1.0s-200px-200px (1).svg" alt="" class="h-7 w-7">
-          </button>
-        }
-
-
-        <div class="flex gap1 mt-1 items-end gap-1 justify-self-end">
-          <p class="text-gray-500">¿Ya tienes una cuenta?</p>
-          <a
-            class="text-indigo-600 text-md hover:underline cursor-pointer"
-            (click)="registerModeEmit()"
-          >
-            Inicia sesion</a
-          >
-        </div>
-      </form>
-    </div>
+  class="bg-fablab-bg p-8 md:p-12 flex items-center justify-center z-10 relative h-full"
+>
+  @if(statusMessage()){
+  <div class="absolute right-0 top-0 mr-2 mt-2">
+    <status-message />
   </div>
+  }
 
+  <div
+    class="w-full max-w-md rounded-2xl shadow-xl p-8 space-y-2 bg-fablab-card-bg border border-fablab-border"
+  >
+    <div>
+      <h1 class="text-3xl font-bold text-fablab-text-primary">
+        Solicitud de ingreso
+      </h1>
+      <p class="text-fablab-text-secondary text-sm mt-1">
+        Tomalo con responsabilidad
+      </p>
+    </div>
 
+    <form
+      class="space-y-2"
+      [formGroup]="fbRegister"
+      (ngSubmit)="registerUser()"
+    >
+      <div>
+        <label
+          for="emailId"
+          class="block text-sm font-medium text-fablab-text-primary"
+        >
+          Correo institucional
+        </label>
+        <input
+          name="emailId"
+          required
+          id="emailId"
+          type="text"
+          placeholder="correo@inacapmail.cl"
+          class="w-full h-11 px-4 border border-fablab-border rounded-md focus:outline-none focus:ring-2 focus:ring-fablab-primary text-fablab-text-primary bg-fablab-bg"
+          formControlName="email"
+        />
+      </div>
+      <div class="my-2">
+        @if(CustomFormsValidations.ValidateErrors("email",fbRegister)){
+        <span class="text-red-500">
+          {{ CustomFormsValidations.ValidateErrors("email", fbRegister) }}
+        </span>
+        }
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-fablab-text-primary">
+          Nombre
+        </label>
+        <input
+          placeholder="Nombre"
+          class="w-full h-11 px-4 border border-fablab-border rounded-md focus:outline-none focus:ring-2 focus:ring-fablab-primary text-fablab-text-primary bg-fablab-bg"
+          formControlName="nombre"
+        />
+      </div>
+      <div class="my-2">
+        @if(CustomFormsValidations.ValidateErrors("nombre",fbRegister)){
+        <span class="text-red-500">
+          {{ CustomFormsValidations.ValidateErrors("nombre", fbRegister) }}
+        </span>
+        }
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-fablab-text-primary">
+          Apellido
+        </label>
+        <input
+          placeholder="Apellido"
+          class="w-full h-11 px-4 border border-fablab-border rounded-md focus:outline-none focus:ring-2 focus:ring-fablab-primary text-fablab-text-primary bg-fablab-bg"
+          formControlName="apellido"
+        />
+      </div>
+      <div class="my-2">
+        @if(CustomFormsValidations.ValidateErrors("apellido",fbRegister)){
+        <span class="text-red-500">
+          {{ CustomFormsValidations.ValidateErrors("apellido", fbRegister) }}
+        </span>
+        }
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-fablab-text-primary">
+          Rut
+        </label>
+        <input
+          name="rut"
+          id="rut"
+          type="text"
+          placeholder="00.000.000-0"
+          class="w-full h-11 px-4 border border-fablab-border rounded-md focus:outline-none focus:ring-2 focus:ring-fablab-primary text-fablab-text-primary bg-fablab-bg"
+          formControlName="rut"
+        />
+      </div>
+      <div class="my-2">
+        @if(CustomFormsValidations.ValidateErrors("rut",fbRegister)){
+        <span class="text-red-500">
+          {{ CustomFormsValidations.ValidateErrors("rut", fbRegister) }}
+        </span>
+        }
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-fablab-text-primary">
+          Carrera
+        </label>
+        <input
+          name="carrera"
+          id="carrera"
+          type="text"
+          placeholder="Selecciona tu carrera"
+          class="w-full h-11 px-4 border border-fablab-border rounded-md focus:outline-none focus:ring-2 focus:ring-fablab-primary text-fablab-text-primary bg-fablab-bg"
+          formControlName="carrera"
+        />
+      </div>
+      <div class="my-2">
+        @if(CustomFormsValidations.ValidateErrors("carrera",fbRegister)){
+        <span class="text-red-500">
+          {{ CustomFormsValidations.ValidateErrors("carrera", fbRegister) }}
+        </span>
+        }
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-fablab-text-primary">
+          Telefono de contacto
+        </label>
+        <input
+          name="telefono"
+          id="telefono"
+          type="text"
+          placeholder="+56 9 0000 0000"
+          class="w-full h-11 px-4 border border-fablab-border rounded-md focus:outline-none focus:ring-2 focus:ring-fablab-primary text-fablab-text-primary bg-fablab-bg"
+          formControlName="telefono"
+        />
+      </div>
+      <div class="my-2">
+        @if(CustomFormsValidations.ValidateErrors("telefono",fbRegister)){
+        <span class="text-red-500">
+          {{ CustomFormsValidations.ValidateErrors("telefono", fbRegister) }}
+        </span>
+        }
+      </div>
+
+      <div>
+        <label
+          for="password"
+          class="block text-sm font-medium text-fablab-text-primary"
+        >
+          Contraseña
+        </label>
+        <input
+          name="password"
+          id="password"
+          type="password"
+          placeholder="••••••••"
+          class="w-full h-11 px-4 text-fablab-text-primary border border-fablab-border rounded-md focus:outline-none focus:ring-2 focus:ring-fablab-primary bg-fablab-bg"
+          formControlName="contrasena"
+        />
+      </div>
+      <div class="my-2">
+        @if(CustomFormsValidations.ValidateErrors("contrasena",fbRegister)){
+        <span class="text-red-500">
+          {{ CustomFormsValidations.ValidateErrors("contrasena", fbRegister) }}
+        </span>
+        }
+      </div>
+      @if(!authService.registerLoader()){
+      <button
+        type="submit"
+        class="w-full h-11 bg-fablab-accent hover:bg-fablab-accent-dark text-black font-semibold rounded-md transition cursor-pointer"
+      >
+        Enviar solicitud
+      </button>
+
+      } @if(authService.registerLoader()){
+      <button
+        type="submit"
+        class="w-full h-11 bg-gray-400 text-white font-semibold rounded-md transition cursor-pointer flex justify-center items-center"
+        [disabled]=""
+      >
+        <img
+          src="../../../assets/icons/Rolling@1x-1.0s-200px-200px (1).svg"
+          alt=""
+          class="h-7 w-7"
+        />
+      </button>
+      }
+
+      <div class="flex gap1 mt-1 items-end gap-1 justify-self-end">
+        <p class="text-fablab-text-secondary">¿Ya tienes una cuenta?</p>
+        <a
+          class="text-fablab-accent-dark text-md hover:underline cursor-pointer"
+          (click)="registerModeEmit()"
+        >
+          Inicia sesion</a
+        >
+      </div>
+    </form>
+  </div>
+</div>

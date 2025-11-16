@@ -18,6 +18,28 @@
       class="flex flex-col md:flex-row items-stretch md:items-center gap-3 w-full md:w-auto"
     >
       <searcher></searcher>
+
+      <button
+        type="button"
+        class="bg-fablab-card-bg text-black px-4 py-2 rounded-lg hover:bg-fablab-accent-dark transition font-semibold flex items-center justify-center gap-2"
+        onclick="modalEditView()"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke="currentColor"
+          class="size-5"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M12 4.5v15m7.5-7.5h-15"
+          />
+        </svg>
+        Agregar Item
+      </button>
     </div>
   </div>
 
@@ -25,7 +47,7 @@
     <div
       class="bg-fablab-card-bg p-5 rounded-xl shadow border border-fablab-border flex items-center gap-4 transition transform hover:-translate-y-1 cursor-default"
     >
-      <div class="bg-green-600 text-green-200 p-3 rounded-full">
+      <div class="bg-fablab-primary/30 text-fablab-primary p-3 rounded-full">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -52,7 +74,7 @@
     <div
       class="bg-fablab-card-bg p-5 rounded-xl shadow border border-fablab-border flex items-center gap-4 transition transform hover:-translate-y-1 cursor-default"
     >
-      <div class="bg-yellow-500 text-yellow-200 p-3 rounded-full">
+      <div class="bg-yellow-500/30 text-yellow-500 p-3 rounded-full">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -79,7 +101,7 @@
     <div
       class="bg-fablab-card-bg p-5 rounded-xl shadow border border-fablab-border flex items-center gap-4 transition transform hover:-translate-y-1 cursor-default"
     >
-      <div class="bg-red-800 text-red-200 p-3 rounded-full">
+      <div class="bg-red-800/50 text-red-800 p-3 rounded-full">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -107,7 +129,7 @@
   >
     <table class="min-w-full text-sm text-left text-fablab-text-secondary">
       <thead
-        class="text-xs uppercase bg-fablab-text-secondary text-fablab-bg sticky top-0"
+        class="text-xs uppercase bg-fablab-bg text-fablab-text-secondary sticky top-0"
       >
         <tr>
           <th class="px-4 py-3 font-bold">ID</th>

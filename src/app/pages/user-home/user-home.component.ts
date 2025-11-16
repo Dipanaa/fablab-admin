@@ -1,6 +1,6 @@
 // src/app/pages/user-home/user-home.component.ts
 import { NgFor, DatePipe, SlicePipe } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
 import { NewsService } from '../../services/news.service';
@@ -8,19 +8,31 @@ import { ProjectsService } from '../../services/projects.service';
 import { FooterComponent } from '../../shared/footer/footer';
 import { StatusMessageComponent } from '../../shared/status-message/status-message.component';
 import { NotificacionsStatusService } from '../../services/notificacionsStatus.service';
+import { ModalComponentComponent } from '../../shared/modal-component/modal-component.component';
+import { NewsReaderComponent } from '../../shared/news-reader.component/news-reader.component';
 
 @Component({
   selector: 'user-home',
-  imports: [NgFor, RouterLink, DatePipe, SlicePipe, FooterComponent, StatusMessageComponent],
+  imports: [
+    NgFor,
+    RouterLink,
+    DatePipe,
+    SlicePipe,
+    FooterComponent,
+    StatusMessageComponent,
+    NewsReaderComponent,
+  ],
   templateUrl: './user-home.component.html',
 })
 export class UserHomeComponent {
-
   //Servicios
   authService = inject(AuthService);
   newsService = inject(NewsService);
   projectsService = inject(ProjectsService);
   notificacionsStatusService = inject(NotificacionsStatusService);
+
+  isNewsModalOpen = signal(false);
+  selectedNews = signal<any | null>(null); // Signal para guardar el objeto de la noticia
 
   username: string | null = '';
   ngOnInit() {
@@ -31,6 +43,14 @@ export class UserHomeComponent {
 
     //Obtener noticias
     this.projectsService.getProjects();
+  }
+  openNewsModal(newsItem: any): void {
+    this.selectedNews.set(newsItem);
+    this.isNewsModalOpen.set(true);
+  }
+  closeNewsModal(): void {
+    this.isNewsModalOpen.set(false);
+    this.selectedNews.set(null);
   }
 
   // Proyectos destacados simulados
@@ -49,19 +69,13 @@ export class UserHomeComponent {
     },
   ];
 
-  // Proyectos del usuario
-  misProyectos = [
+  atajos = [
+    { label: 'Crear nuevo proyecto', ruta: '/proyectos/new-project' },
+    { label: 'Acceder a tutoriales', ruta: '/tutoriales' },
+    { label: 'Aprende a usarla impresora', ruta: '/tutoriales/impresion3D' },
     {
-      titulo: 'Aplicación FabLab',
-      ultimoAvance: 'Se agregó login de usuarios.',
-    },
-    {
-      titulo: 'Impresión de ranita 3D',
-      ultimoAvance: 'Versión con articulación mejorada.',
-    },
-    {
-      titulo: 'Aplicación FabLab',
-      ultimoAvance: 'Se agregó login de usuarios.',
+      label: 'Precausiones del corte laser',
+      ruta: '/tutoriales/cortadoralaser',
     },
   ];
 }
