@@ -1,6 +1,6 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { ProjectsInterface } from '../../../../interfaces/projects.interface';
 import { ProjectsService } from '../../../../services/projects.service';
 import { ModalComponentComponent } from '../../../../shared/modal-component/modal-component.component';
@@ -14,6 +14,7 @@ import { NotificacionsStatusService } from '../../../../services/notificacionsSt
     CommonModule,
     ModalComponentComponent,
     BackButtonComponent,
+    DatePipe
   ],
   standalone: true,
 })
@@ -21,7 +22,7 @@ export class IndividualProjectComponent implements OnInit {
   //Servicios
   projectsService = inject(ProjectsService);
   route = inject(ActivatedRoute);
-  private router = inject(Router);
+  router = inject(Router);
   notificacionsStatusService = inject(NotificacionsStatusService);
 
   //Atributos
@@ -37,7 +38,6 @@ export class IndividualProjectComponent implements OnInit {
     }
     return;
   })
-
 
 
   //Ciclos de vida
@@ -73,4 +73,17 @@ export class IndividualProjectComponent implements OnInit {
         this.router.navigate(['/proyectos']);
       });
   }
+
+  //Agregar Hito
+  postPhase(){
+  }
+
+
+  putPhase(){
+  }
+
+
+  deletePhase(){
+  }
+
 }

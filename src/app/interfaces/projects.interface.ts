@@ -1,3 +1,5 @@
+import { HitoProyecto } from "../utils/responses-interfaces/projectsResponse";
+
 export interface ProjectsInterface {
   id: number;
   titulo: string;
@@ -6,4 +8,5 @@ export interface ProjectsInterface {
   fechainicio: Date | string;
   areaaplicacion: string
   imgurl?: string;
+  hitoproyecto: HitoProyecto[];
 }

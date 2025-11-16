@@ -22,7 +22,7 @@ export class AllProjectsComponent {
   projectsData = this.projectsService.projectsResource.value();
 
 
-  proyecto: ProjectsInterface[] = dblocalproyectos;
+  proyecto: any[]  = dblocalproyectos;
   ngOnInit() {
     window.scrollTo({ top: 0, behavior: 'auto' });
   }

@@ -6,7 +6,7 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
+import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { ProjectsService } from '../../../app/services/projects.service';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { PaginationService } from '../../services/pagination.service';
@@ -26,6 +26,7 @@ import { ProjectsInterface } from '../../interfaces/projects.interface';
     BuscadorComponent,
     ModalComponentComponent,
     StatusMessageComponent,
+    DatePipe
   ],
   templateUrl: './projects-table.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

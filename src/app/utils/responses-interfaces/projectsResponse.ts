@@ -1,5 +1,7 @@
 import { UsersInterface } from "../../interfaces/users.interface";
 
+
+//TODO: Falta mappear a interfaz de la aplicacion
 export interface ProjectsResponse {
   id:                  number;
   titulo:              string;
@@ -8,5 +10,13 @@ export interface ProjectsResponse {
   areaAplicacion:      string;
   fechaInicio:         Date;
   imgUrl:              string;
-  usuarios: Array<UsersInterface>;
+  usuarios: UsersInterface[];
+  hitoProyecto: HitoProyecto[];
+}
+
+export interface HitoProyecto{
+  id:                  number;
+  nombreHito:          string;
+  descripcion:         string;
+  fecha:               Date;
 }

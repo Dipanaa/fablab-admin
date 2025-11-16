@@ -1,10 +1,18 @@
-import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, LOCALE_ID, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
 import { authInterceptor } from './auth/interceptors/auth.interceptor';
+import localeEsCl from '@angular/common/locales/es-CL';
+import { registerLocaleData } from '@angular/common';
+
+
+
+//Registro de Date en Chile
+registerLocaleData(localeEsCl, 'es-CL')
+
 
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }),
@@ -19,6 +27,10 @@ export const appConfig: ApplicationConfig = {
         },
       })
     ),
+    {
+      provide: LOCALE_ID,
+      useValue: 'es-CL'
+    }
     ]
 };
 

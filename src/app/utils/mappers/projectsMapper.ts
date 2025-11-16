@@ -15,7 +15,8 @@ export function projectsApiToProjects(responseDataUser: ProjectsResponse): Proje
     categoria: responseDataUser.categoria,
     areaaplicacion: responseDataUser.areaAplicacion,
     fechainicio: responseDataUser.fechaInicio,
-    imgurl: responseDataUser.imgUrl
+    imgurl: responseDataUser.imgUrl,
+    hitoproyecto: responseDataUser.hitoProyecto
   }
 
 }

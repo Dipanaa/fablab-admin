@@ -13,7 +13,7 @@ import { BackButtonComponent } from '../../../../shared/back-button/back-button'
 export class ProjectUpdateComponent implements OnInit {
   idProyecto!: number;
   proyectoEncontrado?: ProjectsInterface;
-  proyectos: ProjectsInterface[] = dblocalproyectos;
+  proyectos: any[]= dblocalproyectos;
 
   constructor(private route: ActivatedRoute) {}
 

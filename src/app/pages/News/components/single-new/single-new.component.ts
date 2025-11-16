@@ -14,10 +14,11 @@ import { rxResource } from '@angular/core/rxjs-interop';
 import { ModalComponentComponent } from '../../../../shared/modal-component/modal-component.component';
 import { NotificacionsStatusService } from '../../../../services/notificacionsStatus.service';
 import { BackButtonComponent } from '../../../../shared/back-button/back-button';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'single-new',
-  imports: [UpdatenewComponent, ModalComponentComponent, BackButtonComponent],
+  imports: [UpdatenewComponent, ModalComponentComponent, BackButtonComponent, DatePipe],
   templateUrl: './single-new.component.html',
 })
 export class SingleNewComponent implements OnInit {
