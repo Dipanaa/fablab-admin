@@ -1,10 +1,12 @@
 @if(notificacionsStatusService.statusMessage()){
 <status-message></status-message>
+} @if (isNewsModalOpen() && selectedNews()) {
+<news-reader [newsItem]="selectedNews()!" (close)="closeNewsModal()" />
 }
 
 <div class="space-y-8">
   <div
-    class="bg-fablab-accent-dark text-fablab-text-primary rounded-2xl shadow-lg p-6"
+    class="bg-fablab-accent text-fablab-text-primary rounded-2xl shadow-lg p-6"
   >
     <h1 class="text-2xl font-bold flex items-center gap-2">
       Bienvenido, {{ authService.userData()?.nombre || "Usuario" }}
@@ -54,7 +56,7 @@
           @for (new of newsService.newsResponse() | slice:0:2; track new.id) {
 
           <a
-            [routerLink]="['/noticias', new.id]"
+            (click)="openNewsModal(new)"
             class="block bg-fablab-card-bg p-4 rounded-xl shadow hover:bg-fablab-border transition cursor-pointer"
           >
             <h3
@@ -173,7 +175,53 @@
           }
         </div>
       </section>
+      <section>
+        <h2
+          class="text-xl font-semibold text-fablab-text-primary mb-3 flex items-center gap-2"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="size-6 text-fablab-primary"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z"
+            />
+          </svg>
+          Atajos rápidos
+        </h2>
+        <div class="grid grid-cols-2 gap-3">
+          @for (a of atajos; track a.label) {
+          <a
+            [routerLink]="a.ruta"
+            class="flex flex-col items-center justify-center bg-fablab-accent text-black rounded-xl p-4 shadow hover:bg-fablab-accent-dark transition"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-6 text-fablab-primary"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z"
+              />
+            </svg>
+            <span class="text-sm mt-1">{{ a.label }}</span>
+          </a>
+          }
+        </div>
+      </section>
     </div>
   </div>
+
   <app-footer pageName="Panel de usuario"></app-footer>
 </div>

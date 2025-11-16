@@ -1,0 +1,164 @@
+<div class="max-w-6xl mx-auto py-10 px-4">
+  <div class="mb-8">
+    <h1 class="text-4xl font-extrabold text-fablab-text-primary mb-2">
+      Manual Operativo: Impresión 3D
+    </h1>
+    <p class="text-lg text-fablab-text-secondary">
+      Instrucciones para Ender 3 y equipos FDM similares.
+    </p>
+  </div>
+
+  <div class="flex justify-end mb-6">
+    <back-button></back-button>
+  </div>
+
+  <div class="space-y-8">
+    <div
+      class="bg-fablab-card-bg p-6 rounded-xl shadow-lg border border-fablab-border"
+    >
+      <h2
+        class="text-2xl font-bold text-fablab-primary mb-4 flex items-center gap-3"
+      >
+        <span class="text-black bg-fablab-primary rounded-full px-3 py-1"
+          >1</span
+        >
+        Preparación del Archivo (Slicer)
+      </h2>
+      <div class="space-y-4 text-fablab-text-secondary">
+        <p>
+          **Objetivo:** Convertir el modelo 3D (.STL) en código de máquina
+          (.GCODE).
+        </p>
+        <ul class="list-disc ml-5 space-y-2">
+          <li>
+            <strong class="text-fablab-text-primary"
+              >Descargar o crear el modelo:</strong
+            >
+            Asegúrate de que el archivo esté en formato STL u OBJ.
+          </li>
+          <li>
+            <strong class="text-fablab-text-primary"
+              >Abrir en PrusaSlicer/Cura:</strong
+            >
+            Carga el modelo en el programa Slicer.
+          </li>
+          <li>
+            <strong class="text-fablab-text-primary"
+              >Configuración de materiales:</strong
+            >
+            Ajusta la temperatura, retracción y perfil según el filamento (PLA,
+            PETG, ABS).
+          </li>
+          <li>
+            <strong class="text-fablab-text-primary"
+              >Generación de Soportes:</strong
+            >
+            Si es necesario, añade estructuras de soporte y raft/skirt.
+          </li>
+        </ul>
+        <p class="text-sm italic">
+          *El archivo .GCODE final contiene todas las coordenadas de impresión.*
+        </p>
+      </div>
+    </div>
+
+    <div
+      class="bg-fablab-card-bg p-6 rounded-xl shadow-lg border border-fablab-border"
+    >
+      <h2
+        class="text-2xl font-bold text-fablab-primary mb-4 flex items-center gap-3"
+      >
+        <span class="text-black bg-fablab-primary rounded-full px-3 py-1"
+          >2</span
+        >
+        Calibración y Carga de Material
+      </h2>
+      <div class="space-y-4 text-fablab-text-secondary">
+        <p>La calibración es vital para el éxito de la primera capa.</p>
+        <ol class="list-decimal ml-5 space-y-2">
+          <li>
+            <strong class="text-fablab-text-primary"
+              >Limpieza de la Cama:</strong
+            >
+            Limpia la base con alcohol isopropílico para asegurar la adherencia.
+          </li>
+          <li>
+            <strong class="text-fablab-text-primary"
+              >Nivelación (Z-Offset):</strong
+            >
+            Utiliza el modo de nivelación asistida. La separación ideal entre la
+            boquilla y la cama debe ser similar al grosor de una hoja de papel.
+          </li>
+          <li>
+            <strong class="text-fablab-text-primary">Cargar Filamento:</strong>
+            Precalienta el hot-end a la temperatura adecuada para el filamento
+            (ej. 200°C para PLA) y alimenta el material.
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <div
+      class="bg-fablab-card-bg p-6 rounded-xl shadow-lg border border-fablab-border"
+    >
+      <h2
+        class="text-2xl font-bold text-fablab-primary mb-4 flex items-center gap-3"
+      >
+        <span class="text-black bg-fablab-primary rounded-full px-3 py-1"
+          >3</span
+        >
+        Ejecución y Monitoreo
+      </h2>
+      <div class="space-y-4 text-fablab-text-secondary">
+        <p>
+          Una vez iniciada, monitorea los primeros minutos para detectar fallos.
+        </p>
+        <ul class="list-disc ml-5 space-y-2">
+          <li>
+            <strong class="text-fablab-text-primary"
+              >Revisión de la 1ª Capa:</strong
+            >
+            Asegúrate de que el filamento se adhiera de forma uniforme. Si se
+            desprende o se "arrastra", detén y recalibra.
+          </li>
+          <li>
+            <strong class="text-fablab-text-primary">No Intervenir:</strong>
+            Evita tocar o mover la máquina durante la impresión, salvo en caso
+            de emergencia (obstrucción o desprendimiento total).
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div
+      class="bg-fablab-card-bg p-6 rounded-xl shadow-lg border border-fablab-border"
+    >
+      <h2
+        class="text-2xl font-bold text-fablab-primary mb-4 flex items-center gap-3"
+      >
+        <span class="text-black bg-fablab-primary rounded-full px-3 py-1"
+          >4</span
+        >
+        Post-Procesamiento (Limpieza)
+      </h2>
+      <div class="space-y-4 text-fablab-text-secondary">
+        <p>
+          Cuando la impresión termine, la boquilla debe enfriarse antes de
+          retirar la pieza.
+        </p>
+        <ol class="list-decimal ml-5 space-y-2">
+          <li>
+            <strong class="text-fablab-text-primary">Retirar la Pieza:</strong>
+            Usa la espátula provista. Si la pieza está muy adherida, espera a
+            que la cama caliente se enfríe completamente.
+          </li>
+          <li>
+            <strong class="text-fablab-text-primary">Limpieza del Área:</strong>
+            Retira cualquier residuo de filamento o adhesivo de la base para
+            dejarla lista para el siguiente usuario.
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>

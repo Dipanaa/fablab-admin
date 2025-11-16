@@ -1,0 +1,127 @@
+<section class="bg-fablab-bg py-16 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-12">
+      <h2 class="text-4xl font-extrabold text-fablab-text-primary mb-2">
+        Tutoriales y Manuales
+      </h2>
+      <p class="mt-4 text-xl text-fablab-text-secondary max-w-3xl mx-auto">
+        Accede a guías rápidas, cursos en video y manuales detallados para usar
+        todos los equipos y herramientas del laboratorio.
+      </p>
+    </div>
+
+    <h3
+      class="text-3xl font-bold text-fablab-text-primary mb-6 flex items-center gap-3"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="size-8 text-fablab-primary"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z"
+        />
+      </svg>
+      Videos de Capacitación
+    </h3>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+      @for (tutorial of videoTutorials; track tutorial.title) {
+      <a [href]="tutorial.link" target="_blank" class="block">
+        <div
+          classt
+          class="bg-fablab-card-bg p-6 rounded-xl shadow-lg border border-fablab-border h-full flex flex-col justify-between transform transition duration-300 hover:scale-[1.02] hover:shadow-2xl"
+        >
+          <div class="w-15 h-15 text-fablab-primary mx-auto mb-4">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-8 text-fablab-primary"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z"
+              />
+            </svg>
+          </div>
+
+          <div>
+            <h3
+              class="text-2xl font-bold text-fablab-text-primary mb-2 text-center"
+            >
+              {{ tutorial.title }}
+            </h3>
+            <p class="text-fablab-text-secondary text-center text-sm">
+              {{ tutorial.description }}
+            </p>
+          </div>
+
+          <div class="mt-4 text-center">
+            <span class="text-fablab-primary font-semibold text-sm">
+              Ver Manual →
+            </span>
+          </div>
+        </div>
+      </a>
+      }
+    </div>
+
+    <div class="border-t border-fablab-border my-12"></div>
+
+    <h3
+      class="text-3xl font-bold text-fablab-text-primary mb-6 flex items-center gap-3"
+    >
+      <svg
+        class="size-8 text-fablab-primary"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M12 6.253v13m0-13C10.832 5.477 9.206 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.794 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.794 5 16.5 5S19.832 5.477 21 6.253v13C19.832 18.477 18.206 18 16.5 18s-3.332.477-4.5 1.253"
+        ></path>
+      </svg>
+      Documentación y Manuales
+    </h3>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      @for (tutorial of manualTutorials; track tutorial.title) {
+      <a [routerLink]="[tutorial.link]" class="block">
+        <div
+          class="bg-fablab-card-bg p-6 rounded-xl shadow-lg border border-fablab-border h-full flex flex-col justify-between transform transition duration-300 hover:scale-[1.02] hover:shadow-2xl"
+        >
+          <div>
+            <h3
+              class="text-2xl font-bold text-fablab-text-primary mb-2 text-center"
+            >
+              {{ tutorial.title }}
+            </h3>
+            <p class="text-fablab-text-secondary text-center text-sm">
+              {{ tutorial.description }}
+            </p>
+          </div>
+
+          <div class="mt-4 text-center">
+            <span class="text-fablab-primary font-semibold text-sm">
+              Ver Manual →
+            </span>
+          </div>
+        </div>
+      </a>
+      }
+    </div>
+  </div>
+</section>

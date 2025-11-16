@@ -9,5 +9,12 @@
         }
     },
     "IDX.aI.enableInlineCompletion": true,
-    "IDX.aI.enableCodebaseIndexing": true
+    "IDX.aI.enableCodebaseIndexing": true,
+    "python-envs.pythonProjects": [
+        {
+            "path": "src/app/pages/tutorials/components",
+            "envManager": "ms-python.python:venv",
+            "packageManager": "ms-python.python:pip"
+        }
+    ]
 }

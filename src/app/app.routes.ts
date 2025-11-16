@@ -5,7 +5,6 @@ import { UsersComponent } from './pages/users/users.component';
 import { RequestComponent } from './pages/request/request.component';
 import { ProjectsTableComponent } from './pages/projects-table/projects-table.component';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
-
 import { InventoryComponent } from './pages/inventory/inventory.component';
 import { AuthLayoutComponent } from './auth/layout/auth-layout/auth-layout.component';
 import { NotAuthenticatedGuard } from './auth/guards/not-authenticated.guard';
@@ -25,21 +24,26 @@ export const routes: Routes = [
       { path: 'layout', redirectTo: 'inicio', pathMatch: 'full' },
       { path: 'inicio', component: UserHomeComponent },
       { path: 'metricas', component: DashboardComponent },
+      { path: 'perfil-usuario', component: UserProfileComponent },
       {
         path: 'proyectos',
         loadChildren: () =>
           import('./pages/Projects/projects.routes').then((m) => m.default),
       },
-      { path: 'usuarios', component: UsersComponent },
       { path: 'gestion-proyectos', component: ProjectsTableComponent },
+      { path: 'usuarios', component: UsersComponent },
+      { path: 'solicitudes', component: RequestComponent },
+      { path: 'inventario', component: InventoryComponent },
       {
         path: 'noticias',
         loadChildren: () =>
           import('./pages/News/news.routes').then((m) => m.default),
       },
-      { path: 'solicitudes', component: RequestComponent },
-      { path: 'perfil-usuario', component: UserProfileComponent },
-      { path: 'inventario', component: InventoryComponent },
+      {
+        path: 'tutoriales',
+        loadChildren: () =>
+          import('./pages/tutorials/tutorials.routes').then((m) => m.default),
+      },
     ],
   },
   {
