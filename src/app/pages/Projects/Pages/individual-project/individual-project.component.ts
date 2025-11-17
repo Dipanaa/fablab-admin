@@ -6,6 +6,10 @@ import { ProjectsService } from '../../../../services/projects.service';
 import { ModalComponentComponent } from '../../../../shared/modal-component/modal-component.component';
 import { BackButtonComponent } from '../../../../shared/back-button/back-button';
 import { NotificacionsStatusService } from '../../../../services/notificacionsStatus.service';
+import { CustomFormsValidations } from '../../../../utils/FormsValidations/CustomValidations';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ModalEditComponent } from '../../../../shared/modal-edit/modal-edit.component';
+import { PhaseProjectComponent } from "./components/phase-project/phase-project.component";
 
 @Component({
   selector: 'individual-project',
@@ -14,8 +18,12 @@ import { NotificacionsStatusService } from '../../../../services/notificacionsSt
     CommonModule,
     ModalComponentComponent,
     BackButtonComponent,
-    DatePipe
-  ],
+    DatePipe,
+    ReactiveFormsModule,
+    ModalEditComponent,
+    DatePipe,
+    PhaseProjectComponent
+],
   standalone: true,
 })
 export class IndividualProjectComponent implements OnInit {
@@ -23,21 +31,32 @@ export class IndividualProjectComponent implements OnInit {
   projectsService = inject(ProjectsService);
   route = inject(ActivatedRoute);
   router = inject(Router);
+  formBuilder = inject(FormBuilder);
   notificacionsStatusService = inject(NotificacionsStatusService);
+  CustomFormsValidations = CustomFormsValidations;
 
   //Atributos
   openDeleteView = signal<boolean>(false);
+  openEditView = signal<boolean>(false);
   projectModalId = signal<number | undefined>(undefined);
-  projectsData = this.projectsService.projectsResource.value();
+  projectsData = this.projectsService.projectsByUserResource.value();
   loading = signal<boolean>(false);
+  fbGeneric: FormGroup | undefined = undefined;
+
 
   //Computed para recalcular señal
   projectFound = computed<ProjectsInterface | undefined>(()=>{
-    if(this.projectsService.projectsResource.hasValue()){
+    if(this.projectsService.projectsByUserResource.hasValue()){
       return this.projectsService.searchProjectById(this.projectModalId()!);
     }
     return;
   })
+
+  //Formularios
+  fbPhase: FormGroup = this.formBuilder.group({
+    "nombrehito":["",[Validators.required]],
+    "descripcion":["",[Validators.required]]
+  });
 
 
   //Ciclos de vida
@@ -47,6 +66,8 @@ export class IndividualProjectComponent implements OnInit {
   }
 
   //Metodos
+
+  //Peticiones proyectos
   deleteProject() {
 
     if (!this.projectModalId && this.loading()) {
@@ -63,27 +84,18 @@ export class IndividualProjectComponent implements OnInit {
           this.loading.set(false);
 
           this.notificacionsStatusService.showMessage();
-          this.projectsService.projectsResource.reload();
+          this.projectsService.projectsByUserResource.reload();
           this.router.navigate(['/proyectos']);
           return;
         }
         this.loading.set(false);
         this.openDeleteView.set(false);
-        this.projectsService.projectsResource.reload();
+        this.projectsService.projectsByUserResource.reload();
+        this.notificacionsStatusService.showMessage();
         this.router.navigate(['/proyectos']);
       });
   }
 
-  //Agregar Hito
-  postPhase(){
-  }
 
-
-  putPhase(){
-  }
-
-
-  deletePhase(){
-  }
 
 }

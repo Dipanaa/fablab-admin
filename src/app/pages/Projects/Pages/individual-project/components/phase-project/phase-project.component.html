@@ -1,0 +1,104 @@
+@if(openDeleteView()){
+  <modal-component
+    [show]="openDeleteView()"
+    [title]="'¿Esta seguro que desea eliminar este usuario?'"
+    [description]="
+      'El usuario perdera acceso al sistema y no podra ser partícipe de las funciones del laboratorio.'
+    "
+    (close)="openDeleteView.set(false)"
+    (decline)="openDeleteView.set(false)"
+    (accept)="deletePhase()"
+    [loading]="loading()"
+  >
+  </modal-component>
+}
+
+@if(openEditView()){
+  <modal-edit
+    [fbEdit]="fbPhase"
+    (fbEditSend)="putPhase($event)"
+    (closeModal)="openEditView.set($event)"
+    [modalTitle]="'Editar usuario'"
+    [loading]="loading()"
+  >
+  </modal-edit>
+}
+
+@if(openAddView()){
+  <app-modal-phase-add-project
+  [idProject]="projectId()"
+  [show]="openAddView()"
+  (closeModalView)="openAddView.set($event)"
+  ></app-modal-phase-add-project>
+}
+
+
+@if(notificacionsStatusService.statusMessage()){
+  <div class="fixed mb-2 mr-2 right-0 bottom-0">
+    <status-message></status-message>
+  </div>
+}
+
+<div
+    class="bg-fablab-card-bg rounded-2xl p-6 md:p-10 shadow-lg border border-fablab-border"
+  >
+    <div class="flex justify-between">
+      <h1 class="text-3xl font-bold text-fablab-text-primary mb-6">
+        Hoja de ruta del proyecto
+      </h1>
+      <button
+        class="bg-fablab-accent text-black w-[150px] h-fit p-2 rounded hover:bg-fablab-accent-dark cursor-pointer"
+        (click)="modalAddEditView()"
+      >
+        Agregar hito
+      </button>
+    </div>
+
+    <ol class="relative border-s border-fablab-border">
+      @for (hito of projectFound()?.hitoproyecto; track $index) {
+        <div class="flex mt-4 gap-2">
+          <li class="mb-10 ms-6">
+            <span
+              class="absolute flex items-center justify-center w-6 h-6 bg-fablab-primary rounded-full -start-3 ring-8 ring-fablab-card-bg"
+            >
+              <svg
+                class="w-2.5 h-2.5 text-black"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4Z"
+                />
+              </svg>
+            </span>
+            <h3
+              class="flex items-center mb-1 text-lg font-semibold text-fablab-text-primary"
+            >
+              {{ hito.nombreHito }}
+            </h3>
+            <time class="block mb-2 text-sm text-fablab-text-secondary"
+              >{{hito.fecha | date}}</time
+            >
+            <p class="text-fablab-text-secondary mb-4">
+              {{hito.descripcion}}
+            </p>
+
+          </li>
+          <div class="flex gap-2">
+            <a
+               class="bg-fablab-accent text-black h-fit px-3 py-1 rounded hover:bg-fablab-accent-dark cursor-pointer "
+               (click)="modalEditView(hito.id)"
+             >
+               Editar
+             </a>
+             <a
+               class="bg-red-600 text-white h-fit px-3 py-1 rounded hover:bg-red-700 cursor-pointer"
+               (click)="modalDeleteView(hito.id)"
+             >
+               Eliminar
+             </a>
+          </div>
+        </div>
+      }
+    </ol>
+  </div>

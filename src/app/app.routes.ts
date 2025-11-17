@@ -10,6 +10,7 @@ import { AuthLayoutComponent } from './auth/layout/auth-layout/auth-layout.compo
 import { NotAuthenticatedGuard } from './auth/guards/not-authenticated.guard';
 import { isGeneralAuthenticatedGuard } from './guards/isGeneralAuthenticated.guard';
 import { UserHomeComponent } from './pages/user-home/user-home.component';
+import { adminGuardRouteGuard } from './guards/adminGuardRoute.guard';
 export const routes: Routes = [
   {
     path: 'auth',
@@ -23,19 +24,20 @@ export const routes: Routes = [
     children: [
       { path: 'layout', redirectTo: 'inicio', pathMatch: 'full' },
       { path: 'inicio', component: UserHomeComponent },
-      { path: 'metricas', component: DashboardComponent },
+      { path: 'metricas', component: DashboardComponent,canMatch: [adminGuardRouteGuard] },
       { path: 'perfil-usuario', component: UserProfileComponent },
       {
         path: 'proyectos',
         loadChildren: () =>
           import('./pages/Projects/projects.routes').then((m) => m.default),
       },
-      { path: 'gestion-proyectos', component: ProjectsTableComponent },
-      { path: 'usuarios', component: UsersComponent },
-      { path: 'solicitudes', component: RequestComponent },
-      { path: 'inventario', component: InventoryComponent },
+      { path: 'gestion-proyectos', component: ProjectsTableComponent,canMatch: [adminGuardRouteGuard], },
+      { path: 'usuarios', component: UsersComponent,canMatch: [adminGuardRouteGuard], },
+      { path: 'solicitudes', component: RequestComponent,canMatch: [adminGuardRouteGuard], },
+      { path: 'inventario', component: InventoryComponent,canMatch: [adminGuardRouteGuard], },
       {
         path: 'noticias',
+        canMatch: [adminGuardRouteGuard],
         loadChildren: () =>
           import('./pages/News/news.routes').then((m) => m.default),
       },

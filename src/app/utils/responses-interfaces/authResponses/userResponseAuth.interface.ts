@@ -6,5 +6,6 @@ export interface UserResponseAuth {
   correoInstitucional: string;
   carrera:             string;
   telefono:            string;
+  rolId?:              number;
   imgUrl:              string;
 }

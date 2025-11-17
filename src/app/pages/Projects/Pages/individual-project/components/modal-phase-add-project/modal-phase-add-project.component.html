@@ -1,0 +1,93 @@
+
+@if(show()){
+  <div class="fixed top-0 left-0 right-0 z-50 flex items-center justify-center w-full h-full bg-fablab-bg/70">
+    <div class="relative w-full max-w-2xl p-4">
+
+      <div class="flex items-center justify-center px-6">
+        <div
+          class="mx-auto w-full max-w-4xl p-8 rounded-2xl shadow-lg border border-fablab-border bg-fablab-card-bg"
+        >
+          <div class="flex justify-end text-3xl" (click)="closeModal()">
+            ✕
+          </div>
+          <h1 class="text-4xl font-bold text-fablab-text-primary mb-4">
+            Ingresar Hito
+          </h1>
+          <form
+            autocomplete="off"
+            [formGroup]="fbAddPhase"
+            (ngSubmit)="postAddPhase()"
+            class="space-y-6"
+          >
+            <div class="mb-5">
+              <label
+                for="titulo"
+                class="mb-3 block text-base font-medium text-fablab-text-light"
+              >
+                Nombre del hito
+              </label>
+              <input
+                type="text"
+                placeholder="Nombre del hito"
+                class="w-full rounded-md border border-fablab-border bg-fablab-bg py-3 px-6 text-base font-medium text-fablab-text-primary outline-none focus:border-fablab-primary focus:shadow-md"
+                formControlName="nombrehito"
+              />
+              @if(CustomFormsValidations.ValidateErrors("nombrehito", fbAddPhase)){
+              <span class="text-red-500 mt-1 block">
+                {{ CustomFormsValidations.ValidateErrors("nombrehito", fbAddPhase) }}
+              </span>
+              }
+            </div>
+
+            <div class="mb-5">
+              <label
+                for="epigrafe"
+                class="mb-3 block text-base font-medium text-fablab-text-light"
+              >
+                Descripción del hito
+              </label>
+              <input
+                type="text"
+                placeholder="Descripción del hito"
+                class="w-full rounded-md border border-fablab-border bg-fablab-bg py-3 px-6 text-base font-medium text-fablab-text-light outline-none focus:border-fablab-primary focus:shadow-md"
+                formControlName="descripcion"
+              />
+              @if(CustomFormsValidations.ValidateErrors("descripcion", fbAddPhase)){
+              <span class="text-red-500 mt-1 block">
+                {{
+                  CustomFormsValidations.ValidateErrors("descripcion", fbAddPhase)
+                }}
+              </span>
+              }
+            </div>
+
+
+            @if(loading()){
+              <button
+                type="submit"
+                class="w-full h-11 bg-gray-400 text-white font-semibold rounded-md transition cursor-pointer flex justify-center items-center"
+                [disabled]=""
+              >
+              <img src="../../../assets/icons/Rolling@1x-1.0s-200px-200px (1).svg" alt="" class="h-7 w-7">
+              </button>
+            }
+            @else {
+              <div class="flex justify-end pt-4">
+                <button
+                  type="submit"
+                  class="rounded-md bg-fablab-accent py-3 px-8 text-base font-semibold text-black outline-none hover:bg-fablab-accent-dark transition"
+                  [disabled]="fbAddPhase.invalid"
+                >
+                  Ingresar Hito
+                </button>
+              </div>
+            }
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+}
+
+

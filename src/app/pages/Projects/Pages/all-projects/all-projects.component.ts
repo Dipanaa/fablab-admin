@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, computed } from '@angular/core';
 import dblocalproyectos from '../../../../data/dblocalproyectos.json';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -19,8 +19,7 @@ export class AllProjectsComponent {
   notificacionStatus = inject(NotificacionsStatusService);
 
   //Atributos
-  projectsData = this.projectsService.projectsResource.value();
-
+  projectsData = this.projectsService.projectsByUserResource.value();
 
   proyecto: any[]  = dblocalproyectos;
   ngOnInit() {

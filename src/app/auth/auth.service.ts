@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { computed, inject, Injectable, OnInit, signal } from '@angular/core';
+import { computed, inject, Injectable, Injector, OnInit, signal } from '@angular/core';
 import { TokenJwt } from '../utils/responses-interfaces/authResponses/tokenJwt.interface';
 import { UserResponseAuth } from '../utils/responses-interfaces/authResponses/userResponseAuth.interface';
 import { Observable, tap, map, catchError, of, finalize, delay } from 'rxjs';
@@ -8,12 +8,15 @@ import { UsersInterface } from '../interfaces/users.interface';
 import { UsersAuthApitoUser } from '../utils/mappers/usersMapper';
 import { tokenGetter } from '../app.config';
 import { NotificacionsStatusService } from '../services/notificacionsStatus.service';
+import { CleanSessionService } from './cleanSession.service';
+import { ProjectsService } from '../services/projects.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   //Servicios
   private _httpClient = inject(HttpClient);
   private _notificationStatusService = inject(NotificacionsStatusService);
+  private injectorCleanSession = inject(Injector);
 
   //Atributos
   private _jwtToken = signal< TokenJwt | null >(null);
@@ -111,11 +114,20 @@ export class AuthService {
     )
   }
 
+  //TODO: Implementar
+  cleanSessionInjector(){
+    return this.injectorCleanSession.get(CleanSessionService);
+  }
+
+
+
   //Cerrar sesion
   closeSesion(): void {
     this._jwtToken.set(null);
     this._autentication.set(false);
     this.userData.set(null);
     localStorage.removeItem('token');
+    window.location.reload();
+
   }
 }

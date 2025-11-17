@@ -34,6 +34,7 @@ export function UsersAuthApitoUser(responseDataUser: UserResponseAuth): UsersInt
     carrera: responseDataUser.carrera,
     telefono: responseDataUser.telefono,
     foto_perfil: responseDataUser.imgUrl,
+    rolId: responseDataUser.rolId,
     email: responseDataUser.correoInstitucional,
   }
 

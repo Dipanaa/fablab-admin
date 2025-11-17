@@ -13,6 +13,7 @@ import {
 import { toObservable } from '@angular/core/rxjs-interop';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'sidebar',
@@ -24,6 +25,7 @@ export class SidebarComponent implements AfterViewInit {
 
   //Inyeccion servicios
   render = inject(Renderer2)
+  authService = inject(AuthService);
 
 
   @ViewChild('sideMenu') sideMenu!: ElementRef;

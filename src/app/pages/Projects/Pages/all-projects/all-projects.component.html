@@ -40,7 +40,7 @@
   <div class="overflow-x-auto pb-4">
     <div class="flex gap-4 px-1 min-w-max">
       <app-card
-        *ngFor="let proyecto of projectsService.projectsData()"
+        *ngFor="let proyecto of projectsService.projectsDataByUser()"
         [title]="proyecto.titulo"
         [imgUrl]="proyecto.imgurl ?? 'assets/img/default-project.png'"
         [routerLink]="[proyecto.id]"

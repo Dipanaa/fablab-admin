@@ -5,28 +5,28 @@
 }
 
 @if(openEditView()) {
-<modal-edit
-  [fbEdit]="fbUser"
-  (fbEditSend)="dataFormPut($event)"
-  (closeModal)="openEditView.set($event)"
-  [modalTitle]="'Editar usuario'"
-  [loading]="loading()"
-></modal-edit>
+  <modal-edit
+    [fbEdit]="fbUser"
+    (fbEditSend)="dataFormPut($event)"
+    (closeModal)="openEditView.set($event)"
+    [modalTitle]="'Editar usuario'"
+    [loading]="loading()"
+  ></modal-edit>
 }
 
 
 @if(openDeleteView()){
-<modal-component
-  [show]="openDeleteView()"
-  [title]="'¿Esta seguro que desea eliminar este usuario?'"
-  [description]="
-    'El usuario perdera acceso al sistema y no podra ser partícipe de las funciones del laboratorio.'
-  "
-  (close)="openDeleteView.set(false)"
-  (decline)="openDeleteView.set(false)"
-  (accept)="deleteUser()"
-  [loading]="loading()"
-></modal-component>
+  <modal-component
+    [show]="openDeleteView()"
+    [title]="'¿Esta seguro que desea eliminar este usuario?'"
+    [description]="
+      'El usuario perdera acceso al sistema y no podra ser partícipe de las funciones del laboratorio.'
+    "
+    (close)="openDeleteView.set(false)"
+    (decline)="openDeleteView.set(false)"
+    (accept)="deleteUser()"
+    [loading]="loading()"
+  ></modal-component>
 }
 
 <div class="border-fablab-border flex flex-col gap-3">

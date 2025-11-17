@@ -9,6 +9,7 @@ export interface UsersInterface {
   email: string;
   telefono: string;
   rol?: string | null;
+  rolId?: number;
   foto_perfil?: string;
   proyectos_asignados?: ProjectsInterface[];
 }
