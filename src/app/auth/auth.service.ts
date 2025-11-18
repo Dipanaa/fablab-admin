@@ -8,6 +8,7 @@ import { UsersInterface } from '../interfaces/users.interface';
 import { UsersAuthApitoUser } from '../utils/mappers/usersMapper';
 import { tokenGetter } from '../app.config';
 import { environment } from '../../environments/environments';
+import { NotificacionsStatusService } from '../services/notificacionsStatus.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -16,8 +17,8 @@ export class AuthService {
   private _notificationStatusService = inject(NotificacionsStatusService);
 
   //Atributos
-  private _jwtToken = signal< TokenJwt | null >(null);
-  tokenJWT = signal<string | null>(localStorage.getItem('token'))
+  private _jwtToken = signal<TokenJwt | null>(null);
+  tokenJWT = signal<string | null>(localStorage.getItem('token'));
   private _autentication = signal<boolean>(false);
   userData = signal<UsersInterface | null>(null);
   registerLoader = signal<boolean>(false);
@@ -84,7 +85,7 @@ export class AuthService {
   checkStatus(): Observable<boolean> {
     const token = localStorage.getItem('token');
 
-    if (!token){
+    if (!token) {
       return of(false);
     }
 

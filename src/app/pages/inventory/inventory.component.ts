@@ -15,6 +15,7 @@ import { FooterComponent } from '../../shared/footer/footer';
 import { InventoryService } from '../../services/inventory.service';
 import { RouterLink } from '@angular/router';
 import { NotificacionsStatusService } from '../../services/notificacionsStatus.service';
+import { StatusMessageComponent } from '../../shared/status-message/status-message.component';
 
 @Component({
   selector: 'inventory',
@@ -26,6 +27,8 @@ import { NotificacionsStatusService } from '../../services/notificacionsStatus.s
     ModalEditComponent,
     FooterComponent,
     RouterLink,
+    ModalComponentComponent,
+    StatusMessageComponent,
   ],
   templateUrl: './inventory.component.html',
 })

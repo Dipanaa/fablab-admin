@@ -1,16 +1,29 @@
 <div
   class="bg-fablab-bg p-8 md:p-12 flex items-center justify-center z-10 relative h-full"
 >
-  @if(statusMessage()){
-  <div class="absolute right-0 top-0 mr-2 mt-2">
+  @if(notificacionsStatusService.statusMessage()){
+  <div class="fixed right-0 top-0 mr-2 mt-2">
     <status-message />
   </div>
   }
 
   <div
-    class="w-full max-w-md rounded-2xl shadow-xl p-8 space-y-2 bg-fablab-bg border border-fablab-border"
+    class="w-full max-w-md rounded-2xl shadow-xl p-8 space-y-2 bg-fablab-card-bg border border-fablab-border"
   >
-    <div class="w-full max-w-md rounded-2xl shadow-xl p-8 space-y-2">
+    <div>
+      <h1 class="text-3xl font-bold text-fablab-text-primary">
+        Solicitud de ingreso
+      </h1>
+      <p class="text-fablab-text-secondary text-sm mt-1">
+        Tomalo con responsabilidad
+      </p>
+    </div>
+
+    <form
+      class="space-y-2"
+      [formGroup]="fbRegister"
+      (ngSubmit)="registerUser()"
+    >
       <div>
         <label
           for="emailId"
@@ -114,22 +127,82 @@
         }
       </div>
 
-        <div class="flex gap1 mt-1 items-end gap-1 justify-self-end">
-          <p class="text-gray-500">¿Ya tienes una cuenta?</p>
-          <a
-            class="text-indigo-600 text-md hover:underline cursor-pointer"
-            (click)="registerModeEmit()"
-          >
-            Inicia sesion</a
-          >
-        </div>
+      <div>
+        <label class="block text-sm font-medium text-fablab-text-primary">
+          Telefono de contacto
+        </label>
+        <input
+          name="telefono"
+          id="telefono"
+          type="text"
+          placeholder="+56 9 0000 0000"
+          class="w-full h-11 px-4 border border-fablab-border rounded-md focus:outline-none focus:ring-2 focus:ring-fablab-primary text-fablab-text-primary bg-fablab-bg"
+          formControlName="telefono"
+        />
+      </div>
+      <div class="my-2">
+        @if(CustomFormsValidations.ValidateErrors("telefono",fbRegister)){
+        <span class="text-red-500">
+          {{ CustomFormsValidations.ValidateErrors("telefono", fbRegister) }}
+        </span>
+        }
+      </div>
 
-      </form>
-      @if(notificacionsStatusService.statusMessage()){
-        <div class="mr-2 mt-2">
-          <status-message/>
-        </div>
+      <div>
+        <label
+          for="password"
+          class="block text-sm font-medium text-fablab-text-primary"
+        >
+          Contraseña
+        </label>
+        <input
+          name="password"
+          id="password"
+          type="password"
+          placeholder="••••••••"
+          class="w-full h-11 px-4 text-fablab-text-primary border border-fablab-border rounded-md focus:outline-none focus:ring-2 focus:ring-fablab-primary bg-fablab-bg"
+          formControlName="contrasena"
+        />
+      </div>
+      <div class="my-2">
+        @if(CustomFormsValidations.ValidateErrors("contrasena",fbRegister)){
+        <span class="text-red-500">
+          {{ CustomFormsValidations.ValidateErrors("contrasena", fbRegister) }}
+        </span>
+        }
+      </div>
+      @if(!authService.registerLoader()){
+      <button
+        type="submit"
+        class="w-full h-11 bg-fablab-accent hover:bg-fablab-accent-dark text-black font-semibold rounded-md transition cursor-pointer"
+      >
+        Enviar solicitud
+      </button>
+
+      } @if(authService.registerLoader()){
+      <button
+        type="submit"
+        class="w-full h-11 bg-gray-400 text-white font-semibold rounded-md transition cursor-pointer flex justify-center items-center"
+        [disabled]=""
+      >
+        <img
+          src="../../../assets/icons/Rolling@1x-1.0s-200px-200px (1).svg"
+          alt=""
+          class="h-7 w-7"
+        />
+      </button>
       }
-    </div>
+
+      <div class="flex gap1 mt-1 items-end gap-1 justify-self-end">
+        <p class="text-fablab-text-secondary">¿Ya tienes una cuenta?</p>
+        <a
+          class="text-fablab-accent-dark text-md hover:underline cursor-pointer"
+          (click)="registerModeEmit()"
+        >
+          Inicia sesion</a
+        >
+      </div>
+    </form>
+      
   </div>
 </div>
