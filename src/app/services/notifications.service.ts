@@ -75,6 +75,7 @@ export class NotificationsService {
       }),
       //TODO: Implementar interfaz de error en base a asp net
       catchError((err)=>{
+        console.log(err);
         this.notificationStatusService.statusMessage.set(true);
         this.notificationStatusService.statusErrorMessage.set("Hubo un error al aceptar la solicitud");
         return of(false);

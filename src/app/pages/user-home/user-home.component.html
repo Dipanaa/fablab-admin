@@ -151,7 +151,7 @@
           Mis proyectos
         </h2>
         <div class="space-y-3">
-          @for (proyecto of projectsService.projectsData()| slice:0:3; track
+          @for (proyecto of projectsService.projectsDataByUser()| slice:0:3; track
           $index) {
           <div
             class="bg-fablab-card-bg p-4 rounded-xl shadow hover:shadow-lg transition border border-fablab-border"

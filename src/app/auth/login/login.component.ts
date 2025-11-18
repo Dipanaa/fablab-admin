@@ -41,8 +41,10 @@ export class LoginComponent{
     .subscribe((autenticacionCorrecta)=>{
       if(autenticacionCorrecta){
         this.router.navigateByUrl("/inicio");
+        this.authService.loginLoader.set(false);
         return;
       }
+      this.authService.loginLoader.set(false);
       this.notificacionsStatusService.showMessage();
 
     });
