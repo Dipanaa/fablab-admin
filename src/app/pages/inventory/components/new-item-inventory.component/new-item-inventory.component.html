@@ -1,0 +1,116 @@
+<div class="p-6">
+  <div class="flex justify-end mb-6">
+    <back-button></back-button>
+  </div>
+
+  <section
+    class="max-w-4xl mx-auto bg-fablab-card-bg p-8 rounded-2xl shadow-lg border border-fablab-border"
+  >
+    <h1 class="text-3xl font-bold text-fablab-text-primary mb-6 text-center">
+      Ingresar Nuevo Insumo
+    </h1>
+
+    <form
+      [formGroup]="CreationInventoryForm"
+      (ngSubmit)="submitItemContent()"
+      class="space-y-6"
+    >
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label
+            class="block mb-2 text-sm font-semibold text-fablab-text-primary"
+            >Nombre del Insumo</label
+          >
+          <input
+            type="text"
+            formControlName="nombre"
+            placeholder="Ej: Filamento PLA Azul"
+            class="w-full px-4 py-2.5 border border-fablab-border rounded-lg focus:ring-2 focus:ring-fablab-primary bg-fablab-bg text-fablab-text-primary transition"
+          />
+        </div>
+        <div>
+          <label
+            class="block mb-2 text-sm font-semibold text-fablab-text-primary"
+            >Categoría</label
+          >
+          <select
+            formControlName="categoria"
+            class="w-full px-4 py-2.5 border border-fablab-border rounded-lg focus:ring-2 focus:ring-fablab-primary bg-fablab-bg text-fablab-text-primary transition"
+          >
+            <option value="" disabled>Selecciona una Categoría</option>
+            @for (cat of categories; track cat) {
+            <option [value]="cat">{{ cat }}</option>
+            }
+          </select>
+          @if (CreationInventoryForm.get('categoria')?.errors &&
+          CreationInventoryForm.get('categoria')?.touched) {
+          <span class="text-red-500 text-xs mt-1 block"
+            >La categoría es obligatoria.</span
+          >
+          }
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label
+            class="block mb-2 text-sm font-semibold text-fablab-text-primary"
+            >Stock Actual</label
+          >
+          <input
+            type="number"
+            formControlName="stock"
+            placeholder="Cantidad disponible"
+            min="0"
+            class="w-full px-4 py-2.5 border border-fablab-border rounded-lg focus:ring-2 focus:ring-fablab-primary bg-fablab-bg text-fablab-text-primary transition"
+          />
+          @if (CreationInventoryForm.get('stock')?.hasError('pattern') &&
+          CreationInventoryForm.get('stock')?.touched) {
+          <span class="text-red-500 text-xs mt-1 block"
+            >Solo se permiten números enteros.</span
+          >
+          } @if (CreationInventoryForm.get('stock')?.hasError('required') &&
+          CreationInventoryForm.get('stock')?.touched) {
+          <span class="text-red-500 text-xs mt-1 block"
+            >El stock es obligatorio.</span
+          >
+          }
+        </div>
+        <div>
+          <label
+            class="block mb-2 text-sm font-semibold text-fablab-text-primary"
+            >Ubicación en Laboratorio</label
+          >
+          <input
+            type="text"
+            formControlName="ubicacion"
+            placeholder="Ej: Cajón A-1, Estante Puerta-1"
+            class="w-full px-4 py-2.5 border border-fablab-border rounded-lg focus:ring-2 focus:ring-fablab-primary bg-fablab-bg text-fablab-text-primary transition"
+          />
+        </div>
+      </div>
+
+      <div>
+        <label class="block mb-2 text-sm font-semibold text-fablab-text-primary"
+          >Descripción Detallada</label
+        >
+        <textarea
+          formControlName="descripcion"
+          rows="3"
+          placeholder="Detalles, proveedor, o notas importantes..."
+          class="w-full px-4 py-2.5 border border-fablab-border rounded-lg focus:ring-2 focus:ring-fablab-primary bg-fablab-bg text-fablab-text-primary transition resize-none"
+        ></textarea>
+      </div>
+
+      <div class="flex justify-end pt-4">
+        <button
+          type="submit"
+          [disabled]="CreationInventoryForm.invalid"
+          class="bg-fablab-primary hover:bg-fablab-accent-dark text-black px-6 py-2.5 rounded-lg font-medium transition shadow-md disabled:opacity-50"
+        >
+          Guardar Insumo
+        </button>
+      </div>
+    </form>
+  </section>
+</div>

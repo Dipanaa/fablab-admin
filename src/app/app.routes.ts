@@ -10,7 +10,9 @@ import { AuthLayoutComponent } from './auth/layout/auth-layout/auth-layout.compo
 import { NotAuthenticatedGuard } from './auth/guards/not-authenticated.guard';
 import { isGeneralAuthenticatedGuard } from './guards/isGeneralAuthenticated.guard';
 import { UserHomeComponent } from './pages/user-home/user-home.component';
+import { newItemInventariComponent } from './pages/inventory/components/new-item-inventory.component/new-item-inventory.component';
 import { adminGuardRouteGuard } from './guards/adminGuardRoute.guard';
+
 export const routes: Routes = [
   {
     path: 'auth',
@@ -35,6 +37,10 @@ export const routes: Routes = [
       { path: 'usuarios', component: UsersComponent,canMatch: [adminGuardRouteGuard], },
       { path: 'solicitudes', component: RequestComponent,canMatch: [adminGuardRouteGuard], },
       { path: 'inventario', component: InventoryComponent,canMatch: [adminGuardRouteGuard], },
+      {
+        path: 'inventario/nuevo',
+        component: newItemInventariComponent,
+      },
       {
         path: 'noticias',
         canMatch: [adminGuardRouteGuard],

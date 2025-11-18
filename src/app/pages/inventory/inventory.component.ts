@@ -1,15 +1,20 @@
 import { CommonModule } from '@angular/common';
 import { Component, effect, inject, signal } from '@angular/core';
 import { ModalComponentComponent } from '../../shared/modal-component/modal-component.component';
-import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  Validators,
+} from '@angular/forms';
 import { BuscadorComponent } from '../../shared/searcher/searcher.component';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { PaginationService } from '../../services/pagination.service';
 import { ModalEditComponent } from '../../shared/modal-edit/modal-edit.component';
 import { FooterComponent } from '../../shared/footer/footer';
 import { InventoryService } from '../../services/inventory.service';
+import { RouterLink } from '@angular/router';
 import { NotificacionsStatusService } from '../../services/notificacionsStatus.service';
-import { StatusMessageComponent } from '../../shared/status-message/status-message.component';
 
 @Component({
   selector: 'inventory',
@@ -20,8 +25,7 @@ import { StatusMessageComponent } from '../../shared/status-message/status-messa
     PaginationComponent,
     ModalEditComponent,
     FooterComponent,
-    StatusMessageComponent,
-    ModalComponentComponent
+    RouterLink,
   ],
   templateUrl: './inventory.component.html',
 })
@@ -44,7 +48,7 @@ export class InventoryComponent {
   fbInventory: FormGroup = this.formbuilder.group({
     nombre: [''],
     categoria: [''],
-    stock: ['',],
+    stock: [''],
     ubicacion: [''],
   });
 
@@ -59,6 +63,7 @@ export class InventoryComponent {
       const inventoryList = this.inventoryService.inventoryData();
       this.paginationService.setDataList(inventoryList);
       this.paginationService.goToPage(1);
+      this.calcularMetricasYAnimar();
     });
   }
 
@@ -70,7 +75,7 @@ export class InventoryComponent {
 
   //Metodos
   dataFormPut(data: FormGroup) {
-    if(!data || this.loading() || !this.modalId()){
+    if (!data || this.loading() || !this.modalId()) {
       return;
     }
 
@@ -78,36 +83,34 @@ export class InventoryComponent {
 
     this.fbInventory.patchValue(data.value);
 
-    this.inventoryService.putInventoryitem(data,this.modalId()).subscribe(
-      (status) => {
-        if(status){
+    this.inventoryService
+      .putInventoryitem(data, this.modalId())
+      .subscribe((status) => {
+        if (status) {
           this.loading.set(false);
           this.notificacionsStatusService.showMessage();
           this.inventoryService.inventoryResource.reload();
           this.modalView.set(false);
           return;
-
         }
         this.loading.set(false);
         this.inventoryService.inventoryResource.reload();
         this.modalView.set(false);
         this.notificacionsStatusService.showMessage();
-      }
-    )
-
-
+      });
   }
 
-  dataFormDelete(){
-    if(this.loading() || !this.modalId()){
+  dataFormDelete() {
+    if (this.loading() || !this.modalId()) {
       return;
     }
 
     this.loading.set(true);
 
-    this.inventoryService.deleteInventoryitem(this.modalId()).subscribe(
-      (status) => {
-        if(status){
+    this.inventoryService
+      .deleteInventoryitem(this.modalId())
+      .subscribe((status) => {
+        if (status) {
           this.loading.set(false);
           this.notificacionsStatusService.showMessage();
           this.inventoryService.inventoryResource.reload();
@@ -118,13 +121,7 @@ export class InventoryComponent {
         this.inventoryService.inventoryResource.reload();
         this.notificacionsStatusService.showMessage();
         this.modalDelete.set(false);
-
-      }
-    )
-
-
-
-
+      });
   }
 
   //Abrir modales
@@ -140,7 +137,6 @@ export class InventoryComponent {
     this.modalDelete.set(true);
   }
 
-
   //Metricas de animacion
   get totalInsumos() {
     return this.inventoryService.inventoryData().length;
@@ -149,7 +145,7 @@ export class InventoryComponent {
   //TODO: Cambiar a idioma ingles
   get bajoStock() {
     // Devolver cuántos insumos están en o por debajo de su stock mínimo
-    return this.inventoryService.inventoryData().filter((p) => p.stock <= 10)
+    return this.inventoryService.inventoryData().filter((p) => p.stock <= 5)
       .length;
   }
 

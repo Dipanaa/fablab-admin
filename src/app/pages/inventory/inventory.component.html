@@ -44,9 +44,9 @@
     >
       <searcher></searcher>
 
-      <button
-        type="button"
-        class="bg-fablab-card-bg text-black px-4 py-2 rounded-lg hover:bg-fablab-accent-dark transition font-semibold flex items-center justify-center gap-2"
+      <a
+        [routerLink]="['/inventario/nuevo']"
+        class="bg-fablab-card-bg text-black px-4 py-2 rounded-lg hover:bg-fablab-accent-dark transition font-semibold flex items-center justify-center gap-2 cursor-pointer"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -63,7 +63,7 @@
           />
         </svg>
         Agregar Item
-      </button>
+      </a>
     </div>
   </div>
 
