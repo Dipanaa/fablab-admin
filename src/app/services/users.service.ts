@@ -6,6 +6,7 @@ import { UserResponse } from '../utils/responses-interfaces/userResponse';
 import { UserApiToUsersArray } from '../utils/mappers/usersMapper';
 import { NotificacionsStatusService } from './notificacionsStatus.service';
 import { rxResource } from '@angular/core/rxjs-interop';
+import { environment } from '../../environments/environments';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,6 @@ export class UsersService {
   //Inyectar httpClient
   httpClient = inject(HttpClient);
   notificationStatusService = inject(NotificacionsStatusService);
-
 
   //Atributos
 
@@ -29,11 +29,10 @@ export class UsersService {
 
   //RxResource para data de usuarios
   dataUsersResource = rxResource({
-    loader: ()=>{
+    loader: () => {
       return this.getUsers();
-    }
-  })
-
+    },
+  });
 
   // ----Logica del buscador de usuarios---
 
@@ -58,90 +57,97 @@ export class UsersService {
     return listaBase;
   });
 
-
   //Get de obtencion de usuarios
   getUsers(): Observable<boolean> {
     return this.httpClient
-    .get<UserResponse[]>('http://localhost:5263/api/usuarios')
-    .pipe(
-      map((users) => {
-        console.log(users);
-        this.usersData.set(UserApiToUsersArray(users))
-        return true;
-      }),
-      catchError(() => of(false))
-    )
-
+      .get<UserResponse[]>(`${environment.apiKey}/api/usuarios`)
+      .pipe(
+        map((users) => {
+          console.log(users);
+          this.usersData.set(UserApiToUsersArray(users));
+          return true;
+        }),
+        catchError(() => of(false))
+      );
   }
 
   //Put de obtencion de usuarios
-  putUsers(id: number,dataUser: any): Observable<boolean> {
-    return this.httpClient.put(`http://localhost:5263/api/usuarios/${id}`,dataUser)
-    .pipe(
-      delay(3000),
-      map(()=> {
-        this.notificationStatusService.statusMessage.set(true);
-        this.notificationStatusService.statusTextMessage.set("Información de usuario actualizada");
-        return true;
-      }),
-      catchError((err)=>{
-        this.notificationStatusService.statusErrorMessage.set("Hubo un error al actualizar el usuario");
-        console.log(err);
-        return of(false);
-      })
-    );
+  putUsers(id: number, dataUser: any): Observable<boolean> {
+    return this.httpClient
+      .put(`${environment.apiKey}/api/usuarios/${id}`, dataUser)
+      .pipe(
+        map(() => {
+          this.notificationStatusService.statusMessage.set(true);
+          this.notificationStatusService.statusTextMessage.set(
+            'Información de usuario actualizada'
+          );
+          return true;
+        }),
+        catchError((err) => {
+          this.notificationStatusService.statusErrorMessage.set(err);
+          console.log(err);
+          return of(false);
+        })
+      );
   }
 
   //Put con foto para edicion de usuarios
-  putUserWithPhoto(data: any, id:number): Observable<boolean>{
-    if(this.loaderPutProfile()){
+  putUserWithPhoto(data: any, id: number): Observable<boolean> {
+    if (this.loaderPutProfile()) {
       return of(false);
     }
 
     this.loaderPutProfile.set(true);
 
-    return this.httpClient.put(`http://localhost:5263/api/usuarios/perfil/${id}`,data)
-    .pipe(
-      map(()=> {
-        this.notificationStatusService.statusMessage.set(true);
-        this.notificationStatusService.statusTextMessage.set("Información de usuario actualizada");
-        this.loaderPutProfile.set(false);
-        return true;
-      }),
-      catchError((err)=>{
-        this.notificationStatusService.statusErrorMessage.set(err);
-        console.log(err);
-        this.loaderPutProfile.set(false);
-        return of(false);
-      })
-    );
+    return this.httpClient
+      .put(`${environment.apiKey}/api/usuarios/perfil/${id}`, data)
+      .pipe(
+        map(() => {
+          this.notificationStatusService.statusMessage.set(true);
+          this.notificationStatusService.statusTextMessage.set(
+            'Información de usuario actualizada'
+          );
+          this.loaderPutProfile.set(false);
+          return true;
+        }),
+        catchError((err) => {
+          this.notificationStatusService.statusErrorMessage.set(err);
+          console.log(err);
+          this.loaderPutProfile.set(false);
+          return of(false);
+        })
+      );
   }
   //Delete de usuarios, SOLO administradores
   deleteUsers(id: number): Observable<boolean> {
-    return this.httpClient.delete(`http://localhost:5263/api/usuarios/${id}`)
-    .pipe(
-      map(()=> {
-        this.notificationStatusService.statusMessage.set(true);
-        this.notificationStatusService.statusTextMessage.set("Usuario eliminado correctamente");
-        return true;
-      }),
-      //TODO: Implementar interfaz de error en base a asp net
-      catchError((err)=>{
-        this.notificationStatusService.statusMessage.set(true);
-        this.notificationStatusService.statusErrorMessage.set("Hubo un error al eliminar el usuario");
-        return of(false);
-      })
-    );
-
+    return this.httpClient
+      .delete(`${environment.apiKey}/api/usuarios/${id}`)
+      .pipe(
+        map(() => {
+          this.notificationStatusService.statusMessage.set(true);
+          this.notificationStatusService.statusTextMessage.set(
+            'usuario eliminado correctamente'
+          );
+          return true;
+        }),
+        //TODO: Implementar interfaz de error en base a asp net
+        catchError((err) => {
+          this.notificationStatusService.statusMessage.set(true);
+          this.notificationStatusService.statusErrorMessage.set(
+            err.error.detail
+          );
+          return of(false);
+        })
+      );
   }
 
-  searchUserForId(id: number): UsersInterface | void{
-    if(this.usersData().length == 0){
+  searchUserForId(id: number): UsersInterface | void {
+    if (this.usersData().length == 0) {
       return;
     }
-    const usuarioBuscado = this.usersData().find(user => user.id_usuario == id);
+    const usuarioBuscado = this.usersData().find(
+      (user) => user.id_usuario == id
+    );
     return usuarioBuscado;
   }
-
 }
-

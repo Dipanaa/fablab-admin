@@ -7,7 +7,7 @@ import { rxResource } from '@angular/core/rxjs-interop';
 import { UsersInterface } from '../interfaces/users.interface';
 import { UsersAuthApitoUser } from '../utils/mappers/usersMapper';
 import { tokenGetter } from '../app.config';
-import { NotificacionsStatusService } from '../services/notificacionsStatus.service';
+import { environment } from '../../environments/environments';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -22,6 +22,12 @@ export class AuthService {
   userData = signal<UsersInterface | null>(null);
   registerLoader = signal<boolean>(false);
   loginLoader = signal<boolean>(false);
+
+  private baseUrl = `${environment.apiKey}/api/autenticacion/usuarios`;
+
+  constructor() {
+    console.log(this.baseUrl);
+  }
 
   //Getter de autenticacion
   Autentication = computed(() => {
@@ -39,53 +45,39 @@ export class AuthService {
   });
 
   //Logear usuarios
-  loginUser(formLogin: any): Observable<boolean>{
-    return this._httpClient.post<TokenJwt>("http://localhost:5263/api/autenticacion/usuarios/login",formLogin,)
-    .pipe(
-      tap((resp)=> {
-        this.userData.set(UsersAuthApitoUser(resp.usuario));
-        this._jwtToken.set(resp);
-        this.tokenJWT.set(resp.token);
-        this._autentication.set(true);
-        localStorage.setItem("token",resp.token);
-      }),
-      map(() => {
-        return true;
-      }),
-      finalize(() => {
-        this.loginLoader.set(false);
-      }),
-      catchError((error)=>{
-        this._notificationStatusService.statusMessage.set(true);
-        this._notificationStatusService.statusErrorMessage.set("Hubo un error al ingresar su correo y/o contraseña");
-        return of(false);
-      })
-    );
+  loginUser(formLogin: any): Observable<boolean> {
+    return this._httpClient
+      .post<TokenJwt>(`${this.baseUrl}/login`, formLogin)
+      .pipe(
+        tap((resp) => {
+          console.log(resp);
+          this.userData.set(UsersAuthApitoUser(resp.usuario));
+          this._jwtToken.set(resp);
+          this._autentication.set(true);
+          localStorage.setItem('token', resp.token);
+        }),
+        map((resp) => true),
+        catchError((error) => {
+          console.log(error);
+          return of(false);
+        })
+      );
   }
 
   //Postear usuarios
   registerUser(formRegister: any): Observable<boolean> {
-    return this._httpClient
-      .post(
-        'http://localhost:5263/api/autenticacion/usuarios/registro',
-        formRegister
-      )
-      .pipe(
-        map(() =>{
-          this._notificationStatusService.statusMessage.set(true);
-          this._notificationStatusService.statusTextMessage.set("Solicitud de ingreso enviada correctamente a la espera de aprobación");
-          return true;
-
-        }),
-        finalize(() => {
-          this.registerLoader.set(false);
-        }),
-        catchError((err) => {
-          this._notificationStatusService.statusMessage.set(true);
-          this._notificationStatusService.statusErrorMessage.set("Hubo un error en la solicitud ingresada");
-          return of(false);
-        })
-      );
+    return this._httpClient.post(`${this.baseUrl}/registro`, formRegister).pipe(
+      delay(4000),
+      map(() => true),
+      finalize(() => {
+        this.registerLoader.set(false);
+        console.log('Estado carga registro finalizado');
+      }),
+      catchError((err) => {
+        console.log(err);
+        return of(false);
+      })
+    );
   }
 
   //Renovar token
@@ -96,19 +88,19 @@ export class AuthService {
       return of(false);
     }
 
-    return this._httpClient.get<TokenJwt>("http://localhost:5263/api/autenticacion/usuarios/check-status").pipe(
-      tap((resp)=> {
+    return this._httpClient.get<TokenJwt>(`${this.baseUrl}/check-status`).pipe(
+      tap((resp) => {
         this.userData.set(UsersAuthApitoUser(resp.usuario));
         this._jwtToken.set(resp);
-        this.tokenJWT.set(resp.token);
         this._autentication.set(true);
-        localStorage.setItem("token",resp.token);
+        localStorage.setItem('token', resp.token);
       }),
-      map((resp)=> true),
-      catchError((error)=>{
+      map((resp) => true),
+      catchError((error) => {
+        console.log(error);
         return of(false);
       })
-    )
+    );
   }
 
   //Cerrar sesion

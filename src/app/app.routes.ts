@@ -10,6 +10,7 @@ import { AuthLayoutComponent } from './auth/layout/auth-layout/auth-layout.compo
 import { NotAuthenticatedGuard } from './auth/guards/not-authenticated.guard';
 import { isGeneralAuthenticatedGuard } from './guards/isGeneralAuthenticated.guard';
 import { UserHomeComponent } from './pages/user-home/user-home.component';
+import { newItemInventariComponent } from './pages/inventory/components/new-item-inventory.component/new-item-inventory.component';
 export const routes: Routes = [
   {
     path: 'auth',
@@ -34,6 +35,10 @@ export const routes: Routes = [
       { path: 'usuarios', component: UsersComponent },
       { path: 'solicitudes', component: RequestComponent },
       { path: 'inventario', component: InventoryComponent },
+      {
+        path: 'inventario/nuevo',
+        component: newItemInventariComponent,
+      },
       {
         path: 'noticias',
         loadChildren: () =>

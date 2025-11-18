@@ -6,7 +6,7 @@ import { projectApiToProjectsArray } from '../utils/mappers/projectsMapper';
 import { ProjectsInterface } from '../interfaces/projects.interface';
 import { NotificacionsStatusService } from './notificacionsStatus.service';
 import { ProjectsCreateInterface } from '../utils/request-interfaces/projectsCreateInterface';
-import { rxResource } from '@angular/core/rxjs-interop';
+import { environment } from '../../environments/environments';
 
 @Injectable({
   providedIn: 'root',
@@ -41,17 +41,34 @@ export class ProjectsService {
       })
     )
 
+  getProjects() {
+    this.httpClient
+      .get<ProjectsResponse[]>(`${environment.apiKey}/api/proyectos`)
+      .pipe(
+        map((projects) => {
+          return projectApiToProjectsArray(projects);
+        }),
+        tap((projects) => this.projectsData.set(projects)),
+        finalize(() => console.log(this.projectsData()))
+      )
+      .subscribe({
+        next: (response) => {
+          console.log(response);
+        },
+        error: (err) => {
+          console.log('Hubo un error en el ingreso del projectos', err);
+        },
+        complete: () => {
+          console.log('Se completo la peticion');
+        },
+      });
+    return this.projectsData;
   }
 
   //Agregar proyecto con id de usuario
-  postProject(project: any): Observable<boolean> {
-    if(this.postProjectLoader() || !project){
-      return of(false);
-    }
-
-    this.postProjectLoader.set(true);
-
-    return this.httpClient.post<ProjectsResponse[]>('http://localhost:5263/api/proyectos', project)
+  postProject(proyecto: any) {
+    return this.httpClient
+      .post<ProjectsResponse[]>(`${environment.apiKey}/api/proyectos`, proyecto)
       .pipe(
         delay(5000),
         map(() => {
@@ -78,7 +95,7 @@ export class ProjectsService {
 
   deleteProject(id: number) {
     return this.httpClient
-      .delete(`http://localhost:5263/api/proyectos/${id}`)
+      .delete(`${environment.apiKey}/api/proyectos/${id}`)
       .pipe(
         map(() => {
           this.notificationStatusService.statusMessage.set(true);
