@@ -87,7 +87,6 @@ export class ProjectsTableComponent {
   ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.projectModalId.set(id);
-    console.log(id);
   }
 
   modalDeleteView(id: number): void {

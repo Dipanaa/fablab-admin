@@ -46,7 +46,6 @@ export class RegisterComponent {
     }
     this.authService.registerLoader.set(true);
 
-    //Uso de logica message status con delay de 5s
     this.authService.registerUser(this.fbRegister.value)
     .subscribe((status)=>{
       if(status){

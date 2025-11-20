@@ -21,12 +21,10 @@ export class GraphicsService {
     return this.httpClient.get<ProjectsByUser>(`http://localhost:5263/api/graficos/proyectoporusuario`)
     .pipe(
       map((data)=> {
-        console.log(data);
         return data;
       }),
       //TODO: Implementar interfaz de error en base a asp net
       catchError((err)=>{
-        console.log(err);
         return [];
       })
     );

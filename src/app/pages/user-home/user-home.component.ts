@@ -72,9 +72,9 @@ export class UserHomeComponent {
   atajos = [
     { label: 'Crear nuevo proyecto', ruta: '/proyectos/new-project' },
     { label: 'Acceder a tutoriales', ruta: '/tutoriales' },
-    { label: 'Aprende a usarla impresora', ruta: '/tutoriales/impresion3D' },
+    { label: 'Aprende a usar la impresora', ruta: '/tutoriales/impresion3D' },
     {
-      label: 'Precausiones del corte laser',
+      label: 'Precauciones del corte láser',
       ruta: '/tutoriales/cortadoralaser',
     },
   ];

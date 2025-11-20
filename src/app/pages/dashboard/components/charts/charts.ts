@@ -25,7 +25,6 @@ export class Charts implements OnInit {
   //Atributos
   dataLabelsData = computed< ProjectsByUser>(()=>{
     if(this.graphicsService.graphicsResource.hasValue()){
-      console.log(this.graphicsService.graphicsResource.value());
       return this.graphicsService.graphicsResource.value();
     }
     return {labelsNombres:[],proyectosCuenta:[]};
@@ -82,13 +81,18 @@ export class Charts implements OnInit {
   // ===========================
   public usuariosData = {
     labels: [
-      'Alexis',
-      'Valentina',
-      'Tomás',
-      'Ignacia',
-      'Sebastián',
-      'Roberto',
-      'Rodrigo',
+      'Enero',
+      'Febrero',
+      'Marzo',
+      'Abril',
+      'Mayo',
+      'Junio',
+      'Julio',
+      'Agosto',
+      'Septiembre',
+      'Octubre',
+      'Noviembre',
+      'Diciembre',
     ],
     datasets: [
       {

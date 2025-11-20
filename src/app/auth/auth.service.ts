@@ -1,20 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, Injector, OnInit, signal } from '@angular/core';
 import { TokenJwt } from '../utils/responses-interfaces/authResponses/tokenJwt.interface';
-import { UserResponseAuth } from '../utils/responses-interfaces/authResponses/userResponseAuth.interface';
 import { Observable, tap, map, catchError, of, finalize, delay } from 'rxjs';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { UsersInterface } from '../interfaces/users.interface';
 import { UsersAuthApitoUser } from '../utils/mappers/usersMapper';
-import { tokenGetter } from '../app.config';
-
-
 import { environment } from '../../environments/environments';
 import { NotificacionsStatusService } from '../services/notificacionsStatus.service';
 import { CleanSessionService } from './cleanSession.service';
-import { ProjectsService } from '../services/projects.service';
-
-
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -32,10 +25,6 @@ export class AuthService {
 
   private baseUrl = `${environment.apiKey}/api/autenticacion/usuarios`;
 
-  constructor() {
-    console.log(this.baseUrl);
-  }
-
   //Getter de autenticacion
   Autentication = computed(() => {
     if (this._autentication()) {
@@ -51,8 +40,6 @@ export class AuthService {
     }
     return this.jwtToken()?.token;
   })
-
-
 
   //Verificar token de autenticacion en localstorage
   checkTokenStatus = rxResource({
@@ -75,7 +62,8 @@ export class AuthService {
         }),
         map((resp) => true),
         catchError((error) => {
-          console.log(error);
+           this._notificationStatusService.statusMessage.set(true);
+          this._notificationStatusService.statusErrorMessage.set("Error al ingresar email y/o contraseña");
           return of(false);
         })
       );
@@ -85,15 +73,18 @@ export class AuthService {
   registerUser(formRegister: any): Observable<boolean> {
     return this._httpClient.post(`http://localhost:5263/api/autenticacion/usuarios/registro`, formRegister).pipe(
       delay(4000),
-      map(() => true),
-      finalize(() => {
+      map(() => {
         this._notificationStatusService.statusMessage.set(true);
         this._notificationStatusService.statusTextMessage.set("Formulario de registro completado con exito!");
+        return true;
+      }),
+      finalize(() => {
+
         this.registerLoader.set(false);
       }),
       catchError((err) => {
         this._notificationStatusService.statusMessage.set(true);
-        this._notificationStatusService.statusErrorMessage.set("Error al ingresar el formulario");
+        this._notificationStatusService.statusErrorMessage.set(err.error.errors.error);
         return of(false);
       })
     );
@@ -116,7 +107,6 @@ export class AuthService {
       }),
       map((resp) => true),
       catchError((error) => {
-        console.log(error);
         return of(false);
       })
     );

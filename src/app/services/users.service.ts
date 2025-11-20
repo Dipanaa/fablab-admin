@@ -63,7 +63,6 @@ export class UsersService {
       .get<UserResponse[]>(`${environment.apiKey}/api/usuarios`)
       .pipe(
         map((users) => {
-          console.log(users);
           this.usersData.set(UserApiToUsersArray(users));
           return true;
         }),
@@ -85,7 +84,6 @@ export class UsersService {
         }),
         catchError((err) => {
           this.notificationStatusService.statusErrorMessage.set(err);
-          console.log(err);
           return of(false);
         })
       );
@@ -112,7 +110,6 @@ export class UsersService {
         }),
         catchError((err) => {
           this.notificationStatusService.statusErrorMessage.set(err);
-          console.log(err);
           this.loaderPutProfile.set(false);
           return of(false);
         })

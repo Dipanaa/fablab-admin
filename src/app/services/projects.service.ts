@@ -1,11 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { HitoProyecto, ProjectsResponse } from '../utils/responses-interfaces/projectsResponse';
-import { catchError, delay, finalize, map, Observable, of, single, tap } from 'rxjs';
+import { ProjectsResponse } from '../utils/responses-interfaces/projectsResponse';
+import { catchError, delay, finalize, map, Observable, of} from 'rxjs';
 import { projectApiToProjectsArray } from '../utils/mappers/projectsMapper';
 import { ProjectsInterface } from '../interfaces/projects.interface';
 import { NotificacionsStatusService } from './notificacionsStatus.service';
-import { ProjectsCreateInterface } from '../utils/request-interfaces/projectsCreateInterface';
 import { environment } from '../../environments/environments';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { AuthService } from '../auth/auth.service';
@@ -37,16 +36,11 @@ export class ProjectsService {
     }
   });
 
-
-
-
   getProjectsByUser(): Observable<boolean> {
     return this.httpClient
     .get<ProjectsResponse[]>(`http://localhost:5263/api/proyectos/${this.authService.userData()?.id_usuario}`)
     .pipe(
       map((projects) => {
-        console.log(this.authService.userData()?.id_usuario);
-        console.log(projects);
         this.projectsDataByUser.update(()=>projectApiToProjectsArray(projects));
         return true;
       }),
@@ -61,7 +55,6 @@ export class ProjectsService {
     .get<ProjectsResponse[]>('http://localhost:5263/api/proyectos')
     .pipe(
       map((projects) => {
-        console.log(projects);
         this.projectsData.update(()=>projectApiToProjectsArray(projects));
         return true;
       }),
@@ -134,7 +127,6 @@ export class ProjectsService {
   }
 
   //Peticiones Http para hitos
-  //TODO: Implementar los hitos con interfaz
   postPhaseProject(id:number,phaseData: any){
     if(this.postProjectLoader() || !phaseData){
       return of(false);

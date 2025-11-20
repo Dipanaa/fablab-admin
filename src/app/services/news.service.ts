@@ -27,7 +27,6 @@ export class NewsService {
   //Metodo get news suscrito
   getNews(): void {
     if (this.newsLoading()) {
-      console.log('La peticion no puede cargar aun...');
       return;
     }
     this.newsLoading.set(true);
@@ -42,12 +41,10 @@ export class NewsService {
       .subscribe({
         next: (resp) => {
           this.newsResponse.set(resp);
-          console.log(resp);
           this.errorHandler.set(undefined);
         },
         error: (error) => {
           this.errorHandler.set(error.statusText);
-          console.log(error);
         },
       });
   }
