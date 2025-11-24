@@ -1,11 +1,8 @@
 @if(notificationStatusService.statusMessage()){
-  <div class="fixed mb-2 mr-2 right-0 bottom-0">
-    <status-message></status-message>
-  </div>
-}
-
-
-@if(openDeleteView()){
+<div class="fixed mb-2 mr-2 right-0 bottom-0">
+  <status-message></status-message>
+</div>
+} @if(openDeleteView()){
 <modal-component
   [show]="openDeleteView()"
   [title]="'¿Esta seguro que desea eliminar este proyecto?'"
@@ -37,7 +34,7 @@
   </div>
 
   <div
-    class="h-auto w-full overflow-auto rounded-lg border border-fablab-border bg-fablab-text-secondary"
+    class="h-auto w-full overflow-auto rounded-lg border border-fablab-border bg-fablab-text-secondary animate__animated animate__fadeIn"
   >
     <table class="min-w-full text-sm text-left text-fablab-text-secondary">
       <thead
@@ -52,19 +49,21 @@
           <th class="px-6 py-3 font-bold">Acciones</th>
         </tr>
       </thead>
-      <tbody class="divide-y divide-fablab-border">
+      <tbody class="divide-y divide-fablab-border bg-fablab-card-bg">
+        @for (proyecto of paginationService.pagedItems(); track proyecto.id; let
+        i = $index) {
         <tr
-          *ngFor="let proyecto of paginationService.pagedItems()"
-          class="bg-fablab-card-bg hover:bg-fablab-border transition"
+          class="bg-fablab-card-bg hover:bg-fablab-border transition animate__animated animate__fadeInUp animate__fast"
+          [style.animationDelay]="i * 0.1 + 's'"
         >
           <td class="px-6 py-4">
             <div class="flex items-center h-16">
               <img
-                class="h-12 w-12 rounded object-cover flex-shrink-0 border border-fablab-border"
+                class="h-12 w-12 rounded object-cover border border-fablab-border"
                 [src]="proyecto.imgurl"
                 alt="Imagen del proyecto"
               />
-              <div class="ml-4 max-w-[12rem]">
+              <div class="ml-4 max-w[12rem]">
                 <div
                   class="text-sm font-medium text-fablab-text-primary line-clamp-2"
                   title="{{ proyecto.titulo }}"
@@ -76,12 +75,12 @@
           </td>
 
           <td class="px-6 py-4 text-fablab-text-secondary whitespace-nowrap">
-            {{ proyecto.fechainicio  | date}}
+            {{ proyecto.fechainicio | date }}
           </td>
 
           <td class="px-6 py-4 align-top">
             <div
-              class="max-h-[3.5rem] overflow-y-auto text-sm text-fablab-text-secondary pr-2"
+              class="max-h[3.5rem] overflow-y-auto text-sm text-fablab-text-secondary pr-2"
             >
               {{ proyecto.descripcionproyecto }}
             </div>
@@ -96,9 +95,7 @@
           </td>
 
           <td class="px-6 py-4 align-top">
-            <div
-              class="max-h-[4rem] overflow-y-auto text-fablab-text-secondary"
-            >
+            <div class="max-h[4rem] overflow-y-auto text-fablab-text-secondary">
               <ol class="list-decimal list-inside text-sm">
                 <li class="text-fablab-text-secondary italic">
                   Lista de integrantes...
@@ -108,11 +105,12 @@
           </td>
 
           <td class="px-4 py-4 whitespace-nowrap text-sm font-medium space-x-3">
-            <a
+            <button
+              [routerLink]="['/proyectos/edit-project', proyecto.id]"
               class="bg-fablab-accent text-black px-3 py-1 rounded hover:bg-fablab-accent-dark cursor-pointer"
             >
               Editar
-            </a>
+            </button>
             <a
               (click)="modalDeleteView(proyecto.id)"
               class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 cursor-pointer"
@@ -121,6 +119,13 @@
             </a>
           </td>
         </tr>
+        } @empty {
+        <tr class="bg-fablab-card-bg">
+          <td colspan="6" class="text-center py-6 text-fablab-text-secondary">
+            No se encontraron proyectos.
+          </td>
+        </tr>
+        }
       </tbody>
     </table>
   </div>

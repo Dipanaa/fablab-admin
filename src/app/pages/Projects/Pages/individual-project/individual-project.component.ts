@@ -1,5 +1,5 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule, DatePipe } from '@angular/common';
 import { ProjectsInterface } from '../../../../interfaces/projects.interface';
 import { ProjectsService } from '../../../../services/projects.service';
@@ -7,9 +7,14 @@ import { ModalComponentComponent } from '../../../../shared/modal-component/moda
 import { BackButtonComponent } from '../../../../shared/back-button/back-button';
 import { NotificacionsStatusService } from '../../../../services/notificacionsStatus.service';
 import { CustomFormsValidations } from '../../../../utils/FormsValidations/CustomValidations';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ModalEditComponent } from '../../../../shared/modal-edit/modal-edit.component';
-import { PhaseProjectComponent } from "./components/phase-project/phase-project.component";
+import { PhaseProjectComponent } from './components/phase-project/phase-project.component';
 
 @Component({
   selector: 'individual-project',
@@ -22,8 +27,9 @@ import { PhaseProjectComponent } from "./components/phase-project/phase-project.
     ReactiveFormsModule,
     ModalEditComponent,
     DatePipe,
-    PhaseProjectComponent
-],
+    PhaseProjectComponent,
+    RouterLink,
+  ],
   standalone: true,
 })
 export class IndividualProjectComponent implements OnInit {
@@ -43,21 +49,19 @@ export class IndividualProjectComponent implements OnInit {
   loading = signal<boolean>(false);
   fbGeneric: FormGroup | undefined = undefined;
 
-
   //Computed para recalcular señal
-  projectFound = computed<ProjectsInterface | undefined>(()=>{
-    if(this.projectsService.projectsByUserResource.hasValue()){
+  projectFound = computed<ProjectsInterface | undefined>(() => {
+    if (this.projectsService.projectsByUserResource.hasValue()) {
       return this.projectsService.searchProjectById(this.projectModalId()!);
     }
     return;
-  })
+  });
 
   //Formularios
   fbPhase: FormGroup = this.formBuilder.group({
-    "nombrehito":["",[Validators.required]],
-    "descripcion":["",[Validators.required]]
+    nombrehito: ['', [Validators.required]],
+    descripcion: ['', [Validators.required]],
   });
-
 
   //Ciclos de vida
   ngOnInit() {
@@ -69,7 +73,6 @@ export class IndividualProjectComponent implements OnInit {
 
   //Peticiones proyectos
   deleteProject() {
-
     if (!this.projectModalId && this.loading()) {
       return;
     }
@@ -95,7 +98,4 @@ export class IndividualProjectComponent implements OnInit {
         this.router.navigate(['/proyectos']);
       });
   }
-
-
-
 }

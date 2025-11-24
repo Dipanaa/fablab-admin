@@ -17,23 +17,11 @@
       {{ title() }}
     </h2>
 
-    <p class="text-sm sm:text-base text-fablab-text-secondary">
-      Estado del proyecto: En desarrollo
+    <p
+      class="text-sm sm:text-base text-fablab-text-secondary leading-snug line-clamp-2"
+      title="{{ description() }}"
+    >
+      {{ description() }}
     </p>
-
-    <div class="overflow-hidden">
-      <p class="text-sm sm:text-base font-medium text-fablab-text-primary">
-        Participantes:
-      </p>
-      <ul
-        class="text-sm sm:text-base list-disc pl-5 max-h-12 overflow-y-auto text-fablab-text-secondary"
-      >
-        <li>Participante 1</li>
-        <li>Participante 2</li>
-        <li>Participante 3</li>
-        <li>Participante 4</li>
-        <li>Participante 5</li>
-      </ul>
-    </div>
   </div>
 </div>

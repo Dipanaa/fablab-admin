@@ -3,6 +3,7 @@ import { IndividualProjectComponent } from './Pages/individual-project/individua
 import { AllProjectsComponent } from './Pages/all-projects/all-projects.component';
 import { NewProjectComponent } from './Pages/new-project/new-project.component';
 import { ProjectUpdateComponent } from './Pages/project-update/project-update.component';
+import { EditProjectComponent } from './Pages/edit-project/edit-project.component';
 
 export const routes: Routes = [
   {
@@ -18,8 +19,12 @@ export const routes: Routes = [
     component: ProjectUpdateComponent,
   },
   {
-    path: ':id', // Vista individual de un proyecto, ej: /123
+    path: ':id',
     component: IndividualProjectComponent,
+  },
+  {
+    path: 'edit-project/:id',
+    component: EditProjectComponent,
   },
 ];
 
