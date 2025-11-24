@@ -1,20 +1,17 @@
 @if(openDeleteView()){
-  <modal-component
-    [show]="openDeleteView()"
-    [title]="'¿Esta seguro que desea eliminar este proyecto?'"
-    [description]="
-      'El o los usuarios participes del proyecto ya no tendran mas acceso a el'
-    "
-    (close)="openDeleteView.set(false)"
-    (decline)="openDeleteView.set(false)"
-    (accept)="deleteProject()"
-    [loading]="loading()"
-  ></modal-component>
-}
-
-@if(openEditView()){
-  <modal-edit
-  ></modal-edit>
+<modal-component
+  [show]="openDeleteView()"
+  [title]="'¿Esta seguro que desea eliminar este proyecto?'"
+  [description]="
+    'El o los usuarios participes del proyecto ya no tendran mas acceso a el'
+  "
+  (close)="openDeleteView.set(false)"
+  (decline)="openDeleteView.set(false)"
+  (accept)="deleteProject()"
+  [loading]="loading()"
+></modal-component>
+} @if(openEditView()){
+<modal-edit></modal-edit>
 
 }
 
@@ -23,13 +20,17 @@
 </div>
 
 @if(projectsService.projectsResource.isLoading()){
-  <div class="flex bg-fablab-card-bg mx-auto my-auto w-[90%] h-[50%] mt-8 rounded-2xl shadow-lg justify-center items-center">
-    <img src="../../../../../assets/icons/Rolling@1x-1.0s-200px-200px (1).svg" alt="" class="w-20 h-20">
-  </div>
-}
-
-@if(projectsService.projectsResource.hasValue() && projectFound()){
-  <section class="flex flex-col gap-10 p-4 md:p-8">
+<div
+  class="flex bg-fablab-card-bg mx-auto my-auto w-[90%] h-[50%] mt-8 rounded-2xl shadow-lg justify-center items-center"
+>
+  <img
+    src="../../../../../assets/icons/Rolling@1x-1.0s-200px-200px (1).svg"
+    alt=""
+    class="w-20 h-20"
+  />
+</div>
+} @if(projectsService.projectsResource.hasValue() && projectFound()){
+<section class="flex flex-col gap-10 p-4 md:p-8">
   <div
     class="bg-fablab-card-bg rounded-2xl shadow-lg p-6 md:p-10 border border-fablab-border"
   >
@@ -39,9 +40,9 @@
 
     <div class="flex flex-col lg:flex-row gap-8">
       <figure
-        class="relative flex-shrink-0 w-full lg:w-1/2 h-64 md:h-80 bg-fablab-border rounded-2xl overflow-hidden flex"
+        class="relative w-full lg:w-1/2 h-64 md:h-80 bg-fablab-border rounded-2xl overflow-hidden flex"
       >
-      @if(!projectFound()?.imgurl){
+        @if(!projectFound()?.imgurl){
 
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -57,9 +58,9 @@
             d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z"
           />
         </svg>
-      }@else{
-        <img [src]="projectFound()?.imgurl" alt="hola" class="aspect-auto">
-      }
+        }@else{
+        <img [src]="projectFound()?.imgurl" alt="hola" class="aspect-auto" />
+        }
       </figure>
 
       <div
@@ -79,11 +80,11 @@
           <ul class="space-y-1 text-sm">
             <li>
               <strong>📅 Fecha:</strong>
-              {{ projectFound()?.fechainicio | date}}
+              {{ projectFound()?.fechainicio | date }}
             </li>
             <li>
               <strong>🧠 Categoría:</strong>
-              {{ projectFound()?.categoria}}
+              {{ projectFound()?.categoria }}
             </li>
             <li>
               <strong>👥 Integrantes:</strong>
@@ -97,9 +98,12 @@
             (click)="openDeleteView.set(true)"
             class="bg-fablab-danger text-white px-5 py-2 rounded-lg hover:bg-red-700 transition cursor-pointer"
           >
-            Eliminar</button
-          ><button
-            class="bg-fablab-accent hover:bg-fablab-accent-dark text-black px-5 py-2 rounded-lg transition-transform hover:scale-105 cursor-pointer"
+            Eliminar
+          </button>
+          <button
+            class="bg-fablab-accent hover:bg-fablab-accent-dark text-fablab-bg px-5 py-2 rounded-lg transition-transform hover:scale-105 cursor-pointer"
+            [routerLink]="['/proyectos/edit-project', projectFound()?.id]"
+            [disabled]="!projectFound()"
           >
             Editar
           </button>
@@ -109,11 +113,5 @@
   </div>
 
   <phase-project [projectId]="projectFound()?.id"></phase-project>
-
-
 </section>
 }
-
-
-
-

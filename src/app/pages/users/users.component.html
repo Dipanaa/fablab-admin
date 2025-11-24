@@ -1,32 +1,27 @@
 @if(notificationStatusService.statusMessage()){
-  <div class="fixed mb-2 mr-2 right-0 bottom-0">
-    <status-message></status-message>
-  </div>
-}
-
-@if(openEditView()) {
-  <modal-edit
-    [fbEdit]="fbUser"
-    (fbEditSend)="dataFormPut($event)"
-    (closeModal)="openEditView.set($event)"
-    [modalTitle]="'Editar usuario'"
-    [loading]="loading()"
-  ></modal-edit>
-}
-
-
-@if(openDeleteView()){
-  <modal-component
-    [show]="openDeleteView()"
-    [title]="'¿Esta seguro que desea eliminar este usuario?'"
-    [description]="
-      'El usuario perdera acceso al sistema y no podra ser partícipe de las funciones del laboratorio.'
-    "
-    (close)="openDeleteView.set(false)"
-    (decline)="openDeleteView.set(false)"
-    (accept)="deleteUser()"
-    [loading]="loading()"
-  ></modal-component>
+<div class="fixed mb-2 mr-2 right-0 bottom-0">
+  <status-message></status-message>
+</div>
+} @if(openEditView()) {
+<modal-edit
+  [fbEdit]="fbUser"
+  (fbEditSend)="dataFormPut($event)"
+  (closeModal)="openEditView.set($event)"
+  [modalTitle]="'Editar usuario'"
+  [loading]="loading()"
+></modal-edit>
+} @if(openDeleteView()){
+<modal-component
+  [show]="openDeleteView()"
+  [title]="'¿Esta seguro que desea eliminar este usuario?'"
+  [description]="
+    'El usuario perdera acceso al sistema y no podra ser partícipe de las funciones del laboratorio.'
+  "
+  (close)="openDeleteView.set(false)"
+  (decline)="openDeleteView.set(false)"
+  (accept)="deleteUser()"
+  [loading]="loading()"
+></modal-component>
 }
 
 <div class="border-fablab-border flex flex-col gap-3">
@@ -60,8 +55,11 @@
       </thead>
       <tbody class="divide-y divide-fablab-border">
         @for (usuario of paginationService.pagedItems(); track
-        usuario.id_usuario) {
-        <tr class="hover:bg-fablab-border transition">
+        usuario.id_usuario; let i = $index) {
+        <tr
+          class="bg-fablab-card-bg hover:bg-fablab-border transition animate__animated animate__fadeInUp animate__fast"
+          [style.animationDelay]="i * 0.1 + 's'"
+        >
           <td class="px-4 py-4 whitespace-nowrap">
             <div class="flex items-center">
               @if (usuario.imgUrl) {
@@ -72,7 +70,7 @@
               />
               } @else {
               <div
-                class="rounded-full bg-fablab-border flex items-center justify-center"
+                class="h-10 w-10 rounded-full bg-fablab-border flex items-center justify-center border border-fablab-text-secondary"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -80,7 +78,7 @@
                   viewBox="0 0 24 24"
                   stroke-width="1.5"
                   stroke="currentColor"
-                  class="size-12 text-fablab-text-secondary"
+                  class="size-6 text-fablab-text-secondary"
                 >
                   <path
                     stroke-linecap="round"

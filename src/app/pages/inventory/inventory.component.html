@@ -1,12 +1,8 @@
 @if(notificacionsStatusService.statusMessage()){
-  <div class="fixed mb-2 mr-2 right-0 bottom-0">
-    <status-message></status-message>
-  </div>
-}
-
-
-
-@if(modalView()) {
+<div class="fixed mb-2 mr-2 right-0 bottom-0">
+  <status-message></status-message>
+</div>
+} @if(modalView()) {
 <modal-edit
   [fbEdit]="fbInventory"
   (fbEditSend)="dataFormPut($event)"
@@ -14,23 +10,17 @@
   [modalTitle]="'Editar item'"
   [loading]="loading()"
 ></modal-edit>
+} @if(modalDelete()){
+<modal-component
+  [show]="modalDelete()"
+  [title]="'¿Esta seguro que desea eliminar este item?'"
+  [description]="'El item sera eliminado de la base de datos'"
+  (close)="modalDelete.set(false)"
+  (decline)="modalDelete.set(false)"
+  (accept)="dataFormDelete()"
+  [loading]="loading()"
+></modal-component>
 }
-
-@if(modalDelete()){
-  <modal-component
-    [show]="modalDelete()"
-    [title]="'¿Esta seguro que desea eliminar este item?'"
-    [description]="
-      'El item sera eliminado de la base de datos'
-    "
-    (close)="modalDelete.set(false)"
-    (decline)="modalDelete.set(false)"
-    (accept)="dataFormDelete()"
-    [loading]="loading()"
-  ></modal-component>
-}
-
-
 
 <div class="border-fablab-border flex flex-col gap-3">
   <div
@@ -69,7 +59,7 @@
 
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
     <div
-      class="bg-fablab-card-bg p-5 rounded-xl shadow border border-fablab-border flex items-center gap-4 transition transform hover:-translate-y-1 cursor-default"
+      class="bg-fablab-card-bg p-5 rounded-xl shadow border border-fablab-border flex items-center gap-4 transition transform hover:-translate-y-1 cursor-default animate__animated animate__fadeInUp"
     >
       <div class="bg-fablab-primary/30 text-fablab-primary p-3 rounded-full">
         <svg
@@ -96,7 +86,7 @@
     </div>
 
     <div
-      class="bg-fablab-card-bg p-5 rounded-xl shadow border border-fablab-border flex items-center gap-4 transition transform hover:-translate-y-1 cursor-default"
+      class="bg-fablab-card-bg p-5 rounded-xl shadow border border-fablab-border flex items-center gap-4 transition transform hover:-translate-y-1 cursor-default animate__animated animate__fadeInUp"
     >
       <div class="bg-yellow-500/30 text-yellow-500 p-3 rounded-full">
         <svg
@@ -123,7 +113,7 @@
     </div>
 
     <div
-      class="bg-fablab-card-bg p-5 rounded-xl shadow border border-fablab-border flex items-center gap-4 transition transform hover:-translate-y-1 cursor-default"
+      class="bg-fablab-card-bg p-5 rounded-xl shadow border border-fablab-border flex items-center gap-4 transition transform hover:-translate-y-1 cursor-default animate__animated animate__fadeInUp"
     >
       <div class="bg-red-800/50 text-red-800 p-3 rounded-full">
         <svg
@@ -167,8 +157,12 @@
       </thead>
 
       <tbody class="divide-y divide-fablab-border">
-        @for(insumo of paginationService.pagedItems(); track insumo.id){
-        <tr class="hover:bg-fablab-border transition">
+        @for(insumo of paginationService.pagedItems(); track insumo.id; let i =
+        $index){
+        <tr
+          class="hover:bg-fablab-border transition animate__animated animate__fadeInUp animate__fast"
+          [style.animationDelay]="i * 0.1 + 's'"
+        >
           <td class="px-4 py-4 text-fablab-text-secondary">{{ insumo.id }}</td>
           <td class="px-4 py-4 text-fablab-text-secondary">
             {{ insumo.nombre }}
@@ -230,6 +224,5 @@
     (pageChange)="paginationService.goToPage($event)"
   />
 
-
-
-<app-footer pageName="Gestión de Inventario"></app-footer>
+  <app-footer pageName="Gestión de Inventario"></app-footer>
+</div>

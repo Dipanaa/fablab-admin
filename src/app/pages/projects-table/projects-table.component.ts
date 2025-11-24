@@ -14,19 +14,19 @@ import { BuscadorComponent } from '../../shared/searcher/searcher.component';
 import { ModalComponentComponent } from '../../shared/modal-component/modal-component.component';
 import { NotificacionsStatusService } from '../../services/notificacionsStatus.service';
 import { StatusMessageComponent } from '../../shared/status-message/status-message.component';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ProjectsInterface } from '../../interfaces/projects.interface';
 
 @Component({
   selector: 'gestion-proyectos',
   standalone: true,
   imports: [
-    NgFor,
+    RouterLink,
     PaginationComponent,
     BuscadorComponent,
     ModalComponentComponent,
     StatusMessageComponent,
-    DatePipe
+    DatePipe,
   ],
   templateUrl: './projects-table.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -45,7 +45,6 @@ export class ProjectsTableComponent {
   projectsData = this.projectsService.projectsResource.value();
 
   loading = signal<boolean>(false);
-
 
   public filteredProjects = computed<ProjectsInterface[]>(() => {
     const term = this.searchTerm().toLowerCase();
@@ -95,7 +94,6 @@ export class ProjectsTableComponent {
   }
 
   deleteProject() {
-
     if (!this.projectModalId || this.loading()) {
       return;
     }

@@ -8,7 +8,6 @@ import { NotificacionsStatusService } from './notificacionsStatus.service';
 import { environment } from '../../environments/environments';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { AuthService } from '../auth/auth.service';
-import { UrlSegment } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -91,8 +90,33 @@ export class ProjectsService {
       );
   }
 
-  putProject(id: number) {
-    console.log('ProjectsService: editarProyecto ejecutado', id);
+  putProject(id: number, projectData: any): Observable<boolean> {
+    if (this.postProjectLoader()) {
+      return of(false);
+    }
+    this.postProjectLoader.set(true);
+
+    // Usamos el ID pasado por argumento para la URL
+    // Usamos projectData (el payload limpio) para el cuerpo
+    return this.httpClient.put(`${this.projectUrl}/${id}`, projectData).pipe(
+      map(() => {
+        this.notificationStatusService.statusMessage.set(true);
+        this.notificationStatusService.statusTextMessage.set(
+          'Proyecto actualizado correctamente'
+        );
+        this.projectsResource.reload(); // Recargar lista
+        return true;
+      }),
+      catchError((err) => {
+        this.notificationStatusService.statusMessage.set(true);
+        this.notificationStatusService.statusErrorMessage.set(
+          'Error al actualizar.'
+        );
+        console.error('Error PUT:', err);
+        return of(false);
+      }),
+      finalize(() => this.postProjectLoader.set(false))
+    );
   }
 
   deleteProject(id: number) {
