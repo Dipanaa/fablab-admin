@@ -25,6 +25,7 @@ export class NewProjectComponent {
   //Atributos
   imageSelected = signal<File | null>(null);
   //TODO: Igualar validadores a los del backend
+  loading = signal<boolean>(false);
   newProjectForm: FormGroup = this.formbuilder.group({
     titulo: ['', [Validators.required, Validators.minLength(5)]],
     descripcionproyecto: ['', [Validators.required, Validators.maxLength(500)]],
@@ -46,10 +47,14 @@ export class NewProjectComponent {
   }
 
   submitNewProject(): void{
-    if(this.newProjectForm.invalid){
+    if(this.newProjectForm.invalid && this.loading()){
       this.newProjectForm.touched;
       return;
     }
+
+    this.loading.set(true);
+
+
 
     //Creacion de proyecto
     const newProject: ProjectsCreateInterface = this.newProjectForm.value;
@@ -77,7 +82,7 @@ export class NewProjectComponent {
         return;
       }
       this.notificacionStatus.showMessage();
-      this.router.navigateByUrl('/proyectos');
+      this.loading.set(true);
     });
   }
 
