@@ -1,11 +1,9 @@
 @if(notificacionsStatusService.statusMessage()){
-  <div class="fixed mb-2 mr-2 right-0 bottom-0">
-    <status-message></status-message>
-  </div>
-}
-
-@if (isNewsModalOpen() && selectedNews()) {
-  <news-reader [newsItem]="selectedNews()!" (close)="closeNewsModal()" />
+<div class="fixed mb-2 mr-2 right-0 bottom-0">
+  <status-message></status-message>
+</div>
+} @if (isNewsModalOpen() && selectedNews()) {
+<news-reader [newsItem]="selectedNews()!" (close)="closeNewsModal()" />
 }
 
 <div class="space-y-8">
@@ -130,6 +128,7 @@
     </div>
 
     <div class="space-y-6">
+      <!-- Projectos propios  -->
       <section>
         <h2
           class="text-xl font-semibold text-fablab-text-primary mb-3 flex items-center gap-2"
@@ -150,19 +149,23 @@
           </svg>
           Mis proyectos
         </h2>
+
         <div class="space-y-3">
-          @for (proyecto of projectsService.projectsDataByUser()| slice:0:3; track
-          $index) {
-          <div
-            class="bg-fablab-card-bg p-4 rounded-xl shadow hover:shadow-lg transition border border-fablab-border"
+          @for (proyecto of projectsService.projectsDataByUser()| slice:0:3;
+          track $index) {
+          <a
+            [routerLink]="['/proyectos', proyecto.id]"
+            class="block bg-fablab-card-bg p-4 rounded-xl shadow border border-fablab-border transition transform hover:-translate-y-1 hover:shadow-lg cursor-pointer group"
           >
-            <h3 class="text-lg font-bold text-fablab-primary">
+            <h3
+              class="text-lg font-bold text-fablab-primary group-hover:underline"
+            >
               {{ proyecto.titulo }}
             </h3>
-            <p class="text-fablab-text-secondary text-sm">
+            <p class="text-fablab-text-secondary text-sm line-clamp-2">
               {{ proyecto.descripcionproyecto }}
             </p>
-          </div>
+          </a>
 
           } @empty {
           <div
@@ -170,7 +173,7 @@
           >
             ¡Aún no tienes proyectos a tu nombre! <br />
             <span
-              class="text-fablab-primary font-semibold cursor-pointer"
+              class="text-fablab-primary font-semibold cursor-pointer hover:underline"
               routerLink="/proyectos/nuevo"
               >Crea un nuevo proyecto</span
             >
@@ -179,6 +182,8 @@
           }
         </div>
       </section>
+
+      <!-- Atajos  -->
       <section>
         <h2
           class="text-xl font-semibold text-fablab-text-primary mb-3 flex items-center gap-2"

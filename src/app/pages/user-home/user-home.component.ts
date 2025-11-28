@@ -41,8 +41,11 @@ export class UserHomeComponent {
     //Obtener noticias
     this.newsService.getNews();
 
-    //Obtener noticias
+    //Obtener proyectos
     this.projectsService.getProjects();
+
+    //Obtener proyectos del usuario
+    this.projectsService.getProjectsByUser().subscribe();
   }
   openNewsModal(newsItem: any): void {
     this.selectedNews.set(newsItem);

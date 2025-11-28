@@ -1,27 +1,78 @@
-<div
-  class="card shadow-xl flex flex-col w-90 h-96 max-w-xs transition-transform duration-300 hover:scale-105 cursor-pointer bg-fablab-card-bg text-fablab-text-primary border border-fablab-border"
+<a
+  [routerLink]="['/proyectos', projectId()]"
+  class="group flex flex-col h-full bg-fablab-card-bg border border-fablab-border rounded-2xl overflow-hidden shadow-md hover:shadow-xl hover:border-fablab-primary transition-all duration-300 transform hover:-translate-y-1"
 >
-  <figure class="w-full h-[55%] overflow-hidden">
+  <figure
+    class="relative w-full aspect-video overflow-hidden bg-fablab-bg border-b border-fablab-border flex-shrink-0"
+  >
     <img
-      class="w-full h-full object-cover"
-      [src]="imgUrl()"
+      [src]="imgUrl() || 'assets/img/default-project.png'"
       [alt]="'Imagen de ' + title()"
+      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+      onerror="this.src='assets/img/default-project.png'"
     />
+    @if(category()) {
+    <div
+      class="absolute top-3 right-3 bg-fablab-primary text-black bg-fablab-accent text-xs font-bold px-3 py-1 rounded-full shadow-sm"
+    >
+      {{ category() }}
+    </div>
+    }
   </figure>
 
-  <div class="card-body h-[45%] p-4 flex flex-col justify-between">
-    <h2
-      class="card-title text-base sm:text-lg md:text-xl font-semibold block w-full overflow-hidden whitespace-nowrap truncate text-fablab-text-primary"
-      title="{{ title() }}"
+  <div class="flex flex-col grow p-5">
+    @if(date()) {
+    <div
+      class="flex items-center gap-1 text-xs text-fablab-text-secondary mb-2"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+        class="w-3.5 h-3.5"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M5.75 2a.75.75 0 0 1 .75.75V4h7V2.75a.75.75 0 0 1 1.5 0V4h.25A2.75 2.75 0 0 1 18 6.75v8.5A2.75 2.75 0 0 1 15.25 18H4.75A2.75 2.75 0 0 1 2 15.25v-8.5A2.75 2.75 0 0 1 4.75 4H5V2.75A.75.75 0 0 1 5.75 2Zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75Z"
+          clip-rule="evenodd"
+        />
+      </svg>
+      <span>{{ date() }}</span>
+    </div>
+    }
+
+    <h3
+      class="text-xl font-bold text-fablab-text-primary mb-2 line-clamp-2 group-hover:text-fablab-primary transition-colors"
     >
       {{ title() }}
-    </h2>
+    </h3>
 
-    <p
-      class="text-sm sm:text-base text-fablab-text-secondary leading-snug line-clamp-2"
-      title="{{ description() }}"
-    >
-      {{ description() }}
+    <p class="text-sm text-fablab-text-secondary line-clamp-3 mb-4">
+      {{ description() || "Sin descripción disponible." }}
     </p>
+
+    <div
+      class="mt-auto pt-4 border-t border-fablab-border flex justify-end items-center"
+    >
+      <span
+        class="text-xs font-medium text-fablab-text-secondary group-hover:text-fablab-text-primary transition flex items-center gap-1"
+      >
+        Ver detalles
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke="currentColor"
+          class="w-4 h-4 text-fablab-primary transform group-hover:translate-x-1 transition-transform"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+          />
+        </svg>
+      </span>
+    </div>
   </div>
-</div>
+</a>
