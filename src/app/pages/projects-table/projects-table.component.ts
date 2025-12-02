@@ -106,6 +106,7 @@ export class ProjectsTableComponent {
         if (status) {
           this.openDeleteView.set(false);
           this.projectsService.projectsResource.reload();
+          this.projectsService.projectsByUserResource.reload();
           this.notificationStatusService.showMessage();
           this.loading.set(false);
           return;

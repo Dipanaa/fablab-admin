@@ -54,7 +54,6 @@ export class AuthService {
       .post<TokenJwt>(`${this.baseUrl}/login`, formLogin)
       .pipe(
         tap((resp) => {
-          console.log(resp);
           this.userData.set(UsersAuthApitoUser(resp.usuario));
           this.jwtToken.set(resp);
           this._autentication.set(true);
@@ -71,8 +70,7 @@ export class AuthService {
 
   //Postear usuarios
   registerUser(formRegister: any): Observable<boolean> {
-    return this._httpClient.post(`http://localhost:5263/api/autenticacion/usuarios/registro`, formRegister).pipe(
-      delay(4000),
+    return this._httpClient.post(`${this.baseUrl}/registro`, formRegister).pipe(
       map(() => {
         this._notificationStatusService.statusMessage.set(true);
         this._notificationStatusService.statusTextMessage.set("Formulario de registro completado con exito!");

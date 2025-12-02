@@ -141,7 +141,7 @@
   <div
     class="h-auto w-full overflow-auto rounded-lg border border-fablab-border bg-fablab-card-bg"
   >
-    <table class="min-w-full text-sm text-left text-fablab-text-secondary">
+    <table class="min-w-full text-sm text-left text-fablab-text-secondary h-full overflow-hidden">
       <thead
         class="text-xs uppercase bg-fablab-bg text-fablab-text-secondary sticky top-0"
       >
@@ -178,14 +178,20 @@
           </td>
 
           <td class="px-4 py-4">
-            <span
+            @if(insumo.stock == 0){
+              <span class="text-red-500 font-semibold" >Sin stock</span>
+
+            }@else{
+              <span
               [ngClass]="{
-                'text-red-500 font-semibold': insumo.stock <= 10,
-                'text-green-500 font-semibold': insumo.stock > 10
-              }"
-            >
-              {{ insumo.stock <= 10 ? "Bajo stock" : "Disponible" }}
-            </span>
+                  'text-yellow-500 font-semibold': insumo.stock <= 10 && insumo.stock != 0,
+                  'text-green-500 font-semibold': insumo.stock > 10
+
+                }"
+              >
+                {{ insumo.stock <= 10 ? "Bajo stock" : "Disponible" }}
+              </span>
+            }
           </td>
 
           <td class="px-4 py-4 text-center space-x-3">

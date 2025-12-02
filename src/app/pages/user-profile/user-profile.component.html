@@ -48,7 +48,7 @@
       }
     </div>
 
-    @if(editMode){
+    @if(editMode()){
     <div class="mt-4 text-sm font-medium text-fablab-text-light">
       Cambiar foto de perfil
     </div>
@@ -67,13 +67,18 @@
           </label>
           <input
             type="text"
-            [readonly]="!editMode"
+            [readonly]="!editMode()"
             class="w-full mt-1 p-2 border border-fablab-border rounded-lg bg-fablab-bg text-fablab-text-primary"
             value="{{ authService.userData()?.nombre }} {{
               authService.userData()?.apellido
             }}"
             formControlName="nombre"
           />
+          @if(CustomFormsValidations.ValidateErrors("nombre",fbUser)){
+            <span class="text-red-500">
+              {{ CustomFormsValidations.ValidateErrors("nombre",fbUser) }}
+            </span>
+          }
         </div>
 
         <div>
@@ -82,13 +87,18 @@
           </label>
           <input
             type="text"
-            [readonly]="!editMode"
+            [readonly]="!editMode()"
             class="w-full mt-1 p-2 border border-fablab-border rounded-lg bg-fablab-bg text-fablab-text-primary"
             value="{{ authService.userData()?.apellido }} {{
               authService.userData()?.apellido
             }}"
             formControlName="apellido"
           />
+          @if(CustomFormsValidations.ValidateErrors("apellido",fbUser)){
+            <span class="text-red-500">
+              {{ CustomFormsValidations.ValidateErrors("apellido",fbUser) }}
+            </span>
+          }
         </div>
 
         <div>
@@ -97,11 +107,16 @@
           </label>
           <input
             type="text"
-            [readonly]="!editMode"
+            [readonly]="!editMode()"
             class="w-full mt-1 p-2 border border-fablab-border rounded-lg bg-fablab-bg text-fablab-text-primary"
             value="{{ authService.userData()?.rut }}"
             formControlName="rut"
           />
+          @if(CustomFormsValidations.ValidateErrors("rut",fbUser)){
+            <span class="text-red-500">
+              {{ CustomFormsValidations.ValidateErrors("rut",fbUser) }}
+            </span>
+          }
         </div>
 
         <div>
@@ -110,11 +125,16 @@
           </label>
           <input
             type="text"
-            [readonly]="!editMode"
+            [readonly]="!editMode()"
             class="w-full mt-1 p-2 border border-fablab-border rounded-lg bg-fablab-bg text-fablab-text-primary"
             value="{{ authService.userData()?.carrera }}"
             formControlName="carrera"
           />
+          @if(CustomFormsValidations.ValidateErrors("carrera",fbUser)){
+            <span class="text-red-500">
+              {{ CustomFormsValidations.ValidateErrors("carrera",fbUser) }}
+            </span>
+          }
         </div>
 
         <div>
@@ -123,34 +143,39 @@
           </label>
           <input
             type="tel"
-            [readonly]="!editMode"
+            [readonly]="!editMode()"
             class="w-full mt-1 p-2 border border-fablab-border rounded-lg bg-fablab-bg text-fablab-text-primary"
             value="{{ authService.userData()?.telefono }}"
             formControlName="telefono"
           />
+           @if(CustomFormsValidations.ValidateErrors("telefono",fbUser)){
+            <span class="text-red-500">
+              {{ CustomFormsValidations.ValidateErrors("telefono",fbUser) }}
+            </span>
+          }
         </div>
       </div>
     </form>
 
     <div class="flex justify-end gap-2 mt-6">
       <button
-        *ngIf="!editMode"
-        (click)="toggleEdit()"
+        *ngIf="!editMode()"
+        (click)="openEditModal()"
         class="px-4 py-2 bg-fablab-accent text-black rounded-lg hover:bg-fablab-accent-dark transition cursor-pointer"
       >
         Editar
       </button>
 
       <button
-        *ngIf="editMode"
+        *ngIf="editMode()"
         (click)="submitDataUser()"
         class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition cursor-pointer"
       >
         Guardar
       </button>
       <button
-        *ngIf="editMode"
-        (click)="cancelEdit()"
+        *ngIf="editMode()"
+        (click)="closeEditModal()"
         class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition cursor-pointer"
       >
         Cancelar

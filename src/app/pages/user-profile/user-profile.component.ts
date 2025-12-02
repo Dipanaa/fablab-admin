@@ -5,6 +5,7 @@ import { AuthService } from '../../auth/auth.service';
 import { UsersService } from '../../services/users.service';
 import { Router } from '@angular/router';
 import { NotificacionsStatusService } from '../../services/notificacionsStatus.service';
+import { CustomFormsValidations } from '../../utils/FormsValidations/CustomValidations';
 
 @Component({
   selector: 'perfil-usuario',
@@ -19,9 +20,10 @@ export class UserProfileComponent implements OnInit {
   usersService = inject(UsersService);
   router = inject(Router);
   notificacionsStatusService = inject(NotificacionsStatusService);
+  CustomFormsValidations = CustomFormsValidations
 
   //Atributos
-  editMode = false;
+  editMode = signal<boolean>(false);
   user: any = {};
   imageSelected = signal<File | null>(null);
 
@@ -29,9 +31,9 @@ export class UserProfileComponent implements OnInit {
   fbUser:FormGroup = this.formBuilder.group({
     "nombre":["",[Validators.required]],
     "apellido":["",[Validators.required]],
-    "rut":["",[Validators.required]],
+    "rut":["",[Validators.required,Validators.pattern(/\b[0-9|.]{1,10}\-[K|k|0-9]/gmi)]],
     "carrera":["",[Validators.required]],
-    "telefono":["",[Validators.required]],
+    "telefono":["",[Validators.required,Validators.minLength(9)]],
   });
 
 
@@ -53,6 +55,7 @@ export class UserProfileComponent implements OnInit {
 
   submitDataUser(){
     if(this.fbUser.invalid){
+      this.fbUser.markAllAsTouched();
       return;
     }
     //Hacemos el formulario Multipart
@@ -68,40 +71,20 @@ export class UserProfileComponent implements OnInit {
     this.usersService.putUserWithPhoto(formData,this.authService.userData()?.id_usuario!).subscribe((status)=> {
       if(status){
         this.notificacionsStatusService.showMessage();
+        this.usersService.dataUsersResource.reload();
         this.router.navigateByUrl("/inicio");
         return;
       }
     })
+  }
 
+  openEditModal(){
+    this.editMode.set(true);
+  }
+
+  closeEditModal(){
+    this.editMode.set(false);
   }
 
 
-  toggleEdit() {
-    this.editMode = true;
-    console.log(this.authService.userData());
-  }
-
-  saveChanges() {
-    // Actualiza currentUser
-    localStorage.setItem('currentUser', JSON.stringify(this.user));
-
-    // También actualiza el arreglo general localData
-    const allUsers = JSON.parse(localStorage.getItem('localData') || '[]');
-    const index = allUsers.findIndex((u: any) => u.emailId === this.user.emailId);
-    if (index !== -1) {
-      allUsers[index] = this.user;
-      localStorage.setItem('localData', JSON.stringify(allUsers));
-    }
-
-    this.editMode = false;
-    alert('Cambios guardados');
-  }
-
-  cancelEdit() {
-    const storedUser = localStorage.getItem('currentUser');
-    if (storedUser) {
-      this.user = JSON.parse(storedUser);
-    }
-    this.editMode = false;
-  }
 }

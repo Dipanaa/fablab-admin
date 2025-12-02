@@ -13,7 +13,6 @@ export class CleanSessionService {
   cleanUpSession(): void{
     this.projectService.projectsDataByUser.set([]);
     console.log(this.projectService.projectsDataByUser());
-    console.log("holaaa");
 
   }
 

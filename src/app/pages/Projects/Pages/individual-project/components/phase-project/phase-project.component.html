@@ -1,9 +1,9 @@
 @if(openDeleteView()){
   <modal-component
     [show]="openDeleteView()"
-    [title]="'¿Esta seguro que desea eliminar este usuario?'"
+    [title]="'¿Esta seguro que desea eliminar este hito?'"
     [description]="
-      'El usuario perdera acceso al sistema y no podra ser partícipe de las funciones del laboratorio.'
+      'El proyecto ya no conservara este hito y sera eliminado permanentemente.'
     "
     (close)="openDeleteView.set(false)"
     (decline)="openDeleteView.set(false)"
@@ -18,7 +18,7 @@
     [fbEdit]="fbPhase"
     (fbEditSend)="putPhase($event)"
     (closeModal)="openEditView.set($event)"
-    [modalTitle]="'Editar usuario'"
+    [modalTitle]="'Editar Hito'"
     [loading]="loading()"
   >
   </modal-edit>

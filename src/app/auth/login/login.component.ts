@@ -5,6 +5,7 @@ import { passwordValidator } from '../../utils/FormsValidations/authValidators';
 import { Router } from '@angular/router';
 import { NotificacionsStatusService } from '../../services/notificacionsStatus.service';
 import { StatusMessageComponent } from '../../shared/status-message/status-message.component';
+import { CustomFormsValidations } from '../../utils/FormsValidations/CustomValidations';
 
 @Component({
   selector: 'login',
@@ -19,6 +20,7 @@ export class LoginComponent{
   authService = inject(AuthService);
   notificacionsStatusService = inject(NotificacionsStatusService);
   router = inject(Router);
+  CustomFormsValidations = CustomFormsValidations;
 
   //Atributos
   loginMode = output<boolean>();
@@ -32,7 +34,7 @@ export class LoginComponent{
   //Form de login
   loginUser() {
     if(this.fbLogin.invalid || this.authService.loginLoader()){
-      this.fbLogin.reset();
+      this.fbLogin.markAllAsTouched();
       return;
     }
     this.authService.loginLoader.set(true);

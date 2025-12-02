@@ -64,18 +64,12 @@ export class PhaseProjectComponent {
     }
 
     this.loading.set(true);
-    console.log("aaaaaaaaaaaaaaaaaaa");
 
     this.projectsService
     .putPhaseProject(this.fbPhase.value,this.phaseId()!)
     .subscribe((status) => {
       if (status) {
-        this.openDeleteView.set(false);
-        this.loading.set(false);
         this.notificacionsStatusService.showMessage();
-        this.projectsService.projectsByUserResource.reload();
-        this.openEditView.set(false);
-        return;
       }
       this.loading.set(false);
       this.openDeleteView.set(false);

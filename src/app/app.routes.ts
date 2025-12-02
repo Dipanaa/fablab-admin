@@ -24,7 +24,7 @@ export const routes: Routes = [
     canMatch: [isGeneralAuthenticatedGuard],
     component: LayoutComponent,
     children: [
-      { path: 'layout', redirectTo: 'inicio', pathMatch: 'full' },
+      { path: 'layout', redirectTo: 'inicio'},
       { path: 'inicio', component: UserHomeComponent },
       { path: 'metricas', component: DashboardComponent,canMatch: [adminGuardRouteGuard] },
       { path: 'perfil-usuario', component: UserProfileComponent },

@@ -38,10 +38,9 @@ export class NotificationsService {
       )
       .pipe(
         map((dataNotifications) => {
-          this.notificationsData.update((data) => [
-            ...data,
-            ...notificationsApiToNotificationsArray(dataNotifications),
-          ]);
+          this.notificationsData.update(() =>
+            notificationsApiToNotificationsArray(dataNotifications),
+          );
           return true;
         }),
         //TODO: Implementar interfaz de error en base a asp net
@@ -56,7 +55,7 @@ export class NotificationsService {
   }
 
   postRegisterNotification(id:number): Observable<boolean>{
-    return this.httpClient.post(`http://localhost:5263/api/notificaciones/ingreso/${id}`,{})
+    return this.httpClient.post(`${environment.apiKey}/api/notificaciones/ingreso/${id}`,{})
     .pipe(
       map(()=> {
         this.notificationStatusService.statusMessage.set(true);
@@ -74,7 +73,7 @@ export class NotificationsService {
   }
 
   deleteRegisterNotification(id:number): Observable<boolean>{
-    return this.httpClient.delete<NotificationResponse[]>(`http://localhost:5263/api/notificaciones/ingreso/${id}`)
+    return this.httpClient.delete<NotificationResponse[]>(`${environment.apiKey}/api/notificaciones/ingreso/${id}`)
     .pipe(
       map((dataNotifications)=> {
         this.notificationStatusService.statusMessage.set(true);

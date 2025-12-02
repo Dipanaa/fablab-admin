@@ -36,7 +36,7 @@
   <div
     class="h-auto w-full overflow-auto rounded-lg border border-fablab-border bg-fablab-text-secondary"
   >
-    <table class="min-w-full text-sm text-left text-fablab-text-secondary">
+    <table class="min-w-full text-sm text-left text-fablab-text-secondary h-full overflow-hidden">
       <thead
         class="text-xs uppercase bg-fablab-text-secondary text-fablab-bg sticky top-0"
       >
@@ -49,7 +49,7 @@
           <th class="px-6 py-3 font-bold">Acciones</th>
         </tr>
       </thead>
-      <tbody class="divide-y divide-fablab-border bg-fablab-card-bg ">
+      <tbody class="divide-y divide-fablab-border bg-fablab-card-bg">
         @for (proyecto of paginationService.pagedItems(); track proyecto.id; let
         i = $index) {
         <tr

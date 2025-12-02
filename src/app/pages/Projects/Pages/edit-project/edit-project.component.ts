@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, effect } from '@angular/core';
+import { Component, inject, OnInit, effect, signal } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -12,6 +12,7 @@ import { ProjectsService } from '../../../../services/projects.service';
 import { BackButtonComponent } from '../../../../shared/back-button/back-button';
 import { ProjectsInterface } from '../../../../interfaces/projects.interface';
 import { AuthService } from '../../../../auth/auth.service';
+import { NotificacionsStatusService } from '../../../../services/notificacionsStatus.service';
 
 // Nota: Tipificación necesaria para que el payload sea correcto
 interface ProjectForm {
@@ -38,6 +39,7 @@ export class EditProjectComponent implements OnInit {
   private router = inject(Router);
   private projectsService = inject(ProjectsService);
   private authService = inject(AuthService);
+  private notificationStatusService = inject(NotificacionsStatusService);
 
   // ================================================================
   // 2. VARIABLES DE ESTADO
@@ -45,6 +47,7 @@ export class EditProjectComponent implements OnInit {
   public projectId: number | null = null;
   public projectData?: ProjectsInterface;
   public newProjectForm!: FormGroup; // No tipifico aquí para evitar error de inicialización
+  loading = signal<boolean>(false);
 
   // ================================================================
   // 3. CONSTRUCTOR Y EFECTO (La parte reactiva)
@@ -139,21 +142,26 @@ export class EditProjectComponent implements OnInit {
   // 7. ENVÍO DE DATOS (PUT)
   // ================================================================
   submitUpdateProject(): void {
-    if (this.newProjectForm.invalid) {
+    if (this.newProjectForm.invalid && this.loading()) {
       this.newProjectForm.markAllAsTouched();
       return;
     }
+
+    this.loading.set(true);
 
     // Obtenemos los datos limpios del formulario (incluye el ID)
     const updatedPayload = this.newProjectForm.getRawValue();
 
     this.projectsService.putProject(this.projectId!, updatedPayload).subscribe((status)=> {
-      if(status){
-        if(this.authService.userData()?.rolId == 1){
-          return;
-        }
-
+      this.notificationStatusService.showMessage();
+      this.loading.set(false);
+      if(!status){
+        return;
       }
+      this.projectsService.projectsByUserResource.reload();
+      this.projectsService.projectsResource.reload();
+      this.router.navigateByUrl('/inicio');
+
     });
   }
 }

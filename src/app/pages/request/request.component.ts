@@ -49,7 +49,6 @@ export class RequestComponent{
 
   deleteNotification(id:number){
     if(!id){
-      console.log("algo paso");
       return;
     }
     this.notificationsService.deleteRegisterNotification(id).subscribe(
@@ -59,7 +58,6 @@ export class RequestComponent{
           this.notificacionsStatusService.showMessage();
           return;
         }
-        this.notificationsService.registerNotificationResource.reload();
         this.notificacionsStatusService.showMessage();
       }
     )

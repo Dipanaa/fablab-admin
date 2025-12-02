@@ -47,7 +47,7 @@ export class NewProjectComponent {
   }
 
   submitNewProject(): void{
-    if(this.newProjectForm.invalid && this.loading()){
+    if(this.newProjectForm.invalid || this.loading()){
       this.newProjectForm.touched;
       return;
     }

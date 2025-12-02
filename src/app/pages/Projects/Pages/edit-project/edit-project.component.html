@@ -85,13 +85,30 @@
       />
     </div>
 
-    <div class="flex justify-end pt-6">
-      <button
-        type="submit"
-        class="bg-fablab-accent hover:bg-fablab-accent-dark text-black px-6 py-2.5 rounded-lg font-medium transition shadow-sm hover:shadow-md focus:ring-2 focus:ring-fablab-primary"
-      >
-        Guardar Cambios
-      </button>
-    </div>
+    @if(loading()){
+      <div class="flex justify-end pt-6">
+        <button
+            type="submit"
+            class="bg-gray-400 text-black px-6 py-2.5 rounded-lg font-medium transition shadow-sm hover:shadow-md focus:ring-2 focus:ring-fablab-primary end-0"
+            [disabled]=""
+          >
+            <img
+              src="../../../assets/icons/Rolling@1x-1.0s-200px-200px (1).svg"
+              alt=""
+              class="h-7 w-7"
+            />
+          </button>
+      </div>
+
+    }@else{
+      <div class="flex justify-end pt-6">
+        <button
+          type="submit"
+          class="bg-fablab-accent hover:bg-fablab-accent-dark text-black px-6 py-2.5 rounded-lg font-medium transition shadow-sm hover:shadow-md focus:ring-2 focus:ring-fablab-primary"
+        >
+          Guardar Cambios
+        </button>
+      </div>
+    }
   </form>
 </section>
