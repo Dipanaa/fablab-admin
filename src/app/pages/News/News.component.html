@@ -32,7 +32,7 @@
 
 @if(newsService.newsResponse().length){
 <div class="container flex flex-col gap-2 sm:flex-row sm:flex-wrap mt-4">
-  @for (new of newsService.newsResponse(); track $index; let idx = $index) {
+  @for (new of resourceNews.value(); track $index; let idx = $index) {
   <div class="w-full sm:w-[360px]">
     <div
       class="rounded-lg overflow-hidden h-[600px] animate__animated animate__fadeInLeft"

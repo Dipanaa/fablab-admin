@@ -74,6 +74,19 @@
         value="{{ dataFormUpdate()?.contenido }}"
       ></textarea>
     </div>
+    <div>
+      <label
+        for="content"
+        class="block text-sm font-medium text-fablab-text-light"
+      >
+        Estado
+      </label>
+      <select class="select" formControlName="estado">
+        <option disabled selected>Escoge un estado</option>
+        <option value="Activo">Activo</option>
+        <option value="Deshabilitado">Deshabilitado</option>
+      </select>
+    </div>
 
     <div class="pt-4 flex justify-end">
       <button

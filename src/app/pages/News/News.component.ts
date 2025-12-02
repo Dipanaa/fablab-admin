@@ -13,6 +13,7 @@ import { DatePipe } from '@angular/common';
 import { StatusMessageComponent } from '../../shared/status-message/status-message.component';
 import { NotificacionsStatusService } from '../../services/notificacionsStatus.service';
 import { FooterComponent } from '../../shared/footer/footer';
+import { rxResource } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-news',
@@ -32,6 +33,13 @@ export class NewsComponent {
   notificacionsStatusService = inject(NotificacionsStatusService);
 
   //Atributos
+  resourceNews = rxResource({
+    loader: () => {
+      return this.newsService.getNewsRxResource();
+    },
+  });
+
+
 
   //Inicializar campos
   @ViewChild('icon-state-color') iconStateColor!: ElementRef;

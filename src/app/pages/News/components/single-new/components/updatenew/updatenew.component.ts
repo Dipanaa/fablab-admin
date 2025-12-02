@@ -40,7 +40,8 @@ export class UpdatenewComponent implements OnInit{
     fechapublicacion:[new Date],
     contenido: ["",[Validators.required]],
     imgurlprincipal: [""],
-    imgurlautor: [""]
+    imgurlautor: [""],
+    estado: [""]
   });
 
 
