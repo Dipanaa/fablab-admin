@@ -1,8 +1,7 @@
-
 @if(notificacionsStatusService.statusMessage()){
-  <div class="fixed right-0 top-0 mr-2 mt-2 z-100">
-    <status-message />
-  </div>
+<div class="fixed right-0 top-0 mr-2 mt-2 z-100">
+  <status-message />
+</div>
 }
 
 <div
@@ -53,38 +52,36 @@
           class="w-full h-11 px-4 text-fablab-text-primary border border-fablab-border rounded-md focus:outline-none focus:ring-2 focus:ring-fablab-primary bg-fablab-bg transition"
           formControlName="contrasena"
         />
-        <div class="text-right mt-1">
+        <!-- <div class="text-right mt-1">
           <a
             class="text-fablab-text-primary text-sm hover:underline cursor-pointer"
           >
             ¿Olvidaste tu contraseña?
           </a>
-        </div>
+        </div> -->
       </div>
 
       @if(authService.loginLoader()){
-        <button
-          type="submit"
-          class="w-full h-11 bg-gray-400 text-white font-semibold rounded-md transition cursor-pointer flex justify-center items-center"
-          [disabled]=""
-        >
-          <img
-            src="../../../assets/icons/Rolling@1x-1.0s-200px-200px (1).svg"
-            alt=""
-            class="h-7 w-7"
-          />
-        </button>
+      <button
+        type="submit"
+        class="w-full h-11 bg-gray-400 text-white font-semibold rounded-md transition cursor-pointer flex justify-center items-center"
+        [disabled]=""
+      >
+        <img
+          src="../../../assets/icons/Rolling@1x-1.0s-200px-200px (1).svg"
+          alt=""
+          class="h-7 w-7"
+        />
+      </button>
+      } @if(!authService.loginLoader()){
+      <button
+        type="submit"
+        class="w-full h-11 bg-fablab-accent hover:bg-fablab-accent-dark text-black font-semibold rounded-md transition"
+        [disabled]=""
+      >
+        Iniciar sesión
+      </button>
       }
-      @if(!authService.loginLoader()){
-        <button
-          type="submit"
-          class="w-full h-11 bg-fablab-accent hover:bg-fablab-accent-dark text-black font-semibold rounded-md transition"
-          [disabled]=""
-        >
-          Iniciar sesión
-        </button>
-      }
-
 
       <div class="flex gap1 mt-1 items-end gap-1 justify-self-end">
         <p class="text-fablab-text-secondary">¿No tienes una cuenta?</p>

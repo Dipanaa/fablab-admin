@@ -63,10 +63,7 @@ export class InventoryService {
   //TODO: Pasar a interfaz la data
   putInventoryitem(data: any, id: number): Observable<boolean> {
     return this.httpClient
-      .put<InventoryResponse[]>(
-        `http://localhost:5263/api/inventario/${id}`,
-        data
-      )
+      .put<InventoryResponse[]>(`${this.inventoryUrl}/${id}`, data)
       .pipe(
         map((data) => {
           this.notificationStatusService.statusMessage.set(true);
@@ -88,7 +85,7 @@ export class InventoryService {
 
   deleteInventoryitem(id: number): Observable<boolean> {
     return this.httpClient
-      .delete<InventoryResponse[]>(`http://localhost:5263/api/inventario/${id}`)
+      .delete<InventoryResponse[]>(`${this.inventoryUrl}/${id}`)
       .pipe(
         map((data) => {
           this.notificationStatusService.statusMessage.set(true);

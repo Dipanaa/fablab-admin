@@ -65,6 +65,7 @@ export class IndividualProjectComponent implements OnInit {
 
   //Ciclos de vida
   ngOnInit() {
+    window.scrollTo({ top: 0, behavior: 'auto' });
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.projectModalId.set(id);
   }

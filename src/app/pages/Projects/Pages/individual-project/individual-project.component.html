@@ -40,10 +40,9 @@
 
     <div class="flex flex-col lg:flex-row gap-8">
       <figure
-        class="relative w-full lg:w-1/2 h-64 md:h-80 bg-fablab-border rounded-2xl overflow-hidden flex"
+        class="relative w-full lg:w-1/2 h-64 md:h-80 bg-fablab-border rounded-2xl overflow-hidden flex items-center justify-center"
       >
         @if(!projectFound()?.imgurl){
-
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -58,8 +57,12 @@
             d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z"
           />
         </svg>
-        }@else{
-        <img [src]="projectFound()?.imgurl" alt="hola" class="aspect-auto" />
+        } @else {
+        <img
+          [src]="projectFound()?.imgurl"
+          alt="imagen_proyecto"
+          class="w-full h-full object-cover object-center"
+        />
         }
       </figure>
 
@@ -79,12 +82,46 @@
 
           <ul class="space-y-1 text-sm">
             <li>
-              <strong>📅 Fecha:</strong>
-              {{ projectFound()?.fechainicio | date }}
+              <div class="flex gap-1">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="size-6"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z"
+                  />
+                </svg>
+
+                <strong>Fecha:</strong>
+                {{ projectFound()?.fechainicio | date }}
+              </div>
             </li>
             <li>
-              <strong>🧠 Categoría:</strong>
-              {{ projectFound()?.categoria }}
+              <div class="flex gap-1">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="size-6"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="m7.875 14.25 1.214 1.942a2.25 2.25 0 0 0 1.908 1.058h2.006c.776 0 1.497-.4 1.908-1.058l1.214-1.942M2.41 9h4.636a2.25 2.25 0 0 1 1.872 1.002l.164.246a2.25 2.25 0 0 0 1.872 1.002h2.092a2.25 2.25 0 0 0 1.872-1.002l.164-.246A2.25 2.25 0 0 1 16.954 9h4.636M2.41 9a2.25 2.25 0 0 0-.16.832V12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 12V9.832c0-.287-.055-.57-.16-.832M2.41 9a2.25 2.25 0 0 1 .382-.632l3.285-3.832a2.25 2.25 0 0 1 1.708-.786h8.43c.657 0 1.281.287 1.709.786l3.284 3.832c.163.19.291.404.382.632M4.5 20.25h15A2.25 2.25 0 0 0 21.75 18v-2.625c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125V18a2.25 2.25 0 0 0 2.25 2.25Z"
+                  />
+                </svg>
+
+                <strong>Categoría:</strong>
+                {{ projectFound()?.categoria }}
+              </div>
             </li>
           </ul>
         </div>
