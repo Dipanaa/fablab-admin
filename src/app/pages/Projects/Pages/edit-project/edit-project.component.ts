@@ -153,16 +153,17 @@ export class EditProjectComponent implements OnInit {
     // Obtenemos los datos limpios del formulario (incluye el ID)
     const updatedPayload = this.newProjectForm.getRawValue();
 
-    this.projectsService.putProject(this.projectId!, updatedPayload).subscribe((status)=> {
-      this.notificationStatusService.showMessage();
-      this.loading.set(false);
-      if(!status){
-        return;
-      }
-      this.projectsService.projectsByUserResource.reload();
-      this.projectsService.projectsResource.reload();
-      this.router.navigateByUrl('/inicio');
-
-    });
+    this.projectsService
+      .putProject(this.projectId!, updatedPayload)
+      .subscribe((status) => {
+        this.notificationStatusService.showMessage();
+        this.loading.set(false);
+        if (!status) {
+          return;
+        }
+        this.projectsService.projectsByUserResource.reload();
+        this.projectsService.projectsResource.reload();
+        this.router.navigateByUrl('/inicio');
+      });
   }
 }

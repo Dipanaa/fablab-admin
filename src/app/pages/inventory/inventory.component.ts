@@ -1,82 +1,142 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, inject, signal } from '@angular/core';
-import { ModalComponentComponent } from '../../shared/modal-component/modal-component.component';
+import { Component, computed, effect, inject, signal } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
   FormsModule,
-  Validators,
+  ReactiveFormsModule,
 } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+
+import { InventoryService } from '../../services/inventory.service';
+import { PaginationService } from '../../services/pagination.service';
+import { NotificacionsStatusService } from '../../services/notificacionsStatus.service';
+
 import { BuscadorComponent } from '../../shared/searcher/searcher.component';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
-import { PaginationService } from '../../services/pagination.service';
+import { ModalComponentComponent } from '../../shared/modal-component/modal-component.component';
 import { ModalEditComponent } from '../../shared/modal-edit/modal-edit.component';
 import { FooterComponent } from '../../shared/footer/footer';
-import { InventoryService } from '../../services/inventory.service';
-import { RouterLink } from '@angular/router';
-import { NotificacionsStatusService } from '../../services/notificacionsStatus.service';
-import { StatusMessageComponent } from "../../shared/status-message/status-message.component";
+import { StatusMessageComponent } from '../../shared/status-message/status-message.component';
+import { InventoryInterface } from '../../interfaces/inventory.interface';
+
+const STOCK_MIN_LIMIT = 3;
 
 @Component({
   selector: 'inventory',
+  standalone: true,
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     BuscadorComponent,
     PaginationComponent,
     ModalEditComponent,
+    ModalComponentComponent,
+    StatusMessageComponent,
     FooterComponent,
     RouterLink,
-    ModalComponentComponent,
-    StatusMessageComponent
-],
+  ],
   templateUrl: './inventory.component.html',
 })
 export class InventoryComponent {
-  //Servicios
   paginationService = inject(PaginationService);
   formbuilder = inject(FormBuilder);
   inventoryService = inject(InventoryService);
   notificacionsStatusService = inject(NotificacionsStatusService);
 
-  //Atributos
   modalView = signal<boolean>(false);
   modalDelete = signal<boolean>(false);
   modalId = signal<number>(0);
+  loading = signal<boolean>(false);
+
+  searchTerm = signal<string>('');
+  filterState = signal<'ALL' | 'LOW' | 'ZERO'>('ALL');
+
   itemsCeroStockCount: number = 0;
   bajoStockCount: number = 0;
   totalInsumosCount: number = 0;
-  loading = signal<boolean>(false);
 
   fbInventory: FormGroup = this.formbuilder.group({
     nombre: [''],
     categoria: [''],
     stock: [''],
     ubicacion: [''],
+    descripcion: [''],
+    estado: [''],
+    id: [''],
   });
 
-  //Ciclos de vida
-  ngOnInit() {
-    this.calcularMetricasYAnimar();
-  }
+  public filteredInventory = computed(() => {
+    const term = this.searchTerm().toLowerCase();
+    const filter = this.filterState();
+    let items = this.inventoryService.inventoryData();
 
-  //Esto no lo eh entendido al 100%
+    if (filter === 'LOW') {
+      items = items.filter(
+        (item) => item.stock > 0 && item.stock <= STOCK_MIN_LIMIT
+      );
+    } else if (filter === 'ZERO') {
+      items = items.filter((item) => item.stock === 0);
+    }
+
+    if (term) {
+      items = items.filter(
+        (item) =>
+          item.nombre.toLowerCase().includes(term) ||
+          item.categoria.toLowerCase().includes(term) ||
+          item.ubicacion.toLowerCase().includes(term)
+      );
+    }
+
+    return items;
+  });
+
   constructor() {
+    this.inventoryService.getInventoryItems().subscribe(() => {
+      this.calcularMetricasYAnimar();
+    });
+
     effect(() => {
-      const inventoryList = this.inventoryService.inventoryData();
+      const inventoryList = this.filteredInventory();
       this.paginationService.setDataList(inventoryList);
       this.paginationService.goToPage(1);
-      this.calcularMetricasYAnimar();
     });
   }
 
-  onBuscador($event: Event) {
-    throw new Error('Method not implemented.');
+  onSearch(term: string) {
+    this.searchTerm.set(term);
   }
 
-  // ---------- Modal ----------
+  totalFilter() {
+    this.filterState.set('ALL');
+  }
 
-  //Metodos
+  bajoStockFilter() {
+    this.filterState.set('LOW');
+  }
+
+  ceroStockFilter() {
+    this.filterState.set('ZERO');
+  }
+
+  openModalEditView(id: number) {
+    this.modalId.set(id);
+    const itemFound = this.inventoryService
+      .inventoryData()
+      .find((p) => p.id === id);
+
+    if (itemFound) {
+      this.fbInventory.patchValue(itemFound);
+      this.modalView.set(true);
+    }
+  }
+
+  openModalDeleteView(id: number) {
+    this.modalId.set(id);
+    this.modalDelete.set(true);
+  }
+
   dataFormPut(data: FormGroup) {
     if (!data || this.loading() || !this.modalId()) {
       return;
@@ -84,22 +144,19 @@ export class InventoryComponent {
 
     this.loading.set(true);
 
-    this.fbInventory.patchValue(data.value);
+    const updatedItem = { ...this.fbInventory.value, ...data };
 
     this.inventoryService
-      .putInventoryitem(data, this.modalId())
+      .putInventoryitem(updatedItem, this.modalId()) // Asumiendo que el método en servicio es putInventoryItem o similar
       .subscribe((status) => {
+        this.loading.set(false);
         if (status) {
-          this.loading.set(false);
           this.notificacionsStatusService.showMessage();
           this.inventoryService.inventoryResource.reload();
           this.modalView.set(false);
-          return;
+        } else {
+          this.modalView.set(false);
         }
-        this.loading.set(false);
-        this.inventoryService.inventoryResource.reload();
-        this.modalView.set(false);
-        this.notificacionsStatusService.showMessage();
       });
   }
 
@@ -113,62 +170,30 @@ export class InventoryComponent {
     this.inventoryService
       .deleteInventoryitem(this.modalId())
       .subscribe((status) => {
+        this.loading.set(false);
         if (status) {
-          this.loading.set(false);
           this.notificacionsStatusService.showMessage();
           this.inventoryService.inventoryResource.reload();
           this.modalDelete.set(false);
-          return;
+          this.inventoryService.getInventoryItems().subscribe(() => {
+            this.loading.set(false);
+            this.calcularMetricasYAnimar();
+          });
+        } else {
+          this.loading.set(false);
+          this.modalDelete.set(false);
         }
-        this.loading.set(false);
-        this.inventoryService.inventoryResource.reload();
-        this.notificacionsStatusService.showMessage();
-        this.modalDelete.set(false);
       });
   }
 
-  //Abrir modales
-  openModalEditView(id: number) {
-    this.modalId.set(id);
-    this.modalView.set(true);
-    const itemFound = this.inventoryService.searchItemForId(id);
-    this.fbInventory.patchValue(itemFound!);
-  }
-
-  openModalDeleteView(id: number) {
-    this.modalId.set(id);
-    this.modalDelete.set(true);
-  }
-
-  //Metricas de animacion
-  get totalInsumos() {
-    return this.inventoryService.inventoryData().length;
-  }
-
-  //TODO: Cambiar a idioma ingles
-  get bajoStock() {
-    // Devolver cuántos insumos están en o por debajo de su stock mínimo
-    return this.inventoryService.inventoryData().filter((p) => p.stock <= 5)
-      .length;
-  }
-
-  get itemsCeroStock(): number {
-    return this.inventoryService.inventoryData().filter((p) => p.stock === 0)
-      .length;
-  }
-
   calcularMetricasYAnimar() {
-    // 1. Calcular los valores objetivo (target)
-    const total = this.inventoryService.inventoryData().length;
-    const ceroStock = this.inventoryService
-      .inventoryData()
-      .filter((p) => p.stock === 0).length;
-    // Asumiendo que 'stockMin' existe en tus objetos
-    const bajoStock = this.inventoryService
-      .inventoryData()
-      .filter((p) => p.stock > 0 && p.stock <= 10).length;
+    const data = this.inventoryService.inventoryData();
+    const total = data.length;
+    const ceroStock = data.filter((p) => p.stock === 0).length;
+    const bajoStock = data.filter(
+      (p) => p.stock > 0 && p.stock <= STOCK_MIN_LIMIT
+    ).length;
 
-    // 2. Llamar a la animación para cada métrica
     this.animateCount('totalInsumosCount', total);
     this.animateCount('itemsCeroStockCount', ceroStock);
     this.animateCount('bajoStockCount', bajoStock);
@@ -184,7 +209,7 @@ export class InventoryComponent {
     const update = (currentTime: number) => {
       const elapsed = currentTime - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      this[prop] = Math.floor(progress * target);
+      (this as any)[prop] = Math.floor(progress * target);
 
       if (progress < 1) requestAnimationFrame(update);
     };
