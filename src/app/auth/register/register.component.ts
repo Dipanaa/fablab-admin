@@ -24,12 +24,12 @@ export class RegisterComponent {
   registerMode = output<boolean>();
 
   fbRegister:FormGroup = this.formBuilder.group({
-    email:["",[Validators.required,Validators.pattern(/.+@inacapmail\.cl$/g)]],
+    email:["",[Validators.required,Validators.pattern(/^.+@inacapmail\.cl$/)]],
     nombre:["",[Validators.required,Validators.minLength(5)]],
     apellido:["",[Validators.required,Validators.minLength(5)]],
-    rut:["",[Validators.required,Validators.pattern(/\b[0-9|.]{1,10}\-[K|k|0-9]/gmi)]],
+    rut:["",[Validators.required,Validators.minLength(12),Validators.pattern(/^\b[0-9|.]{1,10}\-[K|k|0-9]$/mi)]],
     carrera:["",[Validators.required]],
-    telefono:["",[Validators.required,Validators.minLength(9)]],
+    telefono:["",[Validators.required,Validators.minLength(9),Validators.pattern(/^[0-9]+$/m)]],
     contrasena:["",[Validators.required,Validators.minLength(5),passwordValidator()]]
   });
 

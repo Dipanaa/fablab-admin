@@ -31,9 +31,9 @@ export class UserProfileComponent implements OnInit {
   fbUser:FormGroup = this.formBuilder.group({
     "nombre":["",[Validators.required]],
     "apellido":["",[Validators.required]],
-    "rut":["",[Validators.required,Validators.pattern(/\b[0-9|.]{1,10}\-[K|k|0-9]/gmi)]],
+    "rut":["",[Validators.required,Validators.minLength(11),Validators.pattern(/^\b[0-9|.]{1,10}\-[K|k|0-9]$/mi)]],
     "carrera":["",[Validators.required]],
-    "telefono":["",[Validators.required,Validators.minLength(9)]],
+    "telefono":["",[Validators.required,Validators.minLength(9),Validators.pattern(/^[0-9]+$/m)]],
   });
 
 

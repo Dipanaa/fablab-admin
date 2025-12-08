@@ -49,8 +49,8 @@ export class UsersComponent {
   fbUser: FormGroup = this.formbuilder.group({
     nombre: ['', [Validators.required, Validators.minLength(5)]],
     apellido: ['', [Validators.required, Validators.minLength(5)]],
-    email: ['', [Validators.required]],
-    rut: ['', [Validators.required]],
+    email: ['', [Validators.required,Validators.pattern(/^.+@inacapmail\.cl$/)]],
+    rut: ['', [Validators.required,Validators.minLength(12),Validators.pattern(/^\b[0-9|.]{1,10}\-[K|k|0-9]$/mi)]],
     carrera: ['', [Validators.required]],
   });
 

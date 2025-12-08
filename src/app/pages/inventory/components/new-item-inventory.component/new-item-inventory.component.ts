@@ -58,7 +58,6 @@ export class newItemInventariComponent implements OnInit {
     this.CreationInventoryForm = this.formbuilder.group({
       nombre: ['', [Validators.required, Validators.minLength(3)]],
       categoria: ['', Validators.required],
-      // 🚨 Stock es numérico y con mínimo 0
       stock: [
         0,
         [
