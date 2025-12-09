@@ -83,6 +83,7 @@ export class UsersService {
           return true;
         }),
         catchError((err) => {
+
           this.notificationStatusService.statusErrorMessage.set(err);
           return of(false);
         })
@@ -109,6 +110,7 @@ export class UsersService {
           return true;
         }),
         catchError((err) => {
+          console.log(err);
           this.notificationStatusService.statusErrorMessage.set(err);
           this.loaderPutProfile.set(false);
           return of(false);
