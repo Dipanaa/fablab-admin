@@ -1,18 +1,25 @@
 <header
   class="bg-fablab-bg text-fablab-text-primary shadow-md px-6 py-4 flex relative items-center"
 >
-  <div class="flex gap-5">
+  <div class="flex flex-row gap-1">
     <img
       src="../../../assets/icons/menuIcon.png"
       class="w-[35px] h-[35px] ml-5 cursor-pointer rounded bg-fablab-accent hover:bg-fablab-accent-dark"
       alt=""
       (click)="toggleMenuActivate()"
     />
-    <h1 class="text-fablab-text-primary text-2xl font-bold">FabLab</h1>
+    <div class="flex items-center gap-1">
+      <img
+        src="../../../assets/icons/logo_inacap.png"
+        class="w-[35px] h-[35px] ml-5"
+        alt="Logo Inacap"
+      />
+      <h1 class="text-fablab-text-primary text-2xl font-bold">FabLab</h1>
+    </div>
 
     <!-- Breadcrumbs / Ruta actual -->
     <div
-      class="items-center space-x-2 text-sm font-medium text-fablab-text-secondary hidden sm:flex"
+      class="ml-5 items-center space-x-2 text-sm font-medium text-fablab-text-secondary hidden sm:flex"
     >
       <svg
         class="w-5 h-5 text-fablab-text-primary"

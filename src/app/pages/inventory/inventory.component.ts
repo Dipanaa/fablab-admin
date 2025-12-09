@@ -20,7 +20,7 @@ import { FooterComponent } from '../../shared/footer/footer';
 import { StatusMessageComponent } from '../../shared/status-message/status-message.component';
 import { InventoryInterface } from '../../interfaces/inventory.interface';
 
-const STOCK_MIN_LIMIT = 3;
+const STOCK_MIN_LIMIT = 5;
 
 @Component({
   selector: 'inventory',
