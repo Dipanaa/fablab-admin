@@ -71,10 +71,10 @@
         >
           <td class="px-4 py-4 whitespace-nowrap">
             <div class="flex items-center">
-              @if (usuario.imgUrl) {
+              @if (usuario.foto_perfil) {
               <img
                 class="h-10 w-10 rounded-full object-cover border border-fablab-text-secondary"
-                [src]="usuario.imgUrl"
+                [src]="usuario.foto_perfil"
                 [alt]="'Foto de perfil de ' + usuario.nombre"
               />
               } @else {
