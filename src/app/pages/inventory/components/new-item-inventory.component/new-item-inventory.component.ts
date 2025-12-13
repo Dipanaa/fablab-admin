@@ -14,12 +14,18 @@ import { InventoryInterface } from '../../../../interfaces/inventory.interface';
 import { BackButtonComponent } from '../../../../shared/back-button/back-button';
 
 const FABLAB_CATEGORIES = [
+  'Impresión 3D',
   'Filamento',
   'Electrónica',
-  'Láser',
-  'Herramientas',
-  'Mantenimiento',
   'Arte',
+  'Herramientas',
+  'Láser',
+  'Mantenimiento',
+  'EPP',
+  'Limpieza',
+  'Maquinaria',
+  'Botiquín',
+  'Decoraciones',
   'Otro',
 ];
 
@@ -112,7 +118,6 @@ export class newItemInventariComponent implements OnInit {
       this.inventoryService.inventoryResource.reload();
       this.notificacionsStatusService.showMessage();
       this.router.navigateByUrl('/inventario');
-
     });
   }
 }
