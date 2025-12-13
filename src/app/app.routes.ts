@@ -24,19 +24,35 @@ export const routes: Routes = [
     canMatch: [isGeneralAuthenticatedGuard],
     component: LayoutComponent,
     children: [
-      { path: 'layout', redirectTo: 'inicio'},
+      { path: 'layout', redirectTo: 'inicio' },
       { path: 'inicio', component: UserHomeComponent },
-      { path: 'metricas', component: DashboardComponent,canMatch: [adminGuardRouteGuard] },
+      {
+        path: 'metricas',
+        component: DashboardComponent,
+        canMatch: [adminGuardRouteGuard],
+      },
       { path: 'perfil-usuario', component: UserProfileComponent },
       {
         path: 'proyectos',
         loadChildren: () =>
           import('./pages/Projects/projects.routes').then((m) => m.default),
       },
-      { path: 'gestion-proyectos', component: ProjectsTableComponent,canMatch: [adminGuardRouteGuard], },
-      { path: 'usuarios', component: UsersComponent,canMatch: [adminGuardRouteGuard], },
-      { path: 'solicitudes', component: RequestComponent,canMatch: [adminGuardRouteGuard], },
-      { path: 'inventario', component: InventoryComponent,canMatch: [adminGuardRouteGuard], },
+      {
+        path: 'gestion-proyectos',
+        component: ProjectsTableComponent,
+        canMatch: [adminGuardRouteGuard],
+      },
+      {
+        path: 'usuarios',
+        component: UsersComponent,
+        canMatch: [adminGuardRouteGuard],
+      },
+      {
+        path: 'solicitudes',
+        component: RequestComponent,
+        canMatch: [adminGuardRouteGuard],
+      },
+      { path: 'inventario', component: InventoryComponent },
       {
         path: 'inventario/nuevo',
         component: newItemInventariComponent,

@@ -156,17 +156,18 @@
         <tr>
           <th class="px-4 py-3 font-bold">ID</th>
           <th class="px-4 py-3 font-bold">Nombre</th>
-          <th class="px-4 py-3 font-bold">Categoría</th>
           <th class="px-4 py-3 font-bold">Stock</th>
+          <th class="px-4 py-3 font-bold">Categoría</th>
           <th class="px-4 py-3 font-bold">Ubicación</th>
           <th class="px-4 py-3 font-bold">Estado</th>
+          @if(authService.userData()?.rolId == 1){
           <th class="px-4 py-3 font-bold text-center">Acciones</th>
+          }
         </tr>
       </thead>
 
       <tbody class="divide-y divide-fablab-border">
-        @for(insumo of paginationService.pagedItems(); track insumo.id; let i =
-        $index){
+        @for(insumo of itemsToDisplay(); track insumo.id; let i = $index){
         <tr
           class="hover:bg-fablab-border transition animate__animated animate__fadeInUp animate__fast"
           [style.animationDelay]="i * 0.1 + 's'"
@@ -176,10 +177,10 @@
             {{ insumo.nombre }}
           </td>
           <td class="px-4 py-4 text-fablab-text-secondary">
-            {{ insumo.categoria }}
+            {{ insumo.stock }}
           </td>
           <td class="px-4 py-4 text-fablab-text-secondary">
-            {{ insumo.stock }}
+            {{ insumo.categoria }}
           </td>
           <td class="px-4 py-4 text-fablab-text-secondary">
             {{ insumo.ubicacion }}
@@ -201,6 +202,7 @@
             </span>
             }
           </td>
+          @if(authService.userData()?.rolId == 1){
 
           <td class="px-4 py-4 text-center space-x-3">
             <button
@@ -217,6 +219,7 @@
               Eliminar
             </button>
           </td>
+          }
         </tr>
         @if(inventoryService.inventoryData().length === 0){
         <tr>
@@ -227,16 +230,24 @@
             No se encontraron insumos en el inventario.
           </td>
         </tr>
-        } }
+        } } @if(itemsToDisplay().length === 0){
+        <tr>
+          <td colspan="7" class="text-center py-6 text-fablab-text-secondary">
+            No se encontraron insumos.
+          </td>
+        </tr>
+        }
       </tbody>
     </table>
   </div>
 
+  @if(!searchTerm()){
   <pagination
     [currentPage]="paginationService.currentPage()"
     [totalPages]="paginationService.totalPages()"
     (pageChange)="paginationService.goToPage($event)"
   />
+  }
 
   <app-footer pageName="Gestión de Inventario"></app-footer>
 </div>

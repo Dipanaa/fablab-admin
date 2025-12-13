@@ -1,10 +1,17 @@
-import { Component, AfterViewInit, inject, signal, effect } from '@angular/core';
+import {
+  Component,
+  AfterViewInit,
+  inject,
+  signal,
+  effect,
+} from '@angular/core';
 import dblocalusuarios from '../../../../data/dblocalusuarios.json';
 import dblocalproyectos from '../../../../data/dblocalproyectos.json';
 import { RouterLink } from '@angular/router';
 import { ProjectsService } from '../../../../services/projects.service';
 import { NewsService } from '../../../../services/news.service';
 import { UsersService } from '../../../../services/users.service';
+import { NotificationsService } from '../../../../services/notifications.service';
 
 @Component({
   selector: 'summary-cards',
@@ -12,49 +19,63 @@ import { UsersService } from '../../../../services/users.service';
   imports: [RouterLink],
 })
 export class SummaryCardsComponent implements AfterViewInit {
-
   //TODO: Crear servicio de metricas para servicios y cambiar a INGLES
 
   projectsService = inject(ProjectsService);
-  usersService = inject(UsersService)
+  usersService = inject(UsersService);
   newsService = inject(NewsService);
+  notificationsService = inject(NotificationsService);
 
   proyectosFinal = signal<number>(0);
-  usuariosFinal = signal<number>(0)
+  usuariosFinal = signal<number>(0);
   noticiasFinal = signal<number>(0);
+  notificacionesFinal = signal<number>(0);
+
   proyectosAsignados = 0;
 
   proyectosCount = 0;
   usuariosCount = 0;
   proyectosAsignadosCount = 0;
   noticiasCount = 0;
+  notificacionesCount = 0;
 
-  constructor(){
+  constructor() {
     this.projectsService.getProjects();
     this.usersService.getUsers();
     this.newsService.getNews();
 
-    effect(()=>{
-
+    effect(() => {
       const proyectos = this.projectsService.projectsData().length;
       const usuarios = this.usersService.usersData().length;
-      const noticias = this.newsService.newsResponse();
-      if (noticias){
+      const noticias = this.newsService.newsResponse().length;
+      const solicitudes = this.notificationsService.notificationsData().length;
+      if (noticias) {
         this.noticiasFinal.set(this.newsService.newsResponse().length);
         this.proyectosFinal.set(this.projectsService.projectsData().length);
         this.usuariosFinal.set(this.usersService.usersData().length);
+        this.noticiasFinal.set(
+          this.notificationsService.notificationsData().length
+        );
 
-        this.animateCount('proyectosCount',this.projectsService.projectsData().length);
-        this.animateCount('noticiasCount',this.newsService.newsResponse().length);
-        this.animateCount('usuariosCount',this.usersService.usersData().length);
+        this.animateCount(
+          'proyectosCount',
+          this.projectsService.projectsData().length
+        );
+        this.animateCount(
+          'noticiasCount',
+          this.newsService.newsResponse().length
+        );
+        this.animateCount(
+          'usuariosCount',
+          this.usersService.usersData().length
+        );
+        this.animateCount(
+          'notificacionesCount',
+          this.notificationsService.notificationsData().length
+        );
       }
-
-    })
-
-
+    });
   }
-
-
 
   ngAfterViewInit() {
     // Sumar todos los proyectos asignados (aunque estén repetidos)
@@ -64,12 +85,15 @@ export class SummaryCardsComponent implements AfterViewInit {
     );
 
     this.animateCount('proyectosAsignadosCount', this.proyectosAsignados);
-
-
   }
 
   animateCount(
-    prop: 'proyectosCount' | 'usuariosCount' | 'proyectosAsignadosCount' | 'noticiasCount'  ,
+    prop:
+      | 'proyectosCount'
+      | 'usuariosCount'
+      | 'proyectosAsignadosCount'
+      | 'noticiasCount'
+      | 'notificacionesCount',
     target: number
   ) {
     const duration = 1000;

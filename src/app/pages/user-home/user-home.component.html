@@ -55,7 +55,7 @@
           Noticias recientes
         </h2>
         <div class="space-y-3">
-          @for (new of newsService.newsResponse() | slice:0:2; track new.id) {
+          @for (new of newsService.newsResponse() | slice:0:4; track new.id) {
 
           <a
             (click)="openNewsModal(new)"
@@ -87,7 +87,7 @@
         </div>
       </section>
 
-      <section>
+      <!-- <section>
         <h2
           class="text-xl font-semibold text-fablab-text-primary mb-3 flex items-center gap-2"
         >
@@ -108,7 +108,7 @@
           Proyectos destacados
         </h2>
         <h1 class="text-center text-fablab-primary text-lg font-bold">Aun no hay proyectos destacados!</h1>
-        <!-- <div class="grid sm:grid-cols-2 gap-4">
+        <div class="grid sm:grid-cols-2 gap-4">
           <div
             *ngFor="let proyecto of proyectosDestacados"
             class="bg-fablab-card-bg rounded-xl shadow overflow-hidden hover:shadow-lg transition border border-fablab-border"
@@ -124,8 +124,8 @@
               </p>
             </div>
           </div>
-        </div> -->
-      </section>
+        </div>
+      </section> -->
     </div>
 
     <div class="space-y-6">

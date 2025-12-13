@@ -19,6 +19,7 @@ import { ModalEditComponent } from '../../shared/modal-edit/modal-edit.component
 import { FooterComponent } from '../../shared/footer/footer';
 import { StatusMessageComponent } from '../../shared/status-message/status-message.component';
 import { InventoryInterface } from '../../interfaces/inventory.interface';
+import { AuthService } from '../../auth/auth.service';
 
 const STOCK_MIN_LIMIT = 5;
 
@@ -44,6 +45,7 @@ export class InventoryComponent {
   formbuilder = inject(FormBuilder);
   inventoryService = inject(InventoryService);
   notificacionsStatusService = inject(NotificacionsStatusService);
+  authService = inject(AuthService);
 
   modalView = signal<boolean>(false);
   modalDelete = signal<boolean>(false);
@@ -92,6 +94,13 @@ export class InventoryComponent {
     return items;
   });
 
+  public itemsToDisplay = computed(() => {
+    if (this.searchTerm()) {
+      return this.filteredInventory();
+    }
+    return this.paginationService.pagedItems();
+  });
+
   constructor() {
     this.inventoryService.getInventoryItems().subscribe(() => {
       this.calcularMetricasYAnimar();
@@ -100,7 +109,9 @@ export class InventoryComponent {
     effect(() => {
       const inventoryList = this.filteredInventory();
       this.paginationService.setDataList(inventoryList);
-      this.paginationService.goToPage(1);
+      if (!this.searchTerm()) {
+        this.paginationService.goToPage(1);
+      }
     });
   }
 
